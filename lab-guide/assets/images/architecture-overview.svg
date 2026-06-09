@@ -181,42 +181,40 @@
     </g>
 
     <!-- Connector arrows ===== -->
-    <g stroke="#605e5c" stroke-width="1.4" fill="none" marker-end="url(#arrow)">
-        <!-- sources -> EH -->
-        <path d="M 260 97 L 320 130"/>
-        <path d="M 260 177 L 320 175"/>
-        <path d="M 260 257 L 320 195"/>
-        <path d="M 260 337 L 320 215"/>
-        <!-- tumor -> Lakehouse (skip Event Hubs) -->
-        <path d="M 260 417 C 400 417, 480 290, 560 280"/>
-        <!-- SQL mirror -> Lakehouse -->
-        <path d="M 260 497 C 400 497, 480 305, 560 295"/>
+    <g stroke="#605e5c" stroke-width="1.4" fill="none" marker-end="url(#arrow)" stroke-linecap="round">
+        <!-- Sources -> Event Hubs (each source curves to its matching topic row) -->
+        <path d="M 260 97  C 295 97,  295 146, 320 146"/>
+        <path d="M 260 177 C 295 177, 295 166, 320 166"/>
+        <path d="M 260 257 C 295 257, 295 186, 320 186"/>
+        <path d="M 260 337 C 295 337, 295 206, 320 206"/>
 
-        <!-- EH -> Eventstream -->
+        <!-- Tumor + SQL bypass Event Hubs and land in the Lakehouse (zero-ETL / shortcuts) -->
+        <path d="M 260 417 C 410 417, 450 280, 560 272"/>
+        <path d="M 260 497 C 410 497, 450 300, 560 296"/>
+
+        <!-- Event Hubs -> Eventstream -->
         <path d="M 480 175 L 560 175"/>
 
         <!-- Eventstream -> Eventhouse -->
         <path d="M 720 175 L 740 175"/>
 
-        <!-- Eventhouse -> Dashboard -->
-        <path d="M 820 215 L 820 240"/>
-
-        <!-- Lakehouse -> Semantic model -->
+        <!-- Lakehouse -> Semantic Model -->
         <path d="M 720 280 L 740 280"/>
 
-        <!-- Semantic model -> Power BI -->
+        <!-- Semantic Model -> Power BI -->
         <path d="M 820 320 L 820 345"/>
 
-        <!-- Eventhouse -> Dashboard -->
-        <path d="M 730 215 C 700 230, 680 290, 660 345"/>
+        <!-- Eventhouse -> RTI Dashboard (live KQL tiles) -->
+        <path d="M 760 215 C 720 270, 700 320, 660 345"/>
 
-        <!-- Eventhouse -> Agents -->
-        <path d="M 820 215 C 820 320, 800 410, 760 450"/>
-        <!-- Lakehouse -> Agents (lineage) -->
-        <path d="M 640 320 L 660 450"/>
+        <!-- Eventhouse -> Data Agents (route along the right gutter, avoiding Semantic Model + Power BI) -->
+        <path d="M 880 215 C 925 290, 925 410, 870 450"/>
 
-        <!-- Agents -> Orchestrator -->
-        <path d="M 900 480 L 940 380"/>
+        <!-- Lakehouse -> Data Agents (table lineage) -->
+        <path d="M 640 320 L 640 450"/>
+
+        <!-- Data Agents -> Orchestrator -->
+        <path d="M 900 482 C 920 478, 935 380, 940 300"/>
     </g>
 
     <!-- Layer labels at bottom -->
