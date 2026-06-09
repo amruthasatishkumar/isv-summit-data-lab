@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 7 · Foundry Orchestrator (Optional) - UrbanPulse Lab</title>
+    <title>Module 8 · Foundry Orchestrator (Optional) - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,16 +17,16 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 7 of 7 · Optional</div>
+    <div class="module-pill">Module 8 of 8 · Optional</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
-        <div class="module-eyebrow">Module 7 · Optional Stretch</div>
+        <div class="module-eyebrow">Module 8 · Optional Stretch</div>
         <h1>Foundry Connected-Agent Orchestrator <span class="pill agent" style="vertical-align:middle;">⭐ OPTIONAL</span></h1>
         <p class="lead">
-            Wrap the Fabric Data Agents you built in Module 6 inside an
+            Wrap the Fabric Data Agents you built in Modules 6–7 inside an
             <strong>Azure AI Foundry connected-agent orchestrator</strong>, then publish that orchestrator
             to Microsoft 365 Copilot. Zero orchestration code - Foundry's connected-agents pattern handles
             specialist routing automatically.
@@ -43,8 +43,8 @@
         <div class="callout-content">
             <strong>This module is optional.</strong> The lab is complete after Module 6 - you've already shipped a
             published Copilot agent. This module is the "make it the front door for cross-domain reasoning" stretch.
-            Strongest if you built all three domain agents in Module 6, but works with just one (you'll connect fewer
-            specialists). No notebook code, no Python - entirely portal-driven.
+            Strongest if you built the full three-agent catalog in Module 7, but works with just the Hospital agent
+            from Module 6 (you'll connect fewer specialists). No notebook code, no Python - entirely portal-driven.
         </div>
     </div>
 
@@ -52,7 +52,7 @@
         <h2>Learning Objectives</h2>
         <ul>
             <li>Use <strong>Azure AI Foundry's connected-agent pattern</strong> to orchestrate specialist agents without code.</li>
-            <li>Register your <strong>Fabric Data Agents from Module 6</strong> as Foundry tools.</li>
+            <li>Register your <strong>Fabric Data Agents from Modules 6–7</strong> as Foundry tools.</li>
             <li>Attach <strong>Azure AI Search</strong> as a knowledge source for RAG-grounded recommendations.</li>
             <li>Test cross-domain reasoning in the Foundry Playground with full trace visibility.</li>
             <li><strong>Publish the orchestrator to Microsoft 365 Copilot</strong> as the cross-domain front door.</li>
@@ -71,7 +71,7 @@
         <ol>
             <li>Open the pre-provisioned <strong>Foundry project</strong> in your tenant.</li>
             <li>Create a <strong>City Ops Orchestrator</strong> agent (gpt-4o-mini).</li>
-            <li>Attach your <strong>Fabric Data Agents from Module 6</strong> as <em>connected agents</em>.</li>
+            <li>Attach your <strong>Fabric Data Agents from Modules 6–7</strong> as <em>connected agents</em>.</li>
             <li>Attach <strong>Azure AI Search</strong> as a knowledge source for RAG.</li>
             <li>Test in the Foundry Playground.</li>
             <li><strong>Publish to Microsoft 365 Copilot</strong> with one click.</li>
@@ -129,7 +129,7 @@
                 <!-- Publish label -->
                 <text x="100" y="232" font-size="9" font-style="italic" fill="#0078d4" text-anchor="middle">published via Copilot Studio</text>
             </svg>
-            <div class="caption">Figure 7.1 - Foundry orchestrator with connected Fabric Data Agents and AI Search knowledge. The Foundry agent is then published to M365 Copilot.</div>
+            <div class="caption">Figure 8.1 - Foundry orchestrator with connected Fabric Data Agents and AI Search knowledge. The Foundry agent is then published to M365 Copilot.</div>
         </div>
     </section>
 
@@ -185,7 +185,7 @@ Be terse and operational. Do not invent data the specialists did not return.</co
                 <h3 class="step-title">Attach your Fabric Data Agents as connected agents</h3>
                 <div class="step-body">
                     <p>On the agent canvas, scroll to <strong>Tools &amp; Knowledge</strong> → <strong>+ Add tool</strong> → <strong>Connected agent</strong>.</p>
-                    <p>For each Fabric Data Agent you built in Module 6, add one connected-agent entry:</p>
+                    <p>For each Fabric Data Agent you built in Modules 6–7, add one connected-agent entry:</p>
                     <table>
                         <thead><tr><th>Tool name</th><th>Description (what it does)</th><th>Endpoint</th></tr></thead>
                         <tbody>
@@ -349,7 +349,7 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
                     <text x="690" y="320" font-size="10" font-style="italic" fill="#605e5c">"Just airspace, please."</text>
                 </g>
             </svg>
-            <div class="caption">Figure 7.2 - One UrbanPulse product, three customer SKUs. Same reusable agent &amp; pipeline catalog; per-tenant workspace, capacity, and feature toggles.</div>
+            <div class="caption">Figure 8.2 - One UrbanPulse product, three customer SKUs. Same reusable agent &amp; pipeline catalog; per-tenant workspace, capacity, and feature toggles.</div>
         </div>
 
         <div class="callout purple">
@@ -374,12 +374,13 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
                 <tr><td>Real-Time Dashboard</td><td>6 tiles + 2 parameters + auto-refresh</td><td>4</td></tr>
                 <tr><td>Direct Lake + Power BI</td><td>Semantic model + 1-page report</td><td>5</td></tr>
                 <tr><td>AI layer · domain agent</td><td>Hospital Ops Fabric Data Agent published to M365 Copilot</td><td>6</td></tr>
-                <tr><td><em>Stretch ·</em> Foundry orchestrator</td><td>Connected-agent orchestrator published to M365 Copilot</td><td>7</td></tr>
+                <tr><td><em>Stretch ·</em> multi-agent catalog</td><td>Transit Ops + Airspace agents (full 3-agent catalog)</td><td>7</td></tr>
+                <tr><td><em>Stretch ·</em> Foundry orchestrator</td><td>Connected-agent orchestrator published to M365 Copilot</td><td>8</td></tr>
             </tbody>
         </table>
 
         <p style="margin-top: 24px;">
-            That's seven Fabric capability areas - Lakehouse, Mirroring, Shortcuts, Eventhouse, Eventstream, RTI Dashboard,
+            That's eight Fabric capability areas - Lakehouse, Mirroring, Shortcuts, Eventhouse, Eventstream, RTI Dashboard,
             Power BI Direct Lake, and Data Agents - plus Azure AI Foundry and Microsoft 365 Copilot, composed into one product narrative.
             You now have a complete reference architecture you can take back to your team and adapt.
         </p>
@@ -395,9 +396,9 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-6-data-agents.html">
+        <a class="nav-card" href="module-7-multi-agent.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 6 · Data Agent → Copilot</div>
+            <div class="nav-title">Module 7 · Multi-Agent Catalog</div>
         </a>
         <a class="nav-card next" href="appendix-env-vars.html">
             <div class="nav-direction">Next →</div>
