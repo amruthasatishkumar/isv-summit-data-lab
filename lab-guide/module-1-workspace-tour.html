@@ -108,7 +108,7 @@
                 <tr>
                     <td><strong>Azure ingest</strong></td>
                     <td>Azure Event Hubs as the unified streaming front door - JSON events partitioned by source.</td>
-                    <td>(pre-provisioned)</td>
+                    <td>(coach-provided)</td>
                     <td>Single ingest contract per tenant</td>
                 </tr>
                 <tr>
@@ -204,60 +204,91 @@
     </section>
 
     <section id="step-1">
-        <h2>Walkthrough - Tour Your Workspace</h2>
+        <h2>Walkthrough - Create &amp; Tour Your Workspace</h2>
 
         <ol class="step-list">
             <li>
-                <h3 class="step-title">Open <code>urbanpulse-{your-id}</code> in Fabric</h3>
+                <h3 class="step-title">Create your Fabric workspace</h3>
                 <div class="step-body">
-                    <p>From the Fabric portal home, click your workspace tile. You should see two pre-provisioned items.</p>
-                    <div class="screenshot placeholder">
-                        <div class="placeholder-body">
-                            <div class="ph-icon">📷</div>
-                            <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-1/01-workspace-empty.png</div>
-                            <div>Workspace landing page with <code>lh_urbanpulse_bronze</code> and <code>eh_urbanpulse_rti</code> visible</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Open the OneLake explorer</h3>
-                <div class="step-body">
-                    <p>Click the OneLake icon in the left rail. Expand the workspace, then your Lakehouse.</p>
-                    <p>Note the two top-level folders that always exist:</p>
+                    <p>From the Fabric portal, click <strong>Workspaces</strong> in the left rail → <strong>+ New workspace</strong>.</p>
+                    <p>Fill in the panel:</p>
                     <ul>
-                        <li><code>Files/</code> - your unstructured zone (CSV, Parquet, images, JSON). You'll upload here in Module 2.</li>
-                        <li><code>Tables/</code> - your <em>managed Delta</em> zone. Anything here is a queryable Delta table.</li>
+                        <li><strong>Name</strong>: <code>urbanpulse-{your-id}</code> (use the ID on your seat slip)</li>
+                        <li><strong>Description</strong> <em>(optional)</em>: "ISV Summit Day 2 lab - UrbanPulse smart-city build"</li>
+                        <li><strong>Domain</strong> <em>(optional)</em>: leave blank</li>
                     </ul>
+                    <p>Expand <strong>Advanced</strong> at the bottom of the panel:</p>
+                    <ul>
+                        <li><strong>License mode</strong>: <strong>Fabric capacity</strong></li>
+                        <li><strong>Capacity</strong>: <code>fc-isvsummit-{room}</code> (the only one you'll see)</li>
+                    </ul>
+                    <p>Click <strong>Apply</strong>. Fabric drops you into your brand-new (empty) workspace.</p>
+
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-1/02-onelake-explorer.png</div>
-                            <div>OneLake explorer showing the Files and Tables folders inside <code>lh_urbanpulse_bronze</code></div>
+                            <div class="ph-meta">module-1/01-create-workspace.png</div>
+                            <div>"Create a workspace" panel with name <code>urbanpulse-{your-id}</code> and License mode → Fabric capacity selected</div>
+                        </div>
+                    </div>
+
+                    <div class="callout warning">
+                        <span class="callout-icon">⚠</span>
+                        <div class="callout-content">
+                            <strong>Capacity matters.</strong> If you forget to switch License mode from "Trial" to <strong>Fabric capacity</strong>, several items in later modules (Eventhouse, Direct Lake, Data Agents) will be unavailable. If you missed it, open <strong>Workspace settings</strong> → <strong>License info</strong> and switch it now.
                         </div>
                     </div>
                 </div>
             </li>
 
             <li>
-                <h3 class="step-title">Inspect the workspace settings &amp; capacity</h3>
+                <h3 class="step-title">Take in the empty workspace canvas</h3>
                 <div class="step-body">
-                    <p>Click <strong>Workspace settings</strong> (gear icon). Confirm:</p>
+                    <p>You're staring at an empty workspace - that's intentional. The big <strong>+ New item</strong> button is what you'll use across the next five modules.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-1/02-workspace-empty.png</div>
+                            <div>Brand-new empty workspace landing page with the <strong>+ New item</strong> button highlighted</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Open the OneLake explorer (preview)</h3>
+                <div class="step-body">
+                    <p>Click the OneLake icon in the left rail. You'll see your tenant tree with your new workspace listed but no items beneath it yet. That's normal.</p>
+                    <p>You'll come back to this view in Module 2 once your Lakehouse exists - the <code>Files/</code> and <code>Tables/</code> folders show up under the lakehouse.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-1/03-onelake-empty.png</div>
+                            <div>OneLake explorer showing the empty workspace - no Lakehouse children yet</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Inspect workspace settings &amp; capacity</h3>
+                <div class="step-body">
+                    <p>Back on your workspace home, click <strong>Workspace settings</strong> (gear icon, top-right). Confirm:</p>
                     <ul>
-                        <li><strong>License</strong>: Fabric capacity (F-SKU)</li>
+                        <li><strong>License mode</strong>: Fabric capacity (F-SKU)</li>
                         <li><strong>Capacity name</strong>: <code>fc-isvsummit-{room}</code></li>
-                        <li><strong>Default Lakehouse for SQL endpoint</strong>: pre-set to <code>lh_urbanpulse_bronze</code></li>
                     </ul>
+                    <p>If anything else is selected, switch it now - several items in later modules require Fabric capacity (not Trial / not Pro).</p>
                 </div>
             </li>
 
             <li>
                 <h3 class="step-title">Inspect access (RBAC)</h3>
                 <div class="step-body">
-                    <p>Click <strong>Manage access</strong>. You should see yourself as <strong>Admin</strong> on this workspace, plus the lab service principal as <strong>Admin</strong> (used by automation), and the coach pool as <strong>Member</strong>.</p>
+                    <p>Click <strong>Manage access</strong>. As the workspace creator you're <strong>Admin</strong>. You can leave the access list as-is for the lab; in production you'd add the customer's users as <em>Members</em> or <em>Contributors</em> here.</p>
                     <div class="callout info">
                         <span class="callout-icon">ⓘ</span>
                         <div class="callout-content">

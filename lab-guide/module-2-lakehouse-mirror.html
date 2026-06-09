@@ -115,13 +115,42 @@
     </section>
 
     <section id="step-1">
-        <h2>Step 1 - Upload Parquet to the Lakehouse <span class="pill lakehouse">UPLOAD</span></h2>
+        <h2>Step 1 - Create the Lakehouse &amp; Upload Parquet <span class="pill lakehouse">UPLOAD</span></h2>
 
         <ol class="step-list">
             <li>
-                <h3 class="step-title">Open <code>lh_urbanpulse_bronze</code></h3>
+                <h3 class="step-title">Create your Bronze Lakehouse</h3>
                 <div class="step-body">
-                    <p>From your workspace, click the <strong>Lakehouse</strong> item. The Explorer pane opens with two folders: <code>Tables</code> (empty) and <code>Files</code> (empty).</p>
+                    <p>From your workspace home, click <strong>+ New item</strong> &rarr; type "Lakehouse" in the search box &rarr; pick <strong>Lakehouse</strong>.</p>
+                    <p>In the dialog:</p>
+                    <ul>
+                        <li><strong>Name</strong>: <code>lh_urbanpulse_bronze</code></li>
+                        <li><strong>Lakehouse schemas (preview)</strong>: leave unchecked - we'll use the classic <code>Tables/</code> + <code>Files/</code> layout for this lab</li>
+                    </ul>
+                    <p>Click <strong>Create</strong>. Fabric drops you into the new (empty) Lakehouse Explorer.</p>
+
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/00-create-lakehouse.png</div>
+                            <div>"New Lakehouse" dialog with name <code>lh_urbanpulse_bronze</code> filled in</div>
+                        </div>
+                    </div>
+
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            Creating a Lakehouse also auto-provisions an <strong>SQL analytics endpoint</strong> and a <strong>default semantic model</strong> alongside it. You'll see all three appear in your workspace - that's expected.
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Confirm the empty Lakehouse Explorer</h3>
+                <div class="step-body">
+                    <p>The Explorer pane should now show two top-level folders: <code>Tables</code> (empty) and <code>Files</code> (empty). You're ready to ingest.</p>
                 </div>
             </li>
 

@@ -40,7 +40,7 @@
     <section id="objectives">
         <h2>Learning Objectives</h2>
         <ul>
-            <li>Activate the pre-provisioned <strong>Eventhouse</strong> and its KQL Database.</li>
+            <li>Create your <strong>Eventhouse</strong> and KQL Database from scratch.</li>
             <li>Create <strong>four KQL tables</strong> with explicit schemas + JSON ingestion mappings.</li>
             <li>Build <strong>four Eventstreams</strong> (one per source) routing Event Hub → KQL.</li>
             <li>Verify live ingestion with <strong>KQL queries</strong> on each table.</li>
@@ -102,20 +102,38 @@
     </section>
 
     <section id="step-1">
-        <h2>Step 1 - Open Your Eventhouse <span class="pill eventhouse">EVENTHOUSE</span></h2>
+        <h2>Step 1 - Create Your Eventhouse <span class="pill eventhouse">EVENTHOUSE</span></h2>
 
         <ol class="step-list">
             <li>
-                <h3 class="step-title">Open <code>eh_urbanpulse_rti</code></h3>
+                <h3 class="step-title">Create the Eventhouse</h3>
                 <div class="step-body">
-                    <p>From your workspace home, click the Eventhouse item. The landing page shows <strong>System Overview</strong> with the embedded KQL Database.</p>
+                    <p>From your workspace home, click <strong>+ New item</strong> &rarr; search "Eventhouse" &rarr; pick <strong>Eventhouse</strong>.</p>
+                    <p>Name it: <code>eh_urbanpulse_rti</code> &rarr; <strong>Create</strong>.</p>
+                    <p>Fabric provisions the Eventhouse <em>and</em> a child KQL Database with the same name. You land on the Eventhouse System Overview page.</p>
+
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-3/00-create-eventhouse.png</div>
+                            <div>"New Eventhouse" dialog with name <code>eh_urbanpulse_rti</code> filled in</div>
+                        </div>
+                    </div>
+
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            <strong>Eventhouse vs. KQL Database.</strong> The Eventhouse is the container; the KQL Database is the queryable surface. One Eventhouse can host many KQL Databases - we only need one for this lab.
+                        </div>
+                    </div>
                 </div>
             </li>
 
             <li>
                 <h3 class="step-title">Open the KQL Database</h3>
                 <div class="step-body">
-                    <p>Inside the Eventhouse, click the KQL Database tile (same name). This is where all KQL tables will live.</p>
+                    <p>Inside the Eventhouse, click the KQL Database tile (same name). This is where all your KQL tables will live.</p>
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
@@ -130,7 +148,7 @@
             <li>
                 <h3 class="step-title">Open a query window</h3>
                 <div class="step-body">
-                    <p>Click the <strong>Explore your data</strong> button (or the database name in the left tree → <strong>Query</strong>). You'll write all the KQL in this query editor.</p>
+                    <p>Click the <strong>Explore your data</strong> button (or the database name in the left tree &rarr; <strong>Query</strong>). You'll write all the KQL in this query editor.</p>
                 </div>
             </li>
         </ol>

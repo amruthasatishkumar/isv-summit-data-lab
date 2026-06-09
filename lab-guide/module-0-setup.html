@@ -27,8 +27,9 @@
         <h1>Setup &amp; Environment Check</h1>
         <p class="lead">
             Everything in this lab happens in your browser - the Microsoft Fabric portal and the Azure portal.
-            No Cloud PC, no VS Code, no Python installs. Let's confirm your pre-provisioned workspace and grab
-            the Lab Credentials page you'll reference all day.
+            No Cloud PC, no VS Code, no Python installs. Let's confirm your <strong>lab capacity assignment</strong>
+            and grab the Lab Credentials page you'll reference all day. You'll create your workspace and every
+            Fabric item from scratch as you go.
         </p>
         <div class="module-meta">
             <div class="meta-item"><span class="meta-icon">⏱</span> <strong>10 minutes</strong></div>
@@ -41,15 +42,15 @@
         <h2>Learning Objectives</h2>
         <ul>
             <li>Sign in to the <strong>Microsoft Fabric portal</strong> with your lab account.</li>
-            <li>Verify your <strong>pre-provisioned workspace</strong> and capacity assignment.</li>
+            <li>Verify the lab <strong>Fabric capacity</strong> is assigned to your account (you'll bind your workspace to it in Module 1).</li>
             <li>Bookmark the <strong>Lab Credentials</strong> reference page (Appendix A).</li>
             <li>Optional: confirm the four shared <strong>Azure Event Hubs</strong> are healthy in the Azure portal.</li>
         </ul>
     </section>
 
     <section id="environment">
-        <h2>Your Pre-Provisioned Environment</h2>
-        <p>Each attendee receives an isolated stack on top of a shared, coach-managed data plane.</p>
+        <h2>What's Pre-Provisioned vs. What You'll Build</h2>
+        <p>Coaches set up the bare minimum: a shared Fabric capacity, an Azure data plane, and a credentials sheet. <strong>You</strong> build the workspace and every Fabric item.</p>
 
         <table>
             <thead>
@@ -61,39 +62,34 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><span class="pill">Fabric Workspace</span></td>
-                    <td>Your private workspace where you'll build all artifacts today.</td>
-                    <td><code>urbanpulse-{your-id}</code></td>
-                </tr>
-                <tr>
-                    <td><span class="pill">Capacity (F-SKU)</span></td>
-                    <td>Shared trial capacity across all attendees in the room.</td>
+                    <td><span class="pill">Fabric Capacity (F-SKU)</span> <em>(provided)</em></td>
+                    <td>Shared trial capacity across all attendees in the room. You'll bind your workspace to this in Module 1.</td>
                     <td><code>fc-isvsummit-{room}</code></td>
                 </tr>
                 <tr>
-                    <td><span class="pill lakehouse">Lakehouse (empty)</span></td>
-                    <td>Bronze landing zone - you'll populate this in Module 2.</td>
-                    <td><code>lh_urbanpulse_bronze</code></td>
+                    <td><span class="pill">Lab Account</span> <em>(provided)</em></td>
+                    <td>Lab tenant identity that has Contributor on the capacity above.</td>
+                    <td><code>attendee-{id}@isvsummitlab.onmicrosoft.com</code></td>
                 </tr>
                 <tr>
-                    <td><span class="pill eventhouse">Eventhouse (empty)</span></td>
-                    <td>Real-Time Intelligence destination - you'll create KQL tables in Module 3.</td>
-                    <td><code>eh_urbanpulse_rti</code></td>
-                </tr>
-                <tr>
-                    <td><span class="pill">Shared Event Hubs (4)</span></td>
+                    <td><span class="pill">Shared Event Hubs (4)</span> <em>(provided)</em></td>
                     <td>Coaches run the simulators centrally on a hidden VM. You'll connect Eventstreams to these in Module 3 using read-only listener strings.</td>
                     <td>see <a href="appendix-env-vars.html">Appendix A</a></td>
                 </tr>
                 <tr>
-                    <td><span class="pill">Lab Credentials Page</span></td>
-                    <td>One reference page (Appendix A) with every connection string, key, and endpoint you'll need to paste into Fabric portal wizards today.</td>
+                    <td><span class="pill agent">Azure OpenAI + AI Search</span> <em>(provided, optional use)</em></td>
+                    <td>Used by the optional Foundry orchestrator in Module 8.</td>
+                    <td><code>aoai-isvsummit</code> + <code>srch-cityops</code></td>
+                </tr>
+                <tr>
+                    <td><span class="pill">Lab Credentials Page</span> <em>(provided)</em></td>
+                    <td>One reference page (Appendix A) with every connection string, key, and endpoint you'll paste into Fabric portal wizards today.</td>
                     <td><a href="appendix-env-vars.html">Appendix A</a></td>
                 </tr>
                 <tr>
-                    <td><span class="pill agent">Azure OpenAI + AI Search</span></td>
-                    <td>Used by the optional Foundry orchestrator in Module 8.</td>
-                    <td><code>aoai-isvsummit</code> + <code>srch-cityops</code></td>
+                    <td><span class="pill lakehouse">Workspace + items</span> <strong>(you build)</strong></td>
+                    <td>Workspace (M1), Lakehouse + Mirror + Shortcut (M2), Eventhouse + Eventstreams + KQL tables (M3), Real-Time Dashboard (M4), Direct Lake semantic model + Power BI report (M5), Fabric Data Agent (M6). Optional: extra agents (M7) and Foundry orchestrator (M8).</td>
+                    <td>your naming, your ID</td>
                 </tr>
             </tbody>
         </table>
@@ -101,10 +97,10 @@
         <div class="callout purple">
             <span class="callout-icon">ⓘ</span>
             <div class="callout-content">
-                <strong>Why pre-provisioned?</strong>
-                Day 2 is about <em>building Fabric solutions</em>, not waiting on capacity assignments,
-                quota approvals, or device registration. Coaches provisioned everything overnight so you can
-                hit the ground running.
+                <strong>Why capacity-only provisioning?</strong>
+                You learn Fabric by <em>building</em> in Fabric. Coaches handle the things that need a tenant admin
+                (capacity, identity, shared streams). Everything else - the workspace itself, the lakehouse,
+                the eventhouse, the dashboards, the agents - is yours to create. That's the muscle memory you take home.
             </div>
         </div>
     </section>
@@ -133,16 +129,17 @@ password:  see your slip</code></pre>
             </li>
 
             <li>
-                <h3 class="step-title">Switch to your workspace</h3>
+                <h3 class="step-title">Confirm the lab capacity is assigned to you</h3>
                 <div class="step-body">
-                    <p>In the left navigation, click <strong>Workspaces</strong> → search for <code>urbanpulse-</code> and click the one matching your attendee ID.</p>
+                    <p>You don't have a workspace yet - you'll build one in Module 1. For now, just confirm Fabric loaded with no errors and that you can see the <strong>Power BI / Fabric home</strong>.</p>
+                    <p>If you want a deeper check, click your profile picture (top-right) → <strong>Account manager</strong>. The capacity <code>fc-isvsummit-{room}</code> should appear in the list of capacities you have access to.</p>
 
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-0/01-workspace-picker.png</div>
-                            <div>Fabric workspace picker showing <code>urbanpulse-{id}</code> highlighted in the left rail</div>
+                            <div class="ph-meta">module-0/01-fabric-home.png</div>
+                            <div>Fabric portal home page after sign-in, with the lab account in the top-right corner</div>
                         </div>
                     </div>
                 </div>
@@ -151,7 +148,7 @@ password:  see your slip</code></pre>
 
         <div class="validation">
             <h4>Validation</h4>
-            <p>You should see a workspace named <code>urbanpulse-{your-id}</code> containing two empty items: <code>lh_urbanpulse_bronze</code> (Lakehouse) and <code>eh_urbanpulse_rti</code> (Eventhouse). The capacity badge in the top-right should read <strong>F-SKU</strong> (not "Trial").</p>
+            <p>You're signed in to Fabric as <code>attendee-{id}@isvsummitlab.onmicrosoft.com</code>, the home page loads with no errors, and you have access to the lab capacity. Workspaces and items are intentionally empty right now - you'll create them in the modules to come.</p>
         </div>
     </section>
 

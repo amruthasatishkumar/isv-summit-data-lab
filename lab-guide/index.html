@@ -37,7 +37,7 @@
         </div>
         <div class="meta-block">
             <div class="meta-label">Modules</div>
-            <div class="meta-value">7 (M0 – M6)</div>
+            <div class="meta-value">9 (M0 – M8, M7+M8 optional)</div>
         </div>
         <div class="meta-block">
             <div class="meta-label">Skill level</div>
@@ -45,7 +45,7 @@
         </div>
         <div class="meta-block">
             <div class="meta-label">Environment</div>
-            <div class="meta-value">Pre-provisioned</div>
+            <div class="meta-value">Capacity provided</div>
         </div>
     </div>
 
@@ -55,11 +55,10 @@
             <span class="mc-number">MODULE 0</span>
             <h3 class="mc-title">Setup &amp; Environment Check</h3>
             <p class="mc-desc">
-                Verify your pre-provisioned Fabric workspace, capacity, lakehouse,
-                eventhouse, and the four shared Azure Event Hubs are wired up. Confirm everything is ready
-                before we start building.
+                Sign in to Fabric with your lab account, confirm the lab capacity is assigned,
+                and bookmark the Lab Credentials page. You'll create your workspace and items in M1–M3.
             </p>
-            <div class="mc-time"><strong>15 min</strong> · UI tour, sanity checks</div>
+            <div class="mc-time"><strong>10 min</strong> · UI tour, sanity checks</div>
         </a>
 
         <a class="module-card" href="module-1-workspace-tour.html">
@@ -165,9 +164,10 @@
         <div class="callout info">
             <span class="callout-icon">ⓘ</span>
             <div class="callout-content">
-                <p><strong>Everything you need has been pre-provisioned.</strong> Each attendee receives:</p>
+                <p><strong>Coaches handle the things that need a tenant admin.</strong> Each attendee receives:</p>
                 <ul>
-                    <li>A dedicated Fabric workspace (<code>urbanpulse-{your-id}</code>) on a shared F-SKU capacity</li>
+                    <li>A shared Fabric <strong>F-SKU capacity</strong> (<code>fc-isvsummit-{room}</code>) that your account is granted on - you'll create the workspace yourself in Module 1</li>
+                    <li>A lab tenant identity (<code>attendee-{id}@isvsummitlab.onmicrosoft.com</code>) at your seat</li>
                     <li>Read access to four shared Azure Event Hubs streaming live data</li>
                     <li>A <strong>Lab Credentials</strong> reference page with every connection string, key, and endpoint pre-filled</li>
                     <li>An Azure AI Search index <code>city-ops-index</code> + Azure OpenAI deployment for the optional Module 8 Foundry orchestrator</li>
