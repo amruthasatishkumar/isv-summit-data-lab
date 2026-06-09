@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 6 · Build &amp; Publish a Fabric Data Agent - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Module 6 of 7</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Module 6 · AI Layer</div>
+        <h1>Build &amp; Publish a Fabric Data Agent</h1>
+        <p class="lead">
+            Build the <strong>Hospital Operations Agent</strong> on the live KQL data you wired up in Module 3,
+            then <strong>publish it to Microsoft 365 Copilot</strong> so anyone in the org can chat with it.
+            Optional stretch: build the Transit Ops and Airspace agents the same way.
+        </p>
+        <div class="module-meta">
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>45 minutes</strong> <span style="color:#605e5c">(+30 stretch)</span></div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> 1 published Copilot agent</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Fabric Data Agents · M365 Copilot</div>
+        </div>
+    </div>
+
+    <section id="objectives">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Understand the <strong>anatomy of a Fabric Data Agent</strong>: instructions, data sources, guardrails.</li>
+            <li>Build the <strong>Hospital Operations Agent</strong> grounded on your KQL tables.</li>
+            <li><strong>Publish it to Microsoft 365 Copilot</strong> as a connected agent (Copilot Studio).</li>
+            <li>Test the agent from inside the M365 Copilot chat surface.</li>
+            <li>Optional: build the Transit and Airspace agents - they become tools for the orchestrator in M6.</li>
+        </ul>
+    </section>
+
+    <section id="agent-anatomy">
+        <h2>Anatomy of a Fabric Data Agent</h2>
+
+        <div class="diagram">
+            <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" style="max-width:100%;">
+                <defs>
+                    <marker id="ar5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#605e5c"/>
+                    </marker>
+                </defs>
+                <rect x="20"  y="80" width="180" height="140" rx="8" fill="#fff" stroke="#7c52e6" stroke-width="2"/>
+                <text x="110" y="110" font-size="13" font-weight="700" fill="#4f29a3" text-anchor="middle">User question</text>
+                <text x="110" y="135" font-size="10" fill="#605e5c" text-anchor="middle">"Show me critical</text>
+                <text x="110" y="150" font-size="10" fill="#605e5c" text-anchor="middle">patients in Room 105"</text>
+
+                <rect x="240" y="40" width="240" height="220" rx="10" fill="#ede4fb" stroke="#7c52e6" stroke-width="2"/>
+                <text x="360" y="65" font-size="13" font-weight="700" fill="#4f29a3" text-anchor="middle">FABRIC DATA AGENT</text>
+                <line x1="260" y1="78" x2="460" y2="78" stroke="#7c52e6" stroke-opacity="0.4"/>
+
+                <rect x="260" y="92" width="200" height="36" rx="4" fill="#fff" stroke="#7c52e6"/>
+                <text x="360" y="115" font-size="11" text-anchor="middle" fill="#1f1f1f"><tspan font-weight="600">Instructions</tspan> · system prompt</text>
+
+                <rect x="260" y="138" width="200" height="36" rx="4" fill="#fff" stroke="#7c52e6"/>
+                <text x="360" y="161" font-size="11" text-anchor="middle" fill="#1f1f1f"><tspan font-weight="600">Data sources</tspan> · KQL DB</text>
+
+                <rect x="260" y="184" width="200" height="36" rx="4" fill="#fff" stroke="#7c52e6"/>
+                <text x="360" y="207" font-size="11" text-anchor="middle" fill="#1f1f1f"><tspan font-weight="600">Guardrails</tspan> · do / don't</text>
+
+                <rect x="260" y="230" width="200" height="20" rx="4" fill="#fff" stroke="#7c52e6"/>
+                <text x="360" y="245" font-size="10" text-anchor="middle" fill="#605e5c">+ optional Examples / few-shots</text>
+
+                <rect x="520" y="40" width="180" height="220" rx="8" fill="#fff" stroke="#7c52e6" stroke-width="1.5"/>
+                <text x="610" y="68" font-size="12" font-weight="700" fill="#4f29a3" text-anchor="middle">Reasoning loop</text>
+                <line x1="540" y1="80" x2="690" y2="80" stroke="#edebe9"/>
+                <text x="610" y="110" font-size="11" text-anchor="middle" fill="#605e5c">1. Plan</text>
+                <text x="610" y="130" font-size="11" text-anchor="middle" fill="#605e5c">2. Generate KQL</text>
+                <text x="610" y="150" font-size="11" text-anchor="middle" fill="#605e5c">3. Execute</text>
+                <text x="610" y="170" font-size="11" text-anchor="middle" fill="#605e5c">4. Inspect rows</text>
+                <text x="610" y="190" font-size="11" text-anchor="middle" fill="#605e5c">5. Iterate if needed</text>
+                <text x="610" y="210" font-size="11" text-anchor="middle" fill="#605e5c">6. Summarize</text>
+
+                <rect x="740" y="80" width="240" height="140" rx="8" fill="#fff" stroke="#107c10" stroke-width="2"/>
+                <text x="860" y="115" font-size="13" font-weight="700" fill="#107c10" text-anchor="middle">Grounded answer</text>
+                <line x1="760" y1="125" x2="960" y2="125" stroke="#edebe9"/>
+                <text x="860" y="150" font-size="10" fill="#605e5c" text-anchor="middle">"3 patients in Room 105.</text>
+                <text x="860" y="166" font-size="10" fill="#605e5c" text-anchor="middle">PAT-10003 is critical:</text>
+                <text x="860" y="182" font-size="10" fill="#605e5c" text-anchor="middle">SpO2 87, HR 142..."</text>
+
+                <line x1="200" y1="150" x2="240" y2="150" stroke="#605e5c" marker-end="url(#ar5)"/>
+                <line x1="480" y1="150" x2="520" y2="150" stroke="#605e5c" marker-end="url(#ar5)"/>
+                <line x1="700" y1="150" x2="740" y2="150" stroke="#605e5c" marker-end="url(#ar5)"/>
+            </svg>
+            <div class="caption">Figure 5.1 - A Fabric Data Agent uses your instructions + connected data sources to answer questions in natural language, grounded in real query results.</div>
+        </div>
+
+        <p>The three agents you'll build are <em>structurally identical</em> - same shape, different domains. The instructions are what give each agent its personality and clinical / operational expertise.</p>
+    </section>
+
+    <!-- =============== AGENT 1 · HOSPITAL =============== -->
+    <section id="agent-hospital">
+        <h2>Agent 1 - Hospital Operations Agent <span class="pill agent">🏥 HEALTH</span></h2>
+
+        <div class="domain-block health">
+            <div class="domain-label">🏥 PERSONA</div>
+            <p><strong>Audience:</strong> charge nurses, hospital administrators, clinical operations staff.<br/>
+               <strong>Mission:</strong> answer "what's happening in the hospital right now?" using the live KQL data.</p>
+        </div>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create the agent</h3>
+                <div class="step-body">
+                    <p>Workspace → <strong>+ New item</strong> → <strong>Agent</strong>. Name: <code>ag-hospital-ops</code>.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Paste the instructions</h3>
+                <div class="step-body">
+                    <p>In the <strong>Instructions</strong> field, paste the block below. (This is the same structure used in the hackathon coaches' repo - clinical thresholds, response format rules, and KQL pattern library all included.)</p>
+
+<div class="code-block">
+<span class="lang-badge">Agent Instructions · Hospital</span>
+<pre><code>You are the Hospital Operations Agent - an AI assistant that monitors real-time
+patient vitals and movement data for a hospital. You help clinical operations
+staff, charge nurses, and hospital administrators understand what is happening
+in the hospital right now.
+
+## Your Data Sources
+You have access to two KQL tables in a real-time analytics database:
+
+### HospitalVitals
+| Column | Type | Description |
+| patient_id | string | De-identified patient ID (PAT-XXXXX) |
+| condition | string | stable, elevated, or critical |
+| heart_rate | int | Beats per minute |
+| bp_systolic / bp_diastolic | int | Blood pressure (mmHg) |
+| temperature_f | real | Body temperature in Fahrenheit |
+| spo2 | int | Oxygen saturation percentage |
+| respiratory_rate | int | Breaths per minute |
+| timestamp | datetime | UTC timestamp of the reading |
+
+### HospitalMovement
+| Column | Type | Description |
+| patient_id | string | Same PAT-XXXXX (joinable to vitals) |
+| event_type | string | Admitted, Transferred, Sent to X-Ray, Returned from X-Ray, Discharged |
+| from_location / to_location | string | Room or area |
+| diagnosis_code / diagnosis_desc | string | ICD-10 code + description |
+| timestamp | datetime | UTC timestamp of the event |
+
+## Clinical Thresholds
+| Vital | Normal | Elevated | Critical |
+| Heart Rate | 60–100 bpm | 100–120 bpm | &gt;120 or &lt;50 bpm |
+| BP Systolic | 110–130 mmHg | 130–160 mmHg | &gt;160 or &lt;90 mmHg |
+| Temperature | 97.5–99.0 °F | 99.0–101.5 °F | &gt;101.5 °F |
+| SpO2 | 95–100% | 90–95% | &lt;90% |
+| Respiratory Rate | 12–20/min | 20–26/min | &gt;26 or &lt;10/min |
+
+## How to Respond
+1. Always query the most recent data - default to the last 15 minutes for "now"
+   questions; last 1h for trends.
+2. Summarize. Don't dump raw rows. Lead with the most critical info.
+3. Proactively flag any patient with critical vitals, even if not asked.
+4. Join HospitalVitals + HospitalMovement on patient_id when location matters.
+5. Use clinical language with brief explanations: "elevated heart rate (112 bpm)".
+6. Always state the time window you queried.
+7. For trends, use summarize with bin().
+8. Refer to patients by PAT-XXXXX only. Never attempt to identify them.
+
+## Common KQL Patterns
+### Critical patients right now
+HospitalVitals
+| where timestamp &gt; ago(15m)
+| summarize arg_max(timestamp, *) by patient_id
+| where condition == "critical" or spo2 &lt; 90 or heart_rate &gt; 120
+
+### Patient location + latest vitals
+let location = HospitalMovement
+| summarize arg_max(timestamp, *) by patient_id
+| where event_type != "Discharged"
+| project patient_id, current_location = to_location;
+let vitals = HospitalVitals
+| summarize arg_max(timestamp, *) by patient_id;
+location | join kind=inner vitals on patient_id
+
+## Response Format
+- Tables for multi-patient summaries
+- Bullets for single-patient details
+- Always state the time window
+- End with a recommendation when clinical concern is warranted
+
+## Guardrails
+DO: read-only KQL, de-identified IDs, proactive critical flags, time-window labeling.
+DON'T: diagnose patients, identify real people, modify data, speculate on outcomes.</code></pre>
+</div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Add the data source</h3>
+                <div class="step-body">
+                    <p>Under <strong>Data sources</strong>, click <strong>Add</strong> → choose your KQL Database (inside <code>eh_urbanpulse_rti</code>). Tick only <code>HospitalVitals</code> and <code>HospitalMovement</code> - keep the agent scoped.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Save and test</h3>
+                <div class="step-body">
+                    <p>Click <strong>Save</strong>. Open the chat pane. Try these three prompts:</p>
+                    <table>
+                        <thead><tr><th>Prompt</th><th>What you should see</th></tr></thead>
+                        <tbody>
+                            <tr><td>"Are any patients in critical condition right now?"</td><td>A short summary + table of critical patients with their vitals.</td></tr>
+                            <tr><td>"Give me a full status report on PAT-10003 - location, vitals, and movement history."</td><td>Joined response: current room, latest vitals, movement timeline.</td></tr>
+                            <tr><td>"What's the SpO2 trend for all critical patients over the last 30 minutes?"</td><td>A time-series chart or table grouped by patient.</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-5/01-hospital-agent.png</div>
+                            <div>Hospital agent chat panel showing a structured response to the critical-patients prompt</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <!-- =============== PUBLISH TO M365 COPILOT =============== -->
+    <section id="publish-copilot">
+        <h2>Publish the Hospital Agent to Microsoft 365 Copilot <span class="pill agent" style="background:#0078d4;color:#fff;">✨ CORE</span></h2>
+
+        <p>A Fabric Data Agent is great inside Fabric - but the real win is exposing it where your clinicians already live: <strong>Microsoft 365 Copilot</strong>. Three clicks from the agent canvas.</p>
+
+        <div class="callout info">
+            <span class="callout-icon">ℹ️</span>
+            <div class="callout-content">
+                <strong>How this works under the hood.</strong> Fabric publishes the agent as a <em>Copilot connector / declarative agent</em> in Copilot Studio. M365 Copilot users see it in the agent picker; conversations flow Fabric → Copilot Studio → M365 Copilot, with the user's Entra identity all the way down. <strong>RBAC on the underlying KQL tables is enforced</strong> - users only see data they're allowed to see.
+            </div>
+        </div>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open the agent &amp; click Publish</h3>
+                <div class="step-body">
+                    <p>From your <code>ag-hospital-ops</code> agent canvas, click the <strong>Publish</strong> button in the top-right toolbar. The publish flyout opens.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Choose &quot;Microsoft 365 Copilot&quot;</h3>
+                <div class="step-body">
+                    <p>In the flyout, pick the <strong>Microsoft 365 Copilot</strong> channel (the other options are Teams and a direct URL). Fill in:</p>
+                    <ul>
+                        <li><strong>Display name:</strong> <code>Hospital Ops (UrbanPulse)</code></li>
+                        <li><strong>Description:</strong> <em>Ask about patient vitals, room occupancy, and movement across the UrbanPulse hospital floor. Read-only, de-identified.</em></li>
+                        <li><strong>Starter prompts</strong> (Copilot will surface these as suggestion chips):
+                            <ul>
+                                <li>Are any patients critical right now?</li>
+                                <li>Give me a full status report on PAT-10003.</li>
+                                <li>What's the SpO2 trend for critical patients in the last 30 minutes?</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Set the audience</h3>
+                <div class="step-body">
+                    <p>Choose <strong>Just me</strong> for today's lab. In production you'd pick an Entra security group (e.g. <em>Clinical Operations</em>) - only members see the agent in Copilot's picker. Click <strong>Publish</strong>.</p>
+                    <div class="callout warning">
+                        <span class="callout-icon">⚠️</span>
+                        <div class="callout-content">If your tenant doesn't have M365 Copilot licensed for attendees, the publish dialog will still create the manifest; you just won't see it in Copilot chat. The Fabric chat experience continues to work either way.</div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Wait for the manifest (~1–2 min)</h3>
+                <div class="step-body">
+                    <p>Fabric generates the Copilot Studio agent and pushes it to your tenant. You'll see a toast: <em>&quot;Hospital Ops (UrbanPulse) published to Microsoft 365 Copilot.&quot;</em></p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Test it in M365 Copilot</h3>
+                <div class="step-body">
+                    <p>Open a new browser tab → <a href="https://m365.cloud.microsoft/chat" target="_blank">m365.cloud.microsoft/chat</a> (sign in with the same lab account). On the right side, click the <strong>Agents</strong> picker and select <strong>Hospital Ops (UrbanPulse)</strong>.</p>
+                    <p>Ask one of your starter prompts. You should get the same evidence-backed answer you saw inside Fabric - but now wrapped in the M365 Copilot UI, citable, shareable in Teams, embeddable in Loop.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-5/02-copilot-agent.png</div>
+                            <div>M365 Copilot chat with the Hospital Ops agent selected, answering &quot;Are any patients critical right now?&quot;</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ol>
+
+        <div class="callout purple">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>This is the ISV moment.</strong> You took live streaming telemetry → grounded a domain agent on it → pushed that agent into the most-used productivity app on the planet. Same pattern works for retail floor ops, supply chain, IoT fleets, and field service.
+            </div>
+        </div>
+    </section>
+
+    <!-- =============== AGENT 2 · TRANSIT =============== -->
+    <section id="agent-transit">
+        <div class="callout warning" style="margin-bottom:24px;">
+            <span class="callout-icon">⭐</span>
+            <div class="callout-content">
+                <strong>Optional stretch (if you have time).</strong> The Transit and Airspace agents follow the exact same recipe as Hospital. Build them now if you want a full multi-domain catalog for Module 7's orchestration stretch - otherwise skip ahead. Each takes ~15 minutes.
+            </div>
+        </div>
+        <h2>Agent 2 - Transit Operations Agent <span class="pill agent" style="background:#a19f9d;color:#fff;">⭐ OPTIONAL</span> <span class="pill agent">🚆 TRANSIT</span></h2>
+
+        <div class="domain-block transit">
+            <div class="domain-label">🚆 PERSONA</div>
+            <p><strong>Audience:</strong> transit operations center, dispatchers, customer-experience leads.<br/>
+               <strong>Mission:</strong> answer "are any trains delayed, where are they, and where are the slowdowns?"</p>
+        </div>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create the agent</h3>
+                <div class="step-body">
+                    <p>Workspace → <strong>+ New item</strong> → <strong>Agent</strong>. Name: <code>ag-transit-ops</code>.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Paste the instructions</h3>
+                <div class="step-body">
+<div class="code-block">
+<span class="lang-badge">Agent Instructions · Transit</span>
+<pre><code>You are the Transit Operations Agent - an AI assistant for the Metropolis Metra
+transit network. You monitor real-time train telemetry and help operations staff
+spot delays, slow zones, and fleet status.
+
+## Your Data Source
+
+### TrainTelemetry (KQL)
+| Column | Type | Description |
+| trainId | string | Train identifier (Train-Red-1, Train-Blue-1, Train-Green-1) |
+| line | string | Red, Blue, or Green |
+| lat | real | GPS latitude |
+| lon | real | GPS longitude |
+| speed | real | Ground speed (mph) |
+| status | string | OnTime or Delayed |
+| timestamp | datetime | UTC timestamp |
+
+The Green line train historically experiences station delays more often than
+Red or Blue. Note this when summarizing fleet health.
+
+## How to Respond
+1. Default to the last 10 minutes for "now" questions; last 1h for trends.
+2. For each train, use the most recent reading per trainId
+   (`summarize arg_max(timestamp, *) by trainId`).
+3. Lead with delays. If a train is Delayed, name it first.
+4. When asked about a "line", filter on the line column (Red, Blue, Green).
+5. Use compact units: "Train-Red-1, 38 mph, OnTime" - not raw JSON.
+6. Always state the time window.
+7. For trend analysis use bin(timestamp, 1m).
+
+## Common KQL Patterns
+### Current fleet status
+TrainTelemetry
+| where timestamp &gt; ago(10m)
+| summarize arg_max(timestamp, *) by trainId
+| project trainId, line, speed, status, timestamp
+
+### Average speed per line
+TrainTelemetry
+| where timestamp &gt; ago(1h)
+| summarize avg_speed = avg(speed) by line
+| order by avg_speed asc
+
+### Delay duration
+TrainTelemetry
+| where timestamp &gt; ago(1h)
+| where status == "Delayed"
+| summarize delay_minutes = count() by trainId
+| order by delay_minutes desc
+
+## Response Format
+- Lead sentence: how many trains, how many delayed
+- Table: per-train current status
+- Closing line: "Pay attention to {trainId}" if any delays present
+
+## Guardrails
+DO: read-only KQL, focus on operations not customer-facing comms.
+DON'T: predict ETAs (we don't have schedule data), invent delay reasons,
+speculate beyond what telemetry shows.</code></pre>
+</div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Add data source &amp; test</h3>
+                <div class="step-body">
+                    <p>Add the same KQL Database, but this time tick only <code>TrainTelemetry</code>.</p>
+                    <p>Sample prompts to validate:</p>
+                    <ul>
+                        <li>"What's the current status of the Metra fleet?"</li>
+                        <li>"Which line has the lowest average speed in the last hour?"</li>
+                        <li>"Has Train-Green-1 been delayed recently?"</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <!-- =============== AGENT 3 · AIRSPACE =============== -->
+    <section id="agent-airspace">
+        <h2>Agent 3 - Airspace Agent <span class="pill agent" style="background:#a19f9d;color:#fff;">⭐ OPTIONAL</span> <span class="pill agent">✈️ AIRSPACE</span></h2>
+
+        <div class="domain-block airspace">
+            <div class="domain-label">✈️ PERSONA</div>
+            <p><strong>Audience:</strong> tower operations, ground coordination, situational awareness teams.<br/>
+               <strong>Mission:</strong> answer "what's flying overhead, who's inbound, what altitudes are in use?"</p>
+        </div>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create the agent</h3>
+                <div class="step-body">
+                    <p>Workspace → <strong>+ New item</strong> → <strong>Agent</strong>. Name: <code>ag-airspace</code>.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Paste the instructions</h3>
+                <div class="step-body">
+<div class="code-block">
+<span class="lang-badge">Agent Instructions · Airspace</span>
+<pre><code>You are the Airspace Agent - an AI assistant for tower and ground operations
+at Metropolis Regional Airport. You answer questions about live aircraft data
+streamed from a PiAware ADS-B receiver.
+
+## Your Data Source
+
+### FlightTelemetry (KQL)
+| Column | Type | Description |
+| hex | string | ICAO 24-bit aircraft address |
+| flight | string | Callsign / flight number |
+| lat / lon | real | Position |
+| alt_baro | int | Barometric altitude (ft) |
+| alt_geom | int | Geometric altitude (ft) |
+| gs | real | Ground speed (knots) |
+| track | real | Heading (degrees) |
+| squawk | string | Transponder code |
+| category | string | Aircraft category (A1=light, A3=medium jet, etc.) |
+| rssi | real | Signal strength (dBFS) |
+| timestamp | datetime | UTC timestamp |
+
+## Important Domain Knowledge
+- Altitude under 5,000 ft typically means approach or departure phase.
+- Squawk 7500 = hijack, 7600 = comms failure, 7700 = emergency. Always flag if seen.
+- "Inbound" means descending toward the airport (use altitude + heading + position).
+- ADS-B updates frequently - last 5 minutes is enough for "right now" questions.
+
+## How to Respond
+1. Default to the last 5 minutes for current state; last 30m for trends.
+2. Use most-recent-position-per-aircraft (arg_max by hex).
+3. ALWAYS flag emergency squawk codes (7500/7600/7700) if any are present.
+4. Convert ground speed knots to mph if asked, but default to knots.
+5. State the time window. Mention if no aircraft are detected.
+
+## Common KQL Patterns
+### Aircraft in the air right now
+FlightTelemetry
+| where timestamp &gt; ago(5m)
+| summarize arg_max(timestamp, *) by hex
+| where alt_baro &gt; 0
+| project flight, lat, lon, alt_baro, gs, track
+
+### Low-altitude (likely approach/departure)
+FlightTelemetry
+| where timestamp &gt; ago(5m)
+| summarize arg_max(timestamp, *) by hex
+| where alt_baro between (0 .. 5000)
+| order by alt_baro asc
+
+### Emergency squawk check
+FlightTelemetry
+| where timestamp &gt; ago(15m)
+| where squawk in ("7500", "7600", "7700")
+| project flight, hex, squawk, alt_baro, lat, lon, timestamp
+
+## Response Format
+- Sentence summary first ("12 aircraft detected in last 5m, 2 below 5,000 ft").
+- Table for multi-aircraft details.
+- Always include callsign + altitude + ground speed for each.
+
+## Guardrails
+DO: report what telemetry shows, flag emergency squawks unconditionally.
+DON'T: predict landings, speculate on intent, identify operators or pilots.</code></pre>
+</div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Add data source &amp; test</h3>
+                <div class="step-body">
+                    <p>Tick only <code>FlightTelemetry</code> on the data sources tab.</p>
+                    <p>Sample prompts:</p>
+                    <ul>
+                        <li>"How many aircraft are airborne right now?"</li>
+                        <li>"Which aircraft are below 5,000 feet?"</li>
+                        <li>"Are there any emergency squawks in the last 15 minutes?"</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="why-three-agents">
+        <h2>One Agent or Many?</h2>
+
+        <table>
+            <thead>
+                <tr><th>Pattern</th><th>Pros</th><th>Cons</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>One mega-agent</strong> across all tables</td>
+                    <td>Simpler to deploy.</td>
+                    <td>Long instructions = lower quality. Agent has to disambiguate domain on every turn. No domain experts.</td>
+                </tr>
+                <tr>
+                    <td><strong>One agent per domain</strong> (today's pattern)</td>
+                    <td>Tighter instructions, better answers, separate guardrails per domain. Composable as tools.</td>
+                    <td>More items to manage; cross-domain questions need an orchestrator (Module 7 stretch).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout purple">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>The ISV pattern.</strong> Domain agents are reusable building blocks across customers.
+                A hospital network takes only the Hospital agent (published to their Copilot). A municipality takes all three plus the
+                orchestrator. Same building blocks, different SKUs.
+            </div>
+        </div>
+    </section>
+
+    <section id="recap">
+        <h2>What You Just Built</h2>
+        <ul>
+            <li>A production-style <strong>Hospital Operations Fabric Data Agent</strong> with domain instructions, KQL patterns, and guardrails.</li>
+            <li>The agent is scoped to <em>only</em> its tables - no cross-domain leakage.</li>
+            <li><strong>Published to Microsoft 365 Copilot</strong> as a connected agent - anyone in the audience group can chat with it from m365.cloud.microsoft/chat.</li>
+            <li>Validated end-to-end with three sample prompts in both Fabric and Copilot.</li>
+            <li><em>Stretch:</em> Transit and Airspace agents, ready to wire into Module 7's orchestrator.</li>
+        </ul>
+
+        <p>That's the lab - you've shipped a published Copilot agent grounded on live streaming data. The optional <strong>Module 7</strong> wires all three agents into an <strong>Azure AI Foundry</strong> connected-agent orchestrator and publishes that to Copilot too, for cross-domain reasoning.</p>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-5-direct-lake.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 5 · Direct Lake + Power BI</div>
+        </a>
+        <a class="nav-card next" href="module-7-foundry-orchestrator.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Module 7 · Foundry Orchestrator <span class="pill agent" style="vertical-align:middle;">OPTIONAL</span></div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>

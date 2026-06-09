@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 2 · Lakehouse, Shortcuts &amp; Mirroring - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Module 2 of 7</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Module 2 · Build Phase 1</div>
+        <h1>Lakehouse, Shortcuts &amp; Mirroring</h1>
+        <p class="lead">
+            Land three different data shapes - Parquet files, an operational SQL database, and a
+            NoSQL Cosmos collection - into a single Bronze Lakehouse using three different ingest
+            techniques. By the end of this module the warm side of your medallion is alive.
+        </p>
+        <div class="module-meta">
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>45 minutes</strong></div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> 3 ingest patterns, 1 Lakehouse</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Lakehouse · Mirror · Shortcut</div>
+        </div>
+    </div>
+
+    <section id="objectives">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Upload <strong>Parquet + image files</strong> from the lab repo into the Lakehouse <code>Files</code> zone.</li>
+            <li>Convert raw Parquet into <strong>managed Delta tables</strong> with one click.</li>
+            <li><strong>Mirror</strong> an Azure SQL database into Fabric - zero-ETL, near-real-time.</li>
+            <li>Create a <strong>OneLake shortcut</strong> to a shared Cosmos DB JSON dataset.</li>
+            <li>Run a single <strong>SQL query that joins</strong> all three sources via the Lakehouse SQL endpoint.</li>
+        </ul>
+    </section>
+
+    <section id="why-three">
+        <h2>Why Three Ingest Patterns?</h2>
+
+        <p>Real ISV deployments hit data in many shapes. Fabric's value is that you don't have to pick one tool - you pick the right pattern per source and they all converge on OneLake.</p>
+
+        <div class="diagram">
+            <svg viewBox="0 0 1000 280" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" style="max-width:100%;">
+                <defs>
+                    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#605e5c"/>
+                    </marker>
+                </defs>
+
+                <!-- Sources -->
+                <rect x="20"  y="40"  width="200" height="60" rx="8" fill="#fff" stroke="#605e5c"/>
+                <text x="120" y="65"  font-size="12" font-weight="600" text-anchor="middle">📁 Tumor Parquet + images</text>
+                <text x="120" y="85"  font-size="11" fill="#605e5c" text-anchor="middle">file-based · static</text>
+
+                <rect x="20"  y="120" width="200" height="60" rx="8" fill="#fff" stroke="#605e5c"/>
+                <text x="120" y="145" font-size="12" font-weight="600" text-anchor="middle">🗄 Azure SQL · StudentDB</text>
+                <text x="120" y="165" font-size="11" fill="#605e5c" text-anchor="middle">relational · OLTP</text>
+
+                <rect x="20"  y="200" width="200" height="60" rx="8" fill="#fff" stroke="#605e5c"/>
+                <text x="120" y="225" font-size="12" font-weight="600" text-anchor="middle">🌐 Cosmos DB · Grades</text>
+                <text x="120" y="245" font-size="11" fill="#605e5c" text-anchor="middle">JSON · NoSQL · partitioned</text>
+
+                <!-- Pattern labels -->
+                <rect x="280" y="40"  width="220" height="60" rx="8" fill="#ede4fb" stroke="#7c52e6"/>
+                <text x="390" y="63"  font-size="12" font-weight="700" fill="#4f29a3" text-anchor="middle">PATTERN: UPLOAD</text>
+                <text x="390" y="83"  font-size="10" fill="#605e5c" text-anchor="middle">Files → Load to Tables (Delta)</text>
+
+                <rect x="280" y="120" width="220" height="60" rx="8" fill="#e1f3fa" stroke="#0078d4"/>
+                <text x="390" y="143" font-size="12" font-weight="700" fill="#005a9e" text-anchor="middle">PATTERN: MIRROR</text>
+                <text x="390" y="163" font-size="10" fill="#605e5c" text-anchor="middle">CDC into managed Delta · zero-ETL</text>
+
+                <rect x="280" y="200" width="220" height="60" rx="8" fill="#fff4ce" stroke="#daa520"/>
+                <text x="390" y="223" font-size="12" font-weight="700" fill="#6b4d00" text-anchor="middle">PATTERN: SHORTCUT</text>
+                <text x="390" y="243" font-size="10" fill="#605e5c" text-anchor="middle">Virtualized · no copy</text>
+
+                <!-- Arrows to lakehouse -->
+                <line x1="220" y1="70"  x2="280" y2="70"  stroke="#605e5c" marker-end="url(#arr2)"/>
+                <line x1="220" y1="150" x2="280" y2="150" stroke="#605e5c" marker-end="url(#arr2)"/>
+                <line x1="220" y1="230" x2="280" y2="230" stroke="#605e5c" marker-end="url(#arr2)"/>
+
+                <line x1="500" y1="70"  x2="640" y2="135" stroke="#605e5c" marker-end="url(#arr2)"/>
+                <line x1="500" y1="150" x2="640" y2="150" stroke="#605e5c" marker-end="url(#arr2)"/>
+                <line x1="500" y1="230" x2="640" y2="165" stroke="#605e5c" marker-end="url(#arr2)"/>
+
+                <!-- Lakehouse -->
+                <rect x="640" y="100" width="200" height="100" rx="10" fill="url(#tealbox)" stroke="#0078d4" stroke-width="2"/>
+                <text x="740" y="125" font-size="14" font-weight="700" fill="#005a9e" text-anchor="middle">lh_urbanpulse_bronze</text>
+                <text x="740" y="148" font-size="11" fill="#605e5c" text-anchor="middle">OneLake · Delta tables</text>
+                <text x="740" y="168" font-size="11" fill="#605e5c" text-anchor="middle">single SQL endpoint</text>
+                <text x="740" y="188" font-size="11" fill="#605e5c" text-anchor="middle">single Direct Lake source</text>
+
+                <!-- Consumer -->
+                <rect x="870" y="115" width="120" height="70" rx="8" fill="#fff" stroke="#605e5c"/>
+                <text x="930" y="140" font-size="11" font-weight="600" text-anchor="middle">SQL endpoint</text>
+                <text x="930" y="158" font-size="11" font-weight="600" text-anchor="middle">Notebooks</text>
+                <text x="930" y="176" font-size="11" font-weight="600" text-anchor="middle">Power BI</text>
+                <line x1="840" y1="150" x2="870" y2="150" stroke="#605e5c" marker-end="url(#arr2)"/>
+            </svg>
+            <div class="caption">Figure 2.1 - Three ingest patterns, one Lakehouse, one consumer surface. The "OneLake" promise.</div>
+        </div>
+    </section>
+
+    <section id="step-1">
+        <h2>Step 1 - Upload Parquet to the Lakehouse <span class="pill lakehouse">UPLOAD</span></h2>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open <code>lh_urbanpulse_bronze</code></h3>
+                <div class="step-body">
+                    <p>From your workspace, click the <strong>Lakehouse</strong> item. The Explorer pane opens with two folders: <code>Tables</code> (empty) and <code>Files</code> (empty).</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Upload the tumor Parquet folder</h3>
+                <div class="step-body">
+                    <p>Right-click <strong>Files</strong> → <strong>Upload</strong> → <strong>Upload folder</strong>. The coach team has placed the parquet bundle in a SharePoint link shown on your seat slip - download the <code>parquet/</code> folder to your local Downloads, then upload it here.</p>
+                    <p>This uploads the tumor metadata Parquet plus the supporting image files (~80 MB total).</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/01-files-upload.png</div>
+                            <div>Lakehouse Files explorer with the <code>parquet/</code> folder uploaded and expanded</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Promote the Parquet to a Delta table</h3>
+                <div class="step-body">
+                    <p>Navigate into <code>Files / parquet / Tumor Data</code>. Right-click the <code>.parquet</code> file → <strong>Load to Tables</strong> → <strong>New table</strong>.</p>
+                    <p>Name it <code>tumor_metadata</code> and click <strong>Load</strong>.</p>
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            Behind the scenes Fabric runs a Spark job that reads the Parquet, applies the schema,
+                            and writes a managed Delta table to <code>Tables/tumor_metadata</code>. Takes ~30 seconds.
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Preview the table</h3>
+                <div class="step-body">
+                    <p>Refresh the Tables list. Click <code>tumor_metadata</code>. You should see ~50 rows with columns: <code>id</code>, <code>image_path</code>, <code>caption</code>, <code>modality</code>.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-2">
+        <h2>Step 2 - Mirror an Azure SQL Database <span class="pill lakehouse">MIRROR</span></h2>
+
+        <p>Mirroring brings your operational SQL data into Fabric continuously, with no ETL pipelines to author. Fabric reads the source's CDC log and writes Delta into OneLake.</p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create a Mirrored Database</h3>
+                <div class="step-body">
+                    <p>From the workspace, click <strong>+ New item</strong> → search "Mirrored". Choose <strong>Mirrored Azure SQL Database</strong>.</p>
+                    <p>Name it: <code>mir_urbanpulse_studentdb</code>.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Connect to the lab SQL DB</h3>
+                <div class="step-body">
+                    <p>In the connection wizard, paste the values from <a href="appendix-env-vars.html" target="_blank">Appendix A · Lab Credentials</a>:</p>
+<div class="code-block">
+<span class="lang-badge">Connection</span>
+<pre><code>Server:   sql-isvsummit.database.windows.net
+Database: StudentDB
+Auth:     SQL authentication
+Username: lab_reader
+Password: (see Appendix A · Lab Credentials)</code></pre>
+</div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Choose tables to mirror</h3>
+                <div class="step-body">
+                    <p>Tick all three: <code>Students</code>, <code>Classes</code>, <code>Enrollments</code>. Click <strong>Mirror database</strong>.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/02-mirror-tables.png</div>
+                            <div>Mirror table picker with Students, Classes, Enrollments selected</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Watch the initial snapshot</h3>
+                <div class="step-body">
+                    <p>The mirror creates a snapshot first, then switches to incremental CDC. Status pane should reach <strong>Replicated</strong> in under two minutes.</p>
+                    <div class="callout tip">
+                        <span class="callout-icon">✓</span>
+                        <div class="callout-content">
+                            <strong>Why this matters for ISVs:</strong> When you onboard a new customer, mirroring lets you pull
+                            their operational SQL data <em>without</em> deploying anything to their environment.
+                            No agents, no scheduled exports, no broken pipelines.
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-3">
+        <h2>Step 3 - Shortcut a Cosmos DB Container <span class="pill lakehouse">SHORTCUT</span></h2>
+
+        <p>Shortcuts are <em>virtual</em> references to data that lives elsewhere - no copy, no movement. They appear as tables/folders in your Lakehouse but query through to the source.</p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open your Lakehouse</h3>
+                <div class="step-body">
+                    <p>Back in <code>lh_urbanpulse_bronze</code>, right-click <strong>Tables</strong> → <strong>New shortcut</strong>.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Choose the source</h3>
+                <div class="step-body">
+                    <p>Pick <strong>Azure Cosmos DB for NoSQL</strong>. Paste the read-only endpoint and key from <a href="appendix-env-vars.html" target="_blank">Appendix A · Lab Credentials</a> (rows <strong>Cosmos endpoint</strong> and <strong>Cosmos key</strong>).</p>
+                    <p>Browse to: <code>StudentInfo</code> database → <code>Grades</code> container.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Configure the shortcut</h3>
+                <div class="step-body">
+                    <p>Name: <code>cosmos_grades</code>. Click <strong>Create</strong>.</p>
+                    <div class="callout warning">
+                        <span class="callout-icon">!</span>
+                        <div class="callout-content">
+                            <strong>Performance note.</strong> Shortcuts query the source on read.
+                            For Cosmos DB this means RU consumption on the source account. For chatty workloads
+                            you may want to materialize via a notebook into a real Delta table - covered in advanced labs.
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-4">
+        <h2>Step 4 - One SQL Query Across All Three Sources</h2>
+
+        <p>The payoff. Three different ingest mechanisms, but to a downstream consumer they're all just tables in your Lakehouse SQL endpoint.</p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Switch to the SQL analytics endpoint</h3>
+                <div class="step-body">
+                    <p>Top-right of the Lakehouse, click the dropdown that says <strong>Lakehouse</strong> and choose <strong>SQL analytics endpoint</strong>.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Run the unified query</h3>
+                <div class="step-body">
+                    <p>Click <strong>New SQL query</strong> and paste:</p>
+<div class="code-block">
+<span class="lang-badge">T-SQL</span>
+<pre><code>-- A purposely-silly query that proves the three sources unify
+SELECT
+    s.StudentName,
+    c.ClassName,
+    g.Grade,
+    t.modality   AS sample_imaging_modality,
+    t.caption    AS sample_caption
+FROM dbo.Students     AS s        -- mirrored from Azure SQL
+JOIN dbo.Enrollments  AS e ON e.StudentId = s.StudentId
+JOIN dbo.Classes      AS c ON c.ClassId   = e.ClassId
+JOIN cosmos_grades    AS g ON g.Student_ID = s.StudentId   -- shortcut to Cosmos
+CROSS APPLY (
+    SELECT TOP 1 modality, caption
+    FROM dbo.tumor_metadata                                -- uploaded Parquet → Delta
+    ORDER BY id
+) AS t
+WHERE s.StudentId &lt;= 5;</code></pre>
+</div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Inspect the result</h3>
+                <div class="step-body">
+                    <p>You should see five rows, one per student, with grade from Cosmos and a sample row from the Parquet table. <strong>That's three different physical data stores in one query.</strong></p>
+                </div>
+            </li>
+        </ol>
+
+        <div class="validation">
+            <h4>Validation</h4>
+            <ul>
+                <li>Lakehouse <code>Tables</code> shows <code>tumor_metadata</code> (uploaded), <code>Students</code>/<code>Classes</code>/<code>Enrollments</code> (mirrored), and <code>cosmos_grades</code> (shortcut).</li>
+                <li>The unified query above returns 5 rows.</li>
+                <li>OneLake explorer shows all four under one workspace, one Lakehouse.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="recap">
+        <h2>What You Just Built</h2>
+
+        <table>
+            <thead>
+                <tr><th>Object</th><th>Type</th><th>How it got there</th><th>Use case</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>tumor_metadata</code></td>
+                    <td><span class="pill lakehouse">Delta</span></td>
+                    <td>Parquet file upload + Load to Tables</td>
+                    <td>Static reference data, model training inputs</td>
+                </tr>
+                <tr>
+                    <td><code>Students</code> / <code>Classes</code> / <code>Enrollments</code></td>
+                    <td><span class="pill lakehouse">Mirrored Delta</span></td>
+                    <td>Mirrored Azure SQL DB (CDC)</td>
+                    <td>Operational OLTP data, near-real-time</td>
+                </tr>
+                <tr>
+                    <td><code>cosmos_grades</code></td>
+                    <td><span class="pill">Shortcut</span></td>
+                    <td>OneLake shortcut to Cosmos DB</td>
+                    <td>NoSQL data, no-copy virtualization</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Module 3 brings in the <em>real-time</em> half of the medallion: live Event Hub data flowing through Eventstream into the Eventhouse.</p>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-1-workspace-tour.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 1 · Workspace Tour</div>
+        </a>
+        <a class="nav-card next" href="module-3-streaming.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Module 3 · Streaming Ingest</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>

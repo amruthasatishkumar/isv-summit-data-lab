@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" font-family="Segoe UI, sans-serif">
+    <defs>
+        <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fdfcfb"/>
+            <stop offset="1" stop-color="#f7f2ff"/>
+        </linearGradient>
+        <linearGradient id="purpleGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#7c52e6"/>
+            <stop offset="1" stop-color="#4f29a3"/>
+        </linearGradient>
+        <linearGradient id="tealGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#00b7c3"/>
+            <stop offset="1" stop-color="#0078d4"/>
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#605e5c"/>
+        </marker>
+        <filter id="cardShadow" x="-2%" y="-2%" width="104%" height="108%">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2d1b54" flood-opacity="0.10"/>
+        </filter>
+    </defs>
+
+    <!-- bg -->
+    <rect width="1200" height="640" fill="url(#bgGrad)"/>
+
+    <!-- ===== Layer 1: SOURCES ===== -->
+    <g filter="url(#cardShadow)">
+        <text x="80" y="50" font-size="11" font-weight="700" letter-spacing="2" fill="#4f29a3">DATA SOURCES</text>
+
+        <!-- Hospital Vitals -->
+        <rect x="80" y="65" width="180" height="65" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+        <text x="100" y="92" font-size="13" font-weight="600" fill="#d13438">🏥 Hospital Vitals</text>
+        <text x="100" y="112" font-size="11" fill="#605e5c">Heart rate, BP, SpO2 · 15 patients</text>
+
+        <!-- Hospital Movement -->
+        <rect x="80" y="145" width="180" height="65" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+        <text x="100" y="172" font-size="13" font-weight="600" fill="#d13438">🏥 Hospital Movement</text>
+        <text x="100" y="192" font-size="11" fill="#605e5c">Admits, transfers, discharges</text>
+
+        <!-- Metra Trains -->
+        <rect x="80" y="225" width="180" height="65" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+        <text x="100" y="252" font-size="13" font-weight="600" fill="#005a9e">🚆 Metra Trains</text>
+        <text x="100" y="272" font-size="11" fill="#605e5c">Red · Blue · Green lines</text>
+
+        <!-- Flight Tracker -->
+        <rect x="80" y="305" width="180" height="65" rx="8" fill="#fff" stroke="#00b7c3" stroke-width="2"/>
+        <text x="100" y="332" font-size="13" font-weight="600" fill="#006e76">✈️ Flight Tracker</text>
+        <text x="100" y="352" font-size="11" fill="#605e5c">Live ADS-B aircraft (PiAware)</text>
+
+        <!-- Tumor parquet -->
+        <rect x="80" y="385" width="180" height="65" rx="8" fill="#fff" stroke="#605e5c" stroke-width="2"/>
+        <text x="100" y="412" font-size="13" font-weight="600" fill="#323130">📁 Tumor Imaging</text>
+        <text x="100" y="432" font-size="11" fill="#605e5c">Parquet + image files</text>
+
+        <!-- SQL DB -->
+        <rect x="80" y="465" width="180" height="65" rx="8" fill="#fff" stroke="#605e5c" stroke-width="2"/>
+        <text x="100" y="492" font-size="13" font-weight="600" fill="#323130">🗄️ SQL Student DB</text>
+        <text x="100" y="512" font-size="11" fill="#605e5c">Mirrored, zero-ETL</text>
+    </g>
+
+    <!-- ===== Layer 2: AZURE INGEST ===== -->
+    <g filter="url(#cardShadow)">
+        <text x="320" y="50" font-size="11" font-weight="700" letter-spacing="2" fill="#4f29a3">AZURE INGEST</text>
+
+        <rect x="320" y="65" width="160" height="305" rx="10" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+        <text x="400" y="94" font-size="14" font-weight="600" fill="#005a9e" text-anchor="middle">Azure Event Hubs</text>
+        <text x="400" y="112" font-size="11" fill="#605e5c" text-anchor="middle">4 namespaces / topics</text>
+
+        <line x1="335" y1="125" x2="465" y2="125" stroke="#edebe9"/>
+        <text x="400" y="146" font-size="11" fill="#323130" text-anchor="middle">hospital-vitals</text>
+        <text x="400" y="166" font-size="11" fill="#323130" text-anchor="middle">hospital-movement</text>
+        <text x="400" y="186" font-size="11" fill="#323130" text-anchor="middle">metrotrain</text>
+        <text x="400" y="206" font-size="11" fill="#323130" text-anchor="middle">flight-tracker</text>
+        <line x1="335" y1="220" x2="465" y2="220" stroke="#edebe9"/>
+        <text x="400" y="248" font-size="11" font-weight="600" fill="#605e5c" text-anchor="middle">JSON · partitioned</text>
+        <text x="400" y="268" font-size="10" fill="#8a8886" text-anchor="middle">(coaches run simulators)</text>
+
+        <text x="400" y="320" font-size="11" font-weight="600" letter-spacing="1.5" fill="#605e5c" text-anchor="middle">⚡ ~5K events/min</text>
+        <text x="400" y="338" font-size="10" fill="#8a8886" text-anchor="middle">across all 4 streams</text>
+    </g>
+
+    <!-- ===== Layer 3: FABRIC PLATFORM ===== -->
+    <g>
+        <rect x="540" y="65" width="380" height="465" rx="14" fill="#ede4fb" fill-opacity="0.4" stroke="#7c52e6" stroke-width="1.5" stroke-dasharray="6 4"/>
+        <text x="730" y="94" font-size="13" font-weight="700" letter-spacing="2" fill="#4f29a3" text-anchor="middle">MICROSOFT FABRIC WORKSPACE</text>
+        <text x="730" y="112" font-size="11" fill="#605e5c" text-anchor="middle">urbanpulse-{attendee} · F-SKU capacity</text>
+
+        <!-- Eventstreams -->
+        <g filter="url(#cardShadow)">
+            <rect x="560" y="135" width="160" height="80" rx="8" fill="#fff" stroke="#7c52e6" stroke-width="1.5"/>
+            <text x="640" y="158" font-size="12" font-weight="700" fill="#4f29a3" text-anchor="middle">EVENTSTREAMS</text>
+            <text x="640" y="180" font-size="11" fill="#605e5c" text-anchor="middle">4 streams</text>
+            <text x="640" y="198" font-size="11" fill="#605e5c" text-anchor="middle">JSON pass-through</text>
+        </g>
+
+        <!-- Eventhouse / KQL -->
+        <g filter="url(#cardShadow)">
+            <rect x="740" y="135" width="160" height="80" rx="8" fill="url(#purpleGrad)" stroke="none"/>
+            <text x="820" y="158" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">EVENTHOUSE</text>
+            <text x="820" y="180" font-size="11" fill="#fff" text-anchor="middle" fill-opacity="0.9">KQL Database</text>
+            <text x="820" y="198" font-size="11" fill="#fff" text-anchor="middle" fill-opacity="0.9">streaming ingestion</text>
+        </g>
+
+        <!-- Lakehouse -->
+        <g filter="url(#cardShadow)">
+            <rect x="560" y="240" width="160" height="80" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+            <text x="640" y="263" font-size="12" font-weight="700" fill="#005a9e" text-anchor="middle">LAKEHOUSE</text>
+            <text x="640" y="284" font-size="11" fill="#605e5c" text-anchor="middle">Bronze: Files + Delta</text>
+            <text x="640" y="302" font-size="11" fill="#605e5c" text-anchor="middle">tumor + mirror + shortcuts</text>
+        </g>
+
+        <!-- Warehouse / Direct Lake -->
+        <g filter="url(#cardShadow)">
+            <rect x="740" y="240" width="160" height="80" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+            <text x="820" y="263" font-size="12" font-weight="700" fill="#005a9e" text-anchor="middle">SEMANTIC MODEL</text>
+            <text x="820" y="284" font-size="11" fill="#605e5c" text-anchor="middle">Direct Lake</text>
+            <text x="820" y="302" font-size="11" fill="#605e5c" text-anchor="middle">over OneLake</text>
+        </g>
+
+        <!-- Real-Time Dashboard -->
+        <g filter="url(#cardShadow)">
+            <rect x="560" y="345" width="160" height="80" rx="8" fill="#fff" stroke="#f7630c" stroke-width="1.5"/>
+            <text x="640" y="368" font-size="12" font-weight="700" fill="#a04408" text-anchor="middle">RTI DASHBOARD</text>
+            <text x="640" y="389" font-size="11" fill="#605e5c" text-anchor="middle">live KQL tiles</text>
+            <text x="640" y="407" font-size="11" fill="#605e5c" text-anchor="middle">auto-refresh</text>
+        </g>
+
+        <!-- Power BI Report -->
+        <g filter="url(#cardShadow)">
+            <rect x="740" y="345" width="160" height="80" rx="8" fill="#fff" stroke="#f7630c" stroke-width="1.5"/>
+            <text x="820" y="368" font-size="12" font-weight="700" fill="#a04408" text-anchor="middle">POWER BI REPORT</text>
+            <text x="820" y="389" font-size="11" fill="#605e5c" text-anchor="middle">DirectLake-backed</text>
+            <text x="820" y="407" font-size="11" fill="#605e5c" text-anchor="middle">admissions · diagnoses</text>
+        </g>
+
+        <!-- Data Agents -->
+        <g filter="url(#cardShadow)">
+            <rect x="560" y="450" width="340" height="65" rx="8" fill="#fff" stroke="#7c52e6" stroke-width="2"/>
+            <text x="730" y="475" font-size="12" font-weight="700" fill="#4f29a3" text-anchor="middle">3× FABRIC DATA AGENTS</text>
+            <text x="730" y="497" font-size="11" fill="#605e5c" text-anchor="middle">Hospital Ops · Transit Ops · Airspace</text>
+        </g>
+    </g>
+
+    <!-- ===== Layer 4: ORCHESTRATOR ===== -->
+    <g filter="url(#cardShadow)">
+        <text x="940" y="50" font-size="11" font-weight="700" letter-spacing="2" fill="#4f29a3">ISV PATTERN</text>
+
+        <rect x="940" y="65" width="220" height="465" rx="14" fill="url(#purpleGrad)" stroke="none"/>
+        <text x="1050" y="100" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">MULTI-AGENT</text>
+        <text x="1050" y="120" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">ORCHESTRATOR</text>
+
+        <line x1="960" y1="135" x2="1140" y2="135" stroke="#fff" stroke-opacity="0.3"/>
+
+        <text x="1050" y="160" font-size="11" font-weight="600" fill="#fff" text-anchor="middle">Cross-domain query</text>
+        <text x="1050" y="180" font-size="10" fill="#fff" text-anchor="middle" fill-opacity="0.85">"Region A has delays AND</text>
+        <text x="1050" y="194" font-size="10" fill="#fff" text-anchor="middle" fill-opacity="0.85">rising hospital load. What</text>
+        <text x="1050" y="208" font-size="10" fill="#fff" text-anchor="middle" fill-opacity="0.85">should the city do?"</text>
+
+        <line x1="960" y1="225" x2="1140" y2="225" stroke="#fff" stroke-opacity="0.3"/>
+
+        <text x="1050" y="250" font-size="10" font-weight="600" letter-spacing="1.5" fill="#fff" text-anchor="middle">↓ FAN-OUT TO 3 AGENTS</text>
+        <text x="1050" y="276" font-size="10" fill="#fff" text-anchor="middle">🏥 Hospital · 🚆 Transit · ✈️ Air</text>
+
+        <line x1="960" y1="295" x2="1140" y2="295" stroke="#fff" stroke-opacity="0.3"/>
+
+        <text x="1050" y="320" font-size="10" font-weight="600" letter-spacing="1.5" fill="#fff" text-anchor="middle">+ AZURE AI SEARCH</text>
+        <text x="1050" y="340" font-size="10" fill="#fff" text-anchor="middle" fill-opacity="0.85">RAG · playbooks · KB</text>
+
+        <line x1="960" y1="358" x2="1140" y2="358" stroke="#fff" stroke-opacity="0.3"/>
+
+        <text x="1050" y="383" font-size="10" font-weight="600" letter-spacing="1.5" fill="#fff" text-anchor="middle">+ AZURE OPENAI</text>
+        <text x="1050" y="403" font-size="10" fill="#fff" text-anchor="middle" fill-opacity="0.85">synthesis · gpt-4o-mini</text>
+
+        <line x1="960" y1="420" x2="1140" y2="420" stroke="#fff" stroke-opacity="0.3"/>
+
+        <text x="1050" y="450" font-size="10" font-weight="600" fill="#fff" text-anchor="middle">↓ FINAL ANSWER</text>
+
+        <rect x="965" y="465" width="170" height="50" rx="6" fill="#fff" fill-opacity="0.15" stroke="#fff" stroke-opacity="0.4"/>
+        <text x="1050" y="486" font-size="10" fill="#fff" text-anchor="middle" font-weight="600">Actionable</text>
+        <text x="1050" y="502" font-size="10" fill="#fff" text-anchor="middle">recommendation</text>
+    </g>
+
+    <!-- Connector arrows ===== -->
+    <g stroke="#605e5c" stroke-width="1.4" fill="none" marker-end="url(#arrow)">
+        <!-- sources -> EH -->
+        <path d="M 260 97 L 320 130"/>
+        <path d="M 260 177 L 320 175"/>
+        <path d="M 260 257 L 320 195"/>
+        <path d="M 260 337 L 320 215"/>
+        <!-- tumor -> Lakehouse (skip Event Hubs) -->
+        <path d="M 260 417 C 400 417, 480 290, 560 280"/>
+        <!-- SQL mirror -> Lakehouse -->
+        <path d="M 260 497 C 400 497, 480 305, 560 295"/>
+
+        <!-- EH -> Eventstream -->
+        <path d="M 480 175 L 560 175"/>
+
+        <!-- Eventstream -> Eventhouse -->
+        <path d="M 720 175 L 740 175"/>
+
+        <!-- Eventhouse -> Dashboard -->
+        <path d="M 820 215 L 820 240"/>
+
+        <!-- Lakehouse -> Semantic model -->
+        <path d="M 720 280 L 740 280"/>
+
+        <!-- Semantic model -> Power BI -->
+        <path d="M 820 320 L 820 345"/>
+
+        <!-- Eventhouse -> Dashboard -->
+        <path d="M 730 215 C 700 230, 680 290, 660 345"/>
+
+        <!-- Eventhouse -> Agents -->
+        <path d="M 820 215 C 820 320, 800 410, 760 450"/>
+        <!-- Lakehouse -> Agents (lineage) -->
+        <path d="M 640 320 L 660 450"/>
+
+        <!-- Agents -> Orchestrator -->
+        <path d="M 900 480 L 940 380"/>
+    </g>
+
+    <!-- Layer labels at bottom -->
+    <g font-size="10" font-weight="600" letter-spacing="1.5" fill="#8a8886" text-anchor="middle">
+        <text x="170" y="568">SOURCES</text>
+        <text x="400" y="568">AZURE INGEST</text>
+        <text x="730" y="568">FABRIC PLATFORM</text>
+        <text x="1050" y="568">ORCHESTRATION</text>
+    </g>
+
+    <!-- Module pills along bottom -->
+    <g font-size="10" font-weight="600" text-anchor="middle">
+        <rect x="100" y="582" width="140" height="22" rx="11" fill="#ede4fb" stroke="#7c52e6"/>
+        <text x="170" y="597" fill="#4f29a3">MODULES 0–2</text>
+
+        <rect x="330" y="582" width="140" height="22" rx="11" fill="#ede4fb" stroke="#7c52e6"/>
+        <text x="400" y="597" fill="#4f29a3">MODULE 3</text>
+
+        <rect x="660" y="582" width="140" height="22" rx="11" fill="#ede4fb" stroke="#7c52e6"/>
+        <text x="730" y="597" fill="#4f29a3">MODULES 4 &amp; 5</text>
+
+        <rect x="980" y="582" width="140" height="22" rx="11" fill="#ede4fb" stroke="#7c52e6"/>
+        <text x="1050" y="597" fill="#4f29a3">MODULES 6 &amp; 7</text>
+    </g>
+
+</svg>

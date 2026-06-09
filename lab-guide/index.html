@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ISV Data Summit - Day 2 Hands-On Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit</div>
+            <div class="event-subtitle">Build, Govern &amp; Scale with Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Day 2 · Hands-On Lab</div>
+</header>
+
+<div class="cover">
+    <div class="cover-eyebrow">Day 2 · June 17 · 11 AM – 5:30 PM ET</div>
+    <h1>UrbanPulse:<br/>Build a Smart City Operations Platform on Microsoft Fabric</h1>
+    <p class="cover-tagline">
+        A guided, scenario-based hands-on lab where you assume the role of an ISV
+        building a real-time, multi-domain operations platform - combining live
+        hospital, transit, and airspace data into a unified Fabric solution with
+        natural-language data agents.
+    </p>
+
+    <div class="cover-meta">
+        <div class="meta-block">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">~6 hours</div>
+        </div>
+        <div class="meta-block">
+            <div class="meta-label">Modules</div>
+            <div class="meta-value">7 (M0 – M6)</div>
+        </div>
+        <div class="meta-block">
+            <div class="meta-label">Skill level</div>
+            <div class="meta-value">Intermediate</div>
+        </div>
+        <div class="meta-block">
+            <div class="meta-label">Environment</div>
+            <div class="meta-value">Pre-provisioned</div>
+        </div>
+    </div>
+
+    <div class="module-grid">
+
+        <a class="module-card" href="module-0-setup.html">
+            <span class="mc-number">MODULE 0</span>
+            <h3 class="mc-title">Setup &amp; Environment Check</h3>
+            <p class="mc-desc">
+                Verify your pre-provisioned Fabric workspace, capacity, lakehouse,
+                eventhouse, and the four shared Azure Event Hubs are wired up. Confirm everything is ready
+                before we start building.
+            </p>
+            <div class="mc-time"><strong>15 min</strong> · UI tour, sanity checks</div>
+        </a>
+
+        <a class="module-card" href="module-1-workspace-tour.html">
+            <span class="mc-number">MODULE 1</span>
+            <h3 class="mc-title">Workspace Tour &amp; ISV Architecture</h3>
+            <p class="mc-desc">
+                Walk through the UrbanPulse multi-tenant architecture, OneLake
+                explorer, capacity, RBAC, and the medallion model you'll build today.
+            </p>
+            <div class="mc-time"><strong>30 min</strong> · concepts + UI tour</div>
+        </a>
+
+        <a class="module-card" href="module-2-lakehouse-mirror.html">
+            <span class="mc-number">MODULE 2</span>
+            <h3 class="mc-title">Lakehouse, Shortcuts &amp; Mirroring</h3>
+            <p class="mc-desc">
+                Land tumor-imaging Parquet into the Bronze Lakehouse, mirror an
+                Azure SQL Student DB with zero-ETL, and shortcut a Cosmos DB
+                container for unified data access.
+            </p>
+            <div class="mc-time"><strong>45 min</strong> · Lakehouse + Mirror + Shortcut</div>
+        </a>
+
+        <a class="module-card health" href="module-3-streaming.html">
+            <span class="mc-number">MODULE 3</span>
+            <h3 class="mc-title">Real-Time Streaming Ingest</h3>
+            <p class="mc-desc">
+                Stand up four Eventstreams routing live data from Event Hubs into
+                a Fabric Eventhouse - hospital vitals, hospital movement, Metra
+                trains, and live ADS-B aircraft.
+            </p>
+            <div class="mc-time"><strong>75 min</strong> · Event Hubs → Eventstream → Eventhouse</div>
+        </a>
+
+        <a class="module-card transit" href="module-4-kql-dashboard.html">
+            <span class="mc-number">MODULE 4</span>
+            <h3 class="mc-title">KQL Analytics &amp; Real-Time Dashboard</h3>
+            <p class="mc-desc">
+                Write KQL across hospital, transit, and airspace tables. Pin live
+                tiles to a Real-Time Intelligence Dashboard and watch the city
+                update in front of you.
+            </p>
+            <div class="mc-time"><strong>60 min</strong> · KQL + RTI Dashboard</div>
+        </a>
+
+        <a class="module-card" href="module-5-direct-lake.html">
+            <span class="mc-number">MODULE 5</span>
+            <h3 class="mc-title">Direct Lake + Power BI</h3>
+            <p class="mc-desc">
+                Build a Direct Lake semantic model on the Bronze Lakehouse and ship a
+                1-page Power BI report - no import refresh, no DirectQuery latency.
+            </p>
+            <div class="mc-time"><strong>30 min</strong> · Direct Lake + Power BI</div>
+        </a>
+
+        <a class="module-card airspace" href="module-6-data-agents.html">
+            <span class="mc-number">MODULE 6</span>
+            <h3 class="mc-title">Build &amp; Publish a Fabric Data Agent</h3>
+            <p class="mc-desc">
+                Build the Hospital Operations Fabric Data Agent on live KQL data, then
+                publish it to Microsoft 365 Copilot. Optional stretch: Transit + Airspace agents.
+            </p>
+            <div class="mc-time"><strong>45 min</strong> · Fabric Data Agents · M365 Copilot</div>
+        </a>
+
+        <a class="module-card" href="module-7-foundry-orchestrator.html">
+            <span class="mc-number">MODULE 7 · ★ OPTIONAL</span>
+            <h3 class="mc-title">Foundry Connected-Agent Orchestrator</h3>
+            <p class="mc-desc">
+                Wire your Fabric Data Agents into an Azure AI Foundry connected-agent
+                orchestrator and publish that to M365 Copilot for cross-domain reasoning. No code.
+            </p>
+            <div class="mc-time"><strong>30 min</strong> · Azure AI Foundry · M365 Copilot</div>
+        </a>
+
+    </div>
+
+    <div style="margin-top: 64px; max-width: 1400px; width: 100%;">
+        <h2 style="text-align: center; border: none;">What You'll Build</h2>
+        <div class="diagram">
+            <object type="image/svg+xml" data="assets/images/architecture-overview.svg" style="width:100%;">
+                Architecture diagram
+            </object>
+            <div class="caption">
+                Figure 1 - UrbanPulse end-to-end architecture: streaming ingest, medallion lakehouse,
+                real-time analytics, semantic model, and an orchestrated multi-agent layer.
+            </div>
+        </div>
+    </div>
+
+    <div style="max-width: 880px; width: 100%; margin-top: 48px;">
+        <h2 style="text-align: center; border: none;">Prerequisites</h2>
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <p><strong>Everything you need has been pre-provisioned.</strong> Each attendee receives:</p>
+                <ul>
+                    <li>A dedicated Fabric workspace (<code>urbanpulse-{your-id}</code>) on a shared F-SKU capacity</li>
+                    <li>Read access to four shared Azure Event Hubs streaming live data</li>
+                    <li>A <strong>Lab Credentials</strong> reference page with every connection string, key, and endpoint pre-filled</li>
+                    <li>An Azure AI Search index <code>city-ops-index</code> + Azure OpenAI deployment for the optional Module 7 Foundry orchestrator</li>
+                </ul>
+                <p style="margin-top: 8px;">
+                    You do <strong>not</strong> need your own Azure subscription, a Cloud PC, or any local installs -
+                    everything happens in your browser. Coaches run the data simulators centrally; your job is to build on top.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 56px;">
+        <a class="module-card" style="display:inline-block; min-width:280px;" href="module-0-setup.html">
+            <span class="mc-number">START HERE →</span>
+            <h3 class="mc-title">Module 0 · Environment Check</h3>
+            <p class="mc-desc">Sign in to Fabric, find your workspace, then we begin.</p>
+        </a>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span></p>
+    <p>Lab content based on the <a href="https://github.com/nickTinMicrosoft/fabric_hackathon_coaches">Fabric Hackathon Coaches repository</a> · Adapted for the ISV Summit Day 2 hands-on workshop.</p>
+</footer>
+
+</body>
+</html>

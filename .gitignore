@@ -1,0 +1,26 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# VS Code workspace state
+.vscode/
+*.code-search
+
+# Copilot / AI tool state
+.copilot/
+.github-copilot-cache/
+
+# Local secrets (defensive — none expected in this repo, but just in case)
+*.env
+.env.*
+!.env.example
+secrets/
+credentials/
+
+# Build artifacts (none today, but future-proof)
+node_modules/
+dist/
+build/

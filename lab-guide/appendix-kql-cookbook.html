@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appendix B · KQL Cookbook - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Appendix B</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Appendix B · Reference</div>
+        <h1>KQL Cookbook</h1>
+        <p class="lead">
+            Reusable Kusto patterns for the four streaming tables. Copy, paste, adapt.
+            Every query here is read-only and uses table-scoped time windows for performance.
+        </p>
+    </div>
+
+    <!-- ========= UNIVERSAL ========= -->
+    <section id="universal">
+        <h2>Universal Patterns</h2>
+
+        <h3>Most-recent reading per entity</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>{TABLE}
+| where timestamp &gt; ago(15m)
+| summarize arg_max(timestamp, *) by {ENTITY_KEY}</code></pre>
+</div>
+        <p>Replace <code>{TABLE}</code> with one of <code>HospitalVitals</code>, <code>HospitalMovement</code>, <code>TrainTelemetry</code>, <code>FlightTelemetry</code>, and <code>{ENTITY_KEY}</code> with <code>patient_id</code>, <code>trainId</code>, or <code>hex</code>.</p>
+
+        <h3>Bin and chart over time</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>{TABLE}
+| where timestamp &gt; ago(1h)
+| summarize value = avg({METRIC}) by bin(timestamp, 1m)
+| render timechart</code></pre>
+</div>
+
+        <h3>Count rows per stream in last 5 minutes (health check)</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>union withsource = table
+    HospitalVitals, HospitalMovement, TrainTelemetry, FlightTelemetry
+| where timestamp &gt; ago(5m)
+| summarize events = count() by table</code></pre>
+</div>
+    </section>
+
+    <!-- ========= HOSPITAL ========= -->
+    <section id="hospital">
+        <h2><span class="pill kql">🏥 HOSPITAL</span> Patterns</h2>
+
+        <h3>Critical patients right now</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>HospitalVitals
+| where timestamp &gt; ago(15m)
+| summarize arg_max(timestamp, *) by patient_id
+| where condition == "critical"
+   or spo2 &lt; 90
+   or heart_rate &gt; 120
+   or heart_rate &lt; 50
+| project patient_id, condition, heart_rate, spo2, bp_systolic, bp_diastolic, timestamp</code></pre>
+</div>
+
+        <h3>Patient location + latest vitals (join)</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>let location =
+    HospitalMovement
+    | summarize arg_max(timestamp, *) by patient_id
+    | where event_type != "Discharged"
+    | project patient_id, current_location = to_location, last_event = event_type;
+let vitals =
+    HospitalVitals
+    | summarize arg_max(timestamp, *) by patient_id;
+location
+| join kind = inner vitals on patient_id
+| project patient_id, current_location, last_event, condition, heart_rate, spo2, timestamp</code></pre>
+</div>
+
+        <h3>Room occupancy</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>HospitalMovement
+| summarize arg_max(timestamp, *) by patient_id
+| where event_type != "Discharged"
+| summarize patients = count() by to_location
+| order by patients desc</code></pre>
+</div>
+
+        <h3>SpO2 trend by patient (last 30 minutes)</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>let critical_patients =
+    HospitalVitals
+    | where timestamp &gt; ago(15m)
+    | summarize arg_max(timestamp, *) by patient_id
+    | where condition == "critical"
+    | distinct patient_id;
+HospitalVitals
+| where timestamp &gt; ago(30m)
+| where patient_id in (critical_patients)
+| summarize avg_spo2 = avg(spo2) by bin(timestamp, 1m), patient_id
+| render timechart</code></pre>
+</div>
+
+        <h3>Recent admissions</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>HospitalMovement
+| where timestamp &gt; ago(1h)
+| where event_type == "Admitted"
+| project timestamp, patient_id, diagnosis_desc, to_location
+| order by timestamp desc</code></pre>
+</div>
+    </section>
+
+    <!-- ========= TRANSIT ========= -->
+    <section id="transit">
+        <h2><span class="pill kql">🚆 TRANSIT</span> Patterns</h2>
+
+        <h3>Current fleet status</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>TrainTelemetry
+| where timestamp &gt; ago(10m)
+| summarize arg_max(timestamp, *) by trainId
+| project trainId, line, speed, status, lat, lon, timestamp</code></pre>
+</div>
+
+        <h3>Average speed per line (last hour)</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>TrainTelemetry
+| where timestamp &gt; ago(1h)
+| summarize avg_speed = round(avg(speed), 1) by line
+| order by avg_speed asc</code></pre>
+</div>
+
+        <h3>Trains delayed in the last hour</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>TrainTelemetry
+| where timestamp &gt; ago(1h)
+| where status == "Delayed"
+| summarize delayed_readings = count() by trainId, line
+| order by delayed_readings desc</code></pre>
+</div>
+
+        <h3>Speed timechart (per train)</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>TrainTelemetry
+| where timestamp &gt; ago(1h)
+| summarize avg_speed = avg(speed) by bin(timestamp, 1m), trainId
+| render timechart</code></pre>
+</div>
+
+        <h3>Map of current train positions</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>TrainTelemetry
+| where timestamp &gt; ago(10m)
+| summarize arg_max(timestamp, *) by trainId
+| project trainId, lat, lon, line
+| render scatterchart with (kind=map, ymin=lat, ymax=lat, xcolumn=lon)</code></pre>
+</div>
+    </section>
+
+    <!-- ========= AIRSPACE ========= -->
+    <section id="airspace">
+        <h2><span class="pill kql">✈️ AIRSPACE</span> Patterns</h2>
+
+        <h3>Aircraft airborne right now</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>FlightTelemetry
+| where timestamp &gt; ago(5m)
+| summarize arg_max(timestamp, *) by hex
+| where alt_baro &gt; 0
+| project flight, hex, lat, lon, alt_baro, gs, track, timestamp</code></pre>
+</div>
+
+        <h3>Low-altitude (likely approach)</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>FlightTelemetry
+| where timestamp &gt; ago(5m)
+| summarize arg_max(timestamp, *) by hex
+| where alt_baro between (0 .. 5000)
+| project flight, alt_baro, gs, lat, lon
+| order by alt_baro asc</code></pre>
+</div>
+
+        <h3>Emergency squawks</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>FlightTelemetry
+| where timestamp &gt; ago(15m)
+| where squawk in ("7500", "7600", "7700")
+| summarize arg_max(timestamp, *) by hex
+| project flight, hex, squawk, alt_baro, lat, lon, timestamp</code></pre>
+</div>
+
+        <h3>Aircraft within radius of a point</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>let center_lat = 41.97;
+let center_lon = -87.90;
+let radius_km  = 50.0;
+FlightTelemetry
+| where timestamp &gt; ago(5m)
+| summarize arg_max(timestamp, *) by hex
+| extend dist_km = geo_distance_2points(lon, lat, center_lon, center_lat) / 1000.0
+| where dist_km &lt; radius_km
+| order by dist_km asc</code></pre>
+</div>
+
+        <h3>Activity heatmap by altitude band</h3>
+<div class="code-block">
+<span class="lang-badge">KQL</span>
+<pre><code>FlightTelemetry
+| where timestamp &gt; ago(30m)
+| summarize aircraft = dcount(hex) by bin(alt_baro, 5000)
+| order by alt_baro asc
+| render columnchart</code></pre>
+</div>
+    </section>
+
+    <!-- ========= TIPS ========= -->
+    <section id="tips">
+        <h2>Performance &amp; Style Tips</h2>
+        <ul>
+            <li>Always lead with a <code>where timestamp &gt; ago(...)</code> filter - Eventhouse is sharded by ingestion time.</li>
+            <li>Use <code>arg_max(timestamp, *) by {key}</code> instead of self-joins for "latest per entity".</li>
+            <li>Bin with <code>bin(timestamp, 1m)</code> for sub-hour trends; <code>bin(timestamp, 1h)</code> for daily trends.</li>
+            <li><code>render timechart</code> needs a numeric value column + a time column. Categorical splits are auto-detected.</li>
+            <li>For RTI Dashboard tiles, parametrize the time range with <code>_timeRange</code> instead of hard-coding <code>ago(15m)</code>.</li>
+            <li>Use <code>summarize</code> early. Filter early. Project late.</li>
+        </ul>
+
+        <div class="callout tip">
+            <span class="callout-icon">✓</span>
+            <div class="callout-content">
+                <strong>The "right query" is usually the smallest one.</strong> Eventhouse rewards filtering and summarization,
+                punishes returning million-row result sets. If a query takes &gt; 2 seconds in this lab, it can probably be
+                rewritten using <code>arg_max</code> or a tighter time window.
+            </div>
+        </div>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="appendix-env-vars.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Appendix A · Lab Credentials</div>
+        </a>
+        <a class="nav-card next" href="appendix-prompt-library.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Appendix C · Prompt Library</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>

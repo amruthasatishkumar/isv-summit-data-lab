@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 3 · Real-Time Streaming Ingest - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Module 3 of 7</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Module 3 · Build Phase 2</div>
+        <h1>Real-Time Streaming Ingest</h1>
+        <p class="lead">
+            Stand up a Fabric Eventhouse, define KQL tables for four live data streams
+            (hospital vitals, hospital movement, Metra trains, ADS-B aircraft), wire each
+            Event Hub through an Eventstream, and watch live data start flowing.
+        </p>
+        <div class="module-meta">
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>75 minutes</strong></div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> 4 streams → 1 Eventhouse</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Eventhouse · Eventstream · KQL</div>
+        </div>
+    </div>
+
+    <section id="objectives">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Activate the pre-provisioned <strong>Eventhouse</strong> and its KQL Database.</li>
+            <li>Create <strong>four KQL tables</strong> with explicit schemas + JSON ingestion mappings.</li>
+            <li>Build <strong>four Eventstreams</strong> (one per source) routing Event Hub → KQL.</li>
+            <li>Verify live ingestion with <strong>KQL queries</strong> on each table.</li>
+            <li>Understand when to use Eventstream's no-code path vs. KQL update policies.</li>
+        </ul>
+    </section>
+
+    <section id="streams">
+        <h2>The Four Streams You'll Wire Up</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Stream</th>
+                    <th>Source (Event Hub)</th>
+                    <th>KQL table</th>
+                    <th>Volume</th>
+                    <th>Domain</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>🏥 Hospital Vitals</td>
+                    <td><code>hospital-vitals</code></td>
+                    <td><code>HospitalVitals</code></td>
+                    <td>~1 evt/8s × 15 patients</td>
+                    <td>Health</td>
+                </tr>
+                <tr>
+                    <td>🏥 Hospital Movement</td>
+                    <td><code>hospital-movement</code></td>
+                    <td><code>HospitalMovement</code></td>
+                    <td>~1 evt/min</td>
+                    <td>Health</td>
+                </tr>
+                <tr>
+                    <td>🚆 Metra Trains</td>
+                    <td><code>metrotrain</code></td>
+                    <td><code>TrainTelemetry</code></td>
+                    <td>~1 evt/3s × 3 trains</td>
+                    <td>Transit</td>
+                </tr>
+                <tr>
+                    <td>✈️ Flight Tracker</td>
+                    <td><code>flight-tracker</code></td>
+                    <td><code>FlightTelemetry</code></td>
+                    <td>~10 evt/5s</td>
+                    <td>Airspace</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="diagram">
+            <object type="image/svg+xml" data="assets/images/streaming-pipeline.svg" style="width:100%;">
+                Streaming pipeline diagram
+            </object>
+            <div class="caption">Figure 3.1 - Module 3 fan-in pattern: four Event Hubs → four Eventstreams → one Eventhouse with four KQL tables.</div>
+        </div>
+    </section>
+
+    <section id="step-1">
+        <h2>Step 1 - Open Your Eventhouse <span class="pill eventhouse">EVENTHOUSE</span></h2>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open <code>eh_urbanpulse_rti</code></h3>
+                <div class="step-body">
+                    <p>From your workspace home, click the Eventhouse item. The landing page shows <strong>System Overview</strong> with the embedded KQL Database.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Open the KQL Database</h3>
+                <div class="step-body">
+                    <p>Inside the Eventhouse, click the KQL Database tile (same name). This is where all KQL tables will live.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-3/01-eventhouse-overview.png</div>
+                            <div>Eventhouse System Overview with the KQL Database tile</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Open a query window</h3>
+                <div class="step-body">
+                    <p>Click the <strong>Explore your data</strong> button (or the database name in the left tree → <strong>Query</strong>). You'll write all the KQL in this query editor.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-2">
+        <h2>Step 2 - Create All Four KQL Tables <span class="pill kql">KQL</span></h2>
+
+        <p>Run the following KQL block in the query editor. It creates all four tables, enables streaming ingestion, and registers JSON ingestion mappings (which Eventstream will reference).</p>
+
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>Why explicit mappings?</strong>
+                Eventstream's no-code path can also infer schema, but for production-grade ingest
+                you want named mappings so schema drift in the source doesn't silently break ingestion.
+                This is the same pattern the hackathon repo uses - and it's the ISV-grade way.
+            </div>
+        </div>
+
+        <h3>2a - Hospital Vitals + Hospital Movement</h3>
+
+        <div class="code-block">
+            <span class="lang-badge">KQL</span>
+<pre><code>// =========================================================
+// HOSPITAL VITALS - patient telemetry
+// =========================================================
+.create table HospitalVitals (
+    patient_id: string,
+    age: int,
+    gender: string,
+    diagnosis_code: string,
+    condition: string,
+    heart_rate: int,
+    bp_systolic: int,
+    bp_diastolic: int,
+    temperature_f: real,
+    spo2: int,
+    respiratory_rate: int,
+    timestamp: datetime
+)
+
+.alter table HospitalVitals policy streamingingestion enable
+
+.create table HospitalVitals ingestion json mapping 'HospitalVitals_mapping'
+'[{"column":"patient_id","path":"$.patient_id","datatype":"string"},'
+ '{"column":"age","path":"$.age","datatype":"int"},'
+ '{"column":"gender","path":"$.gender","datatype":"string"},'
+ '{"column":"diagnosis_code","path":"$.diagnosis_code","datatype":"string"},'
+ '{"column":"condition","path":"$.condition","datatype":"string"},'
+ '{"column":"heart_rate","path":"$.heart_rate","datatype":"int"},'
+ '{"column":"bp_systolic","path":"$.bp_systolic","datatype":"int"},'
+ '{"column":"bp_diastolic","path":"$.bp_diastolic","datatype":"int"},'
+ '{"column":"temperature_f","path":"$.temperature_f","datatype":"real"},'
+ '{"column":"spo2","path":"$.spo2","datatype":"int"},'
+ '{"column":"respiratory_rate","path":"$.respiratory_rate","datatype":"int"},'
+ '{"column":"timestamp","path":"$.timestamp","datatype":"datetime"}]'
+
+// =========================================================
+// HOSPITAL MOVEMENT - admit / transfer / discharge events
+// =========================================================
+.create table HospitalMovement (
+    patient_id: string,
+    age: int,
+    gender: string,
+    diagnosis_code: string,
+    diagnosis_desc: string,
+    event_type: string,
+    from_location: string,
+    to_location: string,
+    floor: string,
+    timestamp: datetime
+)
+
+.alter table HospitalMovement policy streamingingestion enable
+
+.create table HospitalMovement ingestion json mapping 'HospitalMovement_mapping'
+'[{"column":"patient_id","path":"$.patient_id","datatype":"string"},'
+ '{"column":"age","path":"$.age","datatype":"int"},'
+ '{"column":"gender","path":"$.gender","datatype":"string"},'
+ '{"column":"diagnosis_code","path":"$.diagnosis_code","datatype":"string"},'
+ '{"column":"diagnosis_desc","path":"$.diagnosis_desc","datatype":"string"},'
+ '{"column":"event_type","path":"$.event_type","datatype":"string"},'
+ '{"column":"from_location","path":"$.from_location","datatype":"string"},'
+ '{"column":"to_location","path":"$.to_location","datatype":"string"},'
+ '{"column":"floor","path":"$.floor","datatype":"string"},'
+ '{"column":"timestamp","path":"$.timestamp","datatype":"datetime"}]'</code></pre>
+        </div>
+
+        <h3>2b - Metra Train Telemetry</h3>
+
+        <div class="code-block">
+            <span class="lang-badge">KQL</span>
+<pre><code>// =========================================================
+// TRAIN TELEMETRY - Red / Blue / Green lines
+// =========================================================
+.create table TrainTelemetry (
+    trainId: string,
+    line: string,
+    lat: real,
+    lon: real,
+    speed: real,
+    status: string,
+    timestamp: datetime
+)
+
+.alter table TrainTelemetry policy streamingingestion enable
+
+.create table TrainTelemetry ingestion json mapping 'TrainTelemetry_mapping'
+'[{"column":"trainId","path":"$.trainId","datatype":"string"},'
+ '{"column":"line","path":"$.line","datatype":"string"},'
+ '{"column":"lat","path":"$.lat","datatype":"real"},'
+ '{"column":"lon","path":"$.lon","datatype":"real"},'
+ '{"column":"speed","path":"$.speed","datatype":"real"},'
+ '{"column":"status","path":"$.status","datatype":"string"},'
+ '{"column":"timestamp","path":"$.timestamp","datatype":"datetime"}]'</code></pre>
+        </div>
+
+        <h3>2c - Flight Tracker</h3>
+
+        <div class="code-block">
+            <span class="lang-badge">KQL</span>
+<pre><code>// =========================================================
+// FLIGHT TELEMETRY - live ADS-B from PiAware
+// =========================================================
+.create table FlightTelemetry (
+    hex: string,
+    flight: string,
+    lat: real,
+    lon: real,
+    alt_baro: int,
+    alt_geom: int,
+    gs: real,
+    track: real,
+    squawk: string,
+    category: string,
+    rssi: real,
+    timestamp: datetime
+)
+
+.alter table FlightTelemetry policy streamingingestion enable
+
+.create table FlightTelemetry ingestion json mapping 'FlightTelemetry_mapping'
+'[{"column":"hex","path":"$.hex","datatype":"string"},'
+ '{"column":"flight","path":"$.flight","datatype":"string"},'
+ '{"column":"lat","path":"$.lat","datatype":"real"},'
+ '{"column":"lon","path":"$.lon","datatype":"real"},'
+ '{"column":"alt_baro","path":"$.alt_baro","datatype":"int"},'
+ '{"column":"alt_geom","path":"$.alt_geom","datatype":"int"},'
+ '{"column":"gs","path":"$.gs","datatype":"real"},'
+ '{"column":"track","path":"$.track","datatype":"real"},'
+ '{"column":"squawk","path":"$.squawk","datatype":"string"},'
+ '{"column":"category","path":"$.category","datatype":"string"},'
+ '{"column":"rssi","path":"$.rssi","datatype":"real"},'
+ '{"column":"timestamp","path":"$.timestamp","datatype":"datetime"}]'
+
+// =========================================================
+// VERIFY - list all four tables
+// =========================================================
+.show tables</code></pre>
+        </div>
+
+        <div class="validation">
+            <h4>Validation</h4>
+            <p><code>.show tables</code> should return four rows: <code>HospitalVitals</code>, <code>HospitalMovement</code>, <code>TrainTelemetry</code>, <code>FlightTelemetry</code>. All empty for now.</p>
+        </div>
+    </section>
+
+    <section id="step-3">
+        <h2>Step 3 - Build the Four Eventstreams <span class="pill eventstream">EVENTSTREAM</span></h2>
+
+        <p>You'll repeat the same recipe four times. We'll walk through it once for Hospital Vitals; the others follow the same pattern with different names.</p>
+
+        <h3>Recipe - for each of the four streams</h3>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create the Eventstream</h3>
+                <div class="step-body">
+                    <p>Workspace → <strong>+ New item</strong> → <strong>Eventstream</strong>.</p>
+                    <p>Name it using this convention:</p>
+                    <table>
+                        <thead><tr><th>Stream</th><th>Eventstream name</th></tr></thead>
+                        <tbody>
+                            <tr><td>Hospital Vitals</td><td><code>es-hospital-vitals</code></td></tr>
+                            <tr><td>Hospital Movement</td><td><code>es-hospital-movement</code></td></tr>
+                            <tr><td>Metra Trains</td><td><code>es-metra-trains</code></td></tr>
+                            <tr><td>Flight Tracker</td><td><code>es-flight-tracker</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Add the Source (Azure Event Hubs)</h3>
+                <div class="step-body">
+                    <p>In the Eventstream canvas, click <strong>New source</strong> → <strong>Azure Event Hubs</strong>.</p>
+                    <p>Configuration values per stream (paste the matching connection string from <a href="appendix-env-vars.html" target="_blank">Appendix A · Lab Credentials</a>):</p>
+                    <table>
+                        <thead><tr><th>Eventstream</th><th>Connection variable</th><th>Event Hub name</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>es-hospital-vitals</code></td><td><code>EVENTHUB_VITALS_CONN_STR</code></td><td><code>hospital-vitals</code></td></tr>
+                            <tr><td><code>es-hospital-movement</code></td><td><code>EVENTHUB_MOVEMENT_CONN_STR</code></td><td><code>hospital-movement</code></td></tr>
+                            <tr><td><code>es-metra-trains</code></td><td><code>EVENTHUB_TRAIN_CONN_STR</code></td><td><code>metrotrain</code></td></tr>
+                            <tr><td><code>es-flight-tracker</code></td><td><code>EVENTHUB_FLIGHT_CONN_STR</code></td><td><code>flight-tracker</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p>Other settings (same for all four):</p>
+                    <ul>
+                        <li><strong>Consumer group</strong>: <code>$Default</code></li>
+                        <li><strong>Data format</strong>: JSON</li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Verify in the preview pane</h3>
+                <div class="step-body">
+                    <p>The Eventstream canvas shows a live event preview. You should see JSON events arriving within ~10 seconds.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-3/02-eventstream-preview.png</div>
+                            <div>Eventstream canvas with the live event preview pane showing JSON events from <code>hospital-vitals</code></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Add the Destination (KQL Database)</h3>
+                <div class="step-body">
+                    <p>Click <strong>New destination</strong> → <strong>KQL Database</strong>.</p>
+                    <ul>
+                        <li><strong>Workspace</strong>: <code>urbanpulse-{your-id}</code></li>
+                        <li><strong>KQL Database</strong>: select your Eventhouse's database</li>
+                        <li><strong>Destination table</strong>: pick the matching table from the table below</li>
+                        <li><strong>Input data format</strong>: JSON</li>
+                        <li><strong>Mapping</strong>: pick the matching mapping (same name + <code>_mapping</code>)</li>
+                    </ul>
+                    <table>
+                        <thead><tr><th>Eventstream</th><th>Destination table</th><th>Mapping</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>es-hospital-vitals</code></td><td><code>HospitalVitals</code></td><td><code>HospitalVitals_mapping</code></td></tr>
+                            <tr><td><code>es-hospital-movement</code></td><td><code>HospitalMovement</code></td><td><code>HospitalMovement_mapping</code></td></tr>
+                            <tr><td><code>es-metra-trains</code></td><td><code>TrainTelemetry</code></td><td><code>TrainTelemetry_mapping</code></td></tr>
+                            <tr><td><code>es-flight-tracker</code></td><td><code>FlightTelemetry</code></td><td><code>FlightTelemetry_mapping</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Publish the Eventstream</h3>
+                <div class="step-body">
+                    <p>Click <strong>Publish</strong> on the toolbar. The status badge changes to <strong>Running</strong> and rows start appearing in the destination KQL table within ~30 seconds.</p>
+                    <div class="callout warning">
+                        <span class="callout-icon">!</span>
+                        <div class="callout-content">
+                            <strong>If "Running" doesn't appear within a minute</strong>, check that you used the correct
+                            <code>EVENTHUB_*_CONN_STR</code> variable for that stream. Wrong connection string is the
+                            #1 cause of silent failure.
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ol>
+
+        <div class="callout purple">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>Time-saver:</strong> If you finish your Hospital Vitals Eventstream early, the other three are
+                copy-paste with different names. Aim to have all four <strong>Running</strong> within the module's
+                75 minutes - the <em>real</em> learning is what you do with the data in Modules 4 and 5.
+            </div>
+        </div>
+    </section>
+
+    <section id="step-4">
+        <h2>Step 4 - Verify End-to-End with KQL</h2>
+
+        <p>Switch back to the KQL query editor and run these one at a time. Each should return ten recent rows with timestamps from the last minute or so.</p>
+
+        <div class="code-block">
+            <span class="lang-badge">KQL · validation</span>
+<pre><code>HospitalVitals       | take 10
+HospitalMovement     | take 10
+TrainTelemetry       | take 10
+FlightTelemetry      | take 10
+
+// Row counts in last 5 minutes - all four should have &gt; 0
+union withsource=table HospitalVitals, HospitalMovement, TrainTelemetry, FlightTelemetry
+| where timestamp &gt; ago(5m)
+| summarize events = count() by table
+| order by events desc</code></pre>
+        </div>
+
+        <div class="screenshot placeholder">
+            <div class="placeholder-body">
+                <div class="ph-icon">📷</div>
+                <div class="ph-title">SCREENSHOT NEEDED</div>
+                <div class="ph-meta">module-3/03-kql-results.png</div>
+                <div>KQL query editor showing the union row-count query with non-zero counts for all four tables</div>
+            </div>
+        </div>
+
+        <div class="validation">
+            <h4>Validation</h4>
+            <ul>
+                <li>All four tables return rows from the last 5 minutes.</li>
+                <li>Hospital Vitals should be highest volume (most patients × frequency); Movement is the smallest.</li>
+                <li>Train and Flight should both show steady arrivals.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="when-update-policy">
+        <h2>Bonus - When to Use KQL Update Policies</h2>
+
+        <p>Eventstream gives you a no-code, JSON-passthrough path. But sometimes you want to <em>transform</em> data on the way in - e.g., flag critical patients at write time. KQL's <strong>update policy</strong> is how you do that.</p>
+
+        <details>
+            <summary><strong>Optional - Add a "vitals_alerts" derived table (skip if short on time)</strong></summary>
+<div class="code-block">
+<span class="lang-badge">KQL · update policy</span>
+<pre><code>// 1. The destination - only critical readings end up here
+.create table VitalsAlerts (
+    patient_id: string,
+    heart_rate: int,
+    spo2: int,
+    temperature_f: real,
+    severity: string,
+    timestamp: datetime
+)
+
+// 2. The function that filters + transforms
+.create function VitalsAlerts_TransformFn() {
+    HospitalVitals
+    | where heart_rate &gt; 120 or heart_rate &lt; 50
+         or spo2 &lt; 90
+         or temperature_f &gt; 101.5
+    | extend severity = case(
+        spo2 &lt; 88 or heart_rate &gt; 140, "critical",
+        "warning")
+    | project patient_id, heart_rate, spo2, temperature_f, severity, timestamp
+}
+
+// 3. Bind the function to the destination - runs on every batch ingest
+.alter table VitalsAlerts policy update
+@'[{"Source":"HospitalVitals","Query":"VitalsAlerts_TransformFn()","IsEnabled":true,"PropagateIngestionProperties":true}]'</code></pre>
+</div>
+        </details>
+
+        <div class="callout tip">
+            <span class="callout-icon">✓</span>
+            <div class="callout-content">
+                Update policies run synchronously on the ingest path, so the derived table is always in lock-step
+                with the source. Combine that with a Real-Time Dashboard tile (Module 4) for a true sub-minute alerting pipeline.
+            </div>
+        </div>
+    </section>
+
+    <section id="recap">
+        <h2>What You Just Built</h2>
+        <ul>
+            <li>An Eventhouse with <strong>four KQL tables</strong> + JSON ingestion mappings.</li>
+            <li>Four Eventstreams, all <strong>Running</strong>, fanning Event Hub data into Fabric.</li>
+            <li>Validation queries showing live data hitting all four tables.</li>
+            <li>(Optional) A derived alerts table powered by a KQL update policy.</li>
+        </ul>
+
+        <p>Module 4 is where this gets fun: you'll write KQL across all four tables and pin live tiles to a Real-Time Dashboard.</p>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-2-lakehouse-mirror.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 2 · Lakehouse + Mirror</div>
+        </a>
+        <a class="nav-card next" href="module-4-kql-dashboard.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Module 4 · KQL + Dashboard</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>

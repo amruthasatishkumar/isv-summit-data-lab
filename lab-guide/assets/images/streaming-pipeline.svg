@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 460" font-family="Segoe UI, sans-serif">
+    <defs>
+        <linearGradient id="ehGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4f29a3"/>
+            <stop offset="1" stop-color="#7c52e6"/>
+        </linearGradient>
+        <marker id="arrFlow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#605e5c"/>
+        </marker>
+        <filter id="ds">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#2d1b54" flood-opacity="0.10"/>
+        </filter>
+    </defs>
+
+    <rect width="1100" height="460" fill="#fdfcfb"/>
+
+    <!-- Section labels -->
+    <text x="105"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#605e5c">SIMULATORS · in coach lab</text>
+    <text x="350"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#605e5c">AZURE EVENT HUBS · pre-provisioned</text>
+    <text x="640"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#4f29a3">FABRIC EVENTSTREAMS · you build</text>
+    <text x="970"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#4f29a3">EVENTHOUSE · 4 KQL tables</text>
+
+    <!-- ============ Stream 1: Hospital Vitals ============ -->
+    <g filter="url(#ds)">
+        <rect x="40"  y="60" width="180" height="56" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+        <text x="58"  y="84" font-size="13" font-weight="600" fill="#d13438">🏥 hospital_vitals.py</text>
+        <text x="58"  y="103" font-size="10" fill="#605e5c">15 patients · 8s cadence</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="290" y="60" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+        <text x="380" y="84"  font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">hospital-vitals</text>
+        <text x="380" y="102" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub topic</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="540" y="60" width="200" height="56" rx="8" fill="#ede4fb" stroke="#7c52e6" stroke-width="1.5"/>
+        <text x="640" y="84" font-size="12" font-weight="600" text-anchor="middle" fill="#4f29a3">es-hospital-vitals</text>
+        <text x="640" y="102" font-size="10" fill="#605e5c" text-anchor="middle">JSON · pass-through</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="810" y="60" width="240" height="56" rx="8" fill="url(#ehGrad)"/>
+        <text x="930" y="84" font-size="12" font-weight="600" text-anchor="middle" fill="#fff">HospitalVitals</text>
+        <text x="930" y="102" font-size="10" fill="#fff" fill-opacity="0.85" text-anchor="middle">12 cols · streaming ingestion</text>
+    </g>
+
+    <!-- ============ Stream 2: Hospital Movement ============ -->
+    <g filter="url(#ds)">
+        <rect x="40"  y="150" width="180" height="56" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+        <text x="58"  y="174" font-size="13" font-weight="600" fill="#d13438">🏥 hospital_movement.py</text>
+        <text x="58"  y="193" font-size="10" fill="#605e5c">admit/transfer/discharge</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="290" y="150" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+        <text x="380" y="174" font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">hospital-movement</text>
+        <text x="380" y="192" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub topic</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="540" y="150" width="200" height="56" rx="8" fill="#ede4fb" stroke="#7c52e6" stroke-width="1.5"/>
+        <text x="640" y="174" font-size="12" font-weight="600" text-anchor="middle" fill="#4f29a3">es-hospital-movement</text>
+        <text x="640" y="192" font-size="10" fill="#605e5c" text-anchor="middle">JSON · pass-through</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="810" y="150" width="240" height="56" rx="8" fill="url(#ehGrad)"/>
+        <text x="930" y="174" font-size="12" font-weight="600" text-anchor="middle" fill="#fff">HospitalMovement</text>
+        <text x="930" y="192" font-size="10" fill="#fff" fill-opacity="0.85" text-anchor="middle">10 cols · streaming ingestion</text>
+    </g>
+
+    <!-- ============ Stream 3: Trains ============ -->
+    <g filter="url(#ds)">
+        <rect x="40"  y="240" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+        <text x="58"  y="264" font-size="13" font-weight="600" fill="#005a9e">🚆 trains_eventhub.py</text>
+        <text x="58"  y="283" font-size="10" fill="#605e5c">Red · Blue · Green lines</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="290" y="240" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+        <text x="380" y="264" font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">metrotrain</text>
+        <text x="380" y="282" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub topic</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="540" y="240" width="200" height="56" rx="8" fill="#ede4fb" stroke="#7c52e6" stroke-width="1.5"/>
+        <text x="640" y="264" font-size="12" font-weight="600" text-anchor="middle" fill="#4f29a3">es-metra-trains</text>
+        <text x="640" y="282" font-size="10" fill="#605e5c" text-anchor="middle">JSON · pass-through</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="810" y="240" width="240" height="56" rx="8" fill="url(#ehGrad)"/>
+        <text x="930" y="264" font-size="12" font-weight="600" text-anchor="middle" fill="#fff">TrainTelemetry</text>
+        <text x="930" y="282" font-size="10" fill="#fff" fill-opacity="0.85" text-anchor="middle">7 cols · streaming ingestion</text>
+    </g>
+
+    <!-- ============ Stream 4: Flights ============ -->
+    <g filter="url(#ds)">
+        <rect x="40"  y="330" width="180" height="56" rx="8" fill="#fff" stroke="#00b7c3" stroke-width="2"/>
+        <text x="58"  y="354" font-size="13" font-weight="600" fill="#006e76">✈️ flight_tracker.py</text>
+        <text x="58"  y="373" font-size="10" fill="#605e5c">PiAware ADS-B · 5s</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="290" y="330" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+        <text x="380" y="354" font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">flight-tracker</text>
+        <text x="380" y="372" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub topic</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="540" y="330" width="200" height="56" rx="8" fill="#ede4fb" stroke="#7c52e6" stroke-width="1.5"/>
+        <text x="640" y="354" font-size="12" font-weight="600" text-anchor="middle" fill="#4f29a3">es-flight-tracker</text>
+        <text x="640" y="372" font-size="10" fill="#605e5c" text-anchor="middle">JSON · pass-through</text>
+    </g>
+    <g filter="url(#ds)">
+        <rect x="810" y="330" width="240" height="56" rx="8" fill="url(#ehGrad)"/>
+        <text x="930" y="354" font-size="12" font-weight="600" text-anchor="middle" fill="#fff">FlightTelemetry</text>
+        <text x="930" y="372" font-size="10" fill="#fff" fill-opacity="0.85" text-anchor="middle">12 cols · streaming ingestion</text>
+    </g>
+
+    <!-- Arrows -->
+    <g stroke="#605e5c" stroke-width="1.4" fill="none" marker-end="url(#arrFlow)">
+        <line x1="220" y1="88"  x2="290" y2="88"/>
+        <line x1="220" y1="178" x2="290" y2="178"/>
+        <line x1="220" y1="268" x2="290" y2="268"/>
+        <line x1="220" y1="358" x2="290" y2="358"/>
+
+        <line x1="470" y1="88"  x2="540" y2="88"/>
+        <line x1="470" y1="178" x2="540" y2="178"/>
+        <line x1="470" y1="268" x2="540" y2="268"/>
+        <line x1="470" y1="358" x2="540" y2="358"/>
+
+        <line x1="740" y1="88"  x2="810" y2="88"/>
+        <line x1="740" y1="178" x2="810" y2="178"/>
+        <line x1="740" y1="268" x2="810" y2="268"/>
+        <line x1="740" y1="358" x2="810" y2="358"/>
+    </g>
+
+    <!-- Footer banner -->
+    <rect x="40" y="410" width="1020" height="36" rx="6" fill="#ede4fb"/>
+    <text x="60" y="433" font-size="12" font-weight="600" fill="#4f29a3">→ Result:</text>
+    <text x="125" y="433" font-size="12" fill="#1f1f1f">All four KQL tables receive live JSON within ~30 seconds. The Eventhouse becomes the single source of truth for all real-time queries in Module 4 &amp; 5.</text>
+</svg>

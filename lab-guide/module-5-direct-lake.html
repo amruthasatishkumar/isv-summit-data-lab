@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 5 · Direct Lake + Power BI - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Module 5 of 7</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Module 5 · BI Layer</div>
+        <h1>Direct Lake Semantic Model + Power BI</h1>
+        <p class="lead">
+            Build a <strong>Direct Lake semantic model</strong> on the Bronze Lakehouse from Module 2 and
+            spin up a 1-page Power BI report on top. No import, no DirectQuery overhead - Power BI reads
+            your Delta files in OneLake directly, with live data freshness.
+        </p>
+        <div class="module-meta">
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>30 minutes</strong></div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> live 1-page report</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Direct Lake · Power BI</div>
+        </div>
+    </div>
+
+    <section id="objectives">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Create a <strong>Direct Lake semantic model</strong> on the Bronze Lakehouse.</li>
+            <li>Define relationships between your warm-path tables.</li>
+            <li>Author three core <strong>DAX measures</strong>.</li>
+            <li>Auto-create and polish a <strong>1-page Power BI report</strong>.</li>
+            <li>Verify the model is actually running in Direct Lake mode (not DirectQuery fallback).</li>
+        </ul>
+    </section>
+
+    <section id="part-a">
+        <h2>Direct Lake Semantic Model + Power BI <span class="pill report">DIRECT LAKE</span></h2>
+
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>What is Direct Lake?</strong>
+                A Power BI storage mode that reads Delta files in OneLake <em>directly</em> - no import,
+                no DirectQuery overhead. You get import-mode performance with live data freshness, and the
+                semantic model is just metadata pointing at your Lakehouse.
+            </div>
+        </div>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create the semantic model</h3>
+                <div class="step-body">
+                    <p>From <code>lh_urbanpulse_bronze</code>, click the <strong>New semantic model</strong> button at the top of the Tables view.</p>
+                    <p>In the picker, tick:</p>
+                    <ul>
+                        <li><code>Students</code></li>
+                        <li><code>Classes</code></li>
+                        <li><code>Enrollments</code></li>
+                        <li><code>cosmos_grades</code></li>
+                        <li><code>tumor_metadata</code></li>
+                    </ul>
+                    <p>Name it: <code>sm_urbanpulse_education</code>. Click <strong>Confirm</strong>.</p>
+
+                    <div class="callout tip">
+                        <span class="callout-icon">✓</span>
+                        <div class="callout-content">
+                            For the Smart City scenario we're using education tables as a stand-in for any "warm path"
+                            data - the same Direct Lake pattern applies whether your tables are admissions, sales, or sensors.
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Define relationships</h3>
+                <div class="step-body">
+                    <p>Open the semantic model → <strong>Model view</strong>. Drag-and-drop to create:</p>
+<div class="code-block">
+<span class="lang-badge">Relationships</span>
+<pre><code>Enrollments[StudentId]   ──*──1── Students[StudentId]
+Enrollments[ClassId]     ──*──1── Classes[ClassId]
+cosmos_grades[Student_ID] ──*──1── Students[StudentId]</code></pre>
+</div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Add three measures</h3>
+                <div class="step-body">
+                    <p>In the model, right-click <code>Enrollments</code> → <strong>New measure</strong>. Repeat for each:</p>
+<div class="code-block">
+<span class="lang-badge">DAX</span>
+<pre><code>Total Enrollments = COUNTROWS(Enrollments)
+
+Avg Grade =
+    AVERAGEX(
+        cosmos_grades,
+        VALUE(cosmos_grades[Grade])
+    )
+
+Pass Rate % =
+    DIVIDE(
+        CALCULATE(COUNTROWS(cosmos_grades), VALUE(cosmos_grades[Grade]) &gt;= 60),
+        COUNTROWS(cosmos_grades),
+        0
+    ) * 100</code></pre>
+</div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Auto-create the report</h3>
+                <div class="step-body">
+                    <p>Top of the semantic model → <strong>Create report</strong> → <strong>Auto-create</strong>. Power BI builds a starter page using your measures and dimensions.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Polish the report</h3>
+                <div class="step-body">
+                    <p>Edit the auto-created page so it has three visuals:</p>
+                    <ol>
+                        <li>A <strong>card</strong> with <code>Total Enrollments</code></li>
+                        <li>A <strong>bar chart</strong>: <code>Avg Grade</code> by <code>ClassName</code></li>
+                        <li>A <strong>donut</strong>: count of students by class</li>
+                    </ol>
+                    <p>Save as <code>rpt_urbanpulse_education</code>.</p>
+
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-5/01-directlake-report.png</div>
+                            <div>Final 1-page Power BI report on the Direct Lake semantic model</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Validate Direct Lake mode</h3>
+                <div class="step-body">
+                    <p>In the semantic model settings, the <strong>Storage mode</strong> field for each table should read <code>Direct Lake</code>. If it's "DirectQuery" instead, your capacity might not support Direct Lake - flag a coach.</p>
+                </div>
+            </li>
+        </ol>
+
+        <div class="validation">
+            <h4>Validation</h4>
+            <ul>
+                <li>Semantic model <code>sm_urbanpulse_education</code> exists in your workspace.</li>
+                <li>Three relationships are drawn in Model view.</li>
+                <li>All three DAX measures evaluate without errors.</li>
+                <li>Report <code>rpt_urbanpulse_education</code> has at least three visuals.</li>
+                <li>All tables report <strong>Direct Lake</strong> storage mode.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="recap">
+        <h2>What You Just Built</h2>
+        <ul>
+            <li>A Direct Lake semantic model over your Bronze Lakehouse - no import refresh, no DirectQuery latency.</li>
+            <li>Relationships and three DAX measures defined.</li>
+            <li>A 1-page Power BI report on live OneLake data.</li>
+        </ul>
+
+        <div class="callout purple">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>Why this matters for ISVs.</strong> Direct Lake lets you ship BI on top of your customer's
+                Fabric data without designing a separate analytic database. Power BI <em>is</em> the analytic engine,
+                and OneLake <em>is</em> the storage. Less infrastructure, faster time to insight.
+            </div>
+        </div>
+
+        <p>Module 6 takes the same data and asks: <em>can a non-technical user just <strong>ask</strong> for it in plain English?</em> Spoiler: yes - and then we'll publish that conversation directly into Microsoft 365 Copilot.</p>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-4-kql-dashboard.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 4 · KQL + Dashboard</div>
+        </a>
+        <a class="nav-card next" href="module-6-data-agents.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Module 6 · Data Agent → Copilot</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>

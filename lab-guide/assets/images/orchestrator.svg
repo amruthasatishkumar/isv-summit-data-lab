@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" font-family="Segoe UI, sans-serif">
+    <defs>
+        <linearGradient id="orchPurple" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4f29a3"/>
+            <stop offset="1" stop-color="#7c52e6"/>
+        </linearGradient>
+        <marker id="orcharrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#605e5c"/>
+        </marker>
+    </defs>
+
+    <!-- Title -->
+    <text x="550" y="28" text-anchor="middle" font-size="16" font-weight="700" fill="#1f1f1f">Multi-Agent Orchestrator Pattern</text>
+    <text x="550" y="48" text-anchor="middle" font-size="11" fill="#605e5c">One question · three domain agents in parallel · RAG context · LLM synthesis · one answer</text>
+
+    <!-- Question card -->
+    <rect x="20" y="200" width="180" height="80" rx="10" fill="#fff" stroke="#7c52e6" stroke-width="2"/>
+    <text x="110" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#4f29a3">USER QUESTION</text>
+    <text x="110" y="248" text-anchor="middle" font-size="10" fill="#1f1f1f">"Region A has delays</text>
+    <text x="110" y="262" text-anchor="middle" font-size="10" fill="#1f1f1f">and rising hospital load.</text>
+    <text x="110" y="276" text-anchor="middle" font-size="10" fill="#1f1f1f">What should we do?"</text>
+
+    <!-- Orchestrator core -->
+    <rect x="240" y="170" width="180" height="140" rx="12" fill="url(#orchPurple)"/>
+    <text x="330" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">ORCHESTRATOR</text>
+    <text x="330" y="218" text-anchor="middle" font-size="10" fill="#fff" fill-opacity="0.9">main.py · async fan-out</text>
+    <line x1="260" y1="228" x2="400" y2="228" stroke="#fff" stroke-opacity="0.3"/>
+    <text x="330" y="248" text-anchor="middle" font-size="10" fill="#fff">1. Parse intent</text>
+    <text x="330" y="263" text-anchor="middle" font-size="10" fill="#fff">2. Fan out to 3 agents</text>
+    <text x="330" y="278" text-anchor="middle" font-size="10" fill="#fff">3. Pull RAG context</text>
+    <text x="330" y="293" text-anchor="middle" font-size="10" fill="#fff">4. Synthesize via LLM</text>
+
+    <!-- Agent boxes -->
+    <g>
+        <rect x="490" y="80" width="200" height="80" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+        <text x="590" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#d13438">🏥 Hospital Agent</text>
+        <text x="590" y="124" text-anchor="middle" font-size="10" fill="#605e5c">queries HospitalVitals +</text>
+        <text x="590" y="138" text-anchor="middle" font-size="10" fill="#605e5c">HospitalMovement</text>
+        <text x="590" y="152" text-anchor="middle" font-size="10" font-style="italic" fill="#605e5c">"4 critical · staffing tight"</text>
+    </g>
+
+    <g>
+        <rect x="490" y="200" width="200" height="80" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+        <text x="590" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#005a9e">🚆 Transit Agent</text>
+        <text x="590" y="244" text-anchor="middle" font-size="10" fill="#605e5c">queries TrainTelemetry</text>
+        <text x="590" y="258" text-anchor="middle" font-size="10" fill="#605e5c">(filter line == 'Green')</text>
+        <text x="590" y="272" text-anchor="middle" font-size="10" font-style="italic" fill="#605e5c">"Train-Green-1 · 8 of 10 delayed"</text>
+    </g>
+
+    <g>
+        <rect x="490" y="320" width="200" height="80" rx="8" fill="#fff" stroke="#00b7c3" stroke-width="2"/>
+        <text x="590" y="346" text-anchor="middle" font-size="12" font-weight="700" fill="#006e76">✈️ Airspace Agent</text>
+        <text x="590" y="364" text-anchor="middle" font-size="10" fill="#605e5c">queries FlightTelemetry</text>
+        <text x="590" y="378" text-anchor="middle" font-size="10" fill="#605e5c">(near Region A radius)</text>
+        <text x="590" y="392" text-anchor="middle" font-size="10" font-style="italic" fill="#605e5c">"1 inbound · clear"</text>
+    </g>
+
+    <!-- Lines from orchestrator to each agent -->
+    <line x1="420" y1="200" x2="490" y2="120" stroke="#605e5c" marker-end="url(#orcharrow)"/>
+    <line x1="420" y1="240" x2="490" y2="240" stroke="#605e5c" marker-end="url(#orcharrow)"/>
+    <line x1="420" y1="280" x2="490" y2="360" stroke="#605e5c" marker-end="url(#orcharrow)"/>
+
+    <!-- Question to orchestrator -->
+    <line x1="200" y1="240" x2="240" y2="240" stroke="#605e5c" marker-end="url(#orcharrow)"/>
+
+    <!-- Azure AI Search -->
+    <rect x="730" y="80" width="180" height="80" rx="8" fill="#fff" stroke="#a019f0" stroke-width="2" stroke-dasharray="6 3"/>
+    <text x="820" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#5c2d91">Azure AI Search</text>
+    <text x="820" y="124" text-anchor="middle" font-size="10" fill="#605e5c">index: city-ops-index</text>
+    <text x="820" y="138" text-anchor="middle" font-size="10" fill="#605e5c">RAG · runbook docs</text>
+    <text x="820" y="152" text-anchor="middle" font-size="10" font-style="italic" fill="#605e5c">"§3.2 Region A spike"</text>
+
+    <line x1="420" y1="220" x2="730" y2="120" stroke="#605e5c" stroke-dasharray="4 3" marker-end="url(#orcharrow)"/>
+
+    <!-- Azure OpenAI -->
+    <rect x="730" y="200" width="180" height="80" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+    <text x="820" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#005a9e">Azure OpenAI</text>
+    <text x="820" y="244" text-anchor="middle" font-size="10" fill="#605e5c">gpt-4o-mini · synthesis</text>
+    <text x="820" y="258" text-anchor="middle" font-size="10" fill="#605e5c">prompt = signals + RAG</text>
+    <text x="820" y="276" text-anchor="middle" font-size="10" font-style="italic" fill="#605e5c">cites playbook §</text>
+
+    <line x1="690" y1="240" x2="730" y2="240" stroke="#605e5c" marker-end="url(#orcharrow)"/>
+
+    <!-- Final answer -->
+    <rect x="940" y="200" width="140" height="80" rx="10" fill="#dff6dd" stroke="#107c10" stroke-width="2"/>
+    <text x="1010" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#0b5a0b">FINAL ANSWER</text>
+    <text x="1010" y="245" text-anchor="middle" font-size="10" fill="#1f1f1f">grounded</text>
+    <text x="1010" y="259" text-anchor="middle" font-size="10" fill="#1f1f1f">cited</text>
+    <text x="1010" y="273" text-anchor="middle" font-size="10" fill="#1f1f1f">actionable</text>
+
+    <line x1="910" y1="240" x2="940" y2="240" stroke="#605e5c" marker-end="url(#orcharrow)"/>
+
+    <!-- Layer label -->
+    <text x="110" y="100" text-anchor="middle" font-size="9" fill="#a19f9d" letter-spacing="1.5">INPUT</text>
+    <text x="330" y="155" text-anchor="middle" font-size="9" fill="#a19f9d" letter-spacing="1.5">CONTROL PLANE</text>
+    <text x="590" y="65" text-anchor="middle" font-size="9" fill="#a19f9d" letter-spacing="1.5">DOMAIN EXPERTS (Fabric Agents)</text>
+    <text x="820" y="65" text-anchor="middle" font-size="9" fill="#a19f9d" letter-spacing="1.5">REASONING / GROUNDING</text>
+    <text x="1010" y="190" text-anchor="middle" font-size="9" fill="#a19f9d" letter-spacing="1.5">OUTPUT</text>
+
+    <!-- Bottom annotation -->
+    <line x1="20" y1="430" x2="1080" y2="430" stroke="#edebe9"/>
+    <text x="20" y="455" font-size="10" fill="#605e5c">⏱ Total runtime: ~12-30 sec · agents called in parallel · LLM is the only sequential step.</text>
+    <text x="20" y="470" font-size="10" fill="#605e5c">🔁 Pattern is reusable: swap question, swap RAG index, add/remove agents - orchestrator code stays the same.</text>
+</svg>

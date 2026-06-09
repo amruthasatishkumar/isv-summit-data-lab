@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 1 · Workspace Tour &amp; ISV Architecture - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Module 1 of 7</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Module 1 · Foundation</div>
+        <h1>Workspace Tour &amp; ISV Architecture</h1>
+        <p class="lead">
+            Before we build, let's understand what you're building. This is a guided tour of
+            the UrbanPulse architecture, the Fabric workspace layout you'll use today, and the
+            ISV multi-tenancy patterns this design embodies.
+        </p>
+        <div class="module-meta">
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>30 minutes</strong></div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> understand before build</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Fabric portal + slides</div>
+        </div>
+    </div>
+
+    <section id="scenario">
+        <h2>Scenario - The UrbanPulse ISV</h2>
+
+        <p>
+            Imagine you work for <strong>UrbanPulse Analytics</strong>, an ISV that sells a real-time
+            <em>Smart City Operations Platform</em> to municipalities. The City of Metropolis just
+            signed a contract. Their three operational pain points:
+        </p>
+
+        <div class="two-col">
+            <div class="domain-block health">
+                <div class="domain-label">🏥 HEALTH</div>
+                <h3>Northwind Health Network</h3>
+                <p>15 active patients streaming vitals every 8–15 seconds. Charge nurses need to know who's critical <em>right now</em>, not from yesterday's report.</p>
+            </div>
+            <div class="domain-block transit">
+                <div class="domain-label">🚆 TRANSIT</div>
+                <h3>Metropolis Metra (3 lines)</h3>
+                <p>Red, Blue, and Green lines reporting GPS, speed, and on-time status. Operations needs to spot delays before riders complain.</p>
+            </div>
+        </div>
+
+        <div class="domain-block airspace">
+            <div class="domain-label">✈️ AIRSPACE</div>
+            <h3>Metropolis Regional Airport</h3>
+            <p>Live ADS-B feed from a PiAware receiver covering inbound/outbound aircraft. Tower wants a single pane of glass linking surface ground operations to in-flight traffic.</p>
+        </div>
+
+        <div class="callout purple">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>The ISV play.</strong> Three different customer domains (hospital, transit, airport)
+                each generating real-time telemetry. UrbanPulse's value proposition isn't "we'll build
+                you a dashboard" - it's "we'll let your operators ask questions in plain English and
+                get answers grounded in live data, no matter which system it lives in."
+                That's the platform you're building today.
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture">
+        <h2>End-to-End Architecture</h2>
+
+        <p>This is the same diagram from the cover, but now we'll walk it left to right. Each arrow is a module of today's lab.</p>
+
+        <div class="diagram">
+            <object type="image/svg+xml" data="assets/images/architecture-overview.svg" style="width:100%;">
+                Architecture diagram
+            </object>
+            <div class="caption">Figure 1.1 - UrbanPulse end-to-end architecture, with module mapping pills along the bottom.</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:14%">Layer</th>
+                    <th style="width:46%">What lives here</th>
+                    <th style="width:20%">Built in</th>
+                    <th style="width:20%">ISV pattern</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Sources</strong></td>
+                    <td>Operational systems - hospital simulators, train telemetry, ADS-B receivers, customer SQL DBs.</td>
+                    <td>(coach-managed)</td>
+                    <td>Heterogeneous customer environments</td>
+                </tr>
+                <tr>
+                    <td><strong>Azure ingest</strong></td>
+                    <td>Azure Event Hubs as the unified streaming front door - JSON events partitioned by source.</td>
+                    <td>(pre-provisioned)</td>
+                    <td>Single ingest contract per tenant</td>
+                </tr>
+                <tr>
+                    <td><strong>Fabric platform</strong></td>
+                    <td>Eventstream → Eventhouse for hot data, Lakehouse + Direct Lake for warm/historical, Real-Time Dashboard, Power BI.</td>
+                    <td>Modules 2–5</td>
+                    <td>Per-tenant workspace, shared capacity</td>
+                </tr>
+                <tr>
+                    <td><strong>AI layer</strong></td>
+                    <td>Fabric Data Agent published to M365 Copilot (Hospital core; Transit + Airspace optional). Optional Foundry connected-agent orchestrator over all of them with Azure AI Search RAG.</td>
+                    <td>Modules 6, 7 <em>(stretch)</em></td>
+                    <td>Domain agents = composable building blocks</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="medallion">
+        <h2>The Medallion Slice You'll Build</h2>
+
+        <p>UrbanPulse is built on a classic medallion (Bronze/Silver/Gold), but with a real-time twist -
+            the <strong>hot path</strong> goes through the Eventhouse, while the <strong>warm path</strong> lands in the Lakehouse.</p>
+
+        <div class="diagram">
+            <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" style="max-width:100%;">
+                <defs>
+                    <linearGradient id="bronze" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#cd7f32"/>
+                        <stop offset="1" stop-color="#a0541d"/>
+                    </linearGradient>
+                    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#c0c0c0"/>
+                        <stop offset="1" stop-color="#9e9e9e"/>
+                    </linearGradient>
+                    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#ffd700"/>
+                        <stop offset="1" stop-color="#daa520"/>
+                    </linearGradient>
+                    <marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#605e5c"/>
+                    </marker>
+                </defs>
+
+                <!-- Hot path -->
+                <text x="20" y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#d13438">HOT PATH · seconds</text>
+                <rect x="20"  y="50" width="180" height="70" rx="8" fill="url(#bronze)" stroke="none"/>
+                <text x="110" y="80" fill="#fff" font-size="14" font-weight="600" text-anchor="middle">BRONZE</text>
+                <text x="110" y="100" fill="#fff" font-size="11" text-anchor="middle">Raw Eventhouse tables</text>
+
+                <rect x="240" y="50" width="180" height="70" rx="8" fill="url(#silver)" stroke="none"/>
+                <text x="330" y="80" fill="#1f1f1f" font-size="14" font-weight="600" text-anchor="middle">SILVER</text>
+                <text x="330" y="100" fill="#1f1f1f" font-size="11" text-anchor="middle">KQL update policies</text>
+
+                <rect x="460" y="50" width="180" height="70" rx="8" fill="url(#gold)" stroke="none"/>
+                <text x="550" y="80" fill="#3a2a00" font-size="14" font-weight="600" text-anchor="middle">GOLD</text>
+                <text x="550" y="100" fill="#3a2a00" font-size="11" text-anchor="middle">Materialized views + Agents</text>
+
+                <line x1="200" y1="85" x2="240" y2="85" stroke="#605e5c" stroke-width="1.5" marker-end="url(#ar1)"/>
+                <line x1="420" y1="85" x2="460" y2="85" stroke="#605e5c" stroke-width="1.5" marker-end="url(#ar1)"/>
+
+                <!-- Warm path -->
+                <text x="20" y="175" font-size="11" font-weight="700" letter-spacing="1.5" fill="#005a9e">WARM PATH · minutes/hours</text>
+                <rect x="20"  y="190" width="180" height="70" rx="8" fill="url(#bronze)" stroke="none"/>
+                <text x="110" y="220" fill="#fff" font-size="14" font-weight="600" text-anchor="middle">BRONZE</text>
+                <text x="110" y="240" fill="#fff" font-size="11" text-anchor="middle">Lakehouse Files + Delta</text>
+
+                <rect x="240" y="190" width="180" height="70" rx="8" fill="url(#silver)" stroke="none"/>
+                <text x="330" y="220" fill="#1f1f1f" font-size="14" font-weight="600" text-anchor="middle">SILVER</text>
+                <text x="330" y="240" fill="#1f1f1f" font-size="11" text-anchor="middle">Conformed Delta tables</text>
+
+                <rect x="460" y="190" width="180" height="70" rx="8" fill="url(#gold)" stroke="none"/>
+                <text x="550" y="220" fill="#3a2a00" font-size="14" font-weight="600" text-anchor="middle">GOLD</text>
+                <text x="550" y="240" fill="#3a2a00" font-size="11" text-anchor="middle">Direct Lake semantic model</text>
+
+                <line x1="200" y1="225" x2="240" y2="225" stroke="#605e5c" stroke-width="1.5" marker-end="url(#ar1)"/>
+                <line x1="420" y1="225" x2="460" y2="225" stroke="#605e5c" stroke-width="1.5" marker-end="url(#ar1)"/>
+
+                <!-- right-side consumers -->
+                <rect x="700" y="50" width="270" height="70" rx="8" fill="#fff" stroke="#7c52e6" stroke-width="2"/>
+                <text x="835" y="78" fill="#4f29a3" font-size="13" font-weight="600" text-anchor="middle">Real-Time Dashboard + Data Agent</text>
+                <text x="835" y="100" fill="#605e5c" font-size="11" text-anchor="middle">Module 4 + Module 6</text>
+
+                <rect x="700" y="190" width="270" height="70" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+                <text x="835" y="218" fill="#005a9e" font-size="13" font-weight="600" text-anchor="middle">Power BI Report (DirectLake)</text>
+                <text x="835" y="240" fill="#605e5c" font-size="11" text-anchor="middle">Module 5</text>
+
+                <line x1="640" y1="85" x2="700" y2="85" stroke="#605e5c" stroke-width="1.5" marker-end="url(#ar1)"/>
+                <line x1="640" y1="225" x2="700" y2="225" stroke="#605e5c" stroke-width="1.5" marker-end="url(#ar1)"/>
+            </svg>
+            <div class="caption">Figure 1.2 - Two parallel medallion paths in one Fabric workspace. Hot for streaming, warm for batch + analytics.</div>
+        </div>
+    </section>
+
+    <section id="step-1">
+        <h2>Walkthrough - Tour Your Workspace</h2>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open <code>urbanpulse-{your-id}</code> in Fabric</h3>
+                <div class="step-body">
+                    <p>From the Fabric portal home, click your workspace tile. You should see two pre-provisioned items.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-1/01-workspace-empty.png</div>
+                            <div>Workspace landing page with <code>lh_urbanpulse_bronze</code> and <code>eh_urbanpulse_rti</code> visible</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Open the OneLake explorer</h3>
+                <div class="step-body">
+                    <p>Click the OneLake icon in the left rail. Expand the workspace, then your Lakehouse.</p>
+                    <p>Note the two top-level folders that always exist:</p>
+                    <ul>
+                        <li><code>Files/</code> - your unstructured zone (CSV, Parquet, images, JSON). You'll upload here in Module 2.</li>
+                        <li><code>Tables/</code> - your <em>managed Delta</em> zone. Anything here is a queryable Delta table.</li>
+                    </ul>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-1/02-onelake-explorer.png</div>
+                            <div>OneLake explorer showing the Files and Tables folders inside <code>lh_urbanpulse_bronze</code></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Inspect the workspace settings &amp; capacity</h3>
+                <div class="step-body">
+                    <p>Click <strong>Workspace settings</strong> (gear icon). Confirm:</p>
+                    <ul>
+                        <li><strong>License</strong>: Fabric capacity (F-SKU)</li>
+                        <li><strong>Capacity name</strong>: <code>fc-isvsummit-{room}</code></li>
+                        <li><strong>Default Lakehouse for SQL endpoint</strong>: pre-set to <code>lh_urbanpulse_bronze</code></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Inspect access (RBAC)</h3>
+                <div class="step-body">
+                    <p>Click <strong>Manage access</strong>. You should see yourself as <strong>Admin</strong> on this workspace, plus the lab service principal as <strong>Admin</strong> (used by automation), and the coach pool as <strong>Member</strong>.</p>
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            <strong>ISV multi-tenant pattern:</strong> One workspace per customer tenant, with the ISV's automation principal as Admin
+                            and the customer's users as Members or Contributors. The optional Module 7 stretch shows how this scales across customer SKUs.
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="multitenancy">
+        <h2>ISV Multi-Tenancy Patterns (preview)</h2>
+
+        <p>The architecture you'll build today is what we'd actually deploy for a single customer.
+            For a real ISV product, you'd template it. Three common Fabric multi-tenancy patterns:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Pattern</th>
+                    <th>How it looks</th>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Workspace-per-tenant</strong><br/><em>(today's lab)</em></td>
+                    <td>One workspace + one capacity per customer.</td>
+                    <td>Hard data isolation, simple billing per tenant.</td>
+                    <td>More items to manage; capacity not amortized.</td>
+                </tr>
+                <tr>
+                    <td><strong>Workspace-per-tenant, shared capacity</strong></td>
+                    <td>Many workspaces all bound to one F-SKU.</td>
+                    <td>Cost-efficient for many small tenants. Workspaces are still RBAC-isolated.</td>
+                    <td>Noisy-neighbor risk; needs careful capacity sizing.</td>
+                </tr>
+                <tr>
+                    <td><strong>Shared workspace, row-level isolation</strong></td>
+                    <td>One workspace, one Lakehouse, tenant ID column on every table + RLS.</td>
+                    <td>Cheapest at scale; simple operationally.</td>
+                    <td>Weakest isolation; one bad query = all tenants pay.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout tip">
+            <span class="callout-icon">✓</span>
+            <div class="callout-content">
+                <strong>Coach tip:</strong> For your first 10 customers, start with workspace-per-tenant on a shared capacity.
+                It's the easiest to operate and the easiest to migrate from.
+            </div>
+        </div>
+    </section>
+
+    <section id="recap">
+        <h2>What You Just Learned</h2>
+        <ul>
+            <li>The UrbanPulse scenario (3 customer domains, 1 platform).</li>
+            <li>The end-to-end architecture and how each module maps onto it.</li>
+            <li>The hot/warm dual-medallion pattern Fabric makes natural.</li>
+            <li>Where to find OneLake, capacity, and RBAC in your workspace.</li>
+            <li>Three workspace-tenancy patterns and when to pick each.</li>
+        </ul>
+
+        <p>Time to start building. <strong>Module 2</strong> is where the data lands.</p>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-0-setup.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 0 · Setup</div>
+        </a>
+        <a class="nav-card next" href="module-2-lakehouse-mirror.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Module 2 · Lakehouse + Mirror</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appendix A · Lab Credentials - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Appendix A</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Appendix A · Reference</div>
+        <h1>Lab Credentials Cheat-Sheet</h1>
+        <p class="lead">
+            Every connection string, key, and endpoint you'll paste into Fabric portal wizards (or attach in the optional Module 7 Foundry orchestrator).
+            Bookmark this tab - you'll come back to it from M2 onward.
+        </p>
+    </div>
+
+    <div class="callout warning">
+        <span class="callout-icon">⚠</span>
+        <div class="callout-content">
+            <strong>Lab-only credentials.</strong> These keys are scoped to the ISV Summit shared environment and rotate
+            after the event. Do not commit them to a real repo or use them outside this lab.
+        </div>
+    </div>
+
+    <section id="account">
+        <h2>Lab Account</h2>
+        <table>
+            <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Username</td><td><code>attendee-{id}@isvsummitlab.onmicrosoft.com</code></td></tr>
+                <tr><td>Password</td><td>see your printed slip</td></tr>
+                <tr><td>Workspace</td><td><code>urbanpulse-{your-id}</code></td></tr>
+                <tr><td>Capacity</td><td><code>fc-isvsummit-{room}</code></td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="event-hubs">
+        <h2>Event Hubs <span class="pill">Module 3</span></h2>
+        <p>Use these connection strings when configuring Eventstream sources. They're SAS read-only listener strings - you can <em>consume</em> data but not send to them.</p>
+
+        <table>
+            <thead><tr><th style="width:25%">Stream</th><th>Connection string</th></tr></thead>
+            <tbody>
+                <tr><td>Hospital vitals</td><td><code>Endpoint=sb://eh-isvsummit.servicebus.windows.net/;SharedAccessKeyName=lab-listen;EntityPath=eh-hospital-vitals;SharedAccessKey=&hellip;</code></td></tr>
+                <tr><td>Hospital movement</td><td><code>Endpoint=sb://eh-isvsummit.servicebus.windows.net/;SharedAccessKeyName=lab-listen;EntityPath=eh-hospital-movement;SharedAccessKey=&hellip;</code></td></tr>
+                <tr><td>Metra trains</td><td><code>Endpoint=sb://eh-isvsummit.servicebus.windows.net/;SharedAccessKeyName=lab-listen;EntityPath=eh-metra-trains;SharedAccessKey=&hellip;</code></td></tr>
+                <tr><td>Flight tracker</td><td><code>Endpoint=sb://eh-isvsummit.servicebus.windows.net/;SharedAccessKeyName=lab-listen;EntityPath=eh-flight-tracker;SharedAccessKey=&hellip;</code></td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout tip">
+            <span class="callout-icon">✓</span>
+            <div class="callout-content">
+                The <strong>full keys</strong> are masked here in the printable copy. The version of this page on your seat-issued lab handout has the live values pre-filled. If a value looks blank, raise your hand.
+            </div>
+        </div>
+    </section>
+
+    <section id="sql">
+        <h2>Azure SQL <span class="pill">Module 2 · Mirror</span></h2>
+        <table>
+            <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Server</td><td><code>sql-isvsummit.database.windows.net</code></td></tr>
+                <tr><td>Database</td><td><code>studentdb</code></td></tr>
+                <tr><td>User</td><td><code>lab_reader</code></td></tr>
+                <tr><td>Password</td><td>see your printed slip</td></tr>
+                <tr><td>Tables</td><td><code>Students</code>, <code>Classes</code>, <code>Enrollments</code></td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="cosmos">
+        <h2>Cosmos DB <span class="pill">Module 2 · Shortcut</span></h2>
+        <table>
+            <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Account / Endpoint</td><td><code>https://cosmos-isvsummit.documents.azure.com:443/</code></td></tr>
+                <tr><td>Database</td><td><code>StudentInfo</code></td></tr>
+                <tr><td>Container</td><td><code>Grades</code></td></tr>
+                <tr><td>Read-only key</td><td>see your printed slip</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="agents">
+        <h2>Fabric Data Agents <span class="pill agent">Module 6 → Module 7</span></h2>
+        <p>You'll <em>create</em> these endpoints in Module 6 (Hospital is the core deliverable; Transit and Airspace are optional). In the optional M7 stretch you paste them into the Foundry orchestrator as connected-agent tools. To copy each one: open the agent → <strong>Settings</strong> → <strong>Endpoint</strong>.</p>
+        <table>
+            <thead><tr><th style="width:30%">Agent</th><th>Endpoint shape</th></tr></thead>
+            <tbody>
+                <tr><td>Hospital Operations <span class="pill agent" style="background:#0078d4;color:#fff;">CORE</span></td><td><code>https://api.fabric.microsoft.com/v1/workspaces/{ws}/aiagents/{id}/run</code></td></tr>
+                <tr><td>Transit Operations <span class="pill agent" style="background:#a19f9d;color:#fff;">OPTIONAL</span></td><td><code>https://api.fabric.microsoft.com/v1/workspaces/{ws}/aiagents/{id}/run</code></td></tr>
+                <tr><td>Airspace <span class="pill agent" style="background:#a19f9d;color:#fff;">OPTIONAL</span></td><td><code>https://api.fabric.microsoft.com/v1/workspaces/{ws}/aiagents/{id}/run</code></td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                Fabric Data Agent endpoints authenticate via the <strong>caller's identity</strong> - no separate key. M5 publishes the Hospital agent to <strong>M365 Copilot</strong> (Entra passthrough). The optional M6 Foundry orchestrator wires the same endpoints as <em>connected agents</em>; Foundry handles the token exchange.
+            </div>
+        </div>
+    </section>
+
+    <section id="foundry">
+        <h2>Azure AI Foundry Project <span class="pill">Module 7 · Stretch</span></h2>
+        <table>
+            <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Foundry portal</td><td><a href="https://ai.azure.com" target="_blank">ai.azure.com</a></td></tr>
+                <tr><td>Project name</td><td><code>aifprj-isvsummit</code></td></tr>
+                <tr><td>Model deployment</td><td><code>gpt-4o-mini</code> (already provisioned in the project)</td></tr>
+                <tr><td>Pre-wired connections</td><td>Azure AI Search (<code>srch-cityops</code>), Azure OpenAI (<code>aoai-isvsummit</code>)</td></tr>
+            </tbody>
+        </table>
+        <div class="callout tip">
+            <span class="callout-icon">✓</span>
+            <div class="callout-content">No keys needed - sign in with your lab account and the project picker shows <code>aifprj-isvsummit</code>.</div>
+        </div>
+    </section>
+
+    <section id="ai-search">
+        <h2>Azure AI Search <span class="pill">Module 7 · Stretch · RAG</span></h2>
+        <table>
+            <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Endpoint</td><td><code>https://srch-cityops.search.windows.net</code></td></tr>
+                <tr><td>Connection name (in Foundry)</td><td><code>srch-cityops</code> (already wired)</td></tr>
+                <tr><td>Index name</td><td><code>city-ops-index</code></td></tr>
+                <tr><td>Indexed corpus</td><td>City-ops playbooks (47 docs · region-specific runbooks)</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="aoai">
+        <h2>Azure OpenAI <span class="pill">Module 7 · Stretch · Model</span></h2>
+        <table>
+            <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td>Endpoint</td><td><code>https://aoai-isvsummit.openai.azure.com/</code></td></tr>
+                <tr><td>Connection name (in Foundry)</td><td><code>aoai-isvsummit</code> (already wired)</td></tr>
+                <tr><td>Deployment</td><td><code>gpt-4o-mini</code></td></tr>
+            </tbody>
+        </table>
+        <div class="callout tip">
+            <span class="callout-icon">✓</span>
+            <div class="callout-content">The Foundry project has both connections pre-wired - you select them from a dropdown when configuring the orchestrator, no keys to copy.</div>
+        </div>
+    </section>
+
+    <section id="where-used">
+        <h2>Where Each Credential Is Used</h2>
+        <table>
+            <thead><tr><th>Module</th><th>Credentials needed</th><th>Pasted into</th></tr></thead>
+            <tbody>
+                <tr><td>M2 - Mirror</td><td>Azure SQL server / DB / user / password</td><td>Fabric "Mirrored database" connection wizard</td></tr>
+                <tr><td>M2 - Shortcut</td><td>Cosmos endpoint + read-only key</td><td>Fabric "New OneLake shortcut" wizard</td></tr>
+                <tr><td>M3 - Eventstreams</td><td>4 × Event Hub connection strings</td><td>Eventstream "Add source" → Azure Event Hubs</td></tr>
+                <tr><td>M6 - Agents</td><td>(none - uses workspace KQL DB directly)</td><td>-</td></tr>
+                <tr><td>M6 - Publish to Copilot</td><td>(none - uses your Entra identity)</td><td>Fabric agent → <strong>Publish</strong> → Microsoft 365 Copilot</td></tr>
+                <tr><td>M7 - Foundry <em>(stretch)</em></td><td>1–3 × Fabric agent endpoints (Settings → Endpoint)</td><td>Foundry agent → Tools → <strong>Connected agent</strong></td></tr>
+                <tr><td>M7 - Publish to Copilot <em>(stretch)</em></td><td>(none - uses your Entra identity)</td><td>Foundry agent → <strong>Publish</strong> → Microsoft 365 Copilot</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="security">
+        <h2>If You Leak a Key</h2>
+        <ul>
+            <li>Tell a coach immediately. We'll rotate the key for the whole room (takes ~5 min).</li>
+            <li>Don't paste these values into screenshots or share-screen demos outside the lab.</li>
+            <li>The keys auto-rotate at the end of the event regardless.</li>
+        </ul>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-7-foundry-orchestrator.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 7 · Foundry Orchestrator</div>
+        </a>
+        <a class="nav-card next" href="appendix-kql-cookbook.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Appendix B · KQL Cookbook</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>
