@@ -42,7 +42,7 @@
 | where timestamp &gt; ago(15m)
 | summarize arg_max(timestamp, *) by {ENTITY_KEY}</code></pre>
 </div>
-        <p>Replace <code>{TABLE}</code> with one of <code>HospitalVitals</code>, <code>HospitalMovement</code>, <code>TrainTelemetry</code>, <code>FlightTelemetry</code>, and <code>{ENTITY_KEY}</code> with <code>patient_id</code>, <code>trainId</code>, or <code>hex</code>.</p>
+        <p>Replace <code>{TABLE}</code> with one of <code>HospitalVitals</code>, <code>HospitalMovement</code>, <code>TrainTelemetry</code>, and <code>{ENTITY_KEY}</code> with <code>patient_id</code> or <code>trainId</code>.</p>
 
         <h3>Bin and chart over time</h3>
 <div class="code-block">
@@ -57,7 +57,7 @@
 <div class="code-block">
 <span class="lang-badge">KQL</span>
 <pre><code>union withsource = table
-    HospitalVitals, HospitalMovement, TrainTelemetry, FlightTelemetry
+    HospitalVitals, HospitalMovement, TrainTelemetry
 | where timestamp &gt; ago(5m)
 | summarize events = count() by table</code></pre>
 </div>
@@ -182,66 +182,6 @@ HospitalVitals
 | summarize arg_max(timestamp, *) by trainId
 | project trainId, lat, lon, line
 | render scatterchart with (kind=map, ymin=lat, ymax=lat, xcolumn=lon)</code></pre>
-</div>
-    </section>
-
-    <!-- ========= AIRSPACE ========= -->
-    <section id="airspace">
-        <h2><span class="pill kql">✈️ AIRSPACE</span> Patterns</h2>
-
-        <h3>Aircraft airborne right now</h3>
-<div class="code-block">
-<span class="lang-badge">KQL</span>
-<pre><code>FlightTelemetry
-| where timestamp &gt; ago(5m)
-| summarize arg_max(timestamp, *) by hex
-| where alt_baro &gt; 0
-| project flight, hex, lat, lon, alt_baro, gs, track, timestamp</code></pre>
-</div>
-
-        <h3>Low-altitude (likely approach)</h3>
-<div class="code-block">
-<span class="lang-badge">KQL</span>
-<pre><code>FlightTelemetry
-| where timestamp &gt; ago(5m)
-| summarize arg_max(timestamp, *) by hex
-| where alt_baro between (0 .. 5000)
-| project flight, alt_baro, gs, lat, lon
-| order by alt_baro asc</code></pre>
-</div>
-
-        <h3>Emergency squawks</h3>
-<div class="code-block">
-<span class="lang-badge">KQL</span>
-<pre><code>FlightTelemetry
-| where timestamp &gt; ago(15m)
-| where squawk in ("7500", "7600", "7700")
-| summarize arg_max(timestamp, *) by hex
-| project flight, hex, squawk, alt_baro, lat, lon, timestamp</code></pre>
-</div>
-
-        <h3>Aircraft within radius of a point</h3>
-<div class="code-block">
-<span class="lang-badge">KQL</span>
-<pre><code>let center_lat = 41.97;
-let center_lon = -87.90;
-let radius_km  = 50.0;
-FlightTelemetry
-| where timestamp &gt; ago(5m)
-| summarize arg_max(timestamp, *) by hex
-| extend dist_km = geo_distance_2points(lon, lat, center_lon, center_lat) / 1000.0
-| where dist_km &lt; radius_km
-| order by dist_km asc</code></pre>
-</div>
-
-        <h3>Activity heatmap by altitude band</h3>
-<div class="code-block">
-<span class="lang-badge">KQL</span>
-<pre><code>FlightTelemetry
-| where timestamp &gt; ago(30m)
-| summarize aircraft = dcount(hex) by bin(alt_baro, 5000)
-| order by alt_baro asc
-| render columnchart</code></pre>
 </div>
     </section>
 

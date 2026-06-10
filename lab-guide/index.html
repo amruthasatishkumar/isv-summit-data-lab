@@ -26,7 +26,7 @@
     <p class="cover-tagline">
         A guided, scenario-based hands-on lab where you assume the role of an ISV
         building a real-time, multi-domain operations platform - combining live
-        hospital, transit, and airspace data into a unified Fabric solution with
+        hospital and transit data into a unified Fabric solution with
         natural-language data agents.
     </p>
 
@@ -37,7 +37,7 @@
         </div>
         <div class="meta-block">
             <div class="meta-label">Modules</div>
-            <div class="meta-value">9 (M0 – M8, M7+M8 optional)</div>
+            <div class="meta-value">10 (M0 – M9, M8+M9 optional)</div>
         </div>
         <div class="meta-block">
             <div class="meta-label">Skill level</div>
@@ -88,7 +88,7 @@
             <p class="mc-desc">
                 Stand up four Eventstreams routing live data from Event Hubs into
                 a Fabric Eventhouse - hospital vitals, hospital movement, Metra
-                trains, and live ADS-B aircraft.
+                trains.
             </p>
             <div class="mc-time"><strong>75 min</strong> · Event Hubs → Eventstream → Eventhouse</div>
         </a>
@@ -97,7 +97,7 @@
             <span class="mc-number">MODULE 4</span>
             <h3 class="mc-title">KQL Analytics &amp; Real-Time Dashboard</h3>
             <p class="mc-desc">
-                Write KQL across hospital, transit, and airspace tables. Pin live
+                Write KQL across hospital and transit tables. Pin live
                 tiles to a Real-Time Intelligence Dashboard and watch the city
                 update in front of you.
             </p>
@@ -114,8 +114,19 @@
             <div class="mc-time"><strong>30 min</strong> · Direct Lake + Power BI</div>
         </a>
 
-        <a class="module-card airspace" href="module-6-data-agents.html">
+        <a class="module-card" href="module-6-ontologies.html">
             <span class="mc-number">MODULE 6</span>
+            <h3 class="mc-title">Fabric Ontologies</h3>
+            <p class="mc-desc">
+                Build a semantic graph over your Lakehouse + Eventhouse data. Define
+                Patients, Trains, and the cross-domain Region anchor that powers
+                the agents you'll build next.
+            </p>
+            <div class="mc-time"><strong>25 min</strong> · Fabric Ontology · OneLake</div>
+        </a>
+
+        <a class="module-card" href="module-7-data-agents.html">
+            <span class="mc-number">MODULE 7</span>
             <h3 class="mc-title">Build &amp; Publish a Fabric Data Agent</h3>
             <p class="mc-desc">
                 Build the Hospital Operations Fabric Data Agent on live KQL data, then
@@ -124,18 +135,18 @@
             <div class="mc-time"><strong>45 min</strong> · Fabric Data Agents · M365 Copilot</div>
         </a>
 
-        <a class="module-card" href="module-7-multi-agent.html">
-            <span class="mc-number">MODULE 7 · ★ OPTIONAL</span>
+        <a class="module-card" href="module-8-multi-agent.html">
+            <span class="mc-number">MODULE 8 · ★ OPTIONAL</span>
             <h3 class="mc-title">Multi-Agent Catalog</h3>
             <p class="mc-desc">
-                Repeat the Module 6 recipe for Transit and Airspace so you end up with a
+                Repeat the Module 7 recipe for Transit so you end up with a
                 three-agent multi-domain catalog ready for orchestration.
             </p>
             <div class="mc-time"><strong>30 min</strong> · Fabric Data Agents</div>
         </a>
 
-        <a class="module-card" href="module-8-foundry-orchestrator.html">
-            <span class="mc-number">MODULE 8 · ★ OPTIONAL</span>
+        <a class="module-card" href="module-9-foundry-orchestrator.html">
+            <span class="mc-number">MODULE 9 · ★ OPTIONAL</span>
             <h3 class="mc-title">Foundry Connected-Agent Orchestrator</h3>
             <p class="mc-desc">
                 Wire your Fabric Data Agents into an Azure AI Foundry connected-agent
@@ -170,7 +181,7 @@
                     <li>A lab tenant identity (<code>attendee-{id}@isvsummitlab.onmicrosoft.com</code>) at your seat</li>
                     <li>Read access to four shared Azure Event Hubs streaming live data</li>
                     <li>A <strong>Lab Credentials</strong> reference page with every connection string, key, and endpoint pre-filled</li>
-                    <li>An Azure AI Search index <code>city-ops-index</code> + Azure OpenAI deployment for the optional Module 8 Foundry orchestrator</li>
+                    <li>An Azure AI Search index <code>city-ops-index</code> + Azure OpenAI deployment for the optional Module 9 Foundry orchestrator</li>
                 </ul>
                 <p style="margin-top: 8px;">
                     You do <strong>not</strong> need your own Azure subscription, a Cloud PC, or any local installs -

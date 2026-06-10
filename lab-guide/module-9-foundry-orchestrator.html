@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 8 · Foundry Orchestrator (Optional) - UrbanPulse Lab</title>
+    <title>Module 9 · Foundry Orchestrator (Optional) - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,16 +17,16 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 8 of 8 · Optional</div>
+    <div class="module-pill">Module 9 of 9 · Optional</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
-        <div class="module-eyebrow">Module 8 · Optional Stretch</div>
+        <div class="module-eyebrow">Module 9 · Optional Stretch</div>
         <h1>Foundry Connected-Agent Orchestrator <span class="pill agent" style="vertical-align:middle;">⭐ OPTIONAL</span></h1>
         <p class="lead">
-            Wrap the Fabric Data Agents you built in Modules 6–7 inside an
+            Wrap the Fabric Data Agents you built in Modules 7–8 inside an
             <strong>Azure AI Foundry connected-agent orchestrator</strong>, then publish that orchestrator
             to Microsoft 365 Copilot. Zero orchestration code - Foundry's connected-agents pattern handles
             specialist routing automatically.
@@ -41,10 +41,10 @@
     <div class="callout warning">
         <span class="callout-icon">⭐</span>
         <div class="callout-content">
-            <strong>This module is optional.</strong> The lab is complete after Module 6 - you've already shipped a
+            <strong>This module is optional.</strong> The lab is complete after Module 7 - you've already shipped a
             published Copilot agent. This module is the "make it the front door for cross-domain reasoning" stretch.
-            Strongest if you built the full three-agent catalog in Module 7, but works with just the Hospital agent
-            from Module 6 (you'll connect fewer specialists). No notebook code, no Python - entirely portal-driven.
+            Strongest if you built the full three-agent catalog in Module 8, but works with just the Hospital agent
+            from Module 7 (you'll connect fewer specialists). No notebook code, no Python - entirely portal-driven.
         </div>
     </div>
 
@@ -52,7 +52,7 @@
         <h2>Learning Objectives</h2>
         <ul>
             <li>Use <strong>Azure AI Foundry's connected-agent pattern</strong> to orchestrate specialist agents without code.</li>
-            <li>Register your <strong>Fabric Data Agents from Modules 6–7</strong> as Foundry tools.</li>
+            <li>Register your <strong>Fabric Data Agents from Modules 7–8</strong> as Foundry tools.</li>
             <li>Attach <strong>Azure AI Search</strong> as a knowledge source for RAG-grounded recommendations.</li>
             <li>Test cross-domain reasoning in the Foundry Playground with full trace visibility.</li>
             <li><strong>Publish the orchestrator to Microsoft 365 Copilot</strong> as the cross-domain front door.</li>
@@ -71,7 +71,7 @@
         <ol>
             <li>Open the pre-provisioned <strong>Foundry project</strong> in your tenant.</li>
             <li>Create a <strong>City Ops Orchestrator</strong> agent (gpt-4o-mini).</li>
-            <li>Attach your <strong>Fabric Data Agents from Modules 6–7</strong> as <em>connected agents</em>.</li>
+            <li>Attach your <strong>Fabric Data Agents from Modules 7–8</strong> as <em>connected agents</em>.</li>
             <li>Attach <strong>Azure AI Search</strong> as a knowledge source for RAG.</li>
             <li>Test in the Foundry Playground.</li>
             <li><strong>Publish to Microsoft 365 Copilot</strong> with one click.</li>
@@ -97,7 +97,7 @@
                 <text x="340" y="124" font-size="11" fill="#4f29a3" text-anchor="middle">City Ops Orchestrator</text>
                 <line x1="250" y1="135" x2="430" y2="135" stroke="#7c52e6" stroke-opacity="0.4"/>
                 <text x="340" y="155" font-size="10" fill="#1f1f1f" text-anchor="middle">Model: gpt-4o-mini</text>
-                <text x="340" y="172" font-size="10" fill="#1f1f1f" text-anchor="middle">Connected agents: 3</text>
+                <text x="340" y="172" font-size="10" fill="#1f1f1f" text-anchor="middle">Connected agents: 2</text>
                 <text x="340" y="189" font-size="10" fill="#1f1f1f" text-anchor="middle">Knowledge: AI Search</text>
                 <text x="340" y="220" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Auto-routes to specialists</text>
                 <text x="340" y="237" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">No orchestration code</text>
@@ -105,31 +105,26 @@
                 <!-- Fabric Data Agents -->
                 <rect x="510" y="30" width="220" height="56" rx="6" fill="#fff" stroke="#d13438" stroke-width="2"/>
                 <text x="620" y="52" font-size="11" font-weight="700" fill="#d13438" text-anchor="middle">🏥 Hospital Ops Agent</text>
-                <text x="620" y="70" font-size="10" fill="#605e5c" text-anchor="middle">Fabric Data Agent (M6)</text>
+                <text x="620" y="70" font-size="10" fill="#605e5c" text-anchor="middle">Fabric Data Agent (M7)</text>
 
                 <rect x="510" y="106" width="220" height="56" rx="6" fill="#fff" stroke="#107c10" stroke-width="2"/>
                 <text x="620" y="128" font-size="11" font-weight="700" fill="#107c10" text-anchor="middle">🚆 Transit Ops Agent</text>
-                <text x="620" y="146" font-size="10" fill="#605e5c" text-anchor="middle">Fabric Data Agent (M6)</text>
-
-                <rect x="510" y="182" width="220" height="56" rx="6" fill="#fff" stroke="#0078d4" stroke-width="2"/>
-                <text x="620" y="204" font-size="11" font-weight="700" fill="#005a9e" text-anchor="middle">✈️ Airspace Agent</text>
-                <text x="620" y="222" font-size="10" fill="#605e5c" text-anchor="middle">Fabric Data Agent (M6)</text>
+                <text x="620" y="146" font-size="10" fill="#605e5c" text-anchor="middle">Fabric Data Agent (M8)</text>
 
                 <!-- AI Search -->
-                <rect x="510" y="258" width="220" height="40" rx="6" fill="#fff" stroke="#605e5c" stroke-width="2" stroke-dasharray="4 3"/>
-                <text x="620" y="282" font-size="11" font-weight="700" fill="#1f1f1f" text-anchor="middle">📚 Azure AI Search (RAG)</text>
+                <rect x="510" y="182" width="220" height="40" rx="6" fill="#fff" stroke="#605e5c" stroke-width="2" stroke-dasharray="4 3"/>
+                <text x="620" y="206" font-size="11" font-weight="700" fill="#1f1f1f" text-anchor="middle">📚 Azure AI Search (RAG)</text>
 
                 <!-- Arrows -->
                 <line x1="180" y1="170" x2="225" y2="170" stroke="#605e5c" stroke-width="2" marker-end="url(#arF)"/>
                 <line x1="450" y1="155" x2="505" y2="58"  stroke="#7c52e6" stroke-width="2" marker-end="url(#arF)"/>
                 <line x1="450" y1="170" x2="505" y2="134" stroke="#7c52e6" stroke-width="2" marker-end="url(#arF)"/>
-                <line x1="450" y1="185" x2="505" y2="210" stroke="#7c52e6" stroke-width="2" marker-end="url(#arF)"/>
-                <line x1="450" y1="220" x2="505" y2="278" stroke="#7c52e6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arF)"/>
+                <line x1="450" y1="195" x2="505" y2="202" stroke="#7c52e6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arF)"/>
 
                 <!-- Publish label -->
                 <text x="100" y="232" font-size="9" font-style="italic" fill="#0078d4" text-anchor="middle">published via Copilot Studio</text>
             </svg>
-            <div class="caption">Figure 8.1 - Foundry orchestrator with connected Fabric Data Agents and AI Search knowledge. The Foundry agent is then published to M365 Copilot.</div>
+            <div class="caption">Figure 9.1 - Foundry orchestrator with connected Fabric Data Agents and AI Search knowledge. The Foundry agent is then published to M365 Copilot.</div>
         </div>
     </section>
 
@@ -165,7 +160,6 @@
 For any user question, decide which of your connected specialist agents to call:
 - Hospital Ops Agent - patient vitals, room occupancy, movement
 - Transit Ops Agent  - train status, speed, delays
-- Airspace Agent     - live aircraft positions, altitudes, emergency squawks
 
 You may call multiple specialists in the same turn when a question spans domains.
 After gathering specialist signals, search your knowledge base (city operations
@@ -185,13 +179,12 @@ Be terse and operational. Do not invent data the specialists did not return.</co
                 <h3 class="step-title">Attach your Fabric Data Agents as connected agents</h3>
                 <div class="step-body">
                     <p>On the agent canvas, scroll to <strong>Tools &amp; Knowledge</strong> → <strong>+ Add tool</strong> → <strong>Connected agent</strong>.</p>
-                    <p>For each Fabric Data Agent you built in Modules 6–7, add one connected-agent entry:</p>
+                    <p>For each Fabric Data Agent you built in Modules 7–8, add one connected-agent entry:</p>
                     <table>
                         <thead><tr><th>Tool name</th><th>Description (what it does)</th><th>Endpoint</th></tr></thead>
                         <tbody>
                             <tr><td><code>hospital_ops</code></td><td>Answers questions about patient vitals, room occupancy, and movement on the hospital floor. Use for any clinical or capacity question.</td><td>Hospital agent endpoint (Appendix A)</td></tr>
                             <tr><td><code>transit_ops</code></td><td>Answers questions about train fleet status, speeds, and delays across Red/Blue/Green lines.</td><td>Transit agent endpoint (Appendix A)</td></tr>
-                            <tr><td><code>airspace</code></td><td>Answers questions about live aircraft positions, altitudes, and emergency squawks in the Metropolis airspace.</td><td>Airspace agent endpoint (Appendix A)</td></tr>
                         </tbody>
                     </table>
                     <div class="callout tip">
@@ -235,15 +228,15 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
 </div>
                     <p>Try a few more - the orchestrator picks which specialists to call automatically:</p>
                     <ul>
-                        <li>"How many aircraft are airborne right now?" → Airspace only</li>
-                        <li>"What's the operational picture across the city?" → all three</li>
-                        <li>"Are there any concurrent emergencies?" → all three</li>
+                        <li>"How's hospital load looking right now?" → Hospital only</li>
+                        <li>"What's the operational picture across the city?" → both agents</li>
+                        <li>"Are there any concurrent emergencies?" → both agents</li>
                     </ul>
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-7/01-foundry-playground.png</div>
+                            <div class="ph-meta">module-9/01-foundry-playground.png</div>
                             <div>Foundry Playground showing the orchestrator's response with the trace pane open, listing 2 connected-agent calls and 1 AI Search call.</div>
                         </div>
                     </div>
@@ -256,7 +249,7 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
                     <p>From the agent canvas, click <strong>Publish</strong> → <strong>Microsoft 365 Copilot</strong>.</p>
                     <ul>
                         <li><strong>Display name:</strong> <code>City Ops Orchestrator (UrbanPulse)</code></li>
-                        <li><strong>Description:</strong> <em>Ask cross-domain questions about UrbanPulse city operations - hospital, transit, airspace. Answers cite the city ops playbooks.</em></li>
+                            <li><strong>Description:</strong> <em>Ask cross-domain questions about UrbanPulse city operations - hospital and transit. Answers cite the city ops playbooks.</em></li>
                         <li><strong>Audience:</strong> Just me (for the lab)</li>
                         <li><strong>Starter prompts:</strong>
                             <ul>
@@ -326,7 +319,7 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
                     <text x="500" y="148" font-size="13" font-weight="700" fill="#005a9e" text-anchor="middle">Tenant B · Smart City</text>
                     <line x1="375" y1="160" x2="625" y2="160" stroke="#edebe9"/>
                     <text x="375" y="180" font-size="11" fill="#605e5c">workspace: tenB-urbanpulse</text>
-                    <text x="375" y="200" font-size="11" fill="#605e5c">agents enabled: ALL THREE</text>
+                    <text x="375" y="200" font-size="11" fill="#605e5c">agents enabled: BOTH</text>
                     <text x="375" y="220" font-size="11" fill="#605e5c">+ orchestrator</text>
                     <text x="375" y="240" font-size="11" fill="#605e5c">capacity: F32 dedicated</text>
                     <line x1="375" y1="255" x2="625" y2="255" stroke="#edebe9" stroke-dasharray="4 4"/>
@@ -336,20 +329,20 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
                 </g>
 
                 <g>
-                    <rect x="670" y="120" width="290" height="240" rx="10" fill="#fff" stroke="#00b7c3" stroke-width="2"/>
-                    <text x="815" y="148" font-size="13" font-weight="700" fill="#006e76" text-anchor="middle">Tenant C · Airport Authority</text>
+                    <rect x="670" y="120" width="290" height="240" rx="10" fill="#fff" stroke="#107c10" stroke-width="2"/>
+                    <text x="815" y="148" font-size="13" font-weight="700" fill="#107c10" text-anchor="middle">Tenant C · Transit Authority</text>
                     <line x1="690" y1="160" x2="940" y2="160" stroke="#edebe9"/>
                     <text x="690" y="180" font-size="11" fill="#605e5c">workspace: tenC-urbanpulse</text>
-                    <text x="690" y="200" font-size="11" fill="#605e5c">agents enabled: Airspace</text>
-                    <text x="690" y="220" font-size="11" fill="#605e5c">streams: flight only</text>
+                    <text x="690" y="200" font-size="11" fill="#605e5c">agents enabled: Transit</text>
+                    <text x="690" y="220" font-size="11" fill="#605e5c">streams: train only</text>
                     <text x="690" y="240" font-size="11" fill="#605e5c">capacity: F4 shared pool</text>
                     <line x1="690" y1="255" x2="940" y2="255" stroke="#edebe9" stroke-dasharray="4 4"/>
                     <text x="690" y="278" font-size="11" font-weight="600" fill="#1f1f1f">Single-domain SKU. Shared</text>
                     <text x="690" y="294" font-size="11" font-weight="600" fill="#1f1f1f">capacity to keep cost low.</text>
-                    <text x="690" y="320" font-size="10" font-style="italic" fill="#605e5c">"Just airspace, please."</text>
+                    <text x="690" y="320" font-size="10" font-style="italic" fill="#605e5c">"Just transit, please."</text>
                 </g>
             </svg>
-            <div class="caption">Figure 8.2 - One UrbanPulse product, three customer SKUs. Same reusable agent &amp; pipeline catalog; per-tenant workspace, capacity, and feature toggles.</div>
+            <div class="caption">Figure 9.2 - One UrbanPulse product, three customer SKUs. Same reusable agent &amp; pipeline catalog; per-tenant workspace, capacity, and feature toggles.</div>
         </div>
 
         <div class="callout purple">
@@ -370,18 +363,19 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
             <tbody>
                 <tr><td>Workspace foundation</td><td><code>urbanpulse-{id}</code> + capacity</td><td>0–1</td></tr>
                 <tr><td>Warm path · Lakehouse</td><td>3 ingest patterns, 1 SQL endpoint, 5 tables</td><td>2</td></tr>
-                <tr><td>Hot path · Eventhouse</td><td>4 KQL tables, 4 Eventstreams, all live</td><td>3</td></tr>
-                <tr><td>Real-Time Dashboard</td><td>6 tiles + 2 parameters + auto-refresh</td><td>4</td></tr>
+                <tr><td>Hot path · Eventhouse</td><td>3 KQL tables, 3 Eventstreams, all live</td><td>3</td></tr>
+                <tr><td>Real-Time Dashboard</td><td>5 tiles + 2 parameters + auto-refresh</td><td>4</td></tr>
                 <tr><td>Direct Lake + Power BI</td><td>Semantic model + 1-page report</td><td>5</td></tr>
-                <tr><td>AI layer · domain agent</td><td>Hospital Ops Fabric Data Agent published to M365 Copilot</td><td>6</td></tr>
-                <tr><td><em>Stretch ·</em> multi-agent catalog</td><td>Transit Ops + Airspace agents (full 3-agent catalog)</td><td>7</td></tr>
-                <tr><td><em>Stretch ·</em> Foundry orchestrator</td><td>Connected-agent orchestrator published to M365 Copilot</td><td>8</td></tr>
+                <tr><td>Semantic layer · Ontology</td><td>4 entity types + 4 relationships across 2 domains</td><td>6</td></tr>
+                <tr><td>AI layer · domain agent</td><td>Hospital Ops Fabric Data Agent published to M365 Copilot</td><td>7</td></tr>
+                <tr><td><em>Stretch ·</em> multi-agent catalog</td><td>Transit Ops agent (full 2-agent catalog)</td><td>8</td></tr>
+                <tr><td><em>Stretch ·</em> Foundry orchestrator</td><td>Connected-agent orchestrator published to M365 Copilot</td><td>9</td></tr>
             </tbody>
         </table>
 
         <p style="margin-top: 24px;">
-            That's eight Fabric capability areas - Lakehouse, Mirroring, Shortcuts, Eventhouse, Eventstream, RTI Dashboard,
-            Power BI Direct Lake, and Data Agents - plus Azure AI Foundry and Microsoft 365 Copilot, composed into one product narrative.
+            That's nine Fabric capability areas - Lakehouse, Mirroring, Shortcuts, Eventhouse, Eventstream, RTI Dashboard,
+            Power BI Direct Lake, Fabric Ontologies, and Data Agents - plus Azure AI Foundry and Microsoft 365 Copilot, composed into one product narrative.
             You now have a complete reference architecture you can take back to your team and adapt.
         </p>
 
@@ -396,9 +390,9 @@ CONFIDENCE: HIGH (2/2 relevant specialists responded; playbook §3.2 matched).</
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-7-multi-agent.html">
+        <a class="nav-card" href="module-8-multi-agent.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 7 · Multi-Agent Catalog</div>
+            <div class="nav-title">Module 8 · Multi-Agent Catalog</div>
         </a>
         <a class="nav-card next" href="appendix-env-vars.html">
             <div class="nav-direction">Next →</div>

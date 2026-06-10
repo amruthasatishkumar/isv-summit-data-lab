@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 7 · Multi-Agent Catalog (Optional) - UrbanPulse Lab</title>
+    <title>Module 8 · Multi-Agent Catalog (Optional) - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,22 +17,22 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 7 of 8 · Optional</div>
+    <div class="module-pill">Module 8 of 9 · Optional</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
-        <div class="module-eyebrow">Module 7 · AI Layer (stretch)</div>
+        <div class="module-eyebrow">Module 8 · AI Layer (stretch)</div>
         <h1>Build a Multi-Agent Catalog <span class="pill agent" style="vertical-align:middle;">⭐ OPTIONAL</span></h1>
         <p class="lead">
-            Repeat the Module 6 recipe for two more domains - <strong>Transit Operations</strong> and <strong>Airspace</strong> -
-            so you end up with a three-agent multi-domain catalog. Each agent is structurally identical to Hospital:
+            Repeat the Module 7 recipe for one more domain - <strong>Transit Operations</strong> -
+            so you end up with a two-agent multi-domain catalog. The Transit agent is structurally identical to Hospital:
             same shape, different data, different domain instructions.
         </p>
         <div class="module-meta">
-            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>30 minutes</strong> (optional)</div>
-            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> 3 domain agents total</div>
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>20 minutes</strong> (optional)</div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> 2 domain agents total</div>
             <div class="meta-item"><span class="meta-icon">🛠</span> Fabric Data Agents</div>
         </div>
     </div>
@@ -40,9 +40,9 @@
     <div class="callout warning">
         <span class="callout-icon">⭐</span>
         <div class="callout-content">
-            <strong>This module is optional.</strong> The lab is complete after Module 6. Build these two extra agents
-            if you want a full multi-domain catalog for the optional Module 8 orchestrator stretch, or as a reference
-            for repeating the recipe in your own ISV product. Module 8 also works with just the Hospital agent -
+            <strong>This module is optional.</strong> The lab is complete after Module 7. Build the Transit agent
+            if you want a multi-domain catalog for the optional Module 9 orchestrator stretch, or as a reference
+            for repeating the recipe in your own ISV product. Module 9 also works with just the Hospital agent -
             you'll simply connect fewer specialists.
         </div>
     </div>
@@ -50,9 +50,9 @@
     <section id="objectives">
         <h2>Learning Objectives</h2>
         <ul>
-            <li>Reuse the Module 6 recipe to ship <strong>two additional Fabric Data Agents</strong> in different domains.</li>
+            <li>Reuse the Module 7 recipe to ship <strong>one additional Fabric Data Agent</strong> in a different domain.</li>
             <li>Practice the design discipline of <strong>scoping each agent to its own tables</strong> with domain-specific guardrails.</li>
-            <li>End up with a <strong>three-agent catalog</strong> (Hospital · Transit · Airspace) ready for orchestration.</li>
+            <li>End up with a <strong>two-agent catalog</strong> (Hospital · Transit) ready for orchestration.</li>
             <li>Understand the trade-off between <strong>one mega-agent vs. one agent per domain</strong>.</li>
         </ul>
     </section>
@@ -60,7 +60,7 @@
     <section id="why-multi-agent">
         <h2>Why a Multi-Agent Catalog?</h2>
 
-        <p>You could have built one giant agent that knows everything about hospitals, trains, and aircraft. Why didn't you?</p>
+        <p>You could have built one giant agent that knows everything about hospitals and trains. Why didn't you?</p>
 
         <table>
             <thead>
@@ -75,7 +75,7 @@
                 <tr>
                     <td><strong>One agent per domain</strong> (today's pattern)</td>
                     <td>Tighter instructions, better answers, separate guardrails per domain. Composable as tools. Each agent ships independently.</td>
-                    <td>More items to manage; cross-domain questions need an orchestrator (the optional Module 8 stretch).</td>
+                    <td>More items to manage; cross-domain questions need an orchestrator (the optional Module 9 stretch).</td>
                 </tr>
             </tbody>
         </table>
@@ -84,8 +84,8 @@
             <span class="callout-icon">💡</span>
             <div class="callout-content">
                 <strong>The ISV pattern.</strong> Domain agents are reusable building blocks across customers.
-                A hospital network takes only the Hospital agent (published to their Copilot). A municipality takes all three plus the
-                orchestrator. An airport authority takes Airspace alone. Same building blocks, different SKUs.
+                A hospital network takes only the Hospital agent (published to their Copilot). A municipality takes both plus the
+                orchestrator. Same building blocks, different SKUs.
             </div>
         </div>
     </section>
@@ -190,117 +190,13 @@ speculate beyond what telemetry shows.</code></pre>
         </ol>
     </section>
 
-    <!-- =============== AGENT 3 · AIRSPACE =============== -->
-    <section id="agent-airspace">
-        <h2>Airspace Agent <span class="pill agent">✈️ AIRSPACE</span></h2>
-
-        <div class="domain-block airspace">
-            <div class="domain-label">✈️ PERSONA</div>
-            <p><strong>Audience:</strong> tower operations, ground coordination, situational awareness teams.<br/>
-               <strong>Mission:</strong> answer "what's flying overhead, who's inbound, what altitudes are in use?"</p>
-        </div>
-
-        <ol class="step-list">
-            <li>
-                <h3 class="step-title">Create the agent</h3>
-                <div class="step-body">
-                    <p>Workspace → <strong>+ New item</strong> → <strong>Agent</strong>. Name: <code>ag-airspace</code>.</p>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Paste the instructions</h3>
-                <div class="step-body">
-<div class="code-block">
-<span class="lang-badge">Agent Instructions · Airspace</span>
-<pre><code>You are the Airspace Agent - an AI assistant for tower and ground operations
-at Metropolis Regional Airport. You answer questions about live aircraft data
-streamed from a PiAware ADS-B receiver.
-
-## Your Data Source
-
-### FlightTelemetry (KQL)
-| Column | Type | Description |
-| hex | string | ICAO 24-bit aircraft address |
-| flight | string | Callsign / flight number |
-| lat / lon | real | Position |
-| alt_baro | int | Barometric altitude (ft) |
-| alt_geom | int | Geometric altitude (ft) |
-| gs | real | Ground speed (knots) |
-| track | real | Heading (degrees) |
-| squawk | string | Transponder code |
-| category | string | Aircraft category (A1=light, A3=medium jet, etc.) |
-| rssi | real | Signal strength (dBFS) |
-| timestamp | datetime | UTC timestamp |
-
-## Important Domain Knowledge
-- Altitude under 5,000 ft typically means approach or departure phase.
-- Squawk 7500 = hijack, 7600 = comms failure, 7700 = emergency. Always flag if seen.
-- "Inbound" means descending toward the airport (use altitude + heading + position).
-- ADS-B updates frequently - last 5 minutes is enough for "right now" questions.
-
-## How to Respond
-1. Default to the last 5 minutes for current state; last 30m for trends.
-2. Use most-recent-position-per-aircraft (arg_max by hex).
-3. ALWAYS flag emergency squawk codes (7500/7600/7700) if any are present.
-4. Convert ground speed knots to mph if asked, but default to knots.
-5. State the time window. Mention if no aircraft are detected.
-
-## Common KQL Patterns
-### Aircraft in the air right now
-FlightTelemetry
-| where timestamp &gt; ago(5m)
-| summarize arg_max(timestamp, *) by hex
-| where alt_baro &gt; 0
-| project flight, lat, lon, alt_baro, gs, track
-
-### Low-altitude (likely approach/departure)
-FlightTelemetry
-| where timestamp &gt; ago(5m)
-| summarize arg_max(timestamp, *) by hex
-| where alt_baro between (0 .. 5000)
-| order by alt_baro asc
-
-### Emergency squawk check
-FlightTelemetry
-| where timestamp &gt; ago(15m)
-| where squawk in ("7500", "7600", "7700")
-| project flight, hex, squawk, alt_baro, lat, lon, timestamp
-
-## Response Format
-- Sentence summary first ("12 aircraft detected in last 5m, 2 below 5,000 ft").
-- Table for multi-aircraft details.
-- Always include callsign + altitude + ground speed for each.
-
-## Guardrails
-DO: report what telemetry shows, flag emergency squawks unconditionally.
-DON'T: predict landings, speculate on intent, identify operators or pilots.</code></pre>
-</div>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Add data source &amp; test</h3>
-                <div class="step-body">
-                    <p>Tick only <code>FlightTelemetry</code> on the data sources tab.</p>
-                    <p>Sample prompts:</p>
-                    <ul>
-                        <li>"How many aircraft are airborne right now?"</li>
-                        <li>"Which aircraft are below 5,000 feet?"</li>
-                        <li>"Are there any emergency squawks in the last 15 minutes?"</li>
-                    </ul>
-                </div>
-            </li>
-        </ol>
-    </section>
-
     <section id="optional-publish">
-        <h2>Optional: Publish These to Copilot Too</h2>
-        <p>If your tenant is licensed for M365 Copilot, you can repeat the Module 6 publish flow for Transit and Airspace as well - each becomes its own agent in the Copilot picker. Or skip publishing and use them only as connected-agent tools in the Module 8 orchestrator.</p>
+        <h2>Optional: Publish This to Copilot Too</h2>
+        <p>If your tenant is licensed for M365 Copilot, you can repeat the Module 7 publish flow for Transit as well - it becomes its own agent in the Copilot picker. Or skip publishing and use it only as a connected-agent tool in the Module 9 orchestrator.</p>
         <div class="callout tip">
             <span class="callout-icon">💡</span>
             <div class="callout-content">
-                In a real ISV product, you'd typically publish only the agents end users need directly in Copilot, and keep specialist agents (Airspace for an airport authority customer, for example) as internal tools that the orchestrator delegates to.
+                In a real ISV product, you'd typically publish only the agents end users need directly in Copilot, and keep specialist agents as internal tools that the orchestrator delegates to.
             </div>
         </div>
     </section>
@@ -309,22 +205,21 @@ DON'T: predict landings, speculate on intent, identify operators or pilots.</cod
         <h2>What You Just Built</h2>
         <ul>
             <li>A <strong>Transit Operations Fabric Data Agent</strong> scoped to <code>TrainTelemetry</code>.</li>
-            <li>An <strong>Airspace Fabric Data Agent</strong> scoped to <code>FlightTelemetry</code>.</li>
-            <li>A complete <strong>three-agent multi-domain catalog</strong> in your workspace.</li>
+            <li>A complete <strong>two-agent multi-domain catalog</strong> in your workspace.</li>
             <li>The mental model for one-agent-per-domain vs. mega-agent trade-offs.</li>
         </ul>
 
-        <p>Three agents, three domains, three sets of guardrails. The optional <strong>Module 8</strong> turns this catalog into a single front-door Copilot agent that delegates to the right specialist automatically.</p>
+        <p>Two agents, two domains, two sets of guardrails. The optional <strong>Module 9</strong> turns this catalog into a single front-door Copilot agent that delegates to the right specialist automatically.</p>
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-6-data-agents.html">
+        <a class="nav-card" href="module-7-data-agents.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 6 · Data Agent → Copilot</div>
+            <div class="nav-title">Module 7 · Data Agent → Copilot</div>
         </a>
-        <a class="nav-card next" href="module-8-foundry-orchestrator.html">
+        <a class="nav-card next" href="module-9-foundry-orchestrator.html">
             <div class="nav-direction">Next →</div>
-            <div class="nav-title">Module 8 · Foundry Orchestrator <span class="pill agent" style="vertical-align:middle;">OPTIONAL</span></div>
+            <div class="nav-title">Module 9 · Foundry Orchestrator <span class="pill agent" style="vertical-align:middle;">OPTIONAL</span></div>
         </a>
     </nav>
 

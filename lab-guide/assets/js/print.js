@@ -17,9 +17,10 @@ const LAB_NAV = [
         { href: "module-3-streaming.html",                 label: "Streaming Ingest",          badge: "M3" },
         { href: "module-4-kql-dashboard.html",             label: "KQL + Dashboard",           badge: "M4" },
         { href: "module-5-direct-lake.html",               label: "Direct Lake + Power BI",    badge: "M5" },
-        { href: "module-6-data-agents.html",               label: "Data Agent → Copilot",      badge: "M6" },
-        { href: "module-7-multi-agent.html",               label: "Multi-Agent Catalog ★",    badge: "M7" },
-        { href: "module-8-foundry-orchestrator.html",      label: "Foundry Orchestrator ★",   badge: "M8" },
+        { href: "module-6-ontologies.html",                label: "Fabric Ontologies",         badge: "M6" },
+        { href: "module-7-data-agents.html",               label: "Data Agent → Copilot",      badge: "M7" },
+        { href: "module-8-multi-agent.html",               label: "Multi-Agent Catalog ★",    badge: "M8" },
+        { href: "module-9-foundry-orchestrator.html",      label: "Foundry Orchestrator ★",   badge: "M9" },
     ]},
     { group: "Appendices", items: [
         { href: "appendix-env-vars.html",                  label: "Lab Credentials",           badge: "A" },

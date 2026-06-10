@@ -26,7 +26,7 @@
         <div class="module-eyebrow">Appendix A · Reference</div>
         <h1>Lab Credentials Cheat-Sheet</h1>
         <p class="lead">
-            Every connection string, key, and endpoint you'll paste into Fabric portal wizards (or attach in the optional Module 8 Foundry orchestrator).
+            Every connection string, key, and endpoint you'll paste into Fabric portal wizards (or attach in the optional Module 9 Foundry orchestrator).
             Bookmark this tab - you'll come back to it from M2 onward.
         </p>
     </div>
@@ -62,7 +62,6 @@
                 <tr><td>Hospital vitals</td><td><code>Endpoint=sb://eh-isvsummit.servicebus.windows.net/;SharedAccessKeyName=lab-listen;EntityPath=eh-hospital-vitals;SharedAccessKey=&hellip;</code></td></tr>
                 <tr><td>Hospital movement</td><td><code>Endpoint=sb://eh-isvsummit.servicebus.windows.net/;SharedAccessKeyName=lab-listen;EntityPath=eh-hospital-movement;SharedAccessKey=&hellip;</code></td></tr>
                 <tr><td>Metra trains</td><td><code>Endpoint=sb://eh-isvsummit.servicebus.windows.net/;SharedAccessKeyName=lab-listen;EntityPath=eh-metra-trains;SharedAccessKey=&hellip;</code></td></tr>
-                <tr><td>Flight tracker</td><td><code>Endpoint=sb://eh-isvsummit.servicebus.windows.net/;SharedAccessKeyName=lab-listen;EntityPath=eh-flight-tracker;SharedAccessKey=&hellip;</code></td></tr>
             </tbody>
         </table>
 
@@ -102,14 +101,13 @@
     </section>
 
     <section id="agents">
-        <h2>Fabric Data Agents <span class="pill agent">Modules 6–7 → Module 8</span></h2>
-        <p>You'll <em>create</em> these endpoints in Module 6 (Hospital is the core deliverable; Transit and Airspace are optional). In the optional M7 stretch you paste them into the Foundry orchestrator as connected-agent tools. To copy each one: open the agent → <strong>Settings</strong> → <strong>Endpoint</strong>.</p>
+        <h2>Fabric Data Agents <span class="pill agent">Modules 7–8 → Module 9</span></h2>
+        <p>You'll <em>create</em> these endpoints in Module 7 (Hospital is the core deliverable; Transit is optional in Module 8). In the optional Module 9 stretch you paste them into the Foundry orchestrator as connected-agent tools. To copy each one: open the agent → <strong>Settings</strong> → <strong>Endpoint</strong>.</p>
         <table>
             <thead><tr><th style="width:30%">Agent</th><th>Endpoint shape</th></tr></thead>
             <tbody>
                 <tr><td>Hospital Operations <span class="pill agent" style="background:#0078d4;color:#fff;">CORE</span></td><td><code>https://api.fabric.microsoft.com/v1/workspaces/{ws}/aiagents/{id}/run</code></td></tr>
                 <tr><td>Transit Operations <span class="pill agent" style="background:#a19f9d;color:#fff;">OPTIONAL</span></td><td><code>https://api.fabric.microsoft.com/v1/workspaces/{ws}/aiagents/{id}/run</code></td></tr>
-                <tr><td>Airspace <span class="pill agent" style="background:#a19f9d;color:#fff;">OPTIONAL</span></td><td><code>https://api.fabric.microsoft.com/v1/workspaces/{ws}/aiagents/{id}/run</code></td></tr>
             </tbody>
         </table>
 
@@ -122,7 +120,7 @@
     </section>
 
     <section id="foundry">
-        <h2>Azure AI Foundry Project <span class="pill">Module 8 · Stretch</span></h2>
+        <h2>Azure AI Foundry Project <span class="pill">Module 9 · Stretch</span></h2>
         <table>
             <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
             <tbody>
@@ -139,7 +137,7 @@
     </section>
 
     <section id="ai-search">
-        <h2>Azure AI Search <span class="pill">Module 8 · Stretch · RAG</span></h2>
+        <h2>Azure AI Search <span class="pill">Module 9 · Stretch · RAG</span></h2>
         <table>
             <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
             <tbody>
@@ -152,7 +150,7 @@
     </section>
 
     <section id="aoai">
-        <h2>Azure OpenAI <span class="pill">Module 8 · Stretch · Model</span></h2>
+        <h2>Azure OpenAI <span class="pill">Module 9 · Stretch · Model</span></h2>
         <table>
             <thead><tr><th style="width:30%">Field</th><th>Value</th></tr></thead>
             <tbody>
@@ -175,10 +173,10 @@
                 <tr><td>M2 - Mirror</td><td>Azure SQL server / DB / user / password</td><td>Fabric "Mirrored database" connection wizard</td></tr>
                 <tr><td>M2 - Shortcut</td><td>Cosmos endpoint + read-only key</td><td>Fabric "New OneLake shortcut" wizard</td></tr>
                 <tr><td>M3 - Eventstreams</td><td>4 × Event Hub connection strings</td><td>Eventstream "Add source" → Azure Event Hubs</td></tr>
-                <tr><td>M6 - Agents</td><td>(none - uses workspace KQL DB directly)</td><td>-</td></tr>
-                <tr><td>M6 - Publish to Copilot</td><td>(none - uses your Entra identity)</td><td>Fabric agent → <strong>Publish</strong> → Microsoft 365 Copilot</td></tr>
-                <tr><td>M8 - Foundry <em>(stretch)</em></td><td>1–3 × Fabric agent endpoints (Settings → Endpoint)</td><td>Foundry agent → Tools → <strong>Connected agent</strong></td></tr>
-                <tr><td>M8 - Publish to Copilot <em>(stretch)</em></td><td>(none - uses your Entra identity)</td><td>Foundry agent → <strong>Publish</strong> → Microsoft 365 Copilot</td></tr>
+                <tr><td>M7 - Agents</td><td>(none - uses workspace KQL DB directly)</td><td>-</td></tr>
+                <tr><td>M7 - Publish to Copilot</td><td>(none - uses your Entra identity)</td><td>Fabric agent → <strong>Publish</strong> → Microsoft 365 Copilot</td></tr>
+                <tr><td>M9 - Foundry <em>(stretch)</em></td><td>1–3 × Fabric agent endpoints (Settings → Endpoint)</td><td>Foundry agent → Tools → <strong>Connected agent</strong></td></tr>
+                <tr><td>M9 - Publish to Copilot <em>(stretch)</em></td><td>(none - uses your Entra identity)</td><td>Foundry agent → <strong>Publish</strong> → Microsoft 365 Copilot</td></tr>
             </tbody>
         </table>
     </section>
@@ -193,9 +191,9 @@
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-8-foundry-orchestrator.html">
+        <a class="nav-card" href="module-9-foundry-orchestrator.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 8 · Foundry Orchestrator</div>
+            <div class="nav-title">Module 9 · Foundry Orchestrator</div>
         </a>
         <a class="nav-card next" href="appendix-kql-cookbook.html">
             <div class="nav-direction">Next →</div>

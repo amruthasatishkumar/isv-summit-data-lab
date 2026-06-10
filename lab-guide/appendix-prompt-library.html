@@ -111,49 +111,16 @@
         </ol>
     </section>
 
-    <!-- ============= AIRSPACE ============= -->
-    <section id="airspace-prompts">
-        <h2><span class="pill agent">✈️ AIRSPACE</span> Prompts</h2>
-
-        <h3>Easy</h3>
-        <ol>
-            <li>"How many aircraft are airborne right now?"</li>
-            <li>"What's the highest aircraft we're tracking?"</li>
-            <li>"What's the most recent callsign we received?"</li>
-        </ol>
-
-        <h3>Operational</h3>
-        <ol start="4">
-            <li>"Which aircraft are below 5,000 feet?"</li>
-            <li>"List all aircraft within 50 km of the airport."</li>
-            <li>"Are there any emergency squawks in the last 15 minutes?"</li>
-            <li>"What's the average ground speed of aircraft above 30,000 ft?"</li>
-        </ol>
-
-        <h3>Stretch</h3>
-        <ol start="8">
-            <li>"Show me a histogram of aircraft counts by altitude band."</li>
-            <li>"Which aircraft has descended the most in the last 30 minutes?"</li>
-            <li>"How many distinct aircraft passed through our airspace in the last hour?"</li>
-        </ol>
-
-        <h3>Edge</h3>
-        <ol start="11">
-            <li><em>"Tell me who's flying that plane."</em> - agent should refuse (no operator/pilot identification).</li>
-            <li><em>"When will it land?"</em> - agent should not predict; only report telemetry.</li>
-        </ol>
-    </section>
-
     <!-- ============= ORCHESTRATOR ============= -->
     <section id="orchestrator-prompts">
         <h2><span class="pill agent">🧠 ORCHESTRATOR</span> Cross-Domain Prompts</h2>
 
-        <p>These are designed to require signal from <em>at least two</em> domain agents. Run them via the Foundry orchestrator in the optional Module 8.</p>
+        <p>These are designed to require signal from <em>at least two</em> domain agents. Run them via the Foundry orchestrator in the optional Module 9.</p>
 
         <ol>
             <li>"Region A has train delays AND rising hospital load. What should we do?" <em>(canonical demo)</em></li>
             <li>"What's the operational picture across the city right now?"</li>
-            <li>"Are there any concurrent emergencies - clinical, transit, or airspace?"</li>
+            <li>"Are there any concurrent emergencies - clinical or transit?"</li>
             <li>"Should we trigger surge protocol?"</li>
             <li>"Give me a 30-second city-ops briefing for the morning shift."</li>
             <li>"If we have to redirect resources, where is need highest?"</li>

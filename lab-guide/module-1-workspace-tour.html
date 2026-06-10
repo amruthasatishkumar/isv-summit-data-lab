@@ -17,7 +17,7 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 1 of 8</div>
+    <div class="module-pill">Module 1 of 9</div>
 </header>
 
 <div class="page-wrap">
@@ -59,16 +59,10 @@
             </div>
         </div>
 
-        <div class="domain-block airspace">
-            <div class="domain-label">✈️ AIRSPACE</div>
-            <h3>Metropolis Regional Airport</h3>
-            <p>Live ADS-B feed from a PiAware receiver covering inbound/outbound aircraft. Tower wants a single pane of glass linking surface ground operations to in-flight traffic.</p>
-        </div>
-
         <div class="callout purple">
             <span class="callout-icon">💡</span>
             <div class="callout-content">
-                <strong>The ISV play.</strong> Three different customer domains (hospital, transit, airport)
+                <strong>The ISV play.</strong> Two different customer domains (hospital and transit)
                 each generating real-time telemetry. UrbanPulse's value proposition isn't "we'll build
                 you a dashboard" - it's "we'll let your operators ask questions in plain English and
                 get answers grounded in live data, no matter which system it lives in."
@@ -101,7 +95,7 @@
             <tbody>
                 <tr>
                     <td><strong>Sources</strong></td>
-                    <td>Operational systems - hospital simulators, train telemetry, ADS-B receivers, customer SQL DBs.</td>
+                    <td>Operational systems - hospital simulators, train telemetry, customer SQL DBs.</td>
                     <td>(coach-managed)</td>
                     <td>Heterogeneous customer environments</td>
                 </tr>
@@ -119,8 +113,8 @@
                 </tr>
                 <tr>
                     <td><strong>AI layer</strong></td>
-                    <td>Fabric Data Agent published to M365 Copilot (Hospital core; Transit + Airspace optional). Optional Foundry connected-agent orchestrator over all of them with Azure AI Search RAG.</td>
-                    <td>Modules 6, 7, 8 <em>(7–8 are stretch)</em></td>
+                    <td>Fabric Data Agent published to M365 Copilot (Hospital core; Transit optional). Optional Foundry connected-agent orchestrator over both of them with Azure AI Search RAG.</td>
+                    <td>Modules 6, 7, 8, 9 <em>(8–9 are stretch)</em></td>
                     <td>Domain agents = composable building blocks</td>
                 </tr>
             </tbody>
@@ -190,7 +184,7 @@
                 <!-- right-side consumers -->
                 <rect x="700" y="50" width="270" height="70" rx="8" fill="#fff" stroke="#7c52e6" stroke-width="2"/>
                 <text x="835" y="78" fill="#4f29a3" font-size="13" font-weight="600" text-anchor="middle">Real-Time Dashboard + Data Agent</text>
-                <text x="835" y="100" fill="#605e5c" font-size="11" text-anchor="middle">Module 4 + Module 6</text>
+                <text x="835" y="100" fill="#605e5c" font-size="11" text-anchor="middle">Module 4 + Module 7</text>
 
                 <rect x="700" y="190" width="270" height="70" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
                 <text x="835" y="218" fill="#005a9e" font-size="13" font-weight="600" text-anchor="middle">Power BI Report (DirectLake)</text>
@@ -293,7 +287,7 @@
                         <span class="callout-icon">ⓘ</span>
                         <div class="callout-content">
                             <strong>ISV multi-tenant pattern:</strong> One workspace per customer tenant, with the ISV's automation principal as Admin
-                            and the customer's users as Members or Contributors. The optional Module 8 stretch shows how this scales across customer SKUs.
+                            and the customer's users as Members or Contributors. The optional Module 9 stretch shows how this scales across customer SKUs.
                         </div>
                     </div>
                 </div>
