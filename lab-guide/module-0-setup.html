@@ -72,7 +72,7 @@
                     <td><code>attendee-{id}@isvsummitlab.onmicrosoft.com</code></td>
                 </tr>
                 <tr>
-                    <td><span class="pill">Shared Event Hubs (4)</span> <em>(provided)</em></td>
+                    <td><span class="pill">Shared Event Hubs (3)</span> <em>(provided)</em></td>
                     <td>Coaches run the simulators centrally on a hidden VM. You'll connect Eventstreams to these in Module 3 using read-only listener strings.</td>
                     <td>see <a href="appendix-env-vars.html">Appendix A</a></td>
                 </tr>
@@ -88,7 +88,7 @@
                 </tr>
                 <tr>
                     <td><span class="pill lakehouse">Workspace + items</span> <strong>(you build)</strong></td>
-                    <td>Workspace (M1), Lakehouse + Mirror + Shortcut (M2), Eventhouse + Eventstreams + KQL tables (M3), Real-Time Dashboard (M4), Direct Lake semantic model + Power BI report (M5), Fabric Data Agent (M6). Optional: extra agents (M7) and Foundry orchestrator (M8).</td>
+                    <td>Workspace (M1), Lakehouse + Mirror + Shortcut (M2), Eventhouse + Eventstreams + KQL tables (M3), Real-Time Dashboard (M4), Direct Lake semantic model + Power BI report (M5), Fabric Ontology (M6), Fabric Data Agent (M7). Optional: extra agents (M8) and Foundry orchestrator (M9).</td>
                     <td>your naming, your ID</td>
                 </tr>
             </tbody>
@@ -164,7 +164,7 @@ password:  see your slip</code></pre>
                     <p>Click here: <a href="appendix-env-vars.html" target="_blank"><strong>Appendix A · Lab Credentials</strong></a></p>
                     <p>It contains the values for:</p>
                     <ul>
-                        <li>The four shared Event Hub listener strings (Module 3)</li>
+                        <li>The three shared Event Hub listener strings (Module 3)</li>
                         <li>Azure SQL connection details for the mirror (Module 2)</li>
                         <li>Cosmos DB endpoint + read-only key for the OneLake Shortcut (Module 2)</li>
                         <li>Azure OpenAI endpoint + key (Module 9 Foundry orchestrator - optional)</li>
@@ -194,7 +194,7 @@ password:  see your slip</code></pre>
 
     <section id="step-3">
         <h2>Step 3 (optional) - Confirm the streams are live</h2>
-        <p>If you want to see the simulators running before Module 3, open the <a href="https://portal.azure.com">Azure portal</a> and navigate to the Event Hubs namespace listed in Appendix A. Each of the four hubs should show non-zero <em>Incoming Messages</em> in the last 5 minutes.</p>
+        <p>If you want to see the simulators running before Module 3, open the <a href="https://portal.azure.com">Azure portal</a> and navigate to the Event Hubs namespace listed in Appendix A. Each of the three hubs should show non-zero <em>Incoming Messages</em> in the last 5 minutes.</p>
 
         <div class="callout tip">
             <span class="callout-icon">✓</span>
