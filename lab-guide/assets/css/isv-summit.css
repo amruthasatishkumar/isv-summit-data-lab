@@ -804,6 +804,98 @@ tr:hover td { background: var(--gray-50); }
     text-decoration: none;
 }
 
+/* Bundle download card on data-downloads appendix */
+.bundle-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 28px;
+    margin: 24px 0 8px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--ms-purple-700), var(--ms-purple-900));
+    color: var(--white);
+    box-shadow: var(--shadow-lg);
+    flex-wrap: wrap;
+}
+.bundle-card .bundle-text {
+    flex: 1 1 320px;
+    min-width: 280px;
+}
+.bundle-card h2 {
+    margin: 0 0 6px;
+    color: var(--white);
+    border: none;
+    padding: 0;
+    font-size: 22px;
+}
+.bundle-card p {
+    margin: 0 0 4px;
+    color: rgba(255,255,255,0.92);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.bundle-card .bundle-meta {
+    margin-top: 6px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    font-family: var(--font-mono);
+}
+.bundle-card .bundle-meta code {
+    background: rgba(255,255,255,0.12);
+    color: var(--white);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+.bundle-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--ms-purple-800);
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+}
+.bundle-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-decoration: none;
+}
+.bundle-download-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.bundle-details {
+    margin: 16px 0 24px;
+    border-top: 1px solid var(--gray-200);
+    padding-top: 12px;
+}
+.bundle-details > summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--ms-purple-800);
+    padding: 8px 0;
+    list-style: none;
+    user-select: none;
+}
+.bundle-details > summary::-webkit-details-marker { display: none; }
+.bundle-details > summary::before {
+    content: "▸ ";
+    display: inline-block;
+    transition: transform 0.15s ease;
+    margin-right: 4px;
+    color: var(--ms-purple-700);
+}
+.bundle-details[open] > summary::before {
+    transform: rotate(90deg);
+}
+
 /* Use case overview on home */
 .use-case {
     width: 100%;
@@ -946,7 +1038,44 @@ tr:hover td { background: var(--gray-50); }
     border-style: dashed;
 }
 
-/* Domain accent - Smart City scenario */
+/* ---------- Goal-based color coding (cards + pills) ---------- */
+/* Setup (M0, M1) keeps the default purple top border (--ms-purple-500). */
+
+/* Goal 1 · Ingest -> Fabric blue */
+.module-card[data-goals~="ingest"]              { border-top-color: var(--fabric-teal); }
+.module-card[data-goals~="ingest"] .mc-number   { color: var(--fabric-teal); }
+.module-card[data-goals~="ingest"] .mc-goal-tag { background: rgba(0, 120, 212, 0.10); color: var(--fabric-teal); }
+.goal-pill[data-goal="ingest"] .gp-num          { background: rgba(0, 120, 212, 0.12); color: var(--fabric-teal); }
+
+/* Goal 2 · Transform -> warm orange */
+.module-card[data-goals~="transform"]              { border-top-color: var(--warning); }
+.module-card[data-goals~="transform"] .mc-number   { color: var(--warning); }
+.module-card[data-goals~="transform"] .mc-goal-tag { background: rgba(247, 99, 12, 0.10); color: var(--warning); }
+.goal-pill[data-goal="transform"] .gp-num          { background: rgba(247, 99, 12, 0.14); color: var(--warning); }
+
+/* Goal 3 · Build Report -> Fabric cyan */
+.module-card[data-goals~="report"]              { border-top-color: var(--fabric-cyan); }
+.module-card[data-goals~="report"] .mc-number   { color: #008a93; }
+.module-card[data-goals~="report"] .mc-goal-tag { background: rgba(0, 183, 195, 0.12); color: #008a93; }
+.goal-pill[data-goal="report"] .gp-num          { background: rgba(0, 183, 195, 0.16); color: #008a93; }
+
+/* Goal 4 · Apply AI -> Microsoft green */
+.module-card[data-goals~="ai"]              { border-top-color: var(--success); }
+.module-card[data-goals~="ai"] .mc-number   { color: var(--success); }
+.module-card[data-goals~="ai"] .mc-goal-tag { background: rgba(16, 124, 16, 0.10); color: var(--success); }
+.goal-pill[data-goal="ai"] .gp-num          { background: rgba(16, 124, 16, 0.14); color: var(--success); }
+
+/* When a goal pill is active, override the gp-num so it stays readable on the
+   purple-filled active background. */
+.goal-pill.active .gp-num {
+    background: rgba(255, 255, 255, 0.18) !important;
+    color: var(--white) !important;
+}
+
+/* Optional cards keep the dashed border but inherit the goal color above. */
+.module-card.optional { border-top-style: dashed; }
+
+/* Domain accent - Smart City scenario (kept for back-compat where used) */
 .module-card.health      { border-top-color: #d13438; }
 .module-card.transit     { border-top-color: var(--fabric-teal); }
 .module-card.airspace    { border-top-color: var(--fabric-cyan); }

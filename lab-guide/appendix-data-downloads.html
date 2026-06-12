@@ -37,6 +37,21 @@
         </div>
     </div>
 
+    <section id="bundle" class="bundle-card">
+        <div class="bundle-text">
+            <h2>Grab everything in one zip</h2>
+            <p>One archive with the Parquet catalog and all five facility photos &mdash; pre-arranged in the layout the Lakehouse expects.</p>
+            <p class="bundle-meta"><code>urbanpulse-lab-data.zip</code> &middot; ~132 KB &middot; 1 parquet + 5 jpg</p>
+        </div>
+        <a class="bundle-download" href="assets/downloads/urbanpulse-lab-data.zip" download>
+            <span class="bundle-download-icon">⬇</span>
+            <span class="bundle-download-label">Download all (.zip)</span>
+        </a>
+    </section>
+
+    <details class="bundle-details">
+        <summary>Or grab files individually</summary>
+
     <section id="parquet">
         <h2>Facility Catalog (Parquet)</h2>
         <p>A 5-row Delta-friendly Parquet file describing the hospitals in the UrbanPulse scenario. After you upload it into your Lakehouse <code>Files</code> zone, right-click the file and choose <strong>Load to tables</strong> to promote it to a managed Delta table.</p>
@@ -91,10 +106,12 @@
         </table>
     </section>
 
+    </details>
+
     <section id="upload-howto">
         <h2>How to Upload These into Your Lakehouse</h2>
         <ol>
-            <li>Download <code>facility_catalog.parquet</code> and the five photos to your local machine.</li>
+            <li>Download the zip above (or grab individual files) and extract to a folder on your local machine. You should end up with <code>facility_catalog.parquet</code> next to a <code>facilities/</code> folder containing five JPGs.</li>
             <li>In the Fabric portal open <code>lh_urbanpulse_bronze</code> (or whatever name you gave your Bronze Lakehouse in M2).</li>
             <li>In the Explorer pane right-click <strong>Files</strong> &rarr; <strong>Upload</strong> &rarr; <strong>Upload files</strong> and pick <code>facility_catalog.parquet</code>.</li>
             <li>Right-click <strong>Files</strong> again &rarr; <strong>Upload</strong> &rarr; <strong>Upload folder</strong> and pick the <code>facilities</code> folder containing the five JPGs.</li>
