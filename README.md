@@ -2,7 +2,7 @@
 
 Self-contained lab guide for the **Day 2 hands-on lab** at the Microsoft ISV Data Summit (June 16–17, 2026).
 
-> **Scenario:** UrbanPulse Analytics is an ISV building a Smart City operations platform on Microsoft Fabric. You'll build their reference architecture end-to-end across 6 modules - Lakehouse, Eventhouse, KQL Dashboard, Direct Lake, Fabric Data Agents, and a multi-agent orchestrator.
+> **Scenario:** UrbanPulse Analytics is an ISV building a Smart City operations platform on Microsoft Fabric. Across 11 modules organized into four goals — **Ingest, Transform, Build Report, Apply AI** — attendees build the reference architecture end-to-end: Lakehouse, Mirroring, Eventhouse, Spark notebook + SQL views, Real-Time Dashboard, Direct Lake + Power BI, Fabric Ontologies, Fabric Data Agents, and an Azure AI Foundry connected-agent orchestrator.
 
 ---
 
@@ -12,33 +12,39 @@ Self-contained lab guide for the **Day 2 hands-on lab** at the Microsoft ISV Dat
 ISV Summit/
 ├── README.md                          ← you are here
 ├── lab-guide/                         ← attendee-facing HTML lab guide (open index.html)
-│   ├── index.html                     ← cover page + agenda + architecture overview
+│   ├── index.html                     ← cover page + use case + 4 goal pills + 11 module cards
 │   ├── module-0-setup.html
 │   ├── module-1-workspace-tour.html
 │   ├── module-2-lakehouse-mirror.html
 │   ├── module-3-streaming.html
-│   ├── module-4-kql-dashboard.html
-│   ├── module-5-data-agents.html
-│   ├── module-6-direct-lake-orchestrator.html
-│   ├── appendix-env-vars.html
-│   ├── appendix-kql-cookbook.html
+│   ├── module-4-transform.html
+│   ├── module-5-kql-dashboard.html
+│   ├── module-6-direct-lake.html
+│   ├── module-7-ontologies.html
+│   ├── module-8-data-agents.html
+│   ├── module-9-multi-agent.html
+│   ├── module-10-foundry-orchestrator.html
+│   ├── closing.html                   ← ISV pattern picture + final recap
+│   ├── appendix-env-vars.html         ← Lab Credentials
+│   ├── appendix-data-downloads.html   ← Lab Data Downloads
 │   ├── appendix-prompt-library.html
 │   └── assets/
 │       ├── css/isv-summit.css         ← single source of branding
-│       ├── js/print.js                ← Ctrl+P helper
+│       ├── js/print.js                ← sidebar nav + Ctrl+P helper
+│       ├── downloads/                 ← parquet + facility photos for M2 Option B
 │       └── images/                    ← SVG diagrams + Microsoft logo
 ├── coach-prep/                        ← coach-only material (NOT shared with attendees)
 │   ├── README.md                      ← coach role + schedule
 │   ├── pre-flight-checklist.md        ← T-90min checklist
-│   └── simulator-runbook.md           ← how to run the 4 simulators
+│   └── simulator-runbook.md           ← how to run the 3 simulators
 └── diagrams/                          ← editable diagram sources (Excalidraw etc.)
 ```
 
 ## How attendees use it
 
-1. Cloud PC opens to `lab-guide/index.html` (or a hosted copy at `https://lab-guide.isvsummit.local`).
-2. Attendees follow modules **0 → 6** sequentially. Each module is one HTML page, ~30-75 minutes.
-3. Sidebar/footer nav advances them through the lab.
+1. Lab machine opens to `lab-guide/index.html`.
+2. Attendees follow modules **0 → 10** sequentially, then `closing.html`. Each module is one HTML page, ~20–75 minutes.
+3. The sticky sidebar groups modules under each goal so attendees can jump to a phase. The Goals page also has filter pills (All · Ingest · Transform · Build Report · Apply AI).
 4. To take an offline copy: **Ctrl+P → Save as PDF** on any page.
 
 ## How to export to PDF
@@ -51,16 +57,21 @@ Whole guide as one PDF: open `index.html`, save as PDF, then concatenate each mo
 
 | # | Module | Time | Goal |
 | --- | --- | --- | --- |
-| 0 | Setup & Environment Check | 15m | Verify Cloud PC, .env, preflight script |
-| 1 | Workspace Tour | 20m | Tour the pre-provisioned workspace + medallion + ISV multi-tenancy |
-| 2 | Lakehouse + Mirror + Shortcut | 40m | Three ingest patterns (parquet upload, Azure SQL mirror, Cosmos shortcut) |
-| 3 | Streaming Ingest | 60m | 4 Eventstreams + 4 KQL tables with mappings |
-| 4 | KQL + Real-Time Dashboard | 60m | KQL Queryset with 6 saved queries + RTI Dashboard with 6 tiles |
-| 5 | Three Fabric Data Agents | 75m | Hospital Ops + Transit Ops + Airspace agents with custom guardrails |
-| 6 | Direct Lake + Orchestrator | 45m | Semantic model + Power BI report; multi-agent orchestrator with RAG |
-| A | Env Vars Cheat-Sheet | reference | Every `.env` variable explained |
-| B | KQL Cookbook | reference | Reusable patterns for all 4 streaming tables |
-| C | Prompt Library | reference | 30+ tested prompts by domain + difficulty |
+| 0 | Setup & Environment Check | 10m | Sign in, confirm capacity, bookmark Lab Credentials |
+| 1 | Workspace Tour & ISV Architecture | 30m | Tour the pre-provisioned workspace + medallion + ISV multi-tenancy |
+| 2 | Data Ingestion | 45m | G1 · Three ingest patterns (Parquet upload, Azure SQL mirror, Cosmos mirror) |
+| 3 | Real-Time Streaming Ingest | 75m | G1 · 3 Eventstreams + 3 KQL tables fed from Event Hubs |
+| 4 | Transform for Analytics | 40m | G2 · Spark notebook for Silver Delta + SQL views for Gold |
+| 5 | Live Dashboard | 60m | G3 · KQL queries + Real-Time Intelligence Dashboard |
+| 6 | Direct Lake + Power BI | 30m | G3 · Semantic model and 1-page Power BI report |
+| 7 | Fabric Ontologies | 25m | G4 · Semantic graph over Lakehouse + Eventhouse data |
+| 8 | Fabric Data Agent | 45m | G4 · Hospital Operations agent grounded on KQL |
+| 9 | Multi-Agent Catalog *(Optional)* | 20m | G4 · Add Transit Ops agent for a two-domain catalog |
+| 10 | Foundry Orchestrator *(Optional)* | 30m | G4 · Azure AI Foundry connected-agent orchestrator |
+| End | Closing | — | ISV pattern picture + recap of everything you built |
+| A | Lab Credentials | reference | Per-user lab accounts and Azure resource locations |
+| B | Lab Data Downloads | reference | Facility catalog parquet + photos for M2 Option B |
+| C | Prompt Library | reference | Hospital + Transit + Orchestrator prompts by difficulty |
 
 ## Branding
 
@@ -68,7 +79,7 @@ The lab guide uses the official ISV Data Summit purple palette layered with Micr
 
 ## Source repo
 
-Inspired by and references content from `nickTinMicrosoft/fabric_hackathon_coaches`. The Hospital Operations Agent's instructions are adapted verbatim from `Recipes/HospitalOpsAgent/04_agent_instructions.md`.
+Inspired by and references content from `nickTinMicrosoft/fabric_hackathon_coaches` and `nickTinMicrosoft/fabric_hackathon_attendee` (Goal 2 — Transform). The Hospital Operations Agent's instructions are adapted from `Recipes/HospitalOpsAgent/04_agent_instructions.md`.
 
 ## Acknowledgements
 

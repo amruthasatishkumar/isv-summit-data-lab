@@ -1,0 +1,71 @@
+{
+  "_comment": "Shared identifiers for ALL UrbanPulse seed data and simulators. Edit here to change cardinality across every script.",
+  "regions": [
+    { "regionId": "R-NORTH",   "name": "North District",     "centerLat": 41.92, "centerLon": -87.66, "population": 142000 },
+    { "regionId": "R-LOOP",    "name": "Loop / Downtown",    "centerLat": 41.88, "centerLon": -87.63, "population": 96500  },
+    { "regionId": "R-WEST",    "name": "West Industrial",    "centerLat": 41.87, "centerLon": -87.71, "population": 78200  },
+    { "regionId": "R-SOUTH",   "name": "South Lakeshore",    "centerLat": 41.81, "centerLon": -87.59, "population": 121400 },
+    { "regionId": "R-AIRPORT", "name": "Airport Corridor",   "centerLat": 41.97, "centerLon": -87.90, "population": 38900  }
+  ],
+
+  "hospitals": [
+    { "hospitalId": "H-1", "name": "North District Medical Center", "regionId": "R-NORTH",   "type": "Tertiary",       "beds": 420, "icuBeds": 48, "opened": 1978 },
+    { "hospitalId": "H-2", "name": "Loop General Hospital",         "regionId": "R-LOOP",    "type": "Academic",       "beds": 612, "icuBeds": 72, "opened": 1925 },
+    { "hospitalId": "H-3", "name": "West Side Community Hospital",  "regionId": "R-WEST",    "type": "Community",      "beds": 180, "icuBeds": 16, "opened": 1992 },
+    { "hospitalId": "H-4", "name": "South Lakeshore Medical",       "regionId": "R-SOUTH",   "type": "Tertiary",       "beds": 360, "icuBeds": 40, "opened": 1985 },
+    { "hospitalId": "H-5", "name": "Airport Urgent Care Center",    "regionId": "R-AIRPORT", "type": "Specialty",      "beds":  60, "icuBeds":  6, "opened": 2014 }
+  ],
+
+  "_wardSpec": "6 wards per hospital. wardId convention: W-<hospitalIndex><wardSeq>, e.g. W-101..W-106 for H-1.",
+  "wardTypes": [
+    { "code": "ER",  "name": "Emergency Department", "beds": 24 },
+    { "code": "ICU", "name": "Intensive Care Unit",  "beds": 16 },
+    { "code": "MED", "name": "Medical / Surgical",   "beds": 40 },
+    { "code": "PED", "name": "Pediatrics",           "beds": 20 },
+    { "code": "OB",  "name": "Maternity",            "beds": 18 },
+    { "code": "OBS", "name": "Observation",          "beds": 12 }
+  ],
+
+  "_staffSpec": "30 staff per hospital. Mix: 8 nurses, 6 physicians, 4 techs, 4 EMS, 4 admin, 4 housekeeping.",
+  "staffRoles": ["Nurse", "Physician", "Tech", "EMS", "Admin", "Housekeeping"],
+
+  "trainRoutes": [
+    {
+      "routeId": "RED",   "color": "Red",
+      "trainIds": ["Train-Red-1", "Train-Red-2"],
+      "stops": [
+        { "stationId": "ST-NRT-01", "name": "North Terminal",       "regionId": "R-NORTH",   "lat": 41.94, "lon": -87.66, "sequence": 1 },
+        { "stationId": "ST-NRT-02", "name": "Lincoln Park Junction","regionId": "R-NORTH",   "lat": 41.92, "lon": -87.65, "sequence": 2 },
+        { "stationId": "ST-LP-01",  "name": "Loop Central",         "regionId": "R-LOOP",    "lat": 41.88, "lon": -87.63, "sequence": 3 },
+        { "stationId": "ST-LP-02",  "name": "Federal Plaza",        "regionId": "R-LOOP",    "lat": 41.87, "lon": -87.62, "sequence": 4 },
+        { "stationId": "ST-SH-01",  "name": "Lakeshore South",      "regionId": "R-SOUTH",   "lat": 41.81, "lon": -87.59, "sequence": 5 }
+      ]
+    },
+    {
+      "routeId": "BLUE",  "color": "Blue",
+      "trainIds": ["Train-Blue-1", "Train-Blue-2"],
+      "stops": [
+        { "stationId": "ST-AP-01",  "name": "Airport Terminal A",   "regionId": "R-AIRPORT", "lat": 41.97, "lon": -87.91, "sequence": 1 },
+        { "stationId": "ST-AP-02",  "name": "Airport Terminal B",   "regionId": "R-AIRPORT", "lat": 41.97, "lon": -87.89, "sequence": 2 },
+        { "stationId": "ST-WS-01",  "name": "West Industrial Yard", "regionId": "R-WEST",    "lat": 41.87, "lon": -87.71, "sequence": 3 },
+        { "stationId": "ST-LP-01",  "name": "Loop Central",         "regionId": "R-LOOP",    "lat": 41.88, "lon": -87.63, "sequence": 4 }
+      ]
+    },
+    {
+      "routeId": "GREEN", "color": "Green",
+      "trainIds": ["Train-Green-1", "Train-Green-2"],
+      "stops": [
+        { "stationId": "ST-WS-02",  "name": "West Side Junction",   "regionId": "R-WEST",    "lat": 41.87, "lon": -87.70, "sequence": 1 },
+        { "stationId": "ST-LP-03",  "name": "Loop North",           "regionId": "R-LOOP",    "lat": 41.89, "lon": -87.63, "sequence": 2 },
+        { "stationId": "ST-LP-01",  "name": "Loop Central",         "regionId": "R-LOOP",    "lat": 41.88, "lon": -87.63, "sequence": 3 },
+        { "stationId": "ST-SH-02",  "name": "Museum Campus",        "regionId": "R-SOUTH",   "lat": 41.86, "lon": -87.62, "sequence": 4 },
+        { "stationId": "ST-SH-01",  "name": "Lakeshore South",      "regionId": "R-SOUTH",   "lat": 41.81, "lon": -87.59, "sequence": 5 }
+      ]
+    }
+  ],
+
+  "patients": {
+    "_comment": "Simulators rotate through this many patient IDs per hospital. P-<hospitalIndex>-<seq>.",
+    "perHospital": 12
+  }
+}

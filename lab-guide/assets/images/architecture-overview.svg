@@ -42,15 +42,15 @@
         <text x="100" y="252" font-size="13" font-weight="600" fill="#005a9e">🚆 Metra Trains</text>
         <text x="100" y="272" font-size="11" fill="#605e5c">Red · Blue · Green lines</text>
 
-        <!-- Tumor parquet -->
+        <!-- Facility catalog Parquet -->
         <rect x="80" y="305" width="180" height="65" rx="8" fill="#fff" stroke="#605e5c" stroke-width="2"/>
-        <text x="100" y="332" font-size="13" font-weight="600" fill="#323130">📁 Tumor Imaging</text>
-        <text x="100" y="352" font-size="11" fill="#605e5c">Parquet + image files</text>
+        <text x="100" y="332" font-size="13" font-weight="600" fill="#323130">📁 Facility Catalog</text>
+        <text x="100" y="352" font-size="11" fill="#605e5c">Parquet + photo cards</text>
 
         <!-- SQL DB -->
         <rect x="80" y="385" width="180" height="65" rx="8" fill="#fff" stroke="#605e5c" stroke-width="2"/>
-        <text x="100" y="412" font-size="13" font-weight="600" fill="#323130">🗄️ SQL Student DB</text>
-        <text x="100" y="432" font-size="11" fill="#605e5c">Mirrored, zero-ETL</text>
+        <text x="100" y="412" font-size="13" font-weight="600" fill="#323130">🗄️ SQL CityOps DB</text>
+        <text x="100" y="432" font-size="11" fill="#605e5c">Hospitals · Wards · Staff</text>
     </g>
 
     <!-- ===== Layer 2: AZURE INGEST ===== -->
@@ -59,11 +59,11 @@
 
         <rect x="320" y="65" width="160" height="305" rx="10" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
         <text x="400" y="94" font-size="14" font-weight="600" fill="#005a9e" text-anchor="middle">Azure Event Hubs</text>
-        <text x="400" y="112" font-size="11" fill="#605e5c" text-anchor="middle">3 namespaces / topics</text>
+        <text x="400" y="112" font-size="11" fill="#605e5c" text-anchor="middle">rtidemo namespace · 3 hubs</text>
 
         <line x1="335" y1="125" x2="465" y2="125" stroke="#edebe9"/>
-        <text x="400" y="146" font-size="11" fill="#323130" text-anchor="middle">hospital-vitals</text>
-        <text x="400" y="166" font-size="11" fill="#323130" text-anchor="middle">hospital-movement</text>
+        <text x="400" y="146" font-size="11" fill="#323130" text-anchor="middle">medicalvitals</text>
+        <text x="400" y="166" font-size="11" fill="#323130" text-anchor="middle">medicalmovement</text>
         <text x="400" y="186" font-size="11" fill="#323130" text-anchor="middle">metrotrain</text>
         <line x1="335" y1="200" x2="465" y2="200" stroke="#edebe9"/>
         <text x="400" y="228" font-size="11" font-weight="600" fill="#605e5c" text-anchor="middle">JSON · partitioned</text>
@@ -100,7 +100,7 @@
             <rect x="560" y="240" width="160" height="80" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
             <text x="640" y="263" font-size="12" font-weight="700" fill="#005a9e" text-anchor="middle">LAKEHOUSE</text>
             <text x="640" y="284" font-size="11" fill="#605e5c" text-anchor="middle">Bronze: Files + Delta</text>
-            <text x="640" y="302" font-size="11" fill="#605e5c" text-anchor="middle">tumor + mirror + shortcuts</text>
+            <text x="640" y="302" font-size="11" fill="#605e5c" text-anchor="middle">parquet + mirror + shortcuts</text>
         </g>
 
         <!-- Warehouse / Direct Lake -->
@@ -124,7 +124,7 @@
             <rect x="740" y="345" width="160" height="80" rx="8" fill="#fff" stroke="#f7630c" stroke-width="1.5"/>
             <text x="820" y="368" font-size="12" font-weight="700" fill="#a04408" text-anchor="middle">POWER BI REPORT</text>
             <text x="820" y="389" font-size="11" fill="#605e5c" text-anchor="middle">DirectLake-backed</text>
-            <text x="820" y="407" font-size="11" fill="#605e5c" text-anchor="middle">admissions · diagnoses</text>
+            <text x="820" y="407" font-size="11" fill="#605e5c" text-anchor="middle">capacity · ICU · staffing</text>
         </g>
 
         <!-- Data Agents -->
@@ -181,7 +181,7 @@
         <path d="M 260 177 C 295 177, 295 166, 320 166"/>
         <path d="M 260 257 C 295 257, 295 186, 320 186"/>
 
-        <!-- Tumor + SQL bypass Event Hubs and land in the Lakehouse (zero-ETL / shortcuts) -->
+        <!-- Facility catalog Parquet + SQL bypass Event Hubs and land in the Lakehouse (upload / zero-ETL mirror) -->
         <path d="M 260 337 C 410 337, 450 280, 560 272"/>
         <path d="M 260 417 C 410 417, 450 300, 560 296"/>
 

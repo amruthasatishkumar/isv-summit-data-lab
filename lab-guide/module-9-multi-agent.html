@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 8 · Multi-Agent Catalog (Optional) - UrbanPulse Lab</title>
+    <title>Module 9 · Multi-Agent Catalog (Optional) - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,18 +17,18 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 8 of 9 · Optional</div>
+    <div class="module-pill">Module 9 of 10 · Optional</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
-        <div class="module-eyebrow">Module 8 · AI Layer (stretch)</div>
+        <div class="module-eyebrow">Module 9 · AI Layer (stretch)</div>
         <h1>Build a Multi-Agent Catalog <span class="pill agent" style="vertical-align:middle;">⭐ OPTIONAL</span></h1>
         <p class="lead">
-            Repeat the Module 7 recipe for one more domain - <strong>Transit Operations</strong> -
-            so you end up with a two-agent multi-domain catalog. The Transit agent is structurally identical to Hospital:
-            same shape, different data, different domain instructions.
+            Apply the Module 8 pattern to a second domain - <strong>Transit Operations</strong> -
+            so you finish with a two-agent multi-domain catalog. The Transit agent is structurally identical to the Hospital agent:
+            same shape, different data source, different domain instructions.
         </p>
         <div class="module-meta">
             <div class="meta-item"><span class="meta-icon">⏱</span> <strong>20 minutes</strong> (optional)</div>
@@ -40,19 +40,19 @@
     <div class="callout warning">
         <span class="callout-icon">⭐</span>
         <div class="callout-content">
-            <strong>This module is optional.</strong> The lab is complete after Module 7. Build the Transit agent
-            if you want a multi-domain catalog for the optional Module 9 orchestrator stretch, or as a reference
-            for repeating the recipe in your own ISV product. Module 9 also works with just the Hospital agent -
-            you'll simply connect fewer specialists.
+            <strong>This module is optional.</strong> The lab is complete after Module 8. Build the Transit agent
+            if you want a multi-domain catalog for the optional Module 10 orchestrator extension, or as a reference
+            implementation for applying the same pattern in your own ISV product. Module 10 also functions with only the Hospital agent;
+            you connect fewer specialists.
         </div>
     </div>
 
     <section id="objectives">
         <h2>Learning Objectives</h2>
         <ul>
-            <li>Reuse the Module 7 recipe to ship <strong>one additional Fabric Data Agent</strong> in a different domain.</li>
+            <li>Apply the Module 8 pattern to deliver <strong>one additional Fabric Data Agent</strong> in a different domain.</li>
             <li>Practice the design discipline of <strong>scoping each agent to its own tables</strong> with domain-specific guardrails.</li>
-            <li>End up with a <strong>two-agent catalog</strong> (Hospital · Transit) ready for orchestration.</li>
+            <li>Finish with a <strong>two-agent catalog</strong> (Hospital · Transit) ready for orchestration.</li>
             <li>Understand the trade-off between <strong>one mega-agent vs. one agent per domain</strong>.</li>
         </ul>
     </section>
@@ -60,7 +60,7 @@
     <section id="why-multi-agent">
         <h2>Why a Multi-Agent Catalog?</h2>
 
-        <p>You could have built one giant agent that knows everything about hospitals and trains. Why didn't you?</p>
+        <p>A single agent could be configured to cover both hospitals and trains. The trade-offs below explain why this lab uses one agent per domain instead.</p>
 
         <table>
             <thead>
@@ -70,12 +70,12 @@
                 <tr>
                     <td><strong>One mega-agent</strong> across all tables</td>
                     <td>Simpler to deploy.</td>
-                    <td>Long instructions = lower quality. Agent has to disambiguate domain on every turn. No domain experts. Guardrails get muddled.</td>
+                    <td>Long instructions reduce answer quality. The agent must disambiguate domain on every turn. No domain experts. Guardrails become muddled.</td>
                 </tr>
                 <tr>
-                    <td><strong>One agent per domain</strong> (today's pattern)</td>
-                    <td>Tighter instructions, better answers, separate guardrails per domain. Composable as tools. Each agent ships independently.</td>
-                    <td>More items to manage; cross-domain questions need an orchestrator (the optional Module 9 stretch).</td>
+                    <td><strong>One agent per domain</strong> (the pattern used here)</td>
+                    <td>Tighter instructions, higher answer quality, separate guardrails per domain. Agents are composable as tools and ship independently.</td>
+                    <td>More items to manage; cross-domain questions require an orchestrator (the optional Module 10 extension).</td>
                 </tr>
             </tbody>
         </table>
@@ -83,9 +83,9 @@
         <div class="callout purple">
             <span class="callout-icon">💡</span>
             <div class="callout-content">
-                <strong>The ISV pattern.</strong> Domain agents are reusable building blocks across customers.
-                A hospital network takes only the Hospital agent (published to their Copilot). A municipality takes both plus the
-                orchestrator. Same building blocks, different SKUs.
+                <strong>ISV pattern.</strong> Domain agents are reusable building blocks across customers.
+                A hospital network deploys only the Hospital agent. A municipality deploys both, plus the orchestrator.
+                Same building blocks, different SKUs.
             </div>
         </div>
     </section>
@@ -104,7 +104,7 @@
             <li>
                 <h3 class="step-title">Create the agent</h3>
                 <div class="step-body">
-                    <p>Workspace → <strong>+ New item</strong> → <strong>Agent</strong>. Name: <code>ag-transit-ops</code>.</p>
+                    <p>Workspace → <strong>+ New item</strong> → <strong>Agent</strong>. Name: <code>ag_urbanpulse_transit</code>.</p>
                 </div>
             </li>
 
@@ -191,12 +191,12 @@ speculate beyond what telemetry shows.</code></pre>
     </section>
 
     <section id="optional-publish">
-        <h2>Optional: Publish This to Copilot Too</h2>
-        <p>If your tenant is licensed for M365 Copilot, you can repeat the Module 7 publish flow for Transit as well - it becomes its own agent in the Copilot picker. Or skip publishing and use it only as a connected-agent tool in the Module 9 orchestrator.</p>
+        <h2>Beyond the Lab: Publishing the Transit Agent</h2>
+        <p>In a production deployment, the Transit agent can be published to Microsoft 365 Copilot using the same flow described in Module 8. Whether to do so depends on the operational model: if dispatchers consume the agent directly, publish it; if it is only used as a tool by the Module 10 orchestrator, leave it unpublished.</p>
         <div class="callout tip">
-            <span class="callout-icon">💡</span>
+            <span class="callout-icon">✓</span>
             <div class="callout-content">
-                In a real ISV product, you'd typically publish only the agents end users need directly in Copilot, and keep specialist agents as internal tools that the orchestrator delegates to.
+                A common ISV configuration is to publish only the agents that end users invoke directly and to keep specialist agents as internal tools that the orchestrator delegates to.
             </div>
         </div>
     </section>
@@ -209,17 +209,17 @@ speculate beyond what telemetry shows.</code></pre>
             <li>The mental model for one-agent-per-domain vs. mega-agent trade-offs.</li>
         </ul>
 
-        <p>Two agents, two domains, two sets of guardrails. The optional <strong>Module 9</strong> turns this catalog into a single front-door Copilot agent that delegates to the right specialist automatically.</p>
+        <p>Two agents, two domains, two sets of guardrails. The optional <strong>Module 10</strong> composes this catalog behind a single orchestrator that delegates to the appropriate specialist automatically.</p>
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-7-data-agents.html">
+        <a class="nav-card" href="module-8-data-agents.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 7 · Data Agent → Copilot</div>
+            <div class="nav-title">Module 8 · Data Agent → Copilot</div>
         </a>
-        <a class="nav-card next" href="module-9-foundry-orchestrator.html">
+        <a class="nav-card next" href="module-10-foundry-orchestrator.html">
             <div class="nav-direction">Next →</div>
-            <div class="nav-title">Module 9 · Foundry Orchestrator <span class="pill agent" style="vertical-align:middle;">OPTIONAL</span></div>
+            <div class="nav-title">Module 10 · Foundry Orchestrator <span class="pill agent" style="vertical-align:middle;">OPTIONAL</span></div>
         </a>
     </nav>
 

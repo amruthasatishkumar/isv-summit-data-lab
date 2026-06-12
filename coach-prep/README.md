@@ -24,22 +24,26 @@ If something is broken at the *infrastructure* level (Event Hub down, capacity t
 
 | Time | Module | What attendees do | What you do |
 | --- | --- | --- | --- |
-| 0:00 | M0 Setup | Verify Cloud PC, run preflight | Walk the room. Help with auth issues. |
-| 0:15 | M1 Workspace | Tour their pre-provisioned workspace | Highlight medallion + multi-tenancy patterns. |
-| 0:35 | M2 Lakehouse | Upload + Mirror + Shortcut | Most common: SQL credential typos. |
-| 1:15 | M3 Streaming | Build 4 Eventstreams + KQL tables | Most common: wrong conn-str. |
-| 2:15 | M4 KQL Dashboard | Build 6 tiles + RTI Dashboard | Most common: forgot to set semantic model permissions. |
-| 3:15 | _break_ | | |
-| 3:30 | M5 Agents | Build 3 Fabric Data Agents | Most common: pasted only partial instructions. |
-| 4:45 | M6 Direct Lake + Orchestrator | Final ISV pattern | Most common: agent endpoints not yet stable. |
-| 5:30 | Recap | Q&A | You lead a 5-minute "what did we just build" walk-through. |
+| 0:00 | M0 Setup & Environment | Sign in, confirm capacity, bookmark Lab Credentials | Walk the room. Help with auth issues. |
+| 0:10 | M1 Workspace Tour | Tour their pre-provisioned workspace | Highlight medallion + multi-tenancy patterns. |
+| 0:40 | M2 Data Ingestion | Upload + Mirror (Azure SQL) + Mirror (Cosmos) | Most common: SQL credential typos. |
+| 1:25 | M3 Streaming Ingest | Build 3 Eventstreams + 3 KQL tables | Most common: wrong Event Hub connection string. |
+| 2:40 | M4 Transform | Spark notebook Silver + Gold SQL views | Most common: notebook attached to wrong Lakehouse. |
+| 3:20 | M5 Live Dashboard | KQL queries + RTI Dashboard tiles | Most common: parameters not bound to data source. |
+| 4:20 | M6 Direct Lake + Power BI | Semantic model + 1-page report | Most common: model needs SQL endpoint refresh. |
+| 4:50 | _break_ | | |
+| 5:00 | M7 Ontologies | Build the semantic graph | Most common: missing Region anchor. |
+| 5:25 | M8 Fabric Data Agent | Build Hospital Operations agent | Most common: pasted only partial instructions. |
+| 6:10 | M9 Multi-Agent (opt) / M10 Orchestrator (opt) | Stretch goals | Help advanced attendees connect Foundry. |
+| 6:45 | Closing | Recap + Q&A | You lead a 5-minute "what did we just build" walk-through using `closing.html`. |
 
 ## Recovery scripts
 
 If an attendee falls behind:
 
-- **They're stuck on Module 2 mirroring** → they can skip the mirroring step and use a coach-provided `mir_urbanpulse_studentdb` from the shared workspace. Modules 3+ don't depend on it.
-- **They're stuck on Module 3 streaming** → use the `recover/` folder of the simulator repo to drop pre-generated parquet files into the Lakehouse so they have *some* data to work with for KQL queries in M4.
-- **They're stuck on Module 5 agents** → use the coach-shared agent endpoints (read-only). They lose the "I built this" feeling but can still complete M6.
+- **They're stuck on Module 2 mirroring** → they can skip the mirroring step and use a coach-provided `mir_urbanpulse_cityops` from the shared workspace. Modules 3+ don't depend on it.
+- **They're stuck on Module 3 streaming** → drop pre-generated parquet files into the Lakehouse so they have *some* data to work with for the M4 transforms and the M5 dashboard.
+- **They're stuck on Module 4 Transform** → coach-shared `silver_hospital_facility` table and Gold views are available; point them at it so they can keep moving into M5/M6.
+- **They're stuck on Module 8 agent** → use the coach-shared agent endpoints (read-only). They lose the "I built this" feeling but can still complete the Apply AI track.
 
-Goal: nobody should leave the lab without seeing the orchestrator output at the end. That's the headline moment.
+Goal: nobody should leave the lab without reaching the Closing recap. The "What You Built Today" table is the headline moment.

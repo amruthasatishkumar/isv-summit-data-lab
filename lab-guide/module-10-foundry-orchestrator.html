@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 10 · Foundry Orchestrator (Optional) - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Module 10 of 10 · Optional</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Module 10 · Optional Stretch</div>
+        <h1>Foundry Connected-Agent Orchestrator <span class="pill agent" style="vertical-align:middle;">⭐ OPTIONAL</span></h1>
+        <p class="lead">
+            Compose the Fabric Data Agents you built in Modules 7–8 behind an
+            <strong>Azure AI Foundry connected-agent orchestrator</strong> for cross-domain reasoning.
+            No orchestration code is required - Foundry's connected-agents pattern handles
+            specialist routing automatically.
+        </p>
+        <div class="module-meta">
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>30 minutes</strong> (optional)</div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> cross-domain orchestrator</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Azure AI Foundry</div>
+        </div>
+    </div>
+
+    <div class="callout warning">
+        <span class="callout-icon">⭐</span>
+        <div class="callout-content">
+            <strong>This module is optional.</strong> The lab is complete after Module 8. This module adds a cross-domain reasoning layer on top of the domain agents. It is most effective with the full two-agent catalog from Module 9, but functions with only the Hospital agent from Module 8 (you connect fewer specialists). The module is entirely portal-driven - no notebook code or Python required.
+        </div>
+    </div>
+
+    <section id="objectives">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Use <strong>Azure AI Foundry's connected-agent pattern</strong> to orchestrate specialist agents without code.</li>
+            <li>Register your <strong>Fabric Data Agents from Modules 7–8</strong> as Foundry tools.</li>
+            <li>Test cross-domain reasoning in the Foundry Playground with full trace visibility.</li>
+        </ul>
+    </section>
+
+    <section id="overview">
+        <h2>How It Works</h2>
+
+        <p>Single-domain agents answer questions inside their own scope; multi-agent orchestration adds <em>cross-domain</em> reasoning. This is achieved <strong>without orchestration code</strong> - Azure AI Foundry provides a built-in <strong>connected-agents</strong> pattern in which a primary agent automatically delegates to specialist agents registered as tools.</p>
+
+        <p>The flow:</p>
+        <ol>
+            <li>Open your pre-provisioned <strong>Foundry project</strong> at <a href="https://ai.azure.com" target="_blank">ai.azure.com</a>.</li>
+            <li>Create a <strong>City Ops Orchestrator</strong> agent (gpt-4o-mini).</li>
+            <li>Attach your <strong>Fabric Data Agents from Modules 7–8</strong> as <em>connected agents</em>.</li>
+            <li>Test in the Foundry Playground.</li>
+        </ol>
+
+        <div class="diagram">
+            <svg viewBox="0 0 1000 360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" style="max-width:100%;">
+                <defs>
+                    <marker id="arF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#605e5c"/>
+                    </marker>
+                    <marker id="arF-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c52e6"/>
+                    </marker>
+                    <marker id="arF-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#107c10"/>
+                    </marker>
+                </defs>
+
+                <!-- ====== STEP 1 · USER QUESTION ====== -->
+                <text x="100" y="22" font-size="10" font-weight="700" fill="#605e5c" text-anchor="middle">① QUESTION</text>
+                <rect x="20" y="38" width="160" height="80" rx="8" fill="#fff" stroke="#605e5c" stroke-width="2"/>
+                <text x="100" y="64" font-size="12" font-weight="700" fill="#1f1f1f" text-anchor="middle">City Ops User</text>
+                <text x="100" y="84" font-size="10" fill="#605e5c" text-anchor="middle">"Region A has train delays</text>
+                <text x="100" y="98" font-size="10" fill="#605e5c" text-anchor="middle">AND rising hospital load.</text>
+                <text x="100" y="112" font-size="10" fill="#605e5c" text-anchor="middle">What should we do?"</text>
+
+                <!-- ====== STEP 2 · ORCHESTRATOR ====== -->
+                <text x="340" y="22" font-size="10" font-weight="700" fill="#4f29a3" text-anchor="middle">② ORCHESTRATE</text>
+                <rect x="230" y="38" width="220" height="190" rx="10" fill="#ede4fb" stroke="#7c52e6" stroke-width="2"/>
+                <text x="340" y="62" font-size="13" font-weight="700" fill="#4f29a3" text-anchor="middle">Azure AI Foundry</text>
+                <text x="340" y="80" font-size="11" fill="#4f29a3" text-anchor="middle">City Ops Orchestrator</text>
+                <line x1="250" y1="92" x2="430" y2="92" stroke="#7c52e6" stroke-opacity="0.4"/>
+                <text x="340" y="112" font-size="10" fill="#1f1f1f" text-anchor="middle">Model: gpt-4o-mini</text>
+                <text x="340" y="129" font-size="10" fill="#1f1f1f" text-anchor="middle">Connected agents: 2</text>
+                <text x="340" y="146" font-size="10" fill="#1f1f1f" text-anchor="middle">Routes &amp; synthesizes</text>
+                <line x1="250" y1="158" x2="430" y2="158" stroke="#7c52e6" stroke-opacity="0.25" stroke-dasharray="3 3"/>
+                <text x="340" y="178" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Auto-routes to specialists</text>
+                <text x="340" y="195" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Combines partial answers</text>
+                <text x="340" y="212" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">No orchestration code</text>
+
+                <!-- ====== STEP 3 · SPECIALIST AGENTS ====== -->
+                <text x="620" y="22" font-size="10" font-weight="700" fill="#605e5c" text-anchor="middle">③ SPECIALIST CALLS (parallel)</text>
+                <rect x="510" y="38" width="220" height="76" rx="6" fill="#fff" stroke="#d13438" stroke-width="2"/>
+                <text x="620" y="62" font-size="11" font-weight="700" fill="#d13438" text-anchor="middle">🏥 Hospital Ops Agent</text>
+                <text x="620" y="80" font-size="10" fill="#605e5c" text-anchor="middle">Fabric Data Agent (M7)</text>
+                <text x="620" y="98" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">vitals + movement</text>
+
+                <rect x="510" y="138" width="220" height="76" rx="6" fill="#fff" stroke="#107c10" stroke-width="2"/>
+                <text x="620" y="162" font-size="11" font-weight="700" fill="#107c10" text-anchor="middle">🚆 Transit Ops Agent</text>
+                <text x="620" y="180" font-size="10" fill="#605e5c" text-anchor="middle">Fabric Data Agent (M8)</text>
+                <text x="620" y="198" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">train telemetry</text>
+
+                <!-- ====== STEP 4 · SYNTHESIZED RESPONSE ====== -->
+                <text x="870" y="22" font-size="10" font-weight="700" fill="#107c10" text-anchor="middle">④ RESPONSE</text>
+                <rect x="780" y="38" width="200" height="190" rx="8" fill="#fff" stroke="#107c10" stroke-width="2"/>
+                <text x="880" y="60" font-size="11" font-weight="700" fill="#107c10" text-anchor="middle">SITUATION</text>
+                <text x="790" y="76" font-size="9" fill="#1f1f1f">• Hospital: 4 critical, SpO2↓</text>
+                <text x="790" y="89" font-size="9" fill="#1f1f1f">• Transit: Green delayed 8/10</text>
+                <line x1="800" y1="98" x2="960" y2="98" stroke="#edebe9"/>
+                <text x="880" y="115" font-size="11" font-weight="700" fill="#107c10" text-anchor="middle">ACTIONS</text>
+                <text x="790" y="131" font-size="9" fill="#1f1f1f">1. Hospital staffing tier-2</text>
+                <text x="790" y="144" font-size="9" fill="#1f1f1f">2. Reroute to Blue line</text>
+                <text x="790" y="157" font-size="9" fill="#1f1f1f">3. Open incident bridge</text>
+                <line x1="800" y1="166" x2="960" y2="166" stroke="#edebe9"/>
+                <text x="880" y="183" font-size="11" font-weight="700" fill="#107c10" text-anchor="middle">CONFIDENCE</text>
+                <text x="880" y="199" font-size="9" fill="#1f1f1f" text-anchor="middle">HIGH</text>
+                <text x="880" y="213" font-size="8" font-style="italic" fill="#605e5c" text-anchor="middle">2/2 specialists responded</text>
+
+                <!-- ====== ARROWS ====== -->
+                <!-- user → orchestrator -->
+                <line x1="180" y1="78" x2="225" y2="100" stroke="#605e5c" stroke-width="2" marker-end="url(#arF)"/>
+                <!-- orchestrator → hospital -->
+                <line x1="450" y1="100" x2="505" y2="76" stroke="#7c52e6" stroke-width="2" marker-end="url(#arF-purple)"/>
+                <!-- orchestrator → transit -->
+                <line x1="450" y1="160" x2="505" y2="176" stroke="#7c52e6" stroke-width="2" marker-end="url(#arF-purple)"/>
+                <!-- hospital → orchestrator (return) -->
+                <line x1="510" y1="92" x2="455" y2="115" stroke="#605e5c" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <!-- transit → orchestrator (return) -->
+                <line x1="510" y1="160" x2="455" y2="142" stroke="#605e5c" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <!-- orchestrator → response -->
+                <line x1="730" y1="125" x2="775" y2="125" stroke="#107c10" stroke-width="2" marker-end="url(#arF-green)"/>
+
+                <!-- ====== LEGEND ====== -->
+                <g transform="translate(20, 270)">
+                    <rect x="0" y="0" width="960" height="72" rx="8" fill="#faf9f8" stroke="#edebe9"/>
+                    <text x="20" y="22" font-size="11" font-weight="700" fill="#1f1f1f">How to read this:</text>
+                    <text x="20" y="42" font-size="11" fill="#605e5c">A user asks one cross-domain question. The Foundry orchestrator decides which specialist Fabric Data Agents to call,</text>
+                    <text x="20" y="58" font-size="11" fill="#605e5c">runs them in parallel (purple arrows), waits for their partial answers (dashed returns), and synthesizes a single grounded response (green arrow).</text>
+                </g>
+            </svg>
+            <div class="caption">Figure 9.1 - Cross-domain reasoning with the Foundry connected-agent orchestrator: one question in, two specialist calls in parallel, one synthesized SITUATION / ACTIONS / CONFIDENCE response out.</div>
+        </div>
+    </section>
+
+    <section id="build">
+        <h2>Build the Orchestrator</h2>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open your Azure AI Foundry project</h3>
+                <div class="step-body">
+                    <p>Open a new browser tab → <a href="https://ai.azure.com" target="_blank">ai.azure.com</a>. Sign in with your lab account.</p>
+                    <p>On the home screen pick your pre-provisioned Foundry project (each lab user has their own). See <a href="appendix-env-vars.html" target="_blank">Lab Credentials</a> for context.</p>
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content"><strong>Why Foundry?</strong> Azure AI Foundry is Microsoft's managed agent runtime. It provides a connected-agents pattern (one agent delegating to specialists as tools), built-in tracing, and a one-click publish path to Microsoft 365 Copilot, Teams, and the web - without orchestration code.</div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Create the City Ops Orchestrator agent</h3>
+                <div class="step-body">
+                    <p>In the left rail, click <strong>Agents</strong> → <strong>+ New agent</strong>. Fill in:</p>
+                    <ul>
+                        <li><strong>Name:</strong> <code>City Ops Orchestrator</code></li>
+                        <li><strong>Deployment:</strong> <code>gpt-4o-mini</code> (already in the project)</li>
+                        <li><strong>Instructions</strong> (paste exactly):</li>
+                    </ul>
+<div class="code-block">
+<span class="lang-badge">Agent Instructions</span>
+<pre><code>You are the City Ops Orchestrator - chief of staff for a Smart City operations team.
+
+For any user question, decide which of your connected specialist agents to call:
+- Hospital Ops Agent - patient vitals, room occupancy, movement
+- Transit Ops Agent  - train status, speed, delays
+
+You may call multiple specialists in the same turn when a question spans domains.
+After gathering specialist signals, synthesize ONE concise answer with:
+
+  SITUATION   - what each specialist reported (one bullet per domain)
+  ACTIONS     - recommended operational steps based on the specialist signals
+  CONFIDENCE  - HIGH if all relevant specialists responded; MEDIUM otherwise
+
+Be terse and operational. Do not invent data the specialists did not return.</code></pre>
+</div>
+                    <p>Click <strong>Create</strong>.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Attach your Fabric Data Agents as connected agents</h3>
+                <div class="step-body">
+                    <p>On the agent canvas, scroll to <strong>Tools &amp; Knowledge</strong> → <strong>+ Add tool</strong> → <strong>Connected agent</strong>.</p>
+                    <p>For each Fabric Data Agent you built in Modules 7–8, add one connected-agent entry:</p>
+                    <table>
+                        <thead><tr><th>Tool name</th><th>Description (what it does)</th><th>Endpoint</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>hospital_ops</code></td><td>Answers questions about patient vitals, room occupancy, and movement on the hospital floor. Use for any clinical or capacity question.</td><td>Hospital agent endpoint (from your Fabric agent &rarr; Settings &rarr; Endpoint)</td></tr>
+                            <tr><td><code>transit_ops</code></td><td>Answers questions about train fleet status, speeds, and delays across Red/Blue/Green lines.</td><td>Transit agent endpoint (from your Fabric agent &rarr; Settings &rarr; Endpoint)</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="callout tip">
+                        <span class="callout-icon">✓</span>
+                        <div class="callout-content">The <strong>description</strong> field is critical - the orchestrator's LLM uses it to decide when to call this tool. State precisely which questions each agent is qualified to answer.</div>
+                    </div>
+                    <p>If you only built the Hospital agent in Module 8, attach that one alone - the orchestrator supports any number of connected agents.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Test in the Foundry Playground</h3>
+                <div class="step-body">
+                    <p>Click <strong>Try in Playground</strong>. Paste the canonical cross-domain question:</p>
+                    <div class="callout purple">
+                        <span class="callout-icon">❓</span>
+                        <div class="callout-content"><em>"Region A has train delays AND rising hospital load. What should the city do?"</em></div>
+                    </div>
+                    <p>Inspect the trace pane on the right - the orchestrator calls <code>hospital_ops</code> and <code>transit_ops</code> in parallel, then synthesizes the response.</p>
+                    <p>Expected output shape:</p>
+<div class="code-block">
+<span class="lang-badge">Playground Output</span>
+<pre><code>SITUATION
+- Hospital: 4 critical patients, SpO2 trending down on PAT-10003.
+- Transit: Train-Green-1 delayed 8/10 readings; Green line 11 mph below baseline.
+
+ACTIONS
+1. Activate hospital staffing tier-2.
+2. Reroute Green-line passengers to the Blue line shuttle.
+3. Open incident bridge with transit + ED leadership.
+
+CONFIDENCE: HIGH (2/2 relevant specialists responded).</code></pre>
+</div>
+                    <p>Try a few additional prompts - the orchestrator selects which specialists to call automatically:</p>
+                    <ul>
+                        <li>"How's hospital load looking right now?" → Hospital only</li>
+                        <li>"What's the operational picture across the city?" → both agents</li>
+                        <li>"Are there any concurrent emergencies?" → both agents</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+
+        <div class="callout purple">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content"><strong>The full architecture.</strong> Streaming telemetry → Lakehouse + KQL → Fabric Data Agents → Foundry connected-agent orchestrator. From the orchestrator's <strong>Publish</strong> menu the entire orchestrator can be exposed in Microsoft 365 Copilot using the same flow described in Module 8. End users interact only with the Copilot chat surface; the underlying Fabric, Foundry, and code remain hidden.</div>
+        </div>
+
+        <div class="validation">
+            <h4>Validation</h4>
+            <ul>
+                <li>City Ops Orchestrator agent exists in your Foundry project.</li>
+                <li>At least one Fabric Data Agent is wired in as a connected agent.</li>
+                <li>Playground answers the canonical question in under ~30 seconds.</li>
+            </ul>
+        </div>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-9-multi-agent.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 9 · Multi-Agent Catalog</div>
+        </a>
+        <a class="nav-card next" href="closing.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Closing</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide · End of guided lab</p>
+</footer>
+
+</body>
+</html>

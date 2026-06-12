@@ -1,0 +1,3728 @@
+[
+  {
+    "id": "R-NORTH",
+    "regionId": "R-NORTH",
+    "name": "North District",
+    "centerLat": 41.92,
+    "centerLon": -87.66,
+    "population": 142000,
+    "hospitalIds": [
+      "H-1"
+    ],
+    "stationIds": [
+      "ST-NRT-01",
+      "ST-NRT-02"
+    ],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.685,
+            41.895
+          ],
+          [
+            -87.63499999999999,
+            41.895
+          ],
+          [
+            -87.63499999999999,
+            41.945
+          ],
+          [
+            -87.685,
+            41.945
+          ],
+          [
+            -87.685,
+            41.895
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-LOOP",
+    "regionId": "R-LOOP",
+    "name": "Loop / Downtown",
+    "centerLat": 41.88,
+    "centerLon": -87.63,
+    "population": 96500,
+    "hospitalIds": [
+      "H-2"
+    ],
+    "stationIds": [
+      "ST-LP-01",
+      "ST-LP-02",
+      "ST-LP-03"
+    ],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.655,
+            41.855000000000004
+          ],
+          [
+            -87.60499999999999,
+            41.855000000000004
+          ],
+          [
+            -87.60499999999999,
+            41.905
+          ],
+          [
+            -87.655,
+            41.905
+          ],
+          [
+            -87.655,
+            41.855000000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-WEST",
+    "regionId": "R-WEST",
+    "name": "West Industrial",
+    "centerLat": 41.87,
+    "centerLon": -87.71,
+    "population": 78200,
+    "hospitalIds": [
+      "H-3"
+    ],
+    "stationIds": [
+      "ST-WS-01",
+      "ST-WS-02"
+    ],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.735,
+            41.845
+          ],
+          [
+            -87.68499999999999,
+            41.845
+          ],
+          [
+            -87.68499999999999,
+            41.894999999999996
+          ],
+          [
+            -87.735,
+            41.894999999999996
+          ],
+          [
+            -87.735,
+            41.845
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-SOUTH",
+    "regionId": "R-SOUTH",
+    "name": "South Lakeshore",
+    "centerLat": 41.81,
+    "centerLon": -87.59,
+    "population": 121400,
+    "hospitalIds": [
+      "H-4"
+    ],
+    "stationIds": [
+      "ST-SH-01",
+      "ST-SH-02"
+    ],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.61500000000001,
+            41.785000000000004
+          ],
+          [
+            -87.565,
+            41.785000000000004
+          ],
+          [
+            -87.565,
+            41.835
+          ],
+          [
+            -87.61500000000001,
+            41.835
+          ],
+          [
+            -87.61500000000001,
+            41.785000000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-AIRPORT",
+    "regionId": "R-AIRPORT",
+    "name": "Airport Corridor",
+    "centerLat": 41.97,
+    "centerLon": -87.9,
+    "population": 38900,
+    "hospitalIds": [
+      "H-5"
+    ],
+    "stationIds": [
+      "ST-AP-01",
+      "ST-AP-02"
+    ],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.92500000000001,
+            41.945
+          ],
+          [
+            -87.875,
+            41.945
+          ],
+          [
+            -87.875,
+            41.995
+          ],
+          [
+            -87.92500000000001,
+            41.995
+          ],
+          [
+            -87.92500000000001,
+            41.945
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-006",
+    "regionId": "R-006",
+    "name": "Hawthorn Junction",
+    "centerLat": 41.9238,
+    "centerLon": -87.9387,
+    "population": 66513,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9637,
+            41.8988
+          ],
+          [
+            -87.91369999999999,
+            41.8988
+          ],
+          [
+            -87.91369999999999,
+            41.9488
+          ],
+          [
+            -87.9637,
+            41.9488
+          ],
+          [
+            -87.9637,
+            41.8988
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-007",
+    "regionId": "R-007",
+    "name": "Spruce Heights",
+    "centerLat": 41.7488,
+    "centerLon": -87.9039,
+    "population": 162794,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9289,
+            41.723800000000004
+          ],
+          [
+            -87.87889999999999,
+            41.723800000000004
+          ],
+          [
+            -87.87889999999999,
+            41.7738
+          ],
+          [
+            -87.9289,
+            41.7738
+          ],
+          [
+            -87.9289,
+            41.723800000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-008",
+    "regionId": "R-008",
+    "name": "Willow Junction",
+    "centerLat": 41.8477,
+    "centerLon": -87.9366,
+    "population": 140475,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9616,
+            41.822700000000005
+          ],
+          [
+            -87.91159999999999,
+            41.822700000000005
+          ],
+          [
+            -87.91159999999999,
+            41.8727
+          ],
+          [
+            -87.9616,
+            41.8727
+          ],
+          [
+            -87.9616,
+            41.822700000000005
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-009",
+    "regionId": "R-009",
+    "name": "Spruce Yards",
+    "centerLat": 41.9107,
+    "centerLon": -87.6974,
+    "population": 65787,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.72240000000001,
+            41.8857
+          ],
+          [
+            -87.6724,
+            41.8857
+          ],
+          [
+            -87.6724,
+            41.9357
+          ],
+          [
+            -87.72240000000001,
+            41.9357
+          ],
+          [
+            -87.72240000000001,
+            41.8857
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-010",
+    "regionId": "R-010",
+    "name": "Maple Lakeside",
+    "centerLat": 41.8572,
+    "centerLon": -87.8248,
+    "population": 49853,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8498,
+            41.8322
+          ],
+          [
+            -87.79979999999999,
+            41.8322
+          ],
+          [
+            -87.79979999999999,
+            41.8822
+          ],
+          [
+            -87.8498,
+            41.8822
+          ],
+          [
+            -87.8498,
+            41.8322
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-011",
+    "regionId": "R-011",
+    "name": "Birch Junction",
+    "centerLat": 41.9443,
+    "centerLon": -87.7969,
+    "population": 96236,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8219,
+            41.9193
+          ],
+          [
+            -87.77189999999999,
+            41.9193
+          ],
+          [
+            -87.77189999999999,
+            41.9693
+          ],
+          [
+            -87.8219,
+            41.9693
+          ],
+          [
+            -87.8219,
+            41.9193
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-012",
+    "regionId": "R-012",
+    "name": "Sequoia Bluffs",
+    "centerLat": 41.7358,
+    "centerLon": -87.779,
+    "population": 98165,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.804,
+            41.7108
+          ],
+          [
+            -87.75399999999999,
+            41.7108
+          ],
+          [
+            -87.75399999999999,
+            41.760799999999996
+          ],
+          [
+            -87.804,
+            41.760799999999996
+          ],
+          [
+            -87.804,
+            41.7108
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-013",
+    "regionId": "R-013",
+    "name": "Walnut Commons",
+    "centerLat": 41.9113,
+    "centerLon": -87.5868,
+    "population": 40722,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6118,
+            41.8863
+          ],
+          [
+            -87.56179999999999,
+            41.8863
+          ],
+          [
+            -87.56179999999999,
+            41.936299999999996
+          ],
+          [
+            -87.6118,
+            41.936299999999996
+          ],
+          [
+            -87.6118,
+            41.8863
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-014",
+    "regionId": "R-014",
+    "name": "Spruce Quarter",
+    "centerLat": 42.0406,
+    "centerLon": -87.7797,
+    "population": 172794,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.80470000000001,
+            42.0156
+          ],
+          [
+            -87.7547,
+            42.0156
+          ],
+          [
+            -87.7547,
+            42.065599999999996
+          ],
+          [
+            -87.80470000000001,
+            42.065599999999996
+          ],
+          [
+            -87.80470000000001,
+            42.0156
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-015",
+    "regionId": "R-015",
+    "name": "Cottonwood Junction",
+    "centerLat": 41.9165,
+    "centerLon": -87.5622,
+    "population": 26233,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.58720000000001,
+            41.8915
+          ],
+          [
+            -87.5372,
+            41.8915
+          ],
+          [
+            -87.5372,
+            41.9415
+          ],
+          [
+            -87.58720000000001,
+            41.9415
+          ],
+          [
+            -87.58720000000001,
+            41.8915
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-016",
+    "regionId": "R-016",
+    "name": "Sycamore Heights",
+    "centerLat": 41.716,
+    "centerLon": -87.8474,
+    "population": 69024,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8724,
+            41.691
+          ],
+          [
+            -87.82239999999999,
+            41.691
+          ],
+          [
+            -87.82239999999999,
+            41.741
+          ],
+          [
+            -87.8724,
+            41.741
+          ],
+          [
+            -87.8724,
+            41.691
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-017",
+    "regionId": "R-017",
+    "name": "Walnut Plaza",
+    "centerLat": 42.0033,
+    "centerLon": -87.7789,
+    "population": 103638,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8039,
+            41.978300000000004
+          ],
+          [
+            -87.75389999999999,
+            41.978300000000004
+          ],
+          [
+            -87.75389999999999,
+            42.0283
+          ],
+          [
+            -87.8039,
+            42.0283
+          ],
+          [
+            -87.8039,
+            41.978300000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-018",
+    "regionId": "R-018",
+    "name": "Hawthorn Riverside",
+    "centerLat": 41.7569,
+    "centerLon": -87.7901,
+    "population": 177878,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8151,
+            41.7319
+          ],
+          [
+            -87.76509999999999,
+            41.7319
+          ],
+          [
+            -87.76509999999999,
+            41.7819
+          ],
+          [
+            -87.8151,
+            41.7819
+          ],
+          [
+            -87.8151,
+            41.7319
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-019",
+    "regionId": "R-019",
+    "name": "Spruce Riverside",
+    "centerLat": 41.725,
+    "centerLon": -87.6643,
+    "population": 72175,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6893,
+            41.7
+          ],
+          [
+            -87.63929999999999,
+            41.7
+          ],
+          [
+            -87.63929999999999,
+            41.75
+          ],
+          [
+            -87.6893,
+            41.75
+          ],
+          [
+            -87.6893,
+            41.7
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-020",
+    "regionId": "R-020",
+    "name": "Spruce Junction",
+    "centerLat": 41.7572,
+    "centerLon": -87.7792,
+    "population": 93008,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.80420000000001,
+            41.7322
+          ],
+          [
+            -87.7542,
+            41.7322
+          ],
+          [
+            -87.7542,
+            41.782199999999996
+          ],
+          [
+            -87.80420000000001,
+            41.782199999999996
+          ],
+          [
+            -87.80420000000001,
+            41.7322
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-021",
+    "regionId": "R-021",
+    "name": "Aspen Bluffs",
+    "centerLat": 41.995,
+    "centerLon": -87.6008,
+    "population": 16414,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.62580000000001,
+            41.97
+          ],
+          [
+            -87.5758,
+            41.97
+          ],
+          [
+            -87.5758,
+            42.019999999999996
+          ],
+          [
+            -87.62580000000001,
+            42.019999999999996
+          ],
+          [
+            -87.62580000000001,
+            41.97
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-022",
+    "regionId": "R-022",
+    "name": "Oak Junction",
+    "centerLat": 41.9818,
+    "centerLon": -87.7695,
+    "population": 156682,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7945,
+            41.9568
+          ],
+          [
+            -87.74449999999999,
+            41.9568
+          ],
+          [
+            -87.74449999999999,
+            42.0068
+          ],
+          [
+            -87.7945,
+            42.0068
+          ],
+          [
+            -87.7945,
+            41.9568
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-023",
+    "regionId": "R-023",
+    "name": "Chestnut Yards",
+    "centerLat": 42.0067,
+    "centerLon": -87.8084,
+    "population": 176519,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.83340000000001,
+            41.981700000000004
+          ],
+          [
+            -87.7834,
+            41.981700000000004
+          ],
+          [
+            -87.7834,
+            42.0317
+          ],
+          [
+            -87.83340000000001,
+            42.0317
+          ],
+          [
+            -87.83340000000001,
+            41.981700000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-024",
+    "regionId": "R-024",
+    "name": "Aspen Riverside",
+    "centerLat": 41.8606,
+    "centerLon": -87.8308,
+    "population": 155159,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8558,
+            41.8356
+          ],
+          [
+            -87.80579999999999,
+            41.8356
+          ],
+          [
+            -87.80579999999999,
+            41.8856
+          ],
+          [
+            -87.8558,
+            41.8856
+          ],
+          [
+            -87.8558,
+            41.8356
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-025",
+    "regionId": "R-025",
+    "name": "Juniper Gardens",
+    "centerLat": 41.8886,
+    "centerLon": -87.6138,
+    "population": 160969,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6388,
+            41.8636
+          ],
+          [
+            -87.58879999999999,
+            41.8636
+          ],
+          [
+            -87.58879999999999,
+            41.913599999999995
+          ],
+          [
+            -87.6388,
+            41.913599999999995
+          ],
+          [
+            -87.6388,
+            41.8636
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-026",
+    "regionId": "R-026",
+    "name": "Birch Commons",
+    "centerLat": 41.8398,
+    "centerLon": -87.8513,
+    "population": 137372,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8763,
+            41.8148
+          ],
+          [
+            -87.82629999999999,
+            41.8148
+          ],
+          [
+            -87.82629999999999,
+            41.864799999999995
+          ],
+          [
+            -87.8763,
+            41.864799999999995
+          ],
+          [
+            -87.8763,
+            41.8148
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-027",
+    "regionId": "R-027",
+    "name": "Pine Park",
+    "centerLat": 41.7318,
+    "centerLon": -87.9288,
+    "population": 172481,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9538,
+            41.7068
+          ],
+          [
+            -87.90379999999999,
+            41.7068
+          ],
+          [
+            -87.90379999999999,
+            41.7568
+          ],
+          [
+            -87.9538,
+            41.7568
+          ],
+          [
+            -87.9538,
+            41.7068
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-028",
+    "regionId": "R-028",
+    "name": "Beech Heights",
+    "centerLat": 41.756,
+    "centerLon": -87.6438,
+    "population": 108864,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6688,
+            41.731
+          ],
+          [
+            -87.6188,
+            41.731
+          ],
+          [
+            -87.6188,
+            41.781
+          ],
+          [
+            -87.6688,
+            41.781
+          ],
+          [
+            -87.6688,
+            41.731
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-029",
+    "regionId": "R-029",
+    "name": "Poplar Quarter",
+    "centerLat": 41.8336,
+    "centerLon": -87.5017,
+    "population": 153024,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.5267,
+            41.8086
+          ],
+          [
+            -87.4767,
+            41.8086
+          ],
+          [
+            -87.4767,
+            41.858599999999996
+          ],
+          [
+            -87.5267,
+            41.858599999999996
+          ],
+          [
+            -87.5267,
+            41.8086
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-030",
+    "regionId": "R-030",
+    "name": "Pine Plaza",
+    "centerLat": 42.0013,
+    "centerLon": -87.9448,
+    "population": 148763,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9698,
+            41.9763
+          ],
+          [
+            -87.9198,
+            41.9763
+          ],
+          [
+            -87.9198,
+            42.0263
+          ],
+          [
+            -87.9698,
+            42.0263
+          ],
+          [
+            -87.9698,
+            41.9763
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-031",
+    "regionId": "R-031",
+    "name": "Cypress Heights",
+    "centerLat": 41.9628,
+    "centerLon": -87.6041,
+    "population": 84939,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.62910000000001,
+            41.9378
+          ],
+          [
+            -87.5791,
+            41.9378
+          ],
+          [
+            -87.5791,
+            41.9878
+          ],
+          [
+            -87.62910000000001,
+            41.9878
+          ],
+          [
+            -87.62910000000001,
+            41.9378
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-032",
+    "regionId": "R-032",
+    "name": "Hawthorn Commons",
+    "centerLat": 41.8522,
+    "centerLon": -87.7458,
+    "population": 54832,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.77080000000001,
+            41.827200000000005
+          ],
+          [
+            -87.7208,
+            41.827200000000005
+          ],
+          [
+            -87.7208,
+            41.8772
+          ],
+          [
+            -87.77080000000001,
+            41.8772
+          ],
+          [
+            -87.77080000000001,
+            41.827200000000005
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-033",
+    "regionId": "R-033",
+    "name": "Sycamore Bluffs",
+    "centerLat": 41.8777,
+    "centerLon": -87.9021,
+    "population": 175496,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.92710000000001,
+            41.8527
+          ],
+          [
+            -87.8771,
+            41.8527
+          ],
+          [
+            -87.8771,
+            41.902699999999996
+          ],
+          [
+            -87.92710000000001,
+            41.902699999999996
+          ],
+          [
+            -87.92710000000001,
+            41.8527
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-034",
+    "regionId": "R-034",
+    "name": "Sequoia Lakeside",
+    "centerLat": 41.8777,
+    "centerLon": -87.8605,
+    "population": 50349,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.88550000000001,
+            41.8527
+          ],
+          [
+            -87.8355,
+            41.8527
+          ],
+          [
+            -87.8355,
+            41.902699999999996
+          ],
+          [
+            -87.88550000000001,
+            41.902699999999996
+          ],
+          [
+            -87.88550000000001,
+            41.8527
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-035",
+    "regionId": "R-035",
+    "name": "Poplar Gardens",
+    "centerLat": 41.8888,
+    "centerLon": -87.5996,
+    "population": 8149,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6246,
+            41.863800000000005
+          ],
+          [
+            -87.57459999999999,
+            41.863800000000005
+          ],
+          [
+            -87.57459999999999,
+            41.9138
+          ],
+          [
+            -87.6246,
+            41.9138
+          ],
+          [
+            -87.6246,
+            41.863800000000005
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-036",
+    "regionId": "R-036",
+    "name": "Pine Gardens",
+    "centerLat": 41.9096,
+    "centerLon": -87.7301,
+    "population": 103153,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7551,
+            41.8846
+          ],
+          [
+            -87.70509999999999,
+            41.8846
+          ],
+          [
+            -87.70509999999999,
+            41.934599999999996
+          ],
+          [
+            -87.7551,
+            41.934599999999996
+          ],
+          [
+            -87.7551,
+            41.8846
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-037",
+    "regionId": "R-037",
+    "name": "Sycamore Junction",
+    "centerLat": 42.0076,
+    "centerLon": -87.5758,
+    "population": 23184,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6008,
+            41.9826
+          ],
+          [
+            -87.5508,
+            41.9826
+          ],
+          [
+            -87.5508,
+            42.032599999999995
+          ],
+          [
+            -87.6008,
+            42.032599999999995
+          ],
+          [
+            -87.6008,
+            41.9826
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-038",
+    "regionId": "R-038",
+    "name": "Oak Heights",
+    "centerLat": 41.7843,
+    "centerLon": -87.6947,
+    "population": 135399,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7197,
+            41.7593
+          ],
+          [
+            -87.66969999999999,
+            41.7593
+          ],
+          [
+            -87.66969999999999,
+            41.8093
+          ],
+          [
+            -87.7197,
+            41.8093
+          ],
+          [
+            -87.7197,
+            41.7593
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-039",
+    "regionId": "R-039",
+    "name": "Spruce Lakeside",
+    "centerLat": 41.9856,
+    "centerLon": -87.5099,
+    "population": 40967,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.53490000000001,
+            41.9606
+          ],
+          [
+            -87.4849,
+            41.9606
+          ],
+          [
+            -87.4849,
+            42.0106
+          ],
+          [
+            -87.53490000000001,
+            42.0106
+          ],
+          [
+            -87.53490000000001,
+            41.9606
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-040",
+    "regionId": "R-040",
+    "name": "Spruce Park",
+    "centerLat": 41.7449,
+    "centerLon": -87.7361,
+    "population": 77483,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7611,
+            41.7199
+          ],
+          [
+            -87.71109999999999,
+            41.7199
+          ],
+          [
+            -87.71109999999999,
+            41.7699
+          ],
+          [
+            -87.7611,
+            41.7699
+          ],
+          [
+            -87.7611,
+            41.7199
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-041",
+    "regionId": "R-041",
+    "name": "Willow Gardens",
+    "centerLat": 41.8847,
+    "centerLon": -87.677,
+    "population": 149373,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.70200000000001,
+            41.859700000000004
+          ],
+          [
+            -87.652,
+            41.859700000000004
+          ],
+          [
+            -87.652,
+            41.9097
+          ],
+          [
+            -87.70200000000001,
+            41.9097
+          ],
+          [
+            -87.70200000000001,
+            41.859700000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-042",
+    "regionId": "R-042",
+    "name": "Sycamore Yards",
+    "centerLat": 41.9643,
+    "centerLon": -87.6396,
+    "population": 178361,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.66460000000001,
+            41.9393
+          ],
+          [
+            -87.6146,
+            41.9393
+          ],
+          [
+            -87.6146,
+            41.9893
+          ],
+          [
+            -87.66460000000001,
+            41.9893
+          ],
+          [
+            -87.66460000000001,
+            41.9393
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-043",
+    "regionId": "R-043",
+    "name": "Walnut Heights",
+    "centerLat": 41.8307,
+    "centerLon": -87.5452,
+    "population": 72986,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.5702,
+            41.8057
+          ],
+          [
+            -87.52019999999999,
+            41.8057
+          ],
+          [
+            -87.52019999999999,
+            41.8557
+          ],
+          [
+            -87.5702,
+            41.8557
+          ],
+          [
+            -87.5702,
+            41.8057
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-044",
+    "regionId": "R-044",
+    "name": "Cottonwood Commons",
+    "centerLat": 41.7786,
+    "centerLon": -87.7979,
+    "population": 68323,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8229,
+            41.7536
+          ],
+          [
+            -87.77289999999999,
+            41.7536
+          ],
+          [
+            -87.77289999999999,
+            41.803599999999996
+          ],
+          [
+            -87.8229,
+            41.803599999999996
+          ],
+          [
+            -87.8229,
+            41.7536
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-045",
+    "regionId": "R-045",
+    "name": "Cedar Junction",
+    "centerLat": 41.906,
+    "centerLon": -87.9468,
+    "population": 25668,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9718,
+            41.881
+          ],
+          [
+            -87.92179999999999,
+            41.881
+          ],
+          [
+            -87.92179999999999,
+            41.931
+          ],
+          [
+            -87.9718,
+            41.931
+          ],
+          [
+            -87.9718,
+            41.881
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-046",
+    "regionId": "R-046",
+    "name": "Oak Commons",
+    "centerLat": 42.0169,
+    "centerLon": -87.5632,
+    "population": 70391,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.5882,
+            41.9919
+          ],
+          [
+            -87.53819999999999,
+            41.9919
+          ],
+          [
+            -87.53819999999999,
+            42.0419
+          ],
+          [
+            -87.5882,
+            42.0419
+          ],
+          [
+            -87.5882,
+            41.9919
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-047",
+    "regionId": "R-047",
+    "name": "Spruce Park",
+    "centerLat": 41.7975,
+    "centerLon": -87.7316,
+    "population": 157695,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7566,
+            41.7725
+          ],
+          [
+            -87.7066,
+            41.7725
+          ],
+          [
+            -87.7066,
+            41.8225
+          ],
+          [
+            -87.7566,
+            41.8225
+          ],
+          [
+            -87.7566,
+            41.7725
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-048",
+    "regionId": "R-048",
+    "name": "Chestnut Lakeside",
+    "centerLat": 41.9017,
+    "centerLon": -87.8407,
+    "population": 114708,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8657,
+            41.8767
+          ],
+          [
+            -87.81569999999999,
+            41.8767
+          ],
+          [
+            -87.81569999999999,
+            41.9267
+          ],
+          [
+            -87.8657,
+            41.9267
+          ],
+          [
+            -87.8657,
+            41.8767
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-049",
+    "regionId": "R-049",
+    "name": "Juniper Crossing",
+    "centerLat": 41.7666,
+    "centerLon": -87.9064,
+    "population": 119038,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.93140000000001,
+            41.7416
+          ],
+          [
+            -87.8814,
+            41.7416
+          ],
+          [
+            -87.8814,
+            41.791599999999995
+          ],
+          [
+            -87.93140000000001,
+            41.791599999999995
+          ],
+          [
+            -87.93140000000001,
+            41.7416
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-050",
+    "regionId": "R-050",
+    "name": "Cedar Plaza",
+    "centerLat": 41.8439,
+    "centerLon": -87.5613,
+    "population": 179299,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.58630000000001,
+            41.8189
+          ],
+          [
+            -87.5363,
+            41.8189
+          ],
+          [
+            -87.5363,
+            41.8689
+          ],
+          [
+            -87.58630000000001,
+            41.8689
+          ],
+          [
+            -87.58630000000001,
+            41.8189
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-051",
+    "regionId": "R-051",
+    "name": "Magnolia Riverside",
+    "centerLat": 42.0445,
+    "centerLon": -87.9057,
+    "population": 96946,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9307,
+            42.0195
+          ],
+          [
+            -87.88069999999999,
+            42.0195
+          ],
+          [
+            -87.88069999999999,
+            42.0695
+          ],
+          [
+            -87.9307,
+            42.0695
+          ],
+          [
+            -87.9307,
+            42.0195
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-052",
+    "regionId": "R-052",
+    "name": "Willow Junction",
+    "centerLat": 41.9802,
+    "centerLon": -87.9008,
+    "population": 148584,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.92580000000001,
+            41.955200000000005
+          ],
+          [
+            -87.8758,
+            41.955200000000005
+          ],
+          [
+            -87.8758,
+            42.0052
+          ],
+          [
+            -87.92580000000001,
+            42.0052
+          ],
+          [
+            -87.92580000000001,
+            41.955200000000005
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-053",
+    "regionId": "R-053",
+    "name": "Hawthorn Square",
+    "centerLat": 41.857,
+    "centerLon": -87.7602,
+    "population": 73485,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7852,
+            41.832
+          ],
+          [
+            -87.73519999999999,
+            41.832
+          ],
+          [
+            -87.73519999999999,
+            41.882
+          ],
+          [
+            -87.7852,
+            41.882
+          ],
+          [
+            -87.7852,
+            41.832
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-054",
+    "regionId": "R-054",
+    "name": "Spruce Heights",
+    "centerLat": 42.0061,
+    "centerLon": -87.9161,
+    "population": 21261,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9411,
+            41.981100000000005
+          ],
+          [
+            -87.8911,
+            41.981100000000005
+          ],
+          [
+            -87.8911,
+            42.0311
+          ],
+          [
+            -87.9411,
+            42.0311
+          ],
+          [
+            -87.9411,
+            41.981100000000005
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-055",
+    "regionId": "R-055",
+    "name": "Maple Heights",
+    "centerLat": 41.9283,
+    "centerLon": -87.7067,
+    "population": 69965,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7317,
+            41.9033
+          ],
+          [
+            -87.68169999999999,
+            41.9033
+          ],
+          [
+            -87.68169999999999,
+            41.9533
+          ],
+          [
+            -87.7317,
+            41.9533
+          ],
+          [
+            -87.7317,
+            41.9033
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-056",
+    "regionId": "R-056",
+    "name": "Willow Bluffs",
+    "centerLat": 41.7582,
+    "centerLon": -87.7315,
+    "population": 113130,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7565,
+            41.733200000000004
+          ],
+          [
+            -87.70649999999999,
+            41.733200000000004
+          ],
+          [
+            -87.70649999999999,
+            41.7832
+          ],
+          [
+            -87.7565,
+            41.7832
+          ],
+          [
+            -87.7565,
+            41.733200000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-057",
+    "regionId": "R-057",
+    "name": "Maple Yards",
+    "centerLat": 42.0159,
+    "centerLon": -87.8759,
+    "population": 77521,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.90090000000001,
+            41.9909
+          ],
+          [
+            -87.8509,
+            41.9909
+          ],
+          [
+            -87.8509,
+            42.0409
+          ],
+          [
+            -87.90090000000001,
+            42.0409
+          ],
+          [
+            -87.90090000000001,
+            41.9909
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-058",
+    "regionId": "R-058",
+    "name": "Sycamore Yards",
+    "centerLat": 42.0243,
+    "centerLon": -87.5967,
+    "population": 153691,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6217,
+            41.9993
+          ],
+          [
+            -87.57169999999999,
+            41.9993
+          ],
+          [
+            -87.57169999999999,
+            42.049299999999995
+          ],
+          [
+            -87.6217,
+            42.049299999999995
+          ],
+          [
+            -87.6217,
+            41.9993
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-059",
+    "regionId": "R-059",
+    "name": "Willow Quarter",
+    "centerLat": 41.9317,
+    "centerLon": -87.731,
+    "population": 65068,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.756,
+            41.9067
+          ],
+          [
+            -87.70599999999999,
+            41.9067
+          ],
+          [
+            -87.70599999999999,
+            41.9567
+          ],
+          [
+            -87.756,
+            41.9567
+          ],
+          [
+            -87.756,
+            41.9067
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-060",
+    "regionId": "R-060",
+    "name": "Spruce District",
+    "centerLat": 42.039,
+    "centerLon": -87.6894,
+    "population": 90209,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.71440000000001,
+            42.014
+          ],
+          [
+            -87.6644,
+            42.014
+          ],
+          [
+            -87.6644,
+            42.064
+          ],
+          [
+            -87.71440000000001,
+            42.064
+          ],
+          [
+            -87.71440000000001,
+            42.014
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-061",
+    "regionId": "R-061",
+    "name": "Poplar Gardens",
+    "centerLat": 41.72,
+    "centerLon": -87.6871,
+    "population": 147231,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7121,
+            41.695
+          ],
+          [
+            -87.6621,
+            41.695
+          ],
+          [
+            -87.6621,
+            41.745
+          ],
+          [
+            -87.7121,
+            41.745
+          ],
+          [
+            -87.7121,
+            41.695
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-062",
+    "regionId": "R-062",
+    "name": "Oak Bluffs",
+    "centerLat": 41.7551,
+    "centerLon": -87.5176,
+    "population": 56712,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.54260000000001,
+            41.7301
+          ],
+          [
+            -87.4926,
+            41.7301
+          ],
+          [
+            -87.4926,
+            41.7801
+          ],
+          [
+            -87.54260000000001,
+            41.7801
+          ],
+          [
+            -87.54260000000001,
+            41.7301
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-063",
+    "regionId": "R-063",
+    "name": "Aspen Yards",
+    "centerLat": 41.724,
+    "centerLon": -87.9194,
+    "population": 39427,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9444,
+            41.699
+          ],
+          [
+            -87.89439999999999,
+            41.699
+          ],
+          [
+            -87.89439999999999,
+            41.748999999999995
+          ],
+          [
+            -87.9444,
+            41.748999999999995
+          ],
+          [
+            -87.9444,
+            41.699
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-064",
+    "regionId": "R-064",
+    "name": "Cottonwood Hills",
+    "centerLat": 42.0296,
+    "centerLon": -87.6936,
+    "population": 18418,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.71860000000001,
+            42.0046
+          ],
+          [
+            -87.6686,
+            42.0046
+          ],
+          [
+            -87.6686,
+            42.0546
+          ],
+          [
+            -87.71860000000001,
+            42.0546
+          ],
+          [
+            -87.71860000000001,
+            42.0046
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-065",
+    "regionId": "R-065",
+    "name": "Cottonwood Hills",
+    "centerLat": 41.9168,
+    "centerLon": -87.7613,
+    "population": 145044,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.78630000000001,
+            41.8918
+          ],
+          [
+            -87.7363,
+            41.8918
+          ],
+          [
+            -87.7363,
+            41.9418
+          ],
+          [
+            -87.78630000000001,
+            41.9418
+          ],
+          [
+            -87.78630000000001,
+            41.8918
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-066",
+    "regionId": "R-066",
+    "name": "Cypress Junction",
+    "centerLat": 41.8107,
+    "centerLon": -87.8327,
+    "population": 77629,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.85770000000001,
+            41.7857
+          ],
+          [
+            -87.8077,
+            41.7857
+          ],
+          [
+            -87.8077,
+            41.835699999999996
+          ],
+          [
+            -87.85770000000001,
+            41.835699999999996
+          ],
+          [
+            -87.85770000000001,
+            41.7857
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-067",
+    "regionId": "R-067",
+    "name": "Sycamore Square",
+    "centerLat": 41.8385,
+    "centerLon": -87.6477,
+    "population": 90883,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6727,
+            41.813500000000005
+          ],
+          [
+            -87.6227,
+            41.813500000000005
+          ],
+          [
+            -87.6227,
+            41.8635
+          ],
+          [
+            -87.6727,
+            41.8635
+          ],
+          [
+            -87.6727,
+            41.813500000000005
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-068",
+    "regionId": "R-068",
+    "name": "Maple Square",
+    "centerLat": 42.0252,
+    "centerLon": -87.5289,
+    "population": 170833,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.5539,
+            42.0002
+          ],
+          [
+            -87.50389999999999,
+            42.0002
+          ],
+          [
+            -87.50389999999999,
+            42.0502
+          ],
+          [
+            -87.5539,
+            42.0502
+          ],
+          [
+            -87.5539,
+            42.0002
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-069",
+    "regionId": "R-069",
+    "name": "Oak Commons",
+    "centerLat": 42.0495,
+    "centerLon": -87.5018,
+    "population": 63877,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.52680000000001,
+            42.0245
+          ],
+          [
+            -87.4768,
+            42.0245
+          ],
+          [
+            -87.4768,
+            42.0745
+          ],
+          [
+            -87.52680000000001,
+            42.0745
+          ],
+          [
+            -87.52680000000001,
+            42.0245
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-070",
+    "regionId": "R-070",
+    "name": "Sequoia Gardens",
+    "centerLat": 41.8771,
+    "centerLon": -87.8904,
+    "population": 26033,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9154,
+            41.8521
+          ],
+          [
+            -87.8654,
+            41.8521
+          ],
+          [
+            -87.8654,
+            41.9021
+          ],
+          [
+            -87.9154,
+            41.9021
+          ],
+          [
+            -87.9154,
+            41.8521
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-071",
+    "regionId": "R-071",
+    "name": "Elm Square",
+    "centerLat": 42.0077,
+    "centerLon": -87.7837,
+    "population": 150401,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8087,
+            41.9827
+          ],
+          [
+            -87.75869999999999,
+            41.9827
+          ],
+          [
+            -87.75869999999999,
+            42.0327
+          ],
+          [
+            -87.8087,
+            42.0327
+          ],
+          [
+            -87.8087,
+            41.9827
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-072",
+    "regionId": "R-072",
+    "name": "Poplar District",
+    "centerLat": 41.9462,
+    "centerLon": -87.6747,
+    "population": 153385,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6997,
+            41.9212
+          ],
+          [
+            -87.6497,
+            41.9212
+          ],
+          [
+            -87.6497,
+            41.971199999999996
+          ],
+          [
+            -87.6997,
+            41.971199999999996
+          ],
+          [
+            -87.6997,
+            41.9212
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-073",
+    "regionId": "R-073",
+    "name": "Birch Quarter",
+    "centerLat": 41.8048,
+    "centerLon": -87.6515,
+    "population": 38258,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6765,
+            41.7798
+          ],
+          [
+            -87.6265,
+            41.7798
+          ],
+          [
+            -87.6265,
+            41.8298
+          ],
+          [
+            -87.6765,
+            41.8298
+          ],
+          [
+            -87.6765,
+            41.7798
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-074",
+    "regionId": "R-074",
+    "name": "Birch Quarter",
+    "centerLat": 42.0114,
+    "centerLon": -87.6159,
+    "population": 81860,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6409,
+            41.9864
+          ],
+          [
+            -87.59089999999999,
+            41.9864
+          ],
+          [
+            -87.59089999999999,
+            42.0364
+          ],
+          [
+            -87.6409,
+            42.0364
+          ],
+          [
+            -87.6409,
+            41.9864
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-075",
+    "regionId": "R-075",
+    "name": "Willow Plaza",
+    "centerLat": 41.9117,
+    "centerLon": -87.6271,
+    "population": 174261,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6521,
+            41.886700000000005
+          ],
+          [
+            -87.6021,
+            41.886700000000005
+          ],
+          [
+            -87.6021,
+            41.9367
+          ],
+          [
+            -87.6521,
+            41.9367
+          ],
+          [
+            -87.6521,
+            41.886700000000005
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-076",
+    "regionId": "R-076",
+    "name": "Hawthorn Gardens",
+    "centerLat": 41.9985,
+    "centerLon": -87.7226,
+    "population": 21316,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7476,
+            41.9735
+          ],
+          [
+            -87.6976,
+            41.9735
+          ],
+          [
+            -87.6976,
+            42.0235
+          ],
+          [
+            -87.7476,
+            42.0235
+          ],
+          [
+            -87.7476,
+            41.9735
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-077",
+    "regionId": "R-077",
+    "name": "Hawthorn District",
+    "centerLat": 41.7323,
+    "centerLon": -87.7594,
+    "population": 8929,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7844,
+            41.707300000000004
+          ],
+          [
+            -87.7344,
+            41.707300000000004
+          ],
+          [
+            -87.7344,
+            41.7573
+          ],
+          [
+            -87.7844,
+            41.7573
+          ],
+          [
+            -87.7844,
+            41.707300000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-078",
+    "regionId": "R-078",
+    "name": "Hawthorn Park",
+    "centerLat": 41.8167,
+    "centerLon": -87.8911,
+    "population": 123824,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9161,
+            41.7917
+          ],
+          [
+            -87.86609999999999,
+            41.7917
+          ],
+          [
+            -87.86609999999999,
+            41.841699999999996
+          ],
+          [
+            -87.9161,
+            41.841699999999996
+          ],
+          [
+            -87.9161,
+            41.7917
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-079",
+    "regionId": "R-079",
+    "name": "Maple Heights",
+    "centerLat": 41.8931,
+    "centerLon": -87.7575,
+    "population": 27724,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7825,
+            41.8681
+          ],
+          [
+            -87.73249999999999,
+            41.8681
+          ],
+          [
+            -87.73249999999999,
+            41.918099999999995
+          ],
+          [
+            -87.7825,
+            41.918099999999995
+          ],
+          [
+            -87.7825,
+            41.8681
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-080",
+    "regionId": "R-080",
+    "name": "Birch Commons",
+    "centerLat": 42.0308,
+    "centerLon": -87.639,
+    "population": 17444,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.664,
+            42.0058
+          ],
+          [
+            -87.61399999999999,
+            42.0058
+          ],
+          [
+            -87.61399999999999,
+            42.0558
+          ],
+          [
+            -87.664,
+            42.0558
+          ],
+          [
+            -87.664,
+            42.0058
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-081",
+    "regionId": "R-081",
+    "name": "Birch Yards",
+    "centerLat": 41.9921,
+    "centerLon": -87.6879,
+    "population": 41409,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7129,
+            41.9671
+          ],
+          [
+            -87.6629,
+            41.9671
+          ],
+          [
+            -87.6629,
+            42.0171
+          ],
+          [
+            -87.7129,
+            42.0171
+          ],
+          [
+            -87.7129,
+            41.9671
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-082",
+    "regionId": "R-082",
+    "name": "Cedar Gardens",
+    "centerLat": 41.7146,
+    "centerLon": -87.7859,
+    "population": 101797,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8109,
+            41.6896
+          ],
+          [
+            -87.76089999999999,
+            41.6896
+          ],
+          [
+            -87.76089999999999,
+            41.739599999999996
+          ],
+          [
+            -87.8109,
+            41.739599999999996
+          ],
+          [
+            -87.8109,
+            41.6896
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-083",
+    "regionId": "R-083",
+    "name": "Pine Crossing",
+    "centerLat": 41.7735,
+    "centerLon": -87.8377,
+    "population": 154770,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.8627,
+            41.7485
+          ],
+          [
+            -87.81269999999999,
+            41.7485
+          ],
+          [
+            -87.81269999999999,
+            41.7985
+          ],
+          [
+            -87.8627,
+            41.7985
+          ],
+          [
+            -87.8627,
+            41.7485
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-084",
+    "regionId": "R-084",
+    "name": "Beech Riverside",
+    "centerLat": 42.0094,
+    "centerLon": -87.7671,
+    "population": 48515,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7921,
+            41.9844
+          ],
+          [
+            -87.7421,
+            41.9844
+          ],
+          [
+            -87.7421,
+            42.0344
+          ],
+          [
+            -87.7921,
+            42.0344
+          ],
+          [
+            -87.7921,
+            41.9844
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-085",
+    "regionId": "R-085",
+    "name": "Elm Lakeside",
+    "centerLat": 42.024,
+    "centerLon": -87.8435,
+    "population": 54413,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.86850000000001,
+            41.999
+          ],
+          [
+            -87.8185,
+            41.999
+          ],
+          [
+            -87.8185,
+            42.049
+          ],
+          [
+            -87.86850000000001,
+            42.049
+          ],
+          [
+            -87.86850000000001,
+            41.999
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-086",
+    "regionId": "R-086",
+    "name": "Cypress Lakeside",
+    "centerLat": 42.0085,
+    "centerLon": -87.9388,
+    "population": 115928,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9638,
+            41.9835
+          ],
+          [
+            -87.9138,
+            41.9835
+          ],
+          [
+            -87.9138,
+            42.0335
+          ],
+          [
+            -87.9638,
+            42.0335
+          ],
+          [
+            -87.9638,
+            41.9835
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-087",
+    "regionId": "R-087",
+    "name": "Aspen Quarter",
+    "centerLat": 41.9808,
+    "centerLon": -87.5612,
+    "population": 49732,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.5862,
+            41.9558
+          ],
+          [
+            -87.5362,
+            41.9558
+          ],
+          [
+            -87.5362,
+            42.0058
+          ],
+          [
+            -87.5862,
+            42.0058
+          ],
+          [
+            -87.5862,
+            41.9558
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-088",
+    "regionId": "R-088",
+    "name": "Cedar Bluffs",
+    "centerLat": 41.9756,
+    "centerLon": -87.9014,
+    "population": 131388,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.9264,
+            41.9506
+          ],
+          [
+            -87.87639999999999,
+            41.9506
+          ],
+          [
+            -87.87639999999999,
+            42.0006
+          ],
+          [
+            -87.9264,
+            42.0006
+          ],
+          [
+            -87.9264,
+            41.9506
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-089",
+    "regionId": "R-089",
+    "name": "Walnut Crossing",
+    "centerLat": 41.7779,
+    "centerLon": -87.5825,
+    "population": 88003,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6075,
+            41.752900000000004
+          ],
+          [
+            -87.55749999999999,
+            41.752900000000004
+          ],
+          [
+            -87.55749999999999,
+            41.8029
+          ],
+          [
+            -87.6075,
+            41.8029
+          ],
+          [
+            -87.6075,
+            41.752900000000004
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-090",
+    "regionId": "R-090",
+    "name": "Aspen District",
+    "centerLat": 41.9872,
+    "centerLon": -87.5579,
+    "population": 58627,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.58290000000001,
+            41.9622
+          ],
+          [
+            -87.5329,
+            41.9622
+          ],
+          [
+            -87.5329,
+            42.0122
+          ],
+          [
+            -87.58290000000001,
+            42.0122
+          ],
+          [
+            -87.58290000000001,
+            41.9622
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-091",
+    "regionId": "R-091",
+    "name": "Oak Lakeside",
+    "centerLat": 41.8395,
+    "centerLon": -87.8246,
+    "population": 81170,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.84960000000001,
+            41.8145
+          ],
+          [
+            -87.7996,
+            41.8145
+          ],
+          [
+            -87.7996,
+            41.8645
+          ],
+          [
+            -87.84960000000001,
+            41.8645
+          ],
+          [
+            -87.84960000000001,
+            41.8145
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-092",
+    "regionId": "R-092",
+    "name": "Spruce Crossing",
+    "centerLat": 41.8229,
+    "centerLon": -87.7208,
+    "population": 15235,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7458,
+            41.7979
+          ],
+          [
+            -87.69579999999999,
+            41.7979
+          ],
+          [
+            -87.69579999999999,
+            41.847899999999996
+          ],
+          [
+            -87.7458,
+            41.847899999999996
+          ],
+          [
+            -87.7458,
+            41.7979
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-093",
+    "regionId": "R-093",
+    "name": "Elm Hills",
+    "centerLat": 41.7404,
+    "centerLon": -87.5133,
+    "population": 77590,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.5383,
+            41.7154
+          ],
+          [
+            -87.4883,
+            41.7154
+          ],
+          [
+            -87.4883,
+            41.7654
+          ],
+          [
+            -87.5383,
+            41.7654
+          ],
+          [
+            -87.5383,
+            41.7154
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-094",
+    "regionId": "R-094",
+    "name": "Sequoia Riverside",
+    "centerLat": 41.7134,
+    "centerLon": -87.6815,
+    "population": 90228,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.7065,
+            41.6884
+          ],
+          [
+            -87.6565,
+            41.6884
+          ],
+          [
+            -87.6565,
+            41.7384
+          ],
+          [
+            -87.7065,
+            41.7384
+          ],
+          [
+            -87.7065,
+            41.6884
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-095",
+    "regionId": "R-095",
+    "name": "Pine Yards",
+    "centerLat": 41.8527,
+    "centerLon": -87.5071,
+    "population": 159149,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.5321,
+            41.8277
+          ],
+          [
+            -87.48209999999999,
+            41.8277
+          ],
+          [
+            -87.48209999999999,
+            41.8777
+          ],
+          [
+            -87.5321,
+            41.8777
+          ],
+          [
+            -87.5321,
+            41.8277
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-096",
+    "regionId": "R-096",
+    "name": "Juniper District",
+    "centerLat": 41.7665,
+    "centerLon": -87.93,
+    "population": 144293,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.95500000000001,
+            41.7415
+          ],
+          [
+            -87.905,
+            41.7415
+          ],
+          [
+            -87.905,
+            41.7915
+          ],
+          [
+            -87.95500000000001,
+            41.7915
+          ],
+          [
+            -87.95500000000001,
+            41.7415
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-097",
+    "regionId": "R-097",
+    "name": "Willow Crossing",
+    "centerLat": 42.024,
+    "centerLon": -87.7077,
+    "population": 121062,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.73270000000001,
+            41.999
+          ],
+          [
+            -87.6827,
+            41.999
+          ],
+          [
+            -87.6827,
+            42.049
+          ],
+          [
+            -87.73270000000001,
+            42.049
+          ],
+          [
+            -87.73270000000001,
+            41.999
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-098",
+    "regionId": "R-098",
+    "name": "Cypress Hills",
+    "centerLat": 41.7245,
+    "centerLon": -87.6511,
+    "population": 90291,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.6761,
+            41.6995
+          ],
+          [
+            -87.6261,
+            41.6995
+          ],
+          [
+            -87.6261,
+            41.7495
+          ],
+          [
+            -87.6761,
+            41.7495
+          ],
+          [
+            -87.6761,
+            41.6995
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-099",
+    "regionId": "R-099",
+    "name": "Sycamore Commons",
+    "centerLat": 41.9322,
+    "centerLon": -87.8939,
+    "population": 89077,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.91890000000001,
+            41.9072
+          ],
+          [
+            -87.8689,
+            41.9072
+          ],
+          [
+            -87.8689,
+            41.9572
+          ],
+          [
+            -87.91890000000001,
+            41.9572
+          ],
+          [
+            -87.91890000000001,
+            41.9072
+          ]
+        ]
+      ]
+    }
+  },
+  {
+    "id": "R-100",
+    "regionId": "R-100",
+    "name": "Sycamore Commons",
+    "centerLat": 41.9334,
+    "centerLon": -87.8032,
+    "population": 41367,
+    "hospitalIds": [],
+    "stationIds": [],
+    "boundary": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            -87.82820000000001,
+            41.9084
+          ],
+          [
+            -87.7782,
+            41.9084
+          ],
+          [
+            -87.7782,
+            41.9584
+          ],
+          [
+            -87.82820000000001,
+            41.9584
+          ],
+          [
+            -87.82820000000001,
+            41.9084
+          ]
+        ]
+      ]
+    }
+  }
+]

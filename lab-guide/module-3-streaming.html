@@ -17,7 +17,7 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 3 of 9</div>
+    <div class="module-pill">Module 3 of 10</div>
 </header>
 
 <div class="page-wrap">
@@ -64,14 +64,14 @@
             <tbody>
                 <tr>
                     <td>🏥 Hospital Vitals</td>
-                    <td><code>hospital-vitals</code></td>
+                    <td><code>medicalvitals</code></td>
                     <td><code>HospitalVitals</code></td>
                     <td>~1 evt/8s × 15 patients</td>
                     <td>Health</td>
                 </tr>
                 <tr>
                     <td>🏥 Hospital Movement</td>
-                    <td><code>hospital-movement</code></td>
+                    <td><code>medicalmovement</code></td>
                     <td><code>HospitalMovement</code></td>
                     <td>~1 evt/min</td>
                     <td>Health</td>
@@ -141,9 +141,9 @@
             <li>
                 <h3 class="step-title">Enable OneLake availability</h3>
                 <div class="step-body">
-                    <p>By default, KQL data lives in the Eventhouse's hot storage tier only. Turning on <strong>OneLake availability</strong> mirrors every KQL table out as Delta in OneLake automatically - no copy job, no pipeline. That's what lets your Direct Lake semantic model (Module 5), Fabric Ontology (Module 6), and Data Agents (Modules 7-8) read the same streaming data without bespoke ETL.</p>
+                    <p>By default, KQL data lives in the Eventhouse's hot storage tier only. Turning on <strong>OneLake availability</strong> mirrors every KQL table out as Delta in OneLake automatically - no copy job, no pipeline. That's what lets your Direct Lake semantic model (Module 6), Fabric Ontology (Module 7), and Data Agents (Modules 8-9) read the same streaming data without bespoke ETL.</p>
 
-                    <p>Inside the KQL Database, click the database name in the left tree &rarr; <strong>Database details</strong> (or the gear icon at the top). Find the <strong>OneLake availability</strong> tile and toggle it <strong>On</strong>. Confirm in the dialog.</p>
+                    <p>Inside the KQL Database, click <strong>OneLake</strong> on the top toolbar &rarr; choose <strong>Yes</strong> from the dropdown. In the <strong>Enable OneLake Availability</strong> dialog, leave <em>Apply to existing tables</em> ticked and click <strong>Enable</strong>. The <strong>OneLake</strong> tile in the right-hand <strong>Database details</strong> panel will flip from <em>Disabled</em> to <em>Enabled</em>.</p>
 
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
@@ -151,13 +151,6 @@
                             <div class="ph-title">SCREENSHOT NEEDED</div>
                             <div class="ph-meta">module-3/02-onelake-availability.png</div>
                             <div>KQL Database details pane with the <strong>OneLake availability</strong> toggle switched On</div>
-                        </div>
-                    </div>
-
-                    <div class="callout tip">
-                        <span class="callout-icon">✓</span>
-                        <div class="callout-content">
-                            <strong>Do this <em>before</em> creating tables.</strong> When OneLake availability is on at the database level, every table you create afterwards inherits it for free. If you flip the toggle later, only tables created from that point forward are mirrored - existing tables need to be migrated manually.
                         </div>
                     </div>
 
@@ -307,109 +300,152 @@
     </section>
 
     <section id="step-3">
-        <h2>Step 3 - Build the Three Eventstreams <span class="pill eventstream">EVENTSTREAM</span></h2>
+        <h2>Step 3 - Build three Eventstreams <span class="pill eventstream">EVENTSTREAM</span></h2>
 
-        <p>You'll repeat the same recipe three times. We'll walk through it once for Hospital Vitals; the others follow the same pattern with different names.</p>
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>Producers are running centrally.</strong> The three Event Hubs (<code>medicalvitals</code>, <code>medicalmovement</code>, <code>metrotrain</code>) are already receiving live JSON. As soon as you publish each Eventstream and activate its destination, the matching KQL table starts filling.
+            </div>
+        </div>
 
-        <h3>Recipe - for each of the three streams</h3>
+        <p>You'll build <strong>one Eventstream per data domain</strong> - three in total. Each Eventstream owns a single Azure Event Hubs source and a single KQL destination using <strong>Direct ingestion</strong> mode. The pattern is identical for all three; you'll walk through <code>es_hospitalvitals</code> end to end below, then repeat the same six sub-steps with the values from the table in <strong>3b</strong>.</p>
+
+        <table>
+            <thead><tr><th>Eventstream</th><th>Event Hub source</th><th>KQL table</th><th>Mapping</th></tr></thead>
+            <tbody>
+                <tr><td><code>es_hospitalvitals</code></td><td><code>medicalvitals</code></td><td><code>HospitalVitals</code></td><td><code>HospitalVitals_mapping</code></td></tr>
+                <tr><td><code>es_hospitalmovement</code></td><td><code>medicalmovement</code></td><td><code>HospitalMovement</code></td><td><code>HospitalMovement_mapping</code></td></tr>
+                <tr><td><code>es_traintelemetry</code></td><td><code>metrotrain</code></td><td><code>TrainTelemetry</code></td><td><code>TrainTelemetry_mapping</code></td></tr>
+            </tbody>
+        </table>
+
+        <h3>3a - Walk through <code>es_hospitalvitals</code> end to end</h3>
 
         <ol class="step-list">
             <li>
                 <h3 class="step-title">Create the Eventstream</h3>
                 <div class="step-body">
-                    <p>Workspace → <strong>+ New item</strong> → <strong>Eventstream</strong>.</p>
-                    <p>Name it using this convention:</p>
-                    <table>
-                        <thead><tr><th>Stream</th><th>Eventstream name</th></tr></thead>
-                        <tbody>
-                            <tr><td>Hospital Vitals</td><td><code>es-hospital-vitals</code></td></tr>
-                            <tr><td>Hospital Movement</td><td><code>es-hospital-movement</code></td></tr>
-                            <tr><td>Metra Trains</td><td><code>es-metra-trains</code></td></tr>
-                        </tbody>
-                    </table>
+                    <p>From your workspace, click <strong>+ New item</strong> &rarr; <strong>Eventstream</strong>. Enter the name <code>es_hospitalvitals</code> and click <strong>Create</strong>.</p>
+                    <p>Fabric provisions the item and drops you onto an empty canvas with a placeholder source node and an internal stream named <code>es_hospitalvitals-stream</code> in the middle.</p>
                 </div>
             </li>
 
             <li>
-                <h3 class="step-title">Add the Source (Azure Event Hubs)</h3>
+                <h3 class="step-title">Add the Event Hub source</h3>
                 <div class="step-body">
-                    <p>In the Eventstream canvas, click <strong>New source</strong> → <strong>Azure Event Hubs</strong>.</p>
-                    <p>Configuration values per stream (paste the matching connection string from <a href="appendix-env-vars.html" target="_blank">Appendix A · Lab Credentials</a>):</p>
-                    <table>
-                        <thead><tr><th>Eventstream</th><th>Connection variable</th><th>Event Hub name</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>es-hospital-vitals</code></td><td><code>EVENTHUB_VITALS_CONN_STR</code></td><td><code>hospital-vitals</code></td></tr>
-                            <tr><td><code>es-hospital-movement</code></td><td><code>EVENTHUB_MOVEMENT_CONN_STR</code></td><td><code>hospital-movement</code></td></tr>
-                            <tr><td><code>es-metra-trains</code></td><td><code>EVENTHUB_TRAIN_CONN_STR</code></td><td><code>metrotrain</code></td></tr>
-                        </tbody>
-                    </table>
-                    <p>Other settings (same for all three):</p>
-                    <ul>
-                        <li><strong>Consumer group</strong>: <code>$Default</code></li>
-                        <li><strong>Data format</strong>: JSON</li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Verify in the preview pane</h3>
-                <div class="step-body">
-                    <p>The Eventstream canvas shows a live event preview. You should see JSON events arriving within ~10 seconds.</p>
-                    <div class="screenshot placeholder">
-                        <div class="placeholder-body">
-                            <div class="ph-icon">📷</div>
-                            <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-3/02-eventstream-preview.png</div>
-                            <div>Eventstream canvas with the live event preview pane showing JSON events from <code>hospital-vitals</code></div>
+                    <p>Click the placeholder source node &rarr; <strong>External source</strong> &rarr; <strong>Azure Event Hubs</strong> &rarr; <strong>Add</strong>. In the source pane on the right:</p>
+                    <ol>
+                        <li>Under <strong>Cloud connection</strong>, click <strong>+ Create new connection</strong>.</li>
+                        <li>Fill in the connection fields using the values issued by your coach for this lab room (Event Hub namespace, hub name, listen-only SAS connection string), plus the per-Eventstream values below. See <a href="appendix-env-vars.html#azure-resources" target="_blank">Lab Credentials</a> for context.
+                            <ul>
+                                <li><strong>Event Hub</strong>: <code>medicalvitals</code></li>
+                                <li><strong>Connection name</strong>: <code>cn-medicalvitals</code></li>
+                            </ul>
+                        </li>
+                        <li>Click <strong>Connect</strong>, then back in the source pane confirm <strong>Consumer group</strong> = <code>$Default</code> and <strong>Data format</strong> = <code>Json</code>.</li>
+                        <li>(Optional) Rename the canvas node from <code>azure-event-hub</code> to <code>src-medical-vitals</code>.</li>
+                        <li>Click <strong>Add</strong>.</li>
+                    </ol>
+                    <p>The source node turns green and shows <strong>Active</strong> within ~30 seconds.</p>
+                    <div class="callout warning">
+                        <span class="callout-icon">!</span>
+                        <div class="callout-content">
+                            <strong>Always create a new connection per Eventstream.</strong> The <code>sendListen</code> SAS policy is hub-scoped, so a key issued for one Event Hub will not authenticate against another. Reusing one connection across Eventstreams produces an <code>InvalidSignature</code> error on the second source you wire up.
                         </div>
                     </div>
                 </div>
             </li>
 
             <li>
-                <h3 class="step-title">Add the Destination (KQL Database)</h3>
+                <h3 class="step-title">Verify the live preview</h3>
                 <div class="step-body">
-                    <p>Click <strong>New destination</strong> → <strong>KQL Database</strong>.</p>
+                    <p>With the source node selected, open the <strong>Data preview</strong> tab in the bottom pane. JSON events should populate within ~10 seconds. If the pane stays empty, the producer for this hub is not running, or the connection settings are wrong - fix the source before continuing.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Add the KQL destination</h3>
+                <div class="step-body">
+                    <p>On the canvas, click the source node &rarr; <strong>+ Add destination</strong> &rarr; <strong>Eventhouse</strong>. In the destination pane on the right, fill in:</p>
                     <ul>
-                        <li><strong>Workspace</strong>: <code>urbanpulse-{your-id}</code></li>
-                        <li><strong>KQL Database</strong>: select your Eventhouse's database</li>
-                        <li><strong>Destination table</strong>: pick the matching table from the table below</li>
-                        <li><strong>Input data format</strong>: JSON</li>
-                        <li><strong>Mapping</strong>: pick the matching mapping (same name + <code>_mapping</code>)</li>
+                        <li><strong>Data ingestion mode</strong>: <code>Direct ingestion</code></li>
+                        <li><strong>Destination name</strong>: <code>dest-hospital-vitals</code></li>
+                        <li><strong>Workspace</strong>: your lab workspace</li>
+                        <li><strong>Eventhouse</strong>: <code>eh_urbanpulse_rti</code></li>
+                        <li><strong>KQL Database</strong>: <code>eh_urbanpulse_rti</code></li>
                     </ul>
-                    <table>
-                        <thead><tr><th>Eventstream</th><th>Destination table</th><th>Mapping</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>es-hospital-vitals</code></td><td><code>HospitalVitals</code></td><td><code>HospitalVitals_mapping</code></td></tr>
-                            <tr><td><code>es-hospital-movement</code></td><td><code>HospitalMovement</code></td><td><code>HospitalMovement_mapping</code></td></tr>
-                            <tr><td><code>es-metra-trains</code></td><td><code>TrainTelemetry</code></td><td><code>TrainTelemetry_mapping</code></td></tr>
-                        </tbody>
-                    </table>
+                    <p>Click <strong>Save</strong>. The destination tile lands on the canvas in an <em>Unconfigured</em> state - this is expected.</p>
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            <strong>No table picker yet.</strong> Direct ingestion mode does not ask for the destination table or mapping in this dialog. The notice <em>"Activation for KQL database direct ingestion mode requires further actions after publish"</em> is expected. You'll bind the destination to its KQL table in sub-step 6.
+                        </div>
+                    </div>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-3/02-eventstream-source-destination.png</div>
+                            <div>Eventstream canvas with the Event Hub source connected through the internal stream to the Unconfigured Eventhouse destination tile</div>
+                        </div>
+                    </div>
                 </div>
             </li>
 
             <li>
                 <h3 class="step-title">Publish the Eventstream</h3>
                 <div class="step-body">
-                    <p>Click <strong>Publish</strong> on the toolbar. The status badge changes to <strong>Running</strong> and rows start appearing in the destination KQL table within ~30 seconds.</p>
+                    <p>Click <strong>Publish</strong> on the toolbar. Fabric commits the topology and exits edit mode. The source tile remains <strong>Active</strong>, and the destination tile now shows a <strong>Configure</strong> banner because the table binding is still missing.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Activate the destination - bind table and mapping</h3>
+                <div class="step-body">
+                    <p>On the published canvas, click <strong>Configure</strong> on the destination tile. In the Activate dialog, fill in:</p>
+                    <ul>
+                        <li><strong>Destination table</strong>: <code>HospitalVitals</code></li>
+                        <li><strong>Input data format</strong>: <code>JSON</code></li>
+                        <li><strong>Existing mapping</strong>: <code>HospitalVitals_mapping</code></li>
+                    </ul>
+                    <p>Click <strong>Add</strong>. Within ~30 seconds the destination flips to <strong>Active</strong> and rows start landing in <code>HospitalVitals</code>.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-3/03-eventstream-activate-destination.png</div>
+                            <div>Activate dialog for the Direct ingestion destination, with HospitalVitals selected as Destination table and HospitalVitals_mapping selected as Existing mapping</div>
+                        </div>
+                    </div>
                     <div class="callout warning">
                         <span class="callout-icon">!</span>
                         <div class="callout-content">
-                            <strong>If "Running" doesn't appear within a minute</strong>, check that you used the correct
-                            <code>EVENTHUB_*_CONN_STR</code> variable for that stream. Wrong connection string is the
-                            #1 cause of silent failure.
+                            <strong>If the destination stays in <em>Failed</em> or rows never appear</strong>, the most common cause is a typo in the mapping name. Confirm the destination is bound to <code>HospitalVitals_mapping</code> exactly - mapping names are case-sensitive.
                         </div>
                     </div>
                 </div>
             </li>
         </ol>
 
-        <div class="callout purple">
-            <span class="callout-icon">💡</span>
-            <div class="callout-content">
-                <strong>Time-saver:</strong> If you finish your Hospital Vitals Eventstream early, the other two are
-                copy-paste with different names. Aim to have all three <strong>Running</strong> within the module's
-                75 minutes - the <em>real</em> learning is what you do with the data in Modules 4 and 5.
+        <h3>3b - Repeat for the other two Eventstreams</h3>
+
+        <p>Run the same six sub-steps twice more, once for each row below. Create a brand-new connection in sub-step 2 every time:</p>
+
+        <table>
+            <thead><tr><th>Eventstream</th><th>Source name</th><th>Event Hub</th><th>Connection name</th><th>Destination name</th><th>Table</th><th>Mapping</th></tr></thead>
+            <tbody>
+                <tr><td><code>es_hospitalmovement</code></td><td><code>src-medical-movement</code></td><td><code>medicalmovement</code></td><td><code>cn-medicalmovement</code></td><td><code>dest-hospital-movement</code></td><td><code>HospitalMovement</code></td><td><code>HospitalMovement_mapping</code></td></tr>
+                <tr><td><code>es_traintelemetry</code></td><td><code>src-metra-trains</code></td><td><code>metrotrain</code></td><td><code>cn-metrotrain</code></td><td><code>dest-train-telemetry</code></td><td><code>TrainTelemetry</code></td><td><code>TrainTelemetry_mapping</code></td></tr>
+            </tbody>
+        </table>
+
+        <div class="screenshot placeholder">
+            <div class="placeholder-body">
+                <div class="ph-icon">📷</div>
+                <div class="ph-title">SCREENSHOT NEEDED</div>
+                <div class="ph-meta">module-3/04-three-eventstreams-list.png</div>
+                <div>Workspace list view showing all three Eventstreams (es_hospitalvitals, es_hospitalmovement, es_traintelemetry) published with their sources and destinations Active</div>
             </div>
         </div>
     </section>
@@ -417,15 +453,31 @@
     <section id="step-4">
         <h2>Step 4 - Verify End-to-End with KQL</h2>
 
-        <p>Switch back to the KQL query editor and run these one at a time. Each should return ten recent rows with timestamps from the last minute or so.</p>
+        <p>Switch back to the <code>eh_urbanpulse_rti</code> Eventhouse and open the <strong>KQL queryset</strong> editor. Run each block below on its own. Each should return ten recent rows with timestamps from the last minute or so.</p>
 
         <div class="code-block">
-            <span class="lang-badge">KQL · validation</span>
-<pre><code>HospitalVitals       | take 10
-HospitalMovement     | take 10
-TrainTelemetry       | take 10
+            <span class="lang-badge">KQL · vitals</span>
+<pre><code>HospitalVitals
+| take 10</code></pre>
+        </div>
 
-// Row counts in last 5 minutes - all three should have &gt; 0
+        <div class="code-block">
+            <span class="lang-badge">KQL · movement</span>
+<pre><code>HospitalMovement
+| take 10</code></pre>
+        </div>
+
+        <div class="code-block">
+            <span class="lang-badge">KQL · trains</span>
+<pre><code>TrainTelemetry
+| take 10</code></pre>
+        </div>
+
+        <p>Then run the row-count check across all three tables at once:</p>
+
+        <div class="code-block">
+            <span class="lang-badge">KQL · row counts</span>
+<pre><code>// Row counts in last 5 minutes - all three should have &gt; 0
 union withsource=table HospitalVitals, HospitalMovement, TrainTelemetry
 | where timestamp &gt; ago(5m)
 | summarize events = count() by table
@@ -454,13 +506,37 @@ union withsource=table HospitalVitals, HospitalMovement, TrainTelemetry
     <section id="when-update-policy">
         <h2>Bonus - When to Use KQL Update Policies</h2>
 
-        <p>Eventstream gives you a no-code, JSON-passthrough path. But sometimes you want to <em>transform</em> data on the way in - e.g., flag critical patients at write time. KQL's <strong>update policy</strong> is how you do that.</p>
+        <h3>What is an update policy?</h3>
+        <p>A KQL <strong>update policy</strong> is a server-side rule attached to a destination table. Whenever rows are ingested into a <em>source</em> table, the policy runs a KQL function over the new batch and writes the function's output into the destination table - in the same transaction as the original ingest. The result is a second table that stays in lock-step with the first one without any external scheduler, pipeline, or notebook.</p>
 
-        <details>
-            <summary><strong>Optional - Add a "vitals_alerts" derived table (skip if short on time)</strong></summary>
-<div class="code-block">
-<span class="lang-badge">KQL · update policy</span>
-<pre><code>// 1. The destination - only critical readings end up here
+        <h3>Why use one?</h3>
+        <p>Eventstream gives you a no-code, JSON-passthrough path: bytes in Event Hub land verbatim in a KQL table. That's perfect for raw telemetry, but real workloads usually need more:</p>
+        <ul>
+            <li><strong>Filter</strong> - keep only the rows that matter (critical patients, off-route trains, error events) so dashboards stay fast.</li>
+            <li><strong>Reshape</strong> - flatten nested JSON, split a single hub into multiple typed tables, or rename columns to match a downstream contract.</li>
+            <li><strong>Enrich</strong> - add a <code>severity</code>, <code>region</code>, or <code>tenant_id</code> column derived from the payload at write time, so consumers don't have to recompute it on every query.</li>
+            <li><strong>Pre-aggregate</strong> - roll up high-volume telemetry into per-minute summaries to lower dashboard scan cost.</li>
+        </ul>
+        <p>All four are write-time transformations: cheaper than running them on every read, and the derived table is queryable the instant a row lands.</p>
+
+        <h3>How does it work?</h3>
+        <p>Three KQL objects make up the pattern:</p>
+        <ol>
+            <li>A <strong>destination table</strong> with the shape you want consumers to see.</li>
+            <li>A <strong>KQL function</strong> that reads from the source table and returns rows that match the destination's schema exactly.</li>
+            <li>An <strong>update policy</strong> bound to the destination table that names the source table and the function. Once enabled, every ingest batch into the source automatically triggers the function and appends its output to the destination.</li>
+        </ol>
+        <p>The function only sees the new batch (not the full history), so cost stays bounded as the source table grows.</p>
+
+        <h3>Walk-through: derive a <code>VitalsAlerts</code> table from <code>HospitalVitals</code></h3>
+        <p>To make this concrete, the snippet below adds a <code>VitalsAlerts</code> table that contains only critical readings, with a derived <code>severity</code> column. Run it in the same KQL queryset you used in Step 4. The Eventstream you built in Step 3 keeps writing to <code>HospitalVitals</code>; the update policy makes <code>VitalsAlerts</code> populate automatically as rows flow in.</p>
+
+        <details open>
+            <summary><strong>Optional - Add a <code>VitalsAlerts</code> derived table (skip if short on time)</strong></summary>
+            <div class="code-block">
+                <span class="lang-badge">KQL · 1. destination table</span>
+<pre><code>// Only critical readings land here. Same datetime column name
+// as the source so the update policy passes through cleanly.
 .create table VitalsAlerts (
     patient_id: string,
     heart_rate: int,
@@ -468,10 +544,14 @@ union withsource=table HospitalVitals, HospitalMovement, TrainTelemetry
     temperature_f: real,
     severity: string,
     timestamp: datetime
-)
+)</code></pre>
+            </div>
 
-// 2. The function that filters + transforms
-.create function VitalsAlerts_TransformFn() {
+            <div class="code-block">
+                <span class="lang-badge">KQL · 2. transform function</span>
+<pre><code>// Filters to critical readings and tags each row with a severity.
+// Output schema MUST match VitalsAlerts column-for-column.
+.create-or-alter function VitalsAlerts_TransformFn() {
     HospitalVitals
     | where heart_rate &gt; 120 or heart_rate &lt; 50
          or spo2 &lt; 90
@@ -480,19 +560,38 @@ union withsource=table HospitalVitals, HospitalMovement, TrainTelemetry
         spo2 &lt; 88 or heart_rate &gt; 140, "critical",
         "warning")
     | project patient_id, heart_rate, spo2, temperature_f, severity, timestamp
-}
+}</code></pre>
+            </div>
 
-// 3. Bind the function to the destination - runs on every batch ingest
+            <div class="code-block">
+                <span class="lang-badge">KQL · 3. bind the policy</span>
+<pre><code>// Runs the function on every ingest batch into HospitalVitals
+// and appends matching rows into VitalsAlerts.
 .alter table VitalsAlerts policy update
 @'[{"Source":"HospitalVitals","Query":"VitalsAlerts_TransformFn()","IsEnabled":true,"PropagateIngestionProperties":true}]'</code></pre>
-</div>
+            </div>
+
+            <div class="code-block">
+                <span class="lang-badge">KQL · 4. validate</span>
+<pre><code>// Should return a small, growing set of critical readings.
+VitalsAlerts
+| where timestamp &gt; ago(5m)
+| summarize alerts = count() by severity
+| order by alerts desc</code></pre>
+            </div>
         </details>
 
         <div class="callout tip">
             <span class="callout-icon">✓</span>
             <div class="callout-content">
-                Update policies run synchronously on the ingest path, so the derived table is always in lock-step
-                with the source. Combine that with a Real-Time Dashboard tile (Module 4) for a true sub-minute alerting pipeline.
+                Update policies run synchronously on the ingest path, so the derived table is always in lock-step with the source. Combine that with a Real-Time Dashboard tile (Module 5) for a true sub-minute alerting pipeline.
+            </div>
+        </div>
+
+        <div class="callout warning">
+            <span class="callout-icon">!</span>
+            <div class="callout-content">
+                <strong>Schema must match exactly.</strong> The function's <code>project</code> list has to match the destination table's columns by name, type, and order. A mismatch makes every ingest into the source fail until you fix or disable the policy.
             </div>
         </div>
     </section>
@@ -506,17 +605,17 @@ union withsource=table HospitalVitals, HospitalMovement, TrainTelemetry
             <li>(Optional) A derived alerts table powered by a KQL update policy.</li>
         </ul>
 
-        <p>Module 4 is where this gets fun: you'll write KQL across all three tables and pin live tiles to a Real-Time Dashboard.</p>
+        <p>Module 4 curates these and the Lakehouse tables before Module 5 builds the Real-Time Dashboard on top.</p>
     </section>
 
     <nav class="module-nav">
         <a class="nav-card" href="module-2-lakehouse-mirror.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 2 · Lakehouse + Mirror</div>
+            <div class="nav-title">Module 2 · Data Ingestion</div>
         </a>
-        <a class="nav-card next" href="module-4-kql-dashboard.html">
+        <a class="nav-card next" href="module-4-transform.html">
             <div class="nav-direction">Next →</div>
-            <div class="nav-title">Module 4 · KQL + Dashboard</div>
+            <div class="nav-title">Module 4 · Transform for Analytics</div>
         </a>
     </nav>
 

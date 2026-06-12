@@ -17,17 +17,16 @@
             <div class="event-subtitle">Build, Govern &amp; Scale with Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Day 2 · Hands-On Lab</div>
+    <div class="module-pill">Goals</div>
 </header>
 
 <div class="cover">
     <div class="cover-eyebrow">Day 2 · June 17 · 11 AM – 5:30 PM ET</div>
     <h1>UrbanPulse:<br/>Build a Smart City Operations Platform on Microsoft Fabric</h1>
     <p class="cover-tagline">
-        A guided, scenario-based hands-on lab where you assume the role of an ISV
-        building a real-time, multi-domain operations platform - combining live
-        hospital and transit data into a unified Fabric solution with
-        natural-language data agents.
+        Four goals take you from raw streaming data to a multi-agent orchestrator
+        on Microsoft Fabric. Each goal maps to one or more modules; pick a goal pill below
+        to focus the view, or keep <strong>All</strong> selected to see the full lab in order.
     </p>
 
     <div class="cover-meta">
@@ -36,8 +35,8 @@
             <div class="meta-value">~6 hours</div>
         </div>
         <div class="meta-block">
-            <div class="meta-label">Modules</div>
-            <div class="meta-value">10 (M0 – M9, M8+M9 optional)</div>
+            <div class="meta-label">Goals</div>
+            <div class="meta-value">4</div>
         </div>
         <div class="meta-block">
             <div class="meta-label">Skill level</div>
@@ -49,9 +48,47 @@
         </div>
     </div>
 
+    <section class="use-case">
+        <h2 class="use-case-heading">What is UrbanPulse?</h2>
+        <p class="use-case-lead">
+            UrbanPulse is the fictional ISV product you'll be building. It's a <strong>Smart City operations platform</strong> aimed at municipalities that run multiple public-service domains - hospitals, transit, public safety - and want one operational view across all of them.
+        </p>
+        <div class="use-case-grid">
+            <div class="use-case-card">
+                <div class="uc-icon">🏥</div>
+                <h3 class="uc-title">Hospital telemetry</h3>
+                <p class="uc-desc">Live patient vitals (heart rate, SpO2) and movement events (admit, transfer, discharge, imaging, surgery) from a regional hospital network. Reference data for hospitals, wards, and staff comes from an Azure SQL operational database.</p>
+            </div>
+            <div class="use-case-card">
+                <div class="uc-icon">🚆</div>
+                <h3 class="uc-title">Transit telemetry</h3>
+                <p class="uc-desc">Live train positions, speeds, and delay status across the Red, Blue, and Green metro lines. Route topology and regions come from an Azure Cosmos DB document store.</p>
+            </div>
+            <div class="use-case-card">
+                <div class="uc-icon">🌐</div>
+                <h3 class="uc-title">Cross-domain reasoning</h3>
+                <p class="uc-desc">A shared <em>Region</em> concept ties hospitals and trains together so an operator can ask one question - "Region A has train delays AND rising hospital load. What should we do?" - and get a single, grounded answer.</p>
+            </div>
+        </div>
+        <p class="use-case-summary">
+            Across the day, you'll <strong>ingest</strong> these data sources into one Fabric workspace, <strong>transform</strong> them into curated Silver and Gold tables, <strong>build reports</strong> in Power BI and a real-time dashboard, and <strong>apply AI</strong> through Fabric Ontologies, Data Agents, and an Azure AI Foundry orchestrator.
+        </p>
+    </section>
+
+    <div class="goals-section">
+        <h2 class="goals-heading">Lab Goals</h2>
+        <div class="goal-pills" role="tablist" aria-label="Filter modules by goal">
+            <button class="goal-pill active" type="button" data-goal="all"       aria-pressed="true">All</button>
+            <button class="goal-pill"        type="button" data-goal="ingest"    aria-pressed="false"><span class="gp-num">Goal 1</span> Ingest</button>
+            <button class="goal-pill"        type="button" data-goal="transform" aria-pressed="false"><span class="gp-num">Goal 2</span> Transform</button>
+            <button class="goal-pill"        type="button" data-goal="report"    aria-pressed="false"><span class="gp-num">Goal 3</span> Build Report</button>
+            <button class="goal-pill"        type="button" data-goal="ai"        aria-pressed="false"><span class="gp-num">Goal 4</span> Apply AI</button>
+        </div>
+    </div>
+
     <div class="module-grid">
 
-        <a class="module-card" href="module-0-setup.html">
+        <a class="module-card" data-goals="setup" href="module-0-setup.html">
             <span class="mc-number">MODULE 0</span>
             <h3 class="mc-title">Setup &amp; Environment Check</h3>
             <p class="mc-desc">
@@ -59,9 +96,10 @@
                 and bookmark the Lab Credentials page. You'll create your workspace and items in M1–M3.
             </p>
             <div class="mc-time"><strong>10 min</strong> · UI tour, sanity checks</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Setup</span></div>
         </a>
 
-        <a class="module-card" href="module-1-workspace-tour.html">
+        <a class="module-card" data-goals="setup" href="module-1-workspace-tour.html">
             <span class="mc-number">MODULE 1</span>
             <h3 class="mc-title">Workspace Tour &amp; ISV Architecture</h3>
             <p class="mc-desc">
@@ -69,20 +107,23 @@
                 explorer, capacity, RBAC, and the medallion model you'll build today.
             </p>
             <div class="mc-time"><strong>30 min</strong> · concepts + UI tour</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Setup</span></div>
         </a>
 
-        <a class="module-card" href="module-2-lakehouse-mirror.html">
+        <a class="module-card" data-goals="ingest" href="module-2-lakehouse-mirror.html">
             <span class="mc-number">MODULE 2</span>
-            <h3 class="mc-title">Lakehouse, Shortcuts &amp; Mirroring</h3>
+            <h3 class="mc-title">Data Ingestion</h3>
             <p class="mc-desc">
-                Land tumor-imaging Parquet into the Bronze Lakehouse, mirror an
-                Azure SQL Student DB with zero-ETL, and shortcut a Cosmos DB
-                container for unified data access.
+                Bring in file-based, relational, and NoSQL data using three Fabric ingest patterns -
+                <strong>Upload</strong> a facility catalog Parquet, <strong>Mirror</strong> an Azure SQL Hospitals/Wards/Staff DB
+                with zero-ETL, and <strong>Mirror</strong> a Cosmos DB for NoSQL database (regions and train routes) - all
+                converging on one Bronze Lakehouse.
             </p>
-            <div class="mc-time"><strong>45 min</strong> · Lakehouse + Mirror + Shortcut</div>
+            <div class="mc-time"><strong>45 min</strong> · Upload + Shortcut + Mirror</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 1 · Ingest</span></div>
         </a>
 
-        <a class="module-card health" href="module-3-streaming.html">
+        <a class="module-card health" data-goals="ingest" href="module-3-streaming.html">
             <span class="mc-number">MODULE 3</span>
             <h3 class="mc-title">Real-Time Streaming Ingest</h3>
             <p class="mc-desc">
@@ -91,31 +132,47 @@
                 trains.
             </p>
             <div class="mc-time"><strong>75 min</strong> · Event Hubs → Eventstream → Eventhouse</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 1 · Ingest</span></div>
         </a>
 
-        <a class="module-card transit" href="module-4-kql-dashboard.html">
+        <a class="module-card" data-goals="transform" href="module-4-transform.html">
             <span class="mc-number">MODULE 4</span>
-            <h3 class="mc-title">KQL Analytics &amp; Real-Time Dashboard</h3>
+            <h3 class="mc-title">Transform for Analytics</h3>
+            <p class="mc-desc">
+                Curate the Bronze tables into a Silver Delta table with a Spark notebook,
+                then expose Gold-tier <strong>SQL views</strong> on the Lakehouse SQL endpoint
+                for downstream BI and agents. Dataflow Gen2 and Materialized Lake Views
+                are noted as alternatives.
+            </p>
+            <div class="mc-time"><strong>40 min</strong> · Notebook + SQL views + MLV</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 2 · Transform</span></div>
+        </a>
+
+        <a class="module-card transit" data-goals="report" href="module-5-kql-dashboard.html">
+            <span class="mc-number">MODULE 5</span>
+            <h3 class="mc-title">Live Dashboard</h3>
             <p class="mc-desc">
                 Write KQL across hospital and transit tables. Pin live
                 tiles to a Real-Time Intelligence Dashboard and watch the city
                 update in front of you.
             </p>
             <div class="mc-time"><strong>60 min</strong> · KQL + RTI Dashboard</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 3 · Build Report</span></div>
         </a>
 
-        <a class="module-card" href="module-5-direct-lake.html">
-            <span class="mc-number">MODULE 5</span>
+        <a class="module-card" data-goals="report" href="module-6-direct-lake.html">
+            <span class="mc-number">MODULE 6</span>
             <h3 class="mc-title">Direct Lake + Power BI</h3>
             <p class="mc-desc">
                 Build a Direct Lake semantic model on the Bronze Lakehouse and ship a
                 1-page Power BI report - no import refresh, no DirectQuery latency.
             </p>
             <div class="mc-time"><strong>30 min</strong> · Direct Lake + Power BI</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 3 · Build Report</span></div>
         </a>
 
-        <a class="module-card" href="module-6-ontologies.html">
-            <span class="mc-number">MODULE 6</span>
+        <a class="module-card" data-goals="ai" href="module-7-ontologies.html">
+            <span class="mc-number">MODULE 7</span>
             <h3 class="mc-title">Fabric Ontologies</h3>
             <p class="mc-desc">
                 Build a semantic graph over your Lakehouse + Eventhouse data. Define
@@ -123,36 +180,40 @@
                 the agents you'll build next.
             </p>
             <div class="mc-time"><strong>25 min</strong> · Fabric Ontology · OneLake</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 4 · Apply AI</span></div>
         </a>
 
-        <a class="module-card" href="module-7-data-agents.html">
-            <span class="mc-number">MODULE 7</span>
-            <h3 class="mc-title">Build &amp; Publish a Fabric Data Agent</h3>
+        <a class="module-card" data-goals="ai" href="module-8-data-agents.html">
+            <span class="mc-number">MODULE 8</span>
+            <h3 class="mc-title">Build a Fabric Data Agent</h3>
             <p class="mc-desc">
-                Build the Hospital Operations Fabric Data Agent on live KQL data, then
-                publish it to Microsoft 365 Copilot. One agent, end-to-end.
+                Build the Hospital Operations Fabric Data Agent on live KQL data and
+                validate it in the Fabric agent canvas with natural-language questions.
             </p>
-            <div class="mc-time"><strong>45 min</strong> · Fabric Data Agents · M365 Copilot</div>
+            <div class="mc-time"><strong>45 min</strong> · Fabric Data Agents</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 4 · Apply AI</span></div>
         </a>
 
-        <a class="module-card" href="module-8-multi-agent.html">
-            <span class="mc-number">MODULE 8 · ★ OPTIONAL</span>
+        <a class="module-card optional" data-goals="ai" href="module-9-multi-agent.html">
+            <span class="mc-number">MODULE 9 · OPTIONAL</span>
             <h3 class="mc-title">Multi-Agent Catalog</h3>
             <p class="mc-desc">
-                Repeat the Module 7 recipe for Transit so you end up with a
+                Repeat the Module 8 pattern for Transit so you finish with a
                 two-agent multi-domain catalog ready for orchestration.
             </p>
             <div class="mc-time"><strong>20 min</strong> · Fabric Data Agents</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 4 · Apply AI</span></div>
         </a>
 
-        <a class="module-card" href="module-9-foundry-orchestrator.html">
-            <span class="mc-number">MODULE 9 · ★ OPTIONAL</span>
+        <a class="module-card optional" data-goals="ai" href="module-10-foundry-orchestrator.html">
+            <span class="mc-number">MODULE 10 · OPTIONAL</span>
             <h3 class="mc-title">Foundry Connected-Agent Orchestrator</h3>
             <p class="mc-desc">
                 Wire your Fabric Data Agents into an Azure AI Foundry connected-agent
-                orchestrator and publish that to M365 Copilot for cross-domain reasoning. No code.
+                orchestrator for cross-domain reasoning. No code.
             </p>
-            <div class="mc-time"><strong>30 min</strong> · Azure AI Foundry · M365 Copilot</div>
+            <div class="mc-time"><strong>30 min</strong> · Azure AI Foundry</div>
+            <div class="mc-goals"><span class="mc-goal-tag">Goal 4 · Apply AI</span></div>
         </a>
 
     </div>
@@ -175,17 +236,17 @@
         <div class="callout info">
             <span class="callout-icon">ⓘ</span>
             <div class="callout-content">
-                <p><strong>Coaches handle the things that need a tenant admin.</strong> Each attendee receives:</p>
+                <p><strong>Items that require tenant-admin privileges are pre-provisioned.</strong> You will receive:</p>
                 <ul>
-                    <li>A shared Fabric <strong>F-SKU capacity</strong> (<code>fc-isvsummit-{room}</code>) that your account is granted on - you'll create the workspace yourself in Module 1</li>
-                    <li>A lab tenant identity (<code>attendee-{id}@isvsummitlab.onmicrosoft.com</code>) at your seat</li>
+                    <li>A shared Fabric <strong>F-SKU capacity</strong> (<code>fc-isvsummit-{room}</code>) and a pre-provisioned <strong>workspace</strong> per lab user already bound to it</li>
+                    <li>A lab tenant identity (<code>Fabric.UserN@estdcorp.onmicrosoft.com</code>) provided in your handout</li>
                     <li>Read access to four shared Azure Event Hubs streaming live data</li>
-                    <li>A <strong>Lab Credentials</strong> reference page with every connection string, key, and endpoint pre-filled</li>
-                    <li>An Azure AI Search index <code>city-ops-index</code> + Azure OpenAI deployment for the optional Module 9 Foundry orchestrator</li>
+                    <li>A <strong>Lab Credentials</strong> reference page listing each lab user account and where to find the per-user Azure resources (SQL, Cosmos, Foundry) in the Azure portal</li>
+                    <li>A pre-provisioned Azure AI Foundry project per lab user (with <code>gpt-4o-mini</code> deployed) for the optional Module 10 orchestrator extension</li>
                 </ul>
                 <p style="margin-top: 8px;">
                     You do <strong>not</strong> need your own Azure subscription, a Cloud PC, or any local installs -
-                    everything happens in your browser. Coaches run the data simulators centrally; your job is to build on top.
+                    everything happens in your browser. Streaming data simulators run centrally; you build the workspace and every Fabric item on top.
                 </p>
             </div>
         </div>
@@ -195,7 +256,7 @@
         <a class="module-card" style="display:inline-block; min-width:280px;" href="module-0-setup.html">
             <span class="mc-number">START HERE →</span>
             <h3 class="mc-title">Module 0 · Environment Check</h3>
-            <p class="mc-desc">Sign in to Fabric, find your workspace, then we begin.</p>
+            <p class="mc-desc">Sign in to Fabric, open your pre-provisioned workspace, then we begin.</p>
         </a>
     </div>
 </div>
@@ -204,6 +265,37 @@
     <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span></p>
     <p>Lab content based on the <a href="https://github.com/nickTinMicrosoft/fabric_hackathon_coaches">Fabric Hackathon Coaches repository</a> · Adapted for the ISV Summit Day 2 hands-on workshop.</p>
 </footer>
+
+<script>
+(function() {
+    var pills = document.querySelectorAll('.goal-pill');
+    var cards = document.querySelectorAll('.module-card[data-goals]');
+    if (!pills.length || !cards.length) return;
+
+    function applyFilter(goal) {
+        cards.forEach(function(card) {
+            var tags = (card.getAttribute('data-goals') || '').split(/\s+/);
+            if (goal === 'all' || tags.indexOf(goal) !== -1) {
+                card.classList.remove('hidden-by-goal');
+            } else {
+                card.classList.add('hidden-by-goal');
+            }
+        });
+    }
+
+    pills.forEach(function(pill) {
+        pill.addEventListener('click', function() {
+            pills.forEach(function(p) {
+                p.classList.remove('active');
+                p.setAttribute('aria-pressed', 'false');
+            });
+            pill.classList.add('active');
+            pill.setAttribute('aria-pressed', 'true');
+            applyFilter(pill.getAttribute('data-goal'));
+        });
+    });
+})();
+</script>
 
 </body>
 </html>

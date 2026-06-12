@@ -15,25 +15,25 @@
     <rect width="1100" height="460" fill="#fdfcfb"/>
 
     <!-- Section labels -->
-    <text x="105"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#605e5c">SIMULATORS · in coach lab</text>
-    <text x="350"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#605e5c">AZURE EVENT HUBS · coach-provided</text>
+    <text x="105"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#605e5c">SIMULATORS · local lab</text>
+    <text x="350"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#605e5c">AZURE EVENT HUBS · rtidemo namespace</text>
     <text x="640"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#4f29a3">FABRIC EVENTSTREAMS · you build</text>
     <text x="970"  y="35" font-size="11" font-weight="700" letter-spacing="1.5" fill="#4f29a3">EVENTHOUSE · 3 KQL tables</text>
 
     <!-- ============ Stream 1: Hospital Vitals ============ -->
     <g filter="url(#ds)">
-        <rect x="40"  y="60" width="180" height="56" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
-        <text x="58"  y="84" font-size="13" font-weight="600" fill="#d13438">🏥 hospital_vitals.py</text>
-        <text x="58"  y="103" font-size="10" fill="#605e5c">15 patients · 8s cadence</text>
+        <rect x="40"  y="60" width="230" height="56" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+        <text x="58"  y="84" font-size="12" font-weight="600" fill="#d13438">🏥 simulate_medicalvitals.py</text>
+        <text x="58"  y="103" font-size="10" fill="#605e5c">60 patients · 1s cadence</text>
     </g>
     <g filter="url(#ds)">
         <rect x="290" y="60" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
-        <text x="380" y="84"  font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">hospital-vitals</text>
-        <text x="380" y="102" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub topic</text>
+        <text x="380" y="84"  font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">medicalvitals</text>
+        <text x="380" y="102" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub</text>
     </g>
     <g filter="url(#ds)">
         <rect x="540" y="60" width="200" height="56" rx="8" fill="#ede4fb" stroke="#7c52e6" stroke-width="1.5"/>
-        <text x="640" y="84" font-size="12" font-weight="600" text-anchor="middle" fill="#4f29a3">es-hospital-vitals</text>
+        <text x="640" y="84" font-size="12" font-weight="600" text-anchor="middle" fill="#4f29a3">es-medical-vitals</text>
         <text x="640" y="102" font-size="10" fill="#605e5c" text-anchor="middle">JSON · pass-through</text>
     </g>
     <g filter="url(#ds)">
@@ -44,18 +44,18 @@
 
     <!-- ============ Stream 2: Hospital Movement ============ -->
     <g filter="url(#ds)">
-        <rect x="40"  y="150" width="180" height="56" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
-        <text x="58"  y="174" font-size="13" font-weight="600" fill="#d13438">🏥 hospital_movement.py</text>
+        <rect x="40"  y="150" width="230" height="56" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+        <text x="58"  y="174" font-size="12" font-weight="600" fill="#d13438">🏥 simulate_medicalmovement.py</text>
         <text x="58"  y="193" font-size="10" fill="#605e5c">admit/transfer/discharge</text>
     </g>
     <g filter="url(#ds)">
         <rect x="290" y="150" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
-        <text x="380" y="174" font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">hospital-movement</text>
-        <text x="380" y="192" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub topic</text>
+        <text x="380" y="174" font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">medicalmovement</text>
+        <text x="380" y="192" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub</text>
     </g>
     <g filter="url(#ds)">
         <rect x="540" y="150" width="200" height="56" rx="8" fill="#ede4fb" stroke="#7c52e6" stroke-width="1.5"/>
-        <text x="640" y="174" font-size="12" font-weight="600" text-anchor="middle" fill="#4f29a3">es-hospital-movement</text>
+        <text x="640" y="174" font-size="12" font-weight="600" text-anchor="middle" fill="#4f29a3">es-medical-movement</text>
         <text x="640" y="192" font-size="10" fill="#605e5c" text-anchor="middle">JSON · pass-through</text>
     </g>
     <g filter="url(#ds)">
@@ -66,14 +66,14 @@
 
     <!-- ============ Stream 3: Trains ============ -->
     <g filter="url(#ds)">
-        <rect x="40"  y="240" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
-        <text x="58"  y="264" font-size="13" font-weight="600" fill="#005a9e">🚆 trains_eventhub.py</text>
+        <rect x="40"  y="240" width="230" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+        <text x="58"  y="264" font-size="12" font-weight="600" fill="#005a9e">🚆 simulate_metrotrain.py</text>
         <text x="58"  y="283" font-size="10" fill="#605e5c">Red · Blue · Green lines</text>
     </g>
     <g filter="url(#ds)">
         <rect x="290" y="240" width="180" height="56" rx="8" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
         <text x="380" y="264" font-size="12" font-weight="600" text-anchor="middle" fill="#005a9e">metrotrain</text>
-        <text x="380" y="282" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub topic</text>
+        <text x="380" y="282" font-size="10" font-style="italic" fill="#605e5c" text-anchor="middle">Event Hub</text>
     </g>
     <g filter="url(#ds)">
         <rect x="540" y="240" width="200" height="56" rx="8" fill="#ede4fb" stroke="#7c52e6" stroke-width="1.5"/>
@@ -88,9 +88,9 @@
 
     <!-- Arrows -->
     <g stroke="#605e5c" stroke-width="1.4" fill="none" marker-end="url(#arrFlow)">
-        <line x1="220" y1="88"  x2="290" y2="88"/>
-        <line x1="220" y1="178" x2="290" y2="178"/>
-        <line x1="220" y1="268" x2="290" y2="268"/>
+        <line x1="270" y1="88"  x2="290" y2="88"/>
+        <line x1="270" y1="178" x2="290" y2="178"/>
+        <line x1="270" y1="268" x2="290" y2="268"/>
 
         <line x1="470" y1="88"  x2="540" y2="88"/>
         <line x1="470" y1="178" x2="540" y2="178"/>

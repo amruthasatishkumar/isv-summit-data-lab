@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 5 · Direct Lake + Power BI - UrbanPulse Lab</title>
+    <title>Module 6 · Direct Lake + Power BI - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,13 +17,13 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 5 of 9</div>
+    <div class="module-pill">Module 6 of 10</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
-        <div class="module-eyebrow">Module 5 · BI Layer</div>
+        <div class="module-eyebrow">Module 6 · BI Layer</div>
         <h1>Direct Lake Semantic Model + Power BI</h1>
         <p class="lead">
             Build a <strong>Direct Lake semantic model</strong> on the Bronze Lakehouse from Module 2 and
@@ -68,19 +68,20 @@
                     <p>From <code>lh_urbanpulse_bronze</code>, click the <strong>New semantic model</strong> button at the top of the Tables view.</p>
                     <p>In the picker, tick:</p>
                     <ul>
-                        <li><code>Students</code></li>
-                        <li><code>Classes</code></li>
-                        <li><code>Enrollments</code></li>
-                        <li><code>cosmos_grades</code></li>
-                        <li><code>tumor_metadata</code></li>
+                        <li><code>Hospitals</code></li>
+                        <li><code>Wards</code></li>
+                        <li><code>Staff</code></li>
+                        <li><code>regions</code></li>
+                        <li><code>facility_catalog</code></li>
                     </ul>
-                    <p>Name it: <code>sm_urbanpulse_education</code>. Click <strong>Confirm</strong>.</p>
+                    <p>Name it: <code>sm_urbanpulse_cityops</code>. Click <strong>Confirm</strong>.</p>
 
-                    <div class="callout tip">
-                        <span class="callout-icon">✓</span>
-                        <div class="callout-content">
-                            For the Smart City scenario we're using education tables as a stand-in for any "warm path"
-                            data - the same Direct Lake pattern applies whether your tables are admissions, sales, or sensors.
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-6/01-new-semantic-model.png</div>
+                            <div>New semantic model picker on <code>lh_urbanpulse_bronze</code> with <code>Hospitals</code>, <code>Wards</code>, <code>Staff</code>, <code>regions</code>, and <code>facility_catalog</code> ticked, and the model named <code>sm_urbanpulse_cityops</code></div>
                         </div>
                     </div>
                 </div>
@@ -92,9 +93,10 @@
                     <p>Open the semantic model → <strong>Model view</strong>. Drag-and-drop to create:</p>
 <div class="code-block">
 <span class="lang-badge">Relationships</span>
-<pre><code>Enrollments[StudentId]   ──*──1── Students[StudentId]
-Enrollments[ClassId]     ──*──1── Classes[ClassId]
-cosmos_grades[Student_ID] ──*──1── Students[StudentId]</code></pre>
+<pre><code>Wards[hospitalId]             ──*──1── Hospitals[hospitalId]
+Staff[hospitalId]             ──*──1── Hospitals[hospitalId]
+Hospitals[regionId]           ──*──1── regions[regionId]
+facility_catalog[facility_id] ──1──1── Hospitals[hospitalId]</code></pre>
 </div>
                 </div>
             </li>
@@ -102,23 +104,24 @@ cosmos_grades[Student_ID] ──*──1── Students[StudentId]</code></pre>
             <li>
                 <h3 class="step-title">Add three measures</h3>
                 <div class="step-body">
-                    <p>In the model, right-click <code>Enrollments</code> → <strong>New measure</strong>. Repeat for each:</p>
+                    <p>In the model, right-click <code>Hospitals</code> → <strong>New measure</strong>. Repeat for each:</p>
 <div class="code-block">
 <span class="lang-badge">DAX</span>
-<pre><code>Total Enrollments = COUNTROWS(Enrollments)
+<pre><code>Total Beds = SUM(Hospitals[beds])
 
-Avg Grade =
-    AVERAGEX(
-        cosmos_grades,
-        VALUE(cosmos_grades[Grade])
+ICU Capacity Ratio =
+    DIVIDE(
+        SUM(Hospitals[icuBeds]),
+        SUM(Hospitals[beds]),
+        0
     )
 
-Pass Rate % =
+Staff per Bed =
     DIVIDE(
-        CALCULATE(COUNTROWS(cosmos_grades), VALUE(cosmos_grades[Grade]) &gt;= 60),
-        COUNTROWS(cosmos_grades),
+        COUNTROWS(Staff),
+        SUM(Hospitals[beds]),
         0
-    ) * 100</code></pre>
+    )</code></pre>
 </div>
                 </div>
             </li>
@@ -133,20 +136,12 @@ Pass Rate % =
             <li>
                 <h3 class="step-title">Polish the report</h3>
                 <div class="step-body">
-                    <p>Edit the auto-created page so it has three visuals:</p>
-                    <ol>
-                        <li>A <strong>card</strong> with <code>Total Enrollments</code></li>
-                        <li>A <strong>bar chart</strong>: <code>Avg Grade</code> by <code>ClassName</code></li>
-                        <li>A <strong>donut</strong>: count of students by class</li>
-                    </ol>
-                    <p>Save as <code>rpt_urbanpulse_education</code>.</p>
+                    <p>Add whatever visuals fit your story - cards, bar charts, donuts, maps, slicers. The data, measures, and relationships are all in place. Save as <code>rpt_urbanpulse_cityops</code>.</p>
 
-                    <div class="screenshot placeholder">
-                        <div class="placeholder-body">
-                            <div class="ph-icon">📷</div>
-                            <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-5/01-directlake-report.png</div>
-                            <div>Final 1-page Power BI report on the Direct Lake semantic model</div>
+                    <div class="callout tip">
+                        <span class="callout-icon">✨</span>
+                        <div class="callout-content">
+                            <strong>Let Copilot build it for you.</strong> In the report canvas, click the <strong>Copilot</strong> button on the top ribbon and ask things like <em>"Create a page showing total beds, ICU capacity ratio by hospital, and staff count by region"</em>. Copilot generates the visuals, picks fields, and lays them out - then you tweak. The Direct Lake semantic model gives it the schema and measures it needs to ground responses.
                         </div>
                     </div>
                 </div>
@@ -155,7 +150,7 @@ Pass Rate % =
             <li>
                 <h3 class="step-title">Validate Direct Lake mode</h3>
                 <div class="step-body">
-                    <p>In the semantic model settings, the <strong>Storage mode</strong> field for each table should read <code>Direct Lake</code>. If it's "DirectQuery" instead, your capacity might not support Direct Lake - flag a coach.</p>
+                    <p>In the semantic model settings, the <strong>Storage mode</strong> field for each table should read <code>Direct Lake</code>. If it shows <code>DirectQuery</code> instead, the capacity may not support Direct Lake - contact lab support.</p>
                 </div>
             </li>
         </ol>
@@ -163,10 +158,10 @@ Pass Rate % =
         <div class="validation">
             <h4>Validation</h4>
             <ul>
-                <li>Semantic model <code>sm_urbanpulse_education</code> exists in your workspace.</li>
-                <li>Three relationships are drawn in Model view.</li>
+                <li>Semantic model <code>sm_urbanpulse_cityops</code> exists in your workspace.</li>
+                <li>Four relationships are drawn in Model view.</li>
                 <li>All three DAX measures evaluate without errors.</li>
-                <li>Report <code>rpt_urbanpulse_education</code> has at least three visuals.</li>
+                <li>Report <code>rpt_urbanpulse_cityops</code> has at least three visuals.</li>
                 <li>All tables report <strong>Direct Lake</strong> storage mode.</li>
             </ul>
         </div>
@@ -189,17 +184,17 @@ Pass Rate % =
             </div>
         </div>
 
-        <p>Module 6 introduces a <strong>Fabric Ontology</strong> - a semantic graph over your data - so the Module 7 Data Agent can reason about Patients and Trains directly, not just rows and columns.</p>
+        <p>Module 7 introduces a <strong>Fabric Ontology</strong> - a semantic graph over your data - so the Module 8 Data Agent can reason about Patients and Trains directly, not just rows and columns.</p>
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-4-kql-dashboard.html">
+        <a class="nav-card" href="module-5-kql-dashboard.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 4 · KQL + Dashboard</div>
+            <div class="nav-title">Module 5 · Live Dashboard</div>
         </a>
-        <a class="nav-card next" href="module-6-ontologies.html">
+        <a class="nav-card next" href="module-7-ontologies.html">
             <div class="nav-direction">Next →</div>
-            <div class="nav-title">Module 6 · Fabric Ontologies</div>
+            <div class="nav-title">Module 7 · Fabric Ontologies</div>
         </a>
     </nav>
 

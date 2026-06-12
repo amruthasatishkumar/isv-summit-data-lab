@@ -18,20 +18,21 @@ Run through this with the lab admin **90 minutes** before each session. Everythi
 - [ ] Each attendee's account is a **Member** (not Admin) of their workspace
 
 ## 3. Event Hubs are receiving data from the simulators
-- [ ] `evhns-isvsummit-2026` namespace is healthy
-- [ ] All four hubs receiving messages in the last 60 seconds:
-  - [ ] `eh-hospital-vitals` - 15 patients, ~8s cadence
-  - [ ] `eh-hospital-movement` - sporadic
-  - [ ] `eh-metra-trains` - 3 trains, ~3s cadence
-  - [ ] `eh-flight-tracker` - variable depending on PiAware feed
+- [ ] `rtidemo` namespace (in `rg-fabric-shared-use2-dev`) is healthy
+- [ ] All three hubs receiving messages in the last 60 seconds:
+  - [ ] `medicalvitals` - ~3 events/sec from `simulate_medicalvitals.py`
+  - [ ] `medicalmovement` - ~1 event / 5s from `simulate_medicalmovement.py`
+  - [ ] `metrotrain` - 3 events / 2s from `simulate_metrotrain.py` (one per train)
 
 > **How to check:** Azure portal → Event Hubs Namespace → Metrics → `Incoming Messages (Last 5 min)` filtered by Entity name.
 
 ## 4. Source databases healthy
-- [ ] Azure SQL `sql-isvsummit.database.windows.net / studentdb` is online
-- [ ] `lab_reader` user can SELECT from `Students`, `Classes`, `Enrollments`
-- [ ] Cosmos DB `cosmos-isvsummit / StudentInfo / Grades` has at least 5,000 documents
-- [ ] Tumor parquet file is in the lab admin's blob storage and accessible via SAS URL
+- [ ] Azure SQL `sql-isvsummit.database.windows.net / cityopsdb` is online
+- [ ] `lab_reader` user can SELECT from `Hospitals`, `Wards`, `Staff`
+- [ ] Cosmos DB `cosmos-isvsummit / urbanpulse` has both containers populated:
+  - [ ] `regions` (5 docs)
+  - [ ] `trainRoutes` (3 docs)
+- [ ] Facility catalog parquet (`facility_catalog.parquet`) and the 5 facility JPGs (under `facilities/`) are in the `facilitycatalog` container of the shared lab storage account
 
 ## 5. Azure AI services are warm
 - [ ] Azure AI Search index `city-ops-index` exists and has > 0 documents
@@ -39,7 +40,7 @@ Run through this with the lab admin **90 minutes** before each session. Everythi
 - [ ] A test call to AOAI succeeds in < 3 seconds
 
 ## 6. Per-attendee `.env` files are placed
-- [ ] Each Cloud PC has `.env` at `C:\labs\fabric_hackathon_coaches\.env`
+- [ ] Each Cloud PC has `.env` at `C:\labs\isv-summit-data-lab\.env`
 - [ ] File is owned by lab-admin, group-read-only for the attendee
 - [ ] The "Update env" desktop shortcut exists (script that re-writes if values rotate)
 
@@ -47,14 +48,14 @@ Run through this with the lab admin **90 minutes** before each session. Everythi
 On a randomly chosen Cloud PC, log in as a fresh attendee account and run:
 
 ```powershell
-cd C:\labs\fabric_hackathon_coaches
-python Scripts\Python\preflight.py
+cd C:\labs\isv-summit-data-lab
+python scripts\preflight.py    # TODO: this script is not yet authored - manually validate each connection from M0 if absent
 ```
 
 Expected output ends with:
 
 ```
-✓ All 4 Event Hubs reachable
+✓ All 3 Event Hubs reachable
 ✓ Azure SQL reachable
 ✓ Cosmos DB reachable
 ✓ Azure AI Search reachable
@@ -66,14 +67,14 @@ PRE-FLIGHT PASSED
 If any line is ✗, do **not** proceed - fix and re-run.
 
 ## 8. Sample content is staged
-- [ ] Tumor parquet file is downloadable via the `Day 2 Files` SharePoint link from the lab guide
+- [ ] `seed-data/parquet/output/` has been regenerated and uploaded to the `facilitycatalog` container of the shared lab storage account (run `python seed-data\parquet\generate_facility_catalog.py` + `python seed-data\parquet\generate_facility_photos.py` from the lab repo, then `az storage blob upload-batch ...` per `seed-data/parquet/README.md`)
 - [ ] Kqlsetup recipe (`02_kql_tables.kql`) is current
 - [ ] Pre-built agent endpoints (the coach-shared fallback) are responsive
 
 ## 9. Recovery datasets are ready
-- [ ] `recover/hospital-snapshot.parquet` - 24 hours of vitals (in case streaming fails mid-lab)
-- [ ] `recover/trains-snapshot.parquet` - 24 hours
-- [ ] `recover/flights-snapshot.parquet` - 24 hours
+- [ ] `recover/medicalvitals-snapshot.parquet` - 24 hours of vitals (in case streaming fails mid-lab)
+- [ ] `recover/metrotrain-snapshot.parquet` - 24 hours
+- [ ] `recover/medicalmovement-snapshot.parquet` - 24 hours
 - [ ] Each snapshot has a `Load to KQL` recipe nearby in case you need to reroute attendees
 
 ## 10. Coach roster + Cloud PC mapping

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 7 · Build &amp; Publish a Fabric Data Agent - UrbanPulse Lab</title>
+    <title>Module 8 · Build a Fabric Data Agent - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,23 +17,23 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 7 of 9</div>
+    <div class="module-pill">Module 8 of 10</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
-        <div class="module-eyebrow">Module 7 · AI Layer</div>
-        <h1>Build &amp; Publish a Fabric Data Agent</h1>
+        <div class="module-eyebrow">Module 8 · AI Layer</div>
+        <h1>Build a Fabric Data Agent</h1>
         <p class="lead">
             Build the <strong>Hospital Operations Agent</strong> on the live KQL data you wired up in Module 3,
-            then <strong>publish it to Microsoft 365 Copilot</strong> so anyone in the org can chat with it.
-            One agent, end-to-end - from streaming telemetry to a Copilot conversation in your tenant.
+            then test it from inside the Fabric agent canvas.
+            One agent, end-to-end - from streaming telemetry to a grounded conversation.
         </p>
         <div class="module-meta">
-            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>45 minutes</strong></div>
-            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> 1 published Copilot agent</div>
-            <div class="meta-item"><span class="meta-icon">🛠</span> Fabric Data Agents · M365 Copilot</div>
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>30 minutes</strong></div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> 1 working Hospital agent</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Fabric Data Agents</div>
         </div>
     </div>
 
@@ -42,8 +42,7 @@
         <ul>
             <li>Understand the <strong>anatomy of a Fabric Data Agent</strong>: instructions, data sources, guardrails.</li>
             <li>Build the <strong>Hospital Operations Agent</strong> grounded on your KQL tables.</li>
-            <li><strong>Publish it to Microsoft 365 Copilot</strong> as a connected agent (Copilot Studio).</li>
-            <li>Test the agent from inside the M365 Copilot chat surface.</li>
+            <li>Test the agent from the Fabric agent canvas with realistic clinical prompts.</li>
         </ul>
     </section>
 
@@ -99,10 +98,10 @@
                 <line x1="480" y1="150" x2="520" y2="150" stroke="#605e5c" marker-end="url(#ar5)"/>
                 <line x1="700" y1="150" x2="740" y2="150" stroke="#605e5c" marker-end="url(#ar5)"/>
             </svg>
-            <div class="caption">Figure 6.1 - A Fabric Data Agent uses your instructions + connected data sources to answer questions in natural language, grounded in real query results.</div>
+            <div class="caption">Figure 7.1 - A Fabric Data Agent uses your instructions + connected data sources to answer questions in natural language, grounded in real query results.</div>
         </div>
 
-        <p>The recipe is simple: domain instructions + scoped KQL tables + guardrails. In Module 7 you'll build one agent (Hospital), grounded on the ontology you just defined in Module 6. In the optional Module 8 stretch you'll repeat the same recipe for Transit to assemble a multi-agent catalog.</p>
+        <p>The recipe is simple: domain instructions + scoped KQL tables + guardrails. In Module 8 you'll build one agent (Hospital) wired directly to the KQL tables from Module 3, using the vocabulary you formalized in the Module 7 ontology. In the optional Module 9 stretch you'll repeat the same recipe for Transit to assemble a multi-agent catalog.</p>
     </section>
 
     <!-- =============== AGENT 1 · HOSPITAL =============== -->
@@ -119,14 +118,14 @@
             <li>
                 <h3 class="step-title">Create the agent</h3>
                 <div class="step-body">
-                    <p>Workspace → <strong>+ New item</strong> → <strong>Agent</strong>. Name: <code>ag-hospital-ops</code>.</p>
+                    <p>Workspace → <strong>+ New item</strong> → <strong>Agent</strong>. Name: <code>ag_urbanpulse_hospital</code>.</p>
                 </div>
             </li>
 
             <li>
                 <h3 class="step-title">Paste the instructions</h3>
                 <div class="step-body">
-                    <p>In the <strong>Instructions</strong> field, paste the block below. (This is the same structure used in the hackathon coaches' repo - clinical thresholds, response format rules, and KQL pattern library all included.)</p>
+                    <p>In the <strong>Instructions</strong> field, paste the block below. It defines clinical thresholds, response format rules, and a KQL pattern library tuned for this dataset.</p>
 
 <div class="code-block">
 <span class="lang-badge">Agent Instructions · Hospital</span>
@@ -152,8 +151,9 @@ You have access to two KQL tables in a real-time analytics database:
 ### HospitalMovement
 | Column | Type | Description |
 | patient_id | string | Same PAT-XXXXX (joinable to vitals) |
-| event_type | string | Admitted, Transferred, Sent to X-Ray, Returned from X-Ray, Discharged |
+| event_type | string | admit, transfer, discharge, imaging, surgery |
 | from_location / to_location | string | Room or area |
+| floor | string | Hospital floor identifier |
 | diagnosis_code / diagnosis_desc | string | ICD-10 code + description |
 | timestamp | datetime | UTC timestamp of the event |
 
@@ -186,7 +186,7 @@ HospitalVitals
 ### Patient location + latest vitals
 let location = HospitalMovement
 | summarize arg_max(timestamp, *) by patient_id
-| where event_type != "Discharged"
+| where event_type != "discharge"
 | project patient_id, current_location = to_location;
 let vitals = HospitalVitals
 | summarize arg_max(timestamp, *) by patient_id;
@@ -224,97 +224,28 @@ DON'T: diagnose patients, identify real people, modify data, speculate on outcom
                             <tr><td>"What's the SpO2 trend for all critical patients over the last 30 minutes?"</td><td>A time-series chart or table grouped by patient.</td></tr>
                         </tbody>
                     </table>
-                    <div class="screenshot placeholder">
-                        <div class="placeholder-body">
-                            <div class="ph-icon">📷</div>
-                            <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-5/01-hospital-agent.png</div>
-                            <div>Hospital agent chat panel showing a structured response to the critical-patients prompt</div>
-                        </div>
-                    </div>
                 </div>
             </li>
         </ol>
     </section>
 
-    <!-- =============== PUBLISH TO M365 COPILOT =============== -->
+    <!-- =============== M365 COPILOT CALLOUT =============== -->
     <section id="publish-copilot">
-        <h2>Publish the Hospital Agent to Microsoft 365 Copilot <span class="pill agent" style="background:#0078d4;color:#fff;">✨ CORE</span></h2>
+        <h2>Beyond the Lab: Publishing to Microsoft 365 Copilot</h2>
 
-        <p>A Fabric Data Agent is great inside Fabric - but the real win is exposing it where your clinicians already live: <strong>Microsoft 365 Copilot</strong>. Three clicks from the agent canvas.</p>
+        <p>You've validated the agent inside the Fabric canvas. In a production rollout, the same agent is exposed to end users through <strong>Microsoft 365 Copilot</strong>. The lab stops at validation so the focus stays on the data layer and agent grounding; this section summarizes the production deployment path.</p>
 
         <div class="callout info">
             <span class="callout-icon">ℹ️</span>
             <div class="callout-content">
-                <strong>How this works under the hood.</strong> Fabric publishes the agent as a <em>Copilot connector / declarative agent</em> in Copilot Studio. M365 Copilot users see it in the agent picker; conversations flow Fabric → Copilot Studio → M365 Copilot, with the user's Entra identity all the way down. <strong>RBAC on the underlying KQL tables is enforced</strong> - users only see data they're allowed to see.
+                <strong>Publishing flow.</strong> The <strong>Publish</strong> action on the agent canvas registers the agent with Copilot Studio as a declarative agent. End users then access it from the agent picker at <a href="https://m365.cloud.microsoft/chat" target="_blank">m365.cloud.microsoft/chat</a>. Requests traverse Fabric → Copilot Studio → Microsoft 365 Copilot, propagating the caller's Entra identity end to end. <strong>RBAC on the underlying KQL tables is enforced at query time</strong>, so users only see data they are authorized to access.
             </div>
         </div>
-
-        <ol class="step-list">
-            <li>
-                <h3 class="step-title">Open the agent &amp; click Publish</h3>
-                <div class="step-body">
-                    <p>From your <code>ag-hospital-ops</code> agent canvas, click the <strong>Publish</strong> button in the top-right toolbar. The publish flyout opens.</p>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Choose &quot;Microsoft 365 Copilot&quot;</h3>
-                <div class="step-body">
-                    <p>In the flyout, pick the <strong>Microsoft 365 Copilot</strong> channel (the other options are Teams and a direct URL). Fill in:</p>
-                    <ul>
-                        <li><strong>Display name:</strong> <code>Hospital Ops (UrbanPulse)</code></li>
-                        <li><strong>Description:</strong> <em>Ask about patient vitals, room occupancy, and movement across the UrbanPulse hospital floor. Read-only, de-identified.</em></li>
-                        <li><strong>Starter prompts</strong> (Copilot will surface these as suggestion chips):
-                            <ul>
-                                <li>Are any patients critical right now?</li>
-                                <li>Give me a full status report on PAT-10003.</li>
-                                <li>What's the SpO2 trend for critical patients in the last 30 minutes?</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Set the audience</h3>
-                <div class="step-body">
-                    <p>Choose <strong>Just me</strong> for today's lab. In production you'd pick an Entra security group (e.g. <em>Clinical Operations</em>) - only members see the agent in Copilot's picker. Click <strong>Publish</strong>.</p>
-                    <div class="callout warning">
-                        <span class="callout-icon">⚠️</span>
-                        <div class="callout-content">If your tenant doesn't have M365 Copilot licensed for attendees, the publish dialog will still create the manifest; you just won't see it in Copilot chat. The Fabric chat experience continues to work either way.</div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Wait for the manifest (~1–2 min)</h3>
-                <div class="step-body">
-                    <p>Fabric generates the Copilot Studio agent and pushes it to your tenant. You'll see a toast: <em>&quot;Hospital Ops (UrbanPulse) published to Microsoft 365 Copilot.&quot;</em></p>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Test it in M365 Copilot</h3>
-                <div class="step-body">
-                    <p>Open a new browser tab → <a href="https://m365.cloud.microsoft/chat" target="_blank">m365.cloud.microsoft/chat</a> (sign in with the same lab account). On the right side, click the <strong>Agents</strong> picker and select <strong>Hospital Ops (UrbanPulse)</strong>.</p>
-                    <p>Ask one of your starter prompts. You should get the same evidence-backed answer you saw inside Fabric - but now wrapped in the M365 Copilot UI, citable, shareable in Teams, embeddable in Loop.</p>
-                    <div class="screenshot placeholder">
-                        <div class="placeholder-body">
-                            <div class="ph-icon">📷</div>
-                            <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-5/02-copilot-agent.png</div>
-                            <div>M365 Copilot chat with the Hospital Ops agent selected, answering &quot;Are any patients critical right now?&quot;</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ol>
 
         <div class="callout purple">
             <span class="callout-icon">💡</span>
             <div class="callout-content">
-                <strong>This is the ISV moment.</strong> You took live streaming telemetry → grounded a domain agent on it → pushed that agent into the most-used productivity app on the planet. Same pattern works for retail floor ops, supply chain, IoT fleets, and field service.
+                <strong>ISV implication.</strong> A single deployment unit takes you from streaming telemetry to a domain-grounded agent surfaced inside Microsoft 365 Copilot. The same architecture applies to other operational domains - retail floor operations, supply chain visibility, IoT fleet management, and field service.
             </div>
         </div>
     </section>
@@ -324,25 +255,24 @@ DON'T: diagnose patients, identify real people, modify data, speculate on outcom
         <ul>
             <li>A production-style <strong>Hospital Operations Fabric Data Agent</strong> with domain instructions, KQL patterns, and guardrails.</li>
             <li>The agent is scoped to <em>only</em> its tables - no cross-domain leakage.</li>
-            <li><strong>Published to Microsoft 365 Copilot</strong> as a connected agent - anyone in the audience group can chat with it from m365.cloud.microsoft/chat.</li>
-            <li>Validated end-to-end with three sample prompts in both Fabric and Copilot.</li>
+            <li>Validated end to end with three representative prompts in the Fabric agent canvas.</li>
         </ul>
 
-        <p>That's the lab - you've shipped a published Copilot agent grounded on live streaming data. From here you have two optional stretches:</p>
+        <p>You now have a domain agent grounded on live streaming data, ready to publish to Microsoft 365 Copilot in a production deployment. Two optional extensions follow:</p>
         <ul>
-            <li><strong>Module 8</strong> repeats this recipe for Transit, giving you a two-agent multi-domain catalog.</li>
-            <li><strong>Module 9</strong> wraps the catalog in an Azure AI Foundry connected-agent orchestrator and publishes <em>that</em> to Copilot for cross-domain reasoning.</li>
+            <li><strong>Module 9</strong> applies the same pattern to Transit, producing a two-agent multi-domain catalog.</li>
+            <li><strong>Module 10</strong> composes the catalog behind an Azure AI Foundry connected-agent orchestrator for cross-domain reasoning.</li>
         </ul>
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-6-ontologies.html">
+        <a class="nav-card" href="module-7-ontologies.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 6 · Fabric Ontologies</div>
+            <div class="nav-title">Module 7 · Fabric Ontologies</div>
         </a>
-        <a class="nav-card next" href="module-8-multi-agent.html">
+        <a class="nav-card next" href="module-9-multi-agent.html">
             <div class="nav-direction">Next →</div>
-            <div class="nav-title">Module 8 · Multi-Agent Catalog <span class="pill agent" style="vertical-align:middle;">OPTIONAL</span></div>
+            <div class="nav-title">Module 9 · Multi-Agent Catalog <span class="pill agent" style="vertical-align:middle;">OPTIONAL</span></div>
         </a>
     </nav>
 

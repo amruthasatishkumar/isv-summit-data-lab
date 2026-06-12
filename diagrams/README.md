@@ -9,9 +9,9 @@ The SVGs are intentionally human-readable. Open them in VS Code, change colors /
 
 | File | What it shows |
 | --- | --- |
-| `lab-guide/assets/images/architecture-overview.svg` | The 4-layer end-to-end architecture (cover page) |
-| `lab-guide/assets/images/streaming-pipeline.svg` | Module 3 fan-in: 4 simulators → 4 Eventstreams → 4 KQL tables |
-| `lab-guide/assets/images/orchestrator.svg` | Module 6 multi-agent orchestrator pattern |
+| `lab-guide/assets/images/architecture-overview.svg` | The end-to-end architecture (cover page) |
+| `lab-guide/assets/images/streaming-pipeline.svg` | Module 3 fan-in: 3 simulators → 3 Eventstreams → 3 KQL tables |
+| `lab-guide/assets/images/orchestrator.svg` | Module 10 connected-agent orchestrator pattern |
 
 ## Option 2: Re-create in Excalidraw (for major restructuring)
 1. Open <https://aka.ms/excalidraw>
@@ -25,11 +25,13 @@ If you want versioned editable sources here, save the `.excalidraw` JSON files a
 
 Several modules also include **inline SVG markup directly inside the HTML** instead of as a separate file:
 
-- Module 0 - Cloud PC window layout
+- Module 0 - Pre-provisioned-vs-you-build split
 - Module 1 - Medallion slice (hot path + warm path)
 - Module 2 - Three ingest patterns
-- Module 4 - RTI Dashboard layout mock
-- Module 5 - Anatomy of a Fabric Data Agent
-- Module 6 - Three-tenant ISV product picture
+- Module 5 - RTI Dashboard layout mock
+- Module 7 - Ontology entity / relationship picture
+- Module 8 - Anatomy of a Fabric Data Agent
+- Module 10 - Foundry connected-agent orchestrator (Figure 9.1)
+- Closing - Three-tenant ISV product picture (Figure C.1)
 
 To edit those, search the relevant `module-*.html` file for `<svg`.

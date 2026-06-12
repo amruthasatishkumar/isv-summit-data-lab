@@ -17,7 +17,7 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 1 of 9</div>
+    <div class="module-pill">Module 1 of 10</div>
 </header>
 
 <div class="page-wrap">
@@ -26,9 +26,9 @@
         <div class="module-eyebrow">Module 1 · Foundation</div>
         <h1>Workspace Tour &amp; ISV Architecture</h1>
         <p class="lead">
-            Before we build, let's understand what you're building. This is a guided tour of
-            the UrbanPulse architecture, the Fabric workspace layout you'll use today, and the
-            ISV multi-tenancy patterns this design embodies.
+            This module introduces the UrbanPulse architecture, the Fabric workspace layout used
+            throughout the lab, and the ISV multi-tenancy patterns the design embodies. Use it as a
+            map for the build modules that follow.
         </p>
         <div class="module-meta">
             <div class="meta-item"><span class="meta-icon">⏱</span> <strong>30 minutes</strong></div>
@@ -43,30 +43,34 @@
         <p>
             Imagine you work for <strong>UrbanPulse Analytics</strong>, an ISV that sells a real-time
             <em>Smart City Operations Platform</em> to municipalities. The City of Metropolis just
-            signed a contract. Their three operational pain points:
+            signed a contract. Two operational domains, each with both <strong>live telemetry</strong>
+            and <strong>operational reference data</strong>:
         </p>
 
         <div class="two-col">
             <div class="domain-block health">
                 <div class="domain-label">🏥 HEALTH</div>
                 <h3>Northwind Health Network</h3>
-                <p>15 active patients streaming vitals every 8–15 seconds. Charge nurses need to know who's critical <em>right now</em>, not from yesterday's report.</p>
+                <p><strong>Streaming:</strong> 15 active patients streaming vitals every 8–15 seconds; admit / transfer / discharge events.</p>
+                <p><strong>Reference data:</strong> hospital roster, wards, on-shift staff in an Azure SQL database. A facility catalog Parquet with bed counts and ICU capacity per site.</p>
             </div>
             <div class="domain-block transit">
                 <div class="domain-label">🚆 TRANSIT</div>
                 <h3>Metropolis Metra (3 lines)</h3>
-                <p>Red, Blue, and Green lines reporting GPS, speed, and on-time status. Operations needs to spot delays before riders complain.</p>
+                <p><strong>Streaming:</strong> Red, Blue, and Green lines reporting GPS, speed, and on-time status every 2 seconds.</p>
+                <p><strong>Reference data:</strong> route definitions and stop sequences in Cosmos DB. Region polygons (North, Loop, West, South, Airport) shared with the hospital domain so cross-domain queries can anchor on geography.</p>
             </div>
         </div>
 
         <div class="callout purple">
             <span class="callout-icon">💡</span>
             <div class="callout-content">
-                <strong>The ISV play.</strong> Two different customer domains (hospital and transit)
-                each generating real-time telemetry. UrbanPulse's value proposition isn't "we'll build
-                you a dashboard" - it's "we'll let your operators ask questions in plain English and
-                get answers grounded in live data, no matter which system it lives in."
-                That's the platform you're building today.
+                <strong>The ISV play.</strong> Two customer domains, four very different data shapes
+                (real-time hub events, transactional SQL, document-store JSON, columnar Parquet) -
+                and one Fabric workspace that unifies them without ETL pipelines. UrbanPulse's value
+                proposition isn't "we'll build you a dashboard" - it's "we'll let your operators ask
+                questions in plain English and get answers grounded in live <em>and</em> historical data,
+                no matter which system it lives in." That's the platform you're building today.
             </div>
         </div>
     </section>
@@ -74,7 +78,7 @@
     <section id="architecture">
         <h2>End-to-End Architecture</h2>
 
-        <p>This is the same diagram from the cover, but now we'll walk it left to right. Each arrow is a module of today's lab.</p>
+        <p>The diagram below traces UrbanPulse end to end. Each arrow corresponds to a module in this lab.</p>
 
         <div class="diagram">
             <object type="image/svg+xml" data="assets/images/architecture-overview.svg" style="width:100%;">
@@ -95,14 +99,14 @@
             <tbody>
                 <tr>
                     <td><strong>Sources</strong></td>
-                    <td>Operational systems - hospital simulators, train telemetry, customer SQL DBs.</td>
-                    <td>(coach-managed)</td>
+                    <td>Operational systems - hospital + train simulators, an Azure SQL hospital roster DB, a Cosmos DB with regions and routes, and a facility catalog Parquet in OneLake.</td>
+                    <td>(pre-provisioned)</td>
                     <td>Heterogeneous customer environments</td>
                 </tr>
                 <tr>
                     <td><strong>Azure ingest</strong></td>
-                    <td>Azure Event Hubs as the unified streaming front door - JSON events partitioned by source.</td>
-                    <td>(coach-provided)</td>
+                    <td>Azure Event Hubs as the unified streaming front door - three hubs (medical vitals, medical movement, metro train) carrying JSON events.</td>
+                    <td>(pre-provisioned)</td>
                     <td>Single ingest contract per tenant</td>
                 </tr>
                 <tr>
@@ -113,7 +117,7 @@
                 </tr>
                 <tr>
                     <td><strong>AI layer</strong></td>
-                    <td>Fabric Data Agent published to M365 Copilot (Hospital core; Transit optional). Optional Foundry connected-agent orchestrator over both of them with Azure AI Search RAG.</td>
+                    <td>Fabric Data Agent grounded on Lakehouse + KQL data (Hospital core; Transit optional). Optional Foundry connected-agent orchestrator over both of them.</td>
                     <td>Modules 6, 7, 8, 9 <em>(8–9 are stretch)</em></td>
                     <td>Domain agents = composable building blocks</td>
                 </tr>
@@ -124,8 +128,9 @@
     <section id="medallion">
         <h2>The Medallion Slice You'll Build</h2>
 
-        <p>UrbanPulse is built on a classic medallion (Bronze/Silver/Gold), but with a real-time twist -
-            the <strong>hot path</strong> goes through the Eventhouse, while the <strong>warm path</strong> lands in the Lakehouse.</p>
+        <p>UrbanPulse implements the standard medallion pattern (Bronze, Silver, Gold) along two parallel paths: a
+            <strong>hot path</strong> through the Eventhouse for sub-second streaming analytics, and a
+            <strong>warm path</strong> through the Lakehouse for batch and historical analytics.</p>
 
         <div class="diagram">
             <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" style="max-width:100%;">
@@ -184,11 +189,11 @@
                 <!-- right-side consumers -->
                 <rect x="700" y="50" width="270" height="70" rx="8" fill="#fff" stroke="#7c52e6" stroke-width="2"/>
                 <text x="835" y="78" fill="#4f29a3" font-size="13" font-weight="600" text-anchor="middle">Real-Time Dashboard + Data Agent</text>
-                <text x="835" y="100" fill="#605e5c" font-size="11" text-anchor="middle">Module 4 + Module 7</text>
+                <text x="835" y="100" fill="#605e5c" font-size="11" text-anchor="middle">Module 5 + Module 8</text>
 
                 <rect x="700" y="190" width="270" height="70" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
                 <text x="835" y="218" fill="#005a9e" font-size="13" font-weight="600" text-anchor="middle">Power BI Report (DirectLake)</text>
-                <text x="835" y="240" fill="#605e5c" font-size="11" text-anchor="middle">Module 5</text>
+                <text x="835" y="240" fill="#605e5c" font-size="11" text-anchor="middle">Module 6</text>
 
                 <line x1="640" y1="85" x2="700" y2="85" stroke="#605e5c" stroke-width="1.5" marker-end="url(#ar1)"/>
                 <line x1="640" y1="225" x2="700" y2="225" stroke="#605e5c" stroke-width="1.5" marker-end="url(#ar1)"/>
@@ -198,70 +203,27 @@
     </section>
 
     <section id="step-1">
-        <h2>Walkthrough - Create &amp; Tour Your Workspace</h2>
+        <h2>Walkthrough - Tour Your Workspace</h2>
 
         <ol class="step-list">
             <li>
-                <h3 class="step-title">Create your Fabric workspace</h3>
+                <h3 class="step-title">Open your pre-provisioned workspace</h3>
                 <div class="step-body">
-                    <p>From the Fabric portal, click <strong>Workspaces</strong> in the left rail → <strong>+ New workspace</strong>.</p>
-                    <p>Fill in the panel:</p>
-                    <ul>
-                        <li><strong>Name</strong>: <code>urbanpulse-{your-id}</code> (use the ID on your seat slip)</li>
-                        <li><strong>Description</strong> <em>(optional)</em>: "ISV Summit Day 2 lab - UrbanPulse smart-city build"</li>
-                        <li><strong>Domain</strong> <em>(optional)</em>: leave blank</li>
-                    </ul>
-                    <p>Expand <strong>Advanced</strong> at the bottom of the panel:</p>
-                    <ul>
-                        <li><strong>License mode</strong>: <strong>Fabric capacity</strong></li>
-                        <li><strong>Capacity</strong>: <code>fc-isvsummit-{room}</code> (the only one you'll see)</li>
-                    </ul>
-                    <p>Click <strong>Apply</strong>. Fabric drops you into your brand-new (empty) workspace.</p>
-
-                    <div class="screenshot placeholder">
-                        <div class="placeholder-body">
-                            <div class="ph-icon">📷</div>
-                            <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-1/01-create-workspace.png</div>
-                            <div>"Create a workspace" panel with name <code>urbanpulse-{your-id}</code> and License mode → Fabric capacity selected</div>
-                        </div>
-                    </div>
-
-                    <div class="callout warning">
-                        <span class="callout-icon">⚠</span>
-                        <div class="callout-content">
-                            <strong>Capacity matters.</strong> If you forget to switch License mode from "Trial" to <strong>Fabric capacity</strong>, several items in later modules (Eventhouse, Direct Lake, Data Agents) will be unavailable. If you missed it, open <strong>Workspace settings</strong> → <strong>License info</strong> and switch it now.
-                        </div>
-                    </div>
+                    <p>From the Fabric portal, click <strong>Workspaces</strong> in the left rail. Your lab workspace is already created and bound to the shared Fabric capacity - select it.</p>
+                    <p>The workspace is empty by design. Every item you build across Modules 2-9 lands here.</p>
                 </div>
             </li>
 
             <li>
                 <h3 class="step-title">Take in the empty workspace canvas</h3>
                 <div class="step-body">
-                    <p>You're staring at an empty workspace - that's intentional. The big <strong>+ New item</strong> button is what you'll use across the next five modules.</p>
+                    <p>The <strong>+ New item</strong> button at the top of the canvas is the entry point you'll use to create every Fabric item across the next several modules.</p>
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
                             <div class="ph-meta">module-1/02-workspace-empty.png</div>
-                            <div>Brand-new empty workspace landing page with the <strong>+ New item</strong> button highlighted</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Open the OneLake explorer (preview)</h3>
-                <div class="step-body">
-                    <p>Click the OneLake icon in the left rail. You'll see your tenant tree with your new workspace listed but no items beneath it yet. That's normal.</p>
-                    <p>You'll come back to this view in Module 2 once your Lakehouse exists - the <code>Files/</code> and <code>Tables/</code> folders show up under the lakehouse.</p>
-                    <div class="screenshot placeholder">
-                        <div class="placeholder-body">
-                            <div class="ph-icon">📷</div>
-                            <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-1/03-onelake-empty.png</div>
-                            <div>OneLake explorer showing the empty workspace - no Lakehouse children yet</div>
+                            <div>Empty workspace landing page with the <strong>+ New item</strong> button highlighted</div>
                         </div>
                     </div>
                 </div>
@@ -270,24 +232,24 @@
             <li>
                 <h3 class="step-title">Inspect workspace settings &amp; capacity</h3>
                 <div class="step-body">
-                    <p>Back on your workspace home, click <strong>Workspace settings</strong> (gear icon, top-right). Confirm:</p>
+                    <p>Click <strong>Workspace settings</strong> (gear icon, top-right). Confirm:</p>
                     <ul>
-                        <li><strong>License mode</strong>: Fabric capacity (F-SKU)</li>
+                        <li><strong>Workspace type</strong>: Fabric capacity (F-SKU)</li>
                         <li><strong>Capacity name</strong>: <code>fc-isvsummit-{room}</code></li>
                     </ul>
-                    <p>If anything else is selected, switch it now - several items in later modules require Fabric capacity (not Trial / not Pro).</p>
+                    <p>If anything else is selected, flag it with your coach - several items in later modules require Fabric capacity (not Trial / not Pro).</p>
                 </div>
             </li>
 
             <li>
                 <h3 class="step-title">Inspect access (RBAC)</h3>
                 <div class="step-body">
-                    <p>Click <strong>Manage access</strong>. As the workspace creator you're <strong>Admin</strong>. You can leave the access list as-is for the lab; in production you'd add the customer's users as <em>Members</em> or <em>Contributors</em> here.</p>
+                    <p>Click <strong>Manage access</strong>. Your lab account is wired in as <strong>Admin</strong>. You can leave the access list as-is for the lab; in production you'd add the customer's users as <em>Members</em> or <em>Contributors</em> here.</p>
                     <div class="callout info">
                         <span class="callout-icon">ⓘ</span>
                         <div class="callout-content">
                             <strong>ISV multi-tenant pattern:</strong> One workspace per customer tenant, with the ISV's automation principal as Admin
-                            and the customer's users as Members or Contributors. The optional Module 9 stretch shows how this scales across customer SKUs.
+                            and the customer's users as Members or Contributors. The optional Module 10 stretch shows how this scales across customer SKUs.
                         </div>
                     </div>
                 </div>
@@ -312,7 +274,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Workspace-per-tenant</strong><br/><em>(today's lab)</em></td>
+                    <td><strong>Workspace-per-tenant</strong><br/><em>(this lab)</em></td>
                     <td>One workspace + one capacity per customer.</td>
                     <td>Hard data isolation, simple billing per tenant.</td>
                     <td>More items to manage; capacity not amortized.</td>
@@ -331,27 +293,19 @@
                 </tr>
             </tbody>
         </table>
-
-        <div class="callout tip">
-            <span class="callout-icon">✓</span>
-            <div class="callout-content">
-                <strong>Coach tip:</strong> For your first 10 customers, start with workspace-per-tenant on a shared capacity.
-                It's the easiest to operate and the easiest to migrate from.
-            </div>
-        </div>
     </section>
 
     <section id="recap">
         <h2>What You Just Learned</h2>
         <ul>
-            <li>The UrbanPulse scenario (3 customer domains, 1 platform).</li>
+            <li>The UrbanPulse scenario (2 customer domains, 4 data shapes, 1 platform).</li>
             <li>The end-to-end architecture and how each module maps onto it.</li>
             <li>The hot/warm dual-medallion pattern Fabric makes natural.</li>
             <li>Where to find OneLake, capacity, and RBAC in your workspace.</li>
             <li>Three workspace-tenancy patterns and when to pick each.</li>
         </ul>
 
-        <p>Time to start building. <strong>Module 2</strong> is where the data lands.</p>
+        <p>Continue to <strong>Module 2</strong> to begin landing data into the Lakehouse.</p>
     </section>
 
     <nav class="module-nav">
@@ -361,7 +315,7 @@
         </a>
         <a class="nav-card next" href="module-2-lakehouse-mirror.html">
             <div class="nav-direction">Next →</div>
-            <div class="nav-title">Module 2 · Lakehouse + Mirror</div>
+            <div class="nav-title">Module 2 · Data Ingestion</div>
         </a>
     </nav>
 

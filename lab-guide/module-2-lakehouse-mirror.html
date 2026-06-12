@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 2 · Lakehouse, Shortcuts &amp; Mirroring - UrbanPulse Lab</title>
+    <title>Module 2 · Data Ingestion - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,33 +17,43 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 2 of 9</div>
+    <div class="module-pill">Module 2 of 10</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
         <div class="module-eyebrow">Module 2 · Build Phase 1</div>
-        <h1>Lakehouse, Shortcuts &amp; Mirroring</h1>
+        <h1>Data Ingestion</h1>
         <p class="lead">
-            Land three different data shapes - Parquet files, an operational SQL database, and a
-            NoSQL Cosmos collection - into a single Bronze Lakehouse using three different ingest
-            techniques. By the end of this module the warm side of your medallion is alive.
+            Real-world ISV deployments rarely deal with a single data shape. UrbanPulse needs to bring
+            in <strong>file-based</strong>, <strong>relational</strong>, and <strong>NoSQL</strong> data, and Fabric provides a
+            distinct ingest pattern for each. This module walks through all three:
+        </p>
+        <ul class="lead" style="margin-top:0;">
+            <li><strong>Upload</strong> - load a facility catalog Parquet file directly into the Lakehouse <code>Files</code> zone, then convert to a managed Delta table.</li>
+            <li><strong>Shortcut</strong> - mount the same facility catalog from Azure Blob Storage as a virtualized OneLake folder (zero copy).</li>
+            <li><strong>Mirror</strong> - replicate operational databases - Azure SQL (Hospitals / Wards / Staff) and Cosmos DB for NoSQL (regions, train routes) - into Fabric with zero-ETL CDC.</li>
+        </ul>
+        <p class="lead">
+            All three patterns converge on a single Bronze Lakehouse with a single SQL endpoint, ready for
+            downstream analytics and AI in later modules.
         </p>
         <div class="module-meta">
             <div class="meta-item"><span class="meta-icon">⏱</span> <strong>45 minutes</strong></div>
             <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> 3 ingest patterns, 1 Lakehouse</div>
-            <div class="meta-item"><span class="meta-icon">🛠</span> Lakehouse · Mirror · Shortcut</div>
+            <div class="meta-item"><span class="meta-icon">✅</span> <strong>Requirement:</strong> Import from at least one data source</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Upload · Mirror · Shortcut</div>
         </div>
     </div>
 
     <section id="objectives">
         <h2>Learning Objectives</h2>
         <ul>
-            <li>Upload <strong>Parquet + image files</strong> from the lab repo into the Lakehouse <code>Files</code> zone.</li>
+            <li>Upload a <strong>Parquet facility catalog + photo cards</strong> from the lab repo into the Lakehouse <code>Files</code> zone.</li>
             <li>Convert raw Parquet into <strong>managed Delta tables</strong> with one click.</li>
             <li><strong>Mirror</strong> an Azure SQL database into Fabric - zero-ETL, near-real-time.</li>
-            <li>Create a <strong>OneLake shortcut</strong> to a shared Cosmos DB JSON dataset.</li>
+            <li><strong>Mirror</strong> a Cosmos DB for NoSQL database (regions, train routes) into Fabric.</li>
             <li>Run a single <strong>SQL query that joins</strong> all three sources via the Lakehouse SQL endpoint.</li>
         </ul>
     </section>
@@ -63,15 +73,15 @@
 
                 <!-- Sources -->
                 <rect x="20"  y="40"  width="200" height="60" rx="8" fill="#fff" stroke="#605e5c"/>
-                <text x="120" y="65"  font-size="12" font-weight="600" text-anchor="middle">📁 Tumor Parquet + images</text>
+                <text x="120" y="65"  font-size="12" font-weight="600" text-anchor="middle">📁 Facility catalog Parquet</text>
                 <text x="120" y="85"  font-size="11" fill="#605e5c" text-anchor="middle">file-based · static</text>
 
                 <rect x="20"  y="120" width="200" height="60" rx="8" fill="#fff" stroke="#605e5c"/>
-                <text x="120" y="145" font-size="12" font-weight="600" text-anchor="middle">🗄 Azure SQL · StudentDB</text>
+                <text x="120" y="145" font-size="12" font-weight="600" text-anchor="middle">🗄 Azure SQL · Hospitals</text>
                 <text x="120" y="165" font-size="11" fill="#605e5c" text-anchor="middle">relational · OLTP</text>
 
                 <rect x="20"  y="200" width="200" height="60" rx="8" fill="#fff" stroke="#605e5c"/>
-                <text x="120" y="225" font-size="12" font-weight="600" text-anchor="middle">🌐 Cosmos DB · Grades</text>
+                <text x="120" y="225" font-size="12" font-weight="600" text-anchor="middle">🌐 Cosmos DB · Regions</text>
                 <text x="120" y="245" font-size="11" fill="#605e5c" text-anchor="middle">JSON · NoSQL · partitioned</text>
 
                 <!-- Pattern labels -->
@@ -84,8 +94,8 @@
                 <text x="390" y="163" font-size="10" fill="#605e5c" text-anchor="middle">CDC into managed Delta · zero-ETL</text>
 
                 <rect x="280" y="200" width="220" height="60" rx="8" fill="#fff4ce" stroke="#daa520"/>
-                <text x="390" y="223" font-size="12" font-weight="700" fill="#6b4d00" text-anchor="middle">PATTERN: SHORTCUT</text>
-                <text x="390" y="243" font-size="10" fill="#605e5c" text-anchor="middle">Virtualized · no copy</text>
+                <text x="390" y="223" font-size="12" font-weight="700" fill="#6b4d00" text-anchor="middle">PATTERN: MIRROR</text>
+                <text x="390" y="243" font-size="10" fill="#605e5c" text-anchor="middle">CDC into managed Delta · NoSQL source</text>
 
                 <!-- Arrows to lakehouse -->
                 <line x1="220" y1="70"  x2="280" y2="70"  stroke="#605e5c" marker-end="url(#arr2)"/>
@@ -125,9 +135,9 @@
                     <p>In the dialog:</p>
                     <ul>
                         <li><strong>Name</strong>: <code>lh_urbanpulse_bronze</code></li>
-                        <li><strong>Lakehouse schemas (preview)</strong>: leave unchecked - we'll use the classic <code>Tables/</code> + <code>Files/</code> layout for this lab</li>
+                        <li><strong>Lakehouse schemas (preview)</strong>: leave unchecked - this lab uses the classic <code>Tables/</code> + <code>Files/</code> layout</li>
                     </ul>
-                    <p>Click <strong>Create</strong>. Fabric drops you into the new (empty) Lakehouse Explorer.</p>
+                    <p>Click <strong>Create</strong>. Fabric opens the new, empty Lakehouse Explorer.</p>
 
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
@@ -155,16 +165,107 @@
             </li>
 
             <li>
-                <h3 class="step-title">Upload the tumor Parquet folder</h3>
+                <h3 class="step-title">Bring the facility catalog into the Lakehouse</h3>
                 <div class="step-body">
-                    <p>Right-click <strong>Files</strong> → <strong>Upload</strong> → <strong>Upload folder</strong>. The coach team has placed the parquet bundle in a SharePoint link shown on your seat slip - download the <code>parquet/</code> folder to your local Downloads, then upload it here.</p>
-                    <p>This uploads the tumor metadata Parquet plus the supporting image files (~80 MB total).</p>
+                    <p>The facility catalog is provisioned in an Azure Storage account. The container <code>facilitycatalog</code> contains:</p>
+                    <ul>
+                        <li><code>facility_catalog.parquet</code> - the 5-row facility table you'll promote to Delta</li>
+                        <li><code>facilities/</code> - a folder of 5 facility photo JPGs (referenced by the <code>photo_path</code> column)</li>
+                    </ul>
+
+                    <p>Fabric supports two patterns for getting this data into your Lakehouse. Both are valid; pick the one that matches your scenario:</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width:18%">Pattern</th>
+                                <th>When to use it</th>
+                                <th style="width:24%">Data movement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Option A - Shortcut</strong></td>
+                                <td>Source data already lives in ADLS Gen2 / Blob Storage and you want a live, virtualized view with no copy. Recommended for production ISV deployments.</td>
+                                <td>Zero copy - data stays in the source storage account; OneLake reads it on demand.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Option B - Upload</strong></td>
+                                <td>You need a local copy in OneLake (e.g., the source will be decommissioned, or you want full control over the file lifecycle).</td>
+                                <td>One-time copy from local disk into the Lakehouse <code>Files</code> zone.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Option A - Create a OneLake shortcut to the storage account</h4>
+                    <p>This option requires a short-lived <strong>Shared Access Signature (SAS) token</strong> on the container. Generate it first, then create the shortcut.</p>
+
+                    <p><strong>Generate the SAS token (Azure portal):</strong></p>
+                    <ol>
+                        <li>Open the storage account from your lab handout &rarr; <strong>Storage browser</strong> &rarr; <strong>Blob containers</strong> &rarr; right-click <code>facilitycatalog</code> &rarr; <strong>Generate SAS</strong>.</li>
+                        <li><strong>Signing key</strong>: <code>Key 1</code>. <strong>Permissions</strong>: select <code>Read</code> and <code>List</code>.</li>
+                        <li><strong>Expiry</strong>: set far enough out to cover the full lab session (e.g., end of day or end of week).</li>
+                        <li><strong>Allowed protocols</strong>: <code>HTTPS only</code>.</li>
+                        <li>Click <strong>Generate SAS token and URL</strong>, then copy the <strong>Blob SAS token</strong> value (the string starting with <code>sp=r&amp;st=...</code>; not the full URL).</li>
+                    </ol>
+
+                    <p><strong>Create the shortcut (Fabric Lakehouse Explorer):</strong></p>
+                    <ol>
+                        <li>Right-click <strong>Files</strong> &rarr; <strong>New shortcut</strong> &rarr; <strong>Azure Blob Storage</strong>.</li>
+                        <li><strong>Account name or URL</strong>: paste the container URL, e.g. <code>https://&lt;storage-acct&gt;.blob.core.windows.net/facilitycatalog</code>.</li>
+                        <li><strong>Connection</strong>: select <strong>Create new connection</strong>.</li>
+                        <li><strong>Authentication kind</strong>: <code>Shared Access Signature (SAS)</code>.</li>
+                        <li><strong>SAS token</strong>: paste the token you copied from the Azure portal.</li>
+                        <li>Click <strong>Next</strong>. Give the shortcut the name <code>facilitycatalog</code> and leave the sub-path blank to mount the container root.</li>
+                        <li>Click <strong>Create</strong>. The shortcut appears under <code>Files/facilitycatalog/</code> with both <code>facility_catalog.parquet</code> and <code>facilities/</code> visible immediately - no copy, no upload.</li>
+                    </ol>
+
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            <strong>Why SAS instead of Account key?</strong> Many enterprise storage accounts have shared-key access disabled as a security baseline; SAS tokens provide narrowly-scoped, time-bounded access that works in those environments. <code>Organizational account</code> (Entra) authentication is also supported if your identity has <code>Storage Blob Data Reader</code> on the container.
+                        </div>
+                    </div>
+
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/02-shortcut-adls.png</div>
+                            <div>Lakehouse Files explorer with the <code>facilitycatalog</code> shortcut expanded, showing <code>facility_catalog.parquet</code> and <code>facilities/</code> mounted from Azure Blob Storage</div>
+                        </div>
+                    </div>
+
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/03-shortcut-files-tree.png</div>
+                            <div>Lakehouse Files tree after the shortcut is created, with <code>facilitycatalog</code> visible alongside the standard <code>Files</code> folder</div>
+                        </div>
+                    </div>
+
+                    <h4>Option B - Download from Azure, then upload to the Lakehouse</h4>
+                    <p>Two ways to grab the source files:</p>
+                    <ul>
+                        <li><strong>From the lab guide</strong> (easiest): open the <a href="appendix-data-downloads.html" target="_blank">Lab Data Downloads</a> appendix and click each download button. The Parquet file and the five facility photos are bundled with this site.</li>
+                        <li><strong>From the Azure portal</strong>: open the storage account listed in your lab handout &rarr; <strong>Storage browser</strong> &rarr; <strong>Blob containers</strong> &rarr; <code>facilitycatalog</code>. Select <code>facility_catalog.parquet</code> and the <code>facilities/</code> folder &rarr; <strong>Download</strong>.</li>
+                    </ul>
+                    <p>In the Fabric Lakehouse Explorer, right-click <strong>Files</strong> &rarr; <strong>Upload</strong> &rarr; <strong>Upload files</strong> for the parquet, and <strong>Upload folder</strong> for the <code>facilities</code> directory.</p>
+
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
                             <div class="ph-meta">module-2/01-files-upload.png</div>
-                            <div>Lakehouse Files explorer with the <code>parquet/</code> folder uploaded and expanded</div>
+                            <div>Lakehouse Files explorer with <code>facility_catalog.parquet</code> and <code>facilities /</code> uploaded directly under <code>Files</code></div>
+                        </div>
+                    </div>
+
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            <strong>Either path produces a queryable Parquet file.</strong> The remaining steps in this section work the same way regardless of which option you chose - the only difference is that with Option A the file lives at <code>Files/facilitycatalog/facility_catalog.parquet</code> and with Option B it lives at <code>Files/facility_catalog.parquet</code>.
                         </div>
                     </div>
                 </div>
@@ -173,13 +274,21 @@
             <li>
                 <h3 class="step-title">Promote the Parquet to a Delta table</h3>
                 <div class="step-body">
-                    <p>Navigate into <code>Files / parquet / Tumor Data</code>. Right-click the <code>.parquet</code> file → <strong>Load to Tables</strong> → <strong>New table</strong>.</p>
-                    <p>Name it <code>tumor_metadata</code> and click <strong>Load</strong>.</p>
+                    <p>In <code>Files</code>, right-click <code>facility_catalog.parquet</code> (whether under the shortcut folder or directly under <code>Files</code>) &rarr; <strong>Load to Tables</strong> &rarr; <strong>New table</strong>.</p>
+                    <p>Name it <code>facility_catalog</code> and click <strong>Load</strong>.</p>
                     <div class="callout info">
                         <span class="callout-icon">ⓘ</span>
                         <div class="callout-content">
                             Behind the scenes Fabric runs a Spark job that reads the Parquet, applies the schema,
-                            and writes a managed Delta table to <code>Tables/tumor_metadata</code>. Takes ~30 seconds.
+                            and writes a managed Delta table to <code>Tables/facility_catalog</code>. Takes ~30 seconds.
+                        </div>
+                    </div>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/04-load-to-tables.png</div>
+                            <div><strong>Load to Tables</strong> dialog with the table name set to <code>facility_catalog</code> before clicking <strong>Load</strong></div>
                         </div>
                     </div>
                 </div>
@@ -188,7 +297,15 @@
             <li>
                 <h3 class="step-title">Preview the table</h3>
                 <div class="step-body">
-                    <p>Refresh the Tables list. Click <code>tumor_metadata</code>. You should see ~50 rows with columns: <code>id</code>, <code>image_path</code>, <code>caption</code>, <code>modality</code>.</p>
+                    <p>Refresh the Tables list. Click <code>facility_catalog</code>. You should see rows with columns including <code>facility_id</code>, <code>facility_name</code>, <code>region_id</code>, <code>photo_path</code>, <code>beds_total</code>, <code>beds_icu</code>.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/05-table-preview.png</div>
+                            <div>Lakehouse table preview pane showing rows of <code>facility_catalog</code> with all columns</div>
+                        </div>
+                    </div>
                 </div>
             </li>
         </ol>
@@ -203,22 +320,22 @@
             <li>
                 <h3 class="step-title">Create a Mirrored Database</h3>
                 <div class="step-body">
-                    <p>From the workspace, click <strong>+ New item</strong> → search "Mirrored". Choose <strong>Mirrored Azure SQL Database</strong>.</p>
-                    <p>Name it: <code>mir_urbanpulse_studentdb</code>.</p>
+                    <p>From the workspace, click <strong>+ New item</strong> &rarr; search "Mirrored". Choose <strong>Mirrored Azure SQL Database</strong>.</p>
+                    <p>Name it: <code>mir_urbanpulse_cityops</code>.</p>
                 </div>
             </li>
 
             <li>
                 <h3 class="step-title">Connect to the lab SQL DB</h3>
                 <div class="step-body">
-                    <p>In the connection wizard, paste the values from <a href="appendix-env-vars.html" target="_blank">Appendix A · Lab Credentials</a>:</p>
+                    <p>Open the <strong>Azure SQL database</strong> resource in the Azure portal under your assigned resource group. Copy the server name, database name, and SQL admin credentials from the resource blades (see <a href="appendix-env-vars.html" target="_blank">Lab Credentials</a>) and paste them into the connection wizard:</p>
 <div class="code-block">
 <span class="lang-badge">Connection</span>
-<pre><code>Server:   sql-isvsummit.database.windows.net
-Database: StudentDB
+<pre><code>Server:   (from Azure portal &rarr; SQL database &rarr; Connection strings)
+Database: (from Azure portal &rarr; SQL database overview)
 Auth:     SQL authentication
-Username: lab_reader
-Password: (see Appendix A · Lab Credentials)</code></pre>
+Username: (SQL admin login from your SQL server)
+Password: (SQL admin password from your SQL server)</code></pre>
 </div>
                 </div>
             </li>
@@ -226,13 +343,13 @@ Password: (see Appendix A · Lab Credentials)</code></pre>
             <li>
                 <h3 class="step-title">Choose tables to mirror</h3>
                 <div class="step-body">
-                    <p>Tick all three: <code>Students</code>, <code>Classes</code>, <code>Enrollments</code>. Click <strong>Mirror database</strong>.</p>
+                    <p>Tick all three: <code>Hospitals</code>, <code>Wards</code>, <code>Staff</code>. Click <strong>Mirror database</strong>.</p>
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
                             <div class="ph-meta">module-2/02-mirror-tables.png</div>
-                            <div>Mirror table picker with Students, Classes, Enrollments selected</div>
+                            <div>Mirror table picker with Hospitals, Wards, Staff selected</div>
                         </div>
                     </div>
                 </div>
@@ -242,6 +359,14 @@ Password: (see Appendix A · Lab Credentials)</code></pre>
                 <h3 class="step-title">Watch the initial snapshot</h3>
                 <div class="step-body">
                     <p>The mirror creates a snapshot first, then switches to incremental CDC. Status pane should reach <strong>Replicated</strong> in under two minutes.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/03-mirror-sql-replicated.png</div>
+                            <div>Mirrored Azure SQL replication status page showing <code>Hospitals</code>, <code>Wards</code>, and <code>Staff</code> with status <strong>Replicated</strong> and row counts populated</div>
+                        </div>
+                    </div>
                     <div class="callout tip">
                         <span class="callout-icon">✓</span>
                         <div class="callout-content">
@@ -252,40 +377,109 @@ Password: (see Appendix A · Lab Credentials)</code></pre>
                     </div>
                 </div>
             </li>
+
+            <li>
+                <h3 class="step-title">Shortcut the mirrored tables into the Bronze Lakehouse</h3>
+                <div class="step-body">
+                    <p>Open <code>lh_urbanpulse_bronze</code>. Right-click <strong>Tables</strong> &rarr; <strong>New shortcut</strong> &rarr; <strong>Microsoft OneLake</strong>. Pick <code>mir_urbanpulse_cityops</code> and select <code>Hospitals</code>, <code>Wards</code>, and <code>Staff</code>. Click <strong>Create</strong>.</p>
+                    <p>The three SQL tables now appear in the Bronze Lakehouse alongside the Parquet upload, ready to be joined with the Cosmos and uploaded data in a single SQL query.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/04-mirror-sql-shortcut.png</div>
+                            <div>Bronze Lakehouse with OneLake shortcuts to <code>Hospitals</code>, <code>Wards</code>, and <code>Staff</code> from <code>mir_urbanpulse_cityops</code> visible in the Tables tree</div>
+                        </div>
+                    </div>
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            <strong>Why two items?</strong> A Mirrored database is its own Fabric item with its own OneLake folder. The OneLake-to-OneLake shortcut into the Bronze Lakehouse is the standard pattern for keeping mirrors and uploaded data in one queryable surface without copying.
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ol>
     </section>
 
     <section id="step-3">
-        <h2>Step 3 - Shortcut a Cosmos DB Container <span class="pill lakehouse">SHORTCUT</span></h2>
+        <h2>Step 3 - Mirror a Cosmos DB for NoSQL Database <span class="pill lakehouse">MIRROR</span></h2>
 
-        <p>Shortcuts are <em>virtual</em> references to data that lives elsewhere - no copy, no movement. They appear as tables/folders in your Lakehouse but query through to the source.</p>
+        <p>Mirroring brings Cosmos DB documents into Fabric continuously with no ETL pipelines to author. Fabric reads the Cosmos change feed and lands the documents as managed Delta tables in OneLake, queryable through the same SQL endpoint as your Lakehouse.</p>
 
         <ol class="step-list">
             <li>
-                <h3 class="step-title">Open your Lakehouse</h3>
+                <h3 class="step-title">Create a Mirrored Cosmos DB</h3>
                 <div class="step-body">
-                    <p>Back in <code>lh_urbanpulse_bronze</code>, right-click <strong>Tables</strong> → <strong>New shortcut</strong>.</p>
+                    <p>From the workspace, click <strong>+ New item</strong> &rarr; search "Mirrored". Choose <strong>Mirrored Azure Cosmos DB</strong>.</p>
+                    <p>Name it: <code>mir_urbanpulse_routing</code>.</p>
                 </div>
             </li>
 
             <li>
-                <h3 class="step-title">Choose the source</h3>
+                <h3 class="step-title">Connect to the Cosmos account</h3>
                 <div class="step-body">
-                    <p>Pick <strong>Azure Cosmos DB for NoSQL</strong>. Paste the read-only endpoint and key from <a href="appendix-env-vars.html" target="_blank">Appendix A · Lab Credentials</a> (rows <strong>Cosmos endpoint</strong> and <strong>Cosmos key</strong>).</p>
-                    <p>Browse to: <code>StudentInfo</code> database → <code>Grades</code> container.</p>
+                    <p>Open your <strong>Azure Cosmos DB account</strong> in the Azure portal (under your assigned resource group). Go to <strong>Settings &rarr; Keys</strong>, copy the URI and primary key (or read-only key), and paste them into the connection pane. See <a href="appendix-env-vars.html" target="_blank">Lab Credentials</a> for context.</p>
+                    <p>Choose database: <code>urbanpulse</code>.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/06-mirror-cosmos-connect.png</div>
+                            <div>Mirrored Cosmos DB connection pane with the endpoint and key entered, and the <code>urbanpulse</code> database selected</div>
+                        </div>
+                    </div>
                 </div>
             </li>
 
             <li>
-                <h3 class="step-title">Configure the shortcut</h3>
+                <h3 class="step-title">Select the containers to mirror</h3>
                 <div class="step-body">
-                    <p>Name: <code>cosmos_grades</code>. Click <strong>Create</strong>.</p>
-                    <div class="callout warning">
-                        <span class="callout-icon">!</span>
+                    <p>Tick <code>regions</code> and <code>trainRoutes</code>. Click <strong>Mirror database</strong>.</p>
+                    <p>Initial snapshot lands within ~1 minute; the change feed keeps the Delta copy current after that.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/07-mirror-cosmos-containers.png</div>
+                            <div>Container picker with <code>regions</code> and <code>trainRoutes</code> selected, ready to click <strong>Mirror database</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Confirm replication is running</h3>
+                <div class="step-body">
+                    <p>Open the Mirrored database item. The <strong>Replication status</strong> page lists both containers as replicated tables once the initial snapshot completes. Status should read <strong>Running</strong> with row counts populated for <code>regions</code> and <code>trainRoutes</code>.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/08-mirror-cosmos-replication-status.png</div>
+                            <div>Replication status page showing <code>regions</code> and <code>trainRoutes</code> replicated with status <strong>Running</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Shortcut the mirrored tables into the Bronze Lakehouse</h3>
+                <div class="step-body">
+                    <p>Open <code>lh_urbanpulse_bronze</code>. Right-click <strong>Tables</strong> &rarr; <strong>New shortcut</strong> &rarr; <strong>Microsoft OneLake</strong>. Pick <code>mir_urbanpulse_routing</code> and select both <code>regions</code> and <code>trainRoutes</code>. Click <strong>Create</strong>.</p>
+                    <p>This makes both Cosmos collections appear as tables in the same Bronze Lakehouse alongside the Parquet upload and the SQL mirror, so a single SQL query in the next step can join all three sources.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-2/09-mirror-cosmos-shortcut.png</div>
+                            <div>Bronze Lakehouse with OneLake shortcuts to <code>regions</code> and <code>trainRoutes</code> from <code>mir_urbanpulse_routing</code> visible in the Tables tree</div>
+                        </div>
+                    </div>
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
                         <div class="callout-content">
-                            <strong>Performance note.</strong> Shortcuts query the source on read.
-                            For Cosmos DB this means RU consumption on the source account. For chatty workloads
-                            you may want to materialize via a notebook into a real Delta table - covered in advanced labs.
+                            <strong>Why two items?</strong> A Mirrored database is its own Fabric item with its own OneLake folder. The OneLake-to-OneLake shortcut into the Bronze Lakehouse is the standard pattern for keeping mirrors and uploaded data in one queryable surface without copying.
                         </div>
                     </div>
                 </div>
@@ -312,23 +506,30 @@ Password: (see Appendix A · Lab Credentials)</code></pre>
                     <p>Click <strong>New SQL query</strong> and paste:</p>
 <div class="code-block">
 <span class="lang-badge">T-SQL</span>
-<pre><code>-- A purposely-silly query that proves the three sources unify
+<pre><code>-- A query that proves the three sources unify into one Lakehouse view.
+-- Hospital, its mirrored ward count, its region, and the train routes that serve that region.
 SELECT
-    s.StudentName,
-    c.ClassName,
-    g.Grade,
-    t.modality   AS sample_imaging_modality,
-    t.caption    AS sample_caption
-FROM dbo.Students     AS s        -- mirrored from Azure SQL
-JOIN dbo.Enrollments  AS e ON e.StudentId = s.StudentId
-JOIN dbo.Classes      AS c ON c.ClassId   = e.ClassId
-JOIN cosmos_grades    AS g ON g.Student_ID = s.StudentId   -- shortcut to Cosmos
-CROSS APPLY (
-    SELECT TOP 1 modality, caption
-    FROM dbo.tumor_metadata                                -- uploaded Parquet → Delta
-    ORDER BY id
-) AS t
-WHERE s.StudentId &lt;= 5;</code></pre>
+    h.hospitalId,
+    h.name              AS hospital_name,
+    h.facilityType,
+    f.beds_total,
+    f.beds_icu,
+    f.photo_path        AS sample_photo,                 -- uploaded Parquet → Delta
+    (
+        SELECT COUNT(*) FROM dbo.Wards w WHERE w.hospitalId = h.hospitalId
+    )                   AS ward_count,                   -- mirrored from Azure SQL
+    r.name              AS region_name,                  -- mirrored from Cosmos
+    r.population        AS region_population,
+    (
+        SELECT STRING_AGG(tr.color, ', ')
+        FROM trainRoutes tr
+        CROSS APPLY OPENJSON(tr.regionsServed) WITH (rid VARCHAR(16) '$') s
+        WHERE s.rid = h.regionId
+    )                   AS train_lines_serving_region
+FROM dbo.Hospitals      AS h                              -- mirrored from Azure SQL
+JOIN dbo.facility_catalog AS f ON f.facility_id = h.hospitalId  -- uploaded Parquet → Delta
+JOIN regions     AS r  ON r.regionId   = h.regionId      -- mirrored from Cosmos
+ORDER BY h.hospitalId;</code></pre>
 </div>
                 </div>
             </li>
@@ -336,7 +537,7 @@ WHERE s.StudentId &lt;= 5;</code></pre>
             <li>
                 <h3 class="step-title">Inspect the result</h3>
                 <div class="step-body">
-                    <p>You should see five rows, one per student, with grade from Cosmos and a sample row from the Parquet table. <strong>That's three different physical data stores in one query.</strong></p>
+                    <p>You should see one row per hospital, with bed counts from the uploaded Parquet, ward counts from the mirrored SQL DB, and region + train-line info from the mirrored Cosmos DB. <strong>That's three different physical data stores in one query.</strong></p>
                 </div>
             </li>
         </ol>
@@ -344,9 +545,9 @@ WHERE s.StudentId &lt;= 5;</code></pre>
         <div class="validation">
             <h4>Validation</h4>
             <ul>
-                <li>Lakehouse <code>Tables</code> shows <code>tumor_metadata</code> (uploaded), <code>Students</code>/<code>Classes</code>/<code>Enrollments</code> (mirrored), and <code>cosmos_grades</code> (shortcut).</li>
-                <li>The unified query above returns 5 rows.</li>
-                <li>OneLake explorer shows all five under one workspace, one Lakehouse.</li>
+                <li>Lakehouse <code>Tables</code> shows <code>facility_catalog</code> (uploaded), <code>Hospitals</code>/<code>Wards</code>/<code>Staff</code> (mirrored from SQL), and <code>regions</code> + <code>trainRoutes</code> (mirrored from Cosmos).</li>
+                <li>The unified query above returns one row per hospital.</li>
+                <li>OneLake explorer shows all six tables in one workspace, surfaced through one Lakehouse SQL endpoint.</li>
             </ul>
         </div>
     </section>
@@ -360,22 +561,22 @@ WHERE s.StudentId &lt;= 5;</code></pre>
             </thead>
             <tbody>
                 <tr>
-                    <td><code>tumor_metadata</code></td>
+                    <td><code>facility_catalog</code></td>
                     <td><span class="pill lakehouse">Delta</span></td>
                     <td>Parquet file upload + Load to Tables</td>
-                    <td>Static reference data, model training inputs</td>
+                    <td>Static reference data, region/photo lookups</td>
                 </tr>
                 <tr>
-                    <td><code>Students</code> / <code>Classes</code> / <code>Enrollments</code></td>
+                    <td><code>Hospitals</code> / <code>Wards</code> / <code>Staff</code></td>
                     <td><span class="pill lakehouse">Mirrored Delta</span></td>
                     <td>Mirrored Azure SQL DB (CDC)</td>
                     <td>Operational OLTP data, near-real-time</td>
                 </tr>
                 <tr>
-                    <td><code>cosmos_grades</code></td>
-                    <td><span class="pill">Shortcut</span></td>
-                    <td>OneLake shortcut to Cosmos DB</td>
-                    <td>NoSQL data, no-copy virtualization</td>
+                    <td><code>regions</code> / <code>trainRoutes</code></td>
+                    <td><span class="pill lakehouse">Mirrored Delta</span></td>
+                    <td>Mirrored Azure Cosmos DB for NoSQL (change feed)</td>
+                    <td>NoSQL data (geo + nested arrays), zero-ETL CDC</td>
                 </tr>
             </tbody>
         </table>

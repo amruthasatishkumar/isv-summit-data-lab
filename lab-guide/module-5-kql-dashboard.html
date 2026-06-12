@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 4 · KQL Analytics &amp; Real-Time Dashboard - UrbanPulse Lab</title>
+    <title>Module 5 · Live Dashboard - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,14 +17,14 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 4 of 9</div>
+    <div class="module-pill">Module 5 of 10</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
-        <div class="module-eyebrow">Module 4 · Analytics</div>
-        <h1>KQL Analytics &amp; Real-Time Dashboard</h1>
+        <div class="module-eyebrow">Module 5 · Live Dashboard</div>
+        <h1>Live Dashboard</h1>
         <p class="lead">
             Now that live data is flowing, write KQL queries across all three streams and pin
             them as live tiles to a Real-Time Intelligence Dashboard. By the end you'll watch
@@ -40,49 +40,53 @@
     <section id="objectives">
         <h2>Learning Objectives</h2>
         <ul>
-            <li>Write KQL <strong>aggregation</strong>, <strong>summarize</strong>, and <strong>arg_max</strong> patterns over live data.</li>
-            <li>Use <code>join</code> across the Hospital Vitals + Movement tables.</li>
-            <li>Build a <strong>Real-Time Dashboard</strong> with five tiles spanning the hospital and transit domains.</li>
-            <li>Add <strong>parameters</strong> (time window, line filter) to make tiles interactive.</li>
+            <li>Build a <strong>Real-Time Dashboard</strong> with four tiles spanning the hospital and transit domains.</li>
             <li>Configure auto-refresh and watch the dashboard update live.</li>
+            <li>Drive an <strong>Activator</strong> alert directly from a dashboard tile.</li>
             <li><em>(Optional stretch)</em> Build a <strong>Bronze → Silver → Gold medallion inside KQL</strong> using <strong>update policies</strong>.</li>
         </ul>
     </section>
 
     <section id="step-1">
-        <h2>Step 1 - Build a KQL Queryset</h2>
-
-        <p>A Queryset is a Fabric item that saves named KQL queries against a database. We'll build five queries here - they'll become our five dashboard tiles.</p>
+        <h2>Step 1 - Create the Real-Time Dashboard <span class="pill report">RTI DASHBOARD</span></h2>
 
         <ol class="step-list">
             <li>
-                <h3 class="step-title">Create the queryset</h3>
+                <h3 class="step-title">Create the dashboard</h3>
                 <div class="step-body">
-                    <p>Workspace → <strong>+ New item</strong> → <strong>KQL Queryset</strong>. Name: <code>qs_urbanpulse_ops</code>.</p>
-                    <p>When prompted, attach it to your KQL Database (inside <code>eh_urbanpulse_rti</code>).</p>
+                    <p>From the <code>eh_urbanpulse_rti</code> Eventhouse, click the <strong>Database</strong> tab in the top header. On the toolbar, click <strong>Real-Time Dashboard</strong> &rarr; <strong>+ New dashboard</strong>. Name it <code>rtd_urbanpulse_city</code>.</p>
+                    <p>Launching the dashboard from the Eventhouse pre-wires it to <code>eh_urbanpulse_rti</code> as a data source, so you can skip to adding tiles.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-5/00-rtd-from-eventhouse.png</div>
+                            <div>Eventhouse Database tab with the <strong>Real-Time Dashboard</strong> button highlighted on the top toolbar</div>
+                        </div>
+                    </div>
                 </div>
             </li>
-        </ol>
-    </section>
 
-    <section id="queries">
-        <h2>Step 2 - The Five Tile Queries</h2>
+            <li>
+                <h3 class="step-title">Switch the dashboard into edit mode</h3>
+                <div class="step-body">
+                    <p>The new dashboard opens in <strong>View</strong> mode. Click the toggle in the top-right and switch to <strong>Editing</strong>. The toolbar now shows <strong>+ Add visual</strong>, <strong>Add Markdown</strong>, <strong>Add alert</strong>, <strong>Add data source</strong>, and <strong>Add parameter</strong>.</p>
+                </div>
+            </li>
 
-        <p>Run each query block. As soon as it returns rows, click <strong>Pin to dashboard</strong> at the top-right of the result pane (we'll create the dashboard in Step 3).</p>
-
-        <div class="callout info">
-            <span class="callout-icon">ⓘ</span>
-            <div class="callout-content">
-                <strong>Default time window for "now" queries:</strong> last 15 minutes.
-                For trends: last 1 hour. The KQL <code>ago()</code> function makes both trivial.
-            </div>
-        </div>
-
-        <h3 id="t1">Tile 1 - Critical patient count <span class="pill kql">SCALAR</span></h3>
-<div class="code-block">
-<span class="lang-badge">KQL · Tile 1</span>
-<pre><code>// Count of patients with critical vitals in the last 15 minutes
-HospitalVitals
+            <li>
+                <h3 class="step-title">Tile 1 - Critical patients (Stat)</h3>
+                <div class="step-body">
+                    <ol>
+                        <li>On the toolbar, click <strong>+ Add visual</strong> &rarr; <strong>Stat</strong>. A query editor opens on the left and a tile preview on the right.</li>
+                        <li>Confirm the data source dropdown shows <code>eh_urbanpulse_rti</code> (auto-selected because you launched from the Eventhouse).</li>
+                        <li>Paste the KQL below and click <strong>Run</strong>. The result pane should show a single integer value.</li>
+                        <li>In the right-hand <strong>Visual formatting</strong> pane, set <strong>Tile name</strong> to <code>Critical patients</code>. Optionally add a <strong>Conditional formatting</strong> rule that turns the number red when the value is greater than 0.</li>
+                        <li>Click <strong>Apply changes</strong> in the top-right.</li>
+                    </ol>
+                    <div class="code-block">
+                        <span class="lang-badge">KQL · Tile 1</span>
+<pre><code>HospitalVitals
 | where timestamp &gt; ago(15m)
 | summarize arg_max(timestamp, *) by patient_id
 | where condition == "critical"
@@ -90,95 +94,77 @@ HospitalVitals
     or heart_rate &gt; 120
     or temperature_f &gt; 101.5
 | count</code></pre>
-</div>
+                    </div>
+                </div>
+            </li>
 
-        <h3 id="t2">Tile 2 - Top 5 highest heart rate <span class="pill kql">TABLE</span></h3>
-<div class="code-block">
-<span class="lang-badge">KQL · Tile 2</span>
-<pre><code>// Most recent reading per patient, sorted by HR desc
-HospitalVitals
+            <li>
+                <h3 class="step-title">Tile 2 - Top 5 highest heart rate (Table)</h3>
+                <div class="step-body">
+                    <ol>
+                        <li>Click <strong>+ Add visual</strong> &rarr; <strong>Table</strong>.</li>
+                        <li>Paste the KQL below and click <strong>Run</strong>.</li>
+                        <li>In <strong>Visual formatting</strong>, set <strong>Tile name</strong> to <code>Top 5 heart rate</code>. Optionally enable <strong>Conditional formatting</strong> on the <code>condition</code> column to colour <code>critical</code> rows red.</li>
+                        <li>Click <strong>Apply changes</strong>.</li>
+                    </ol>
+                    <div class="code-block">
+                        <span class="lang-badge">KQL · Tile 2</span>
+<pre><code>HospitalVitals
 | where timestamp &gt; ago(15m)
 | summarize arg_max(timestamp, *) by patient_id
 | project patient_id, condition, heart_rate, spo2, temperature_f, timestamp
 | order by heart_rate desc
 | take 5</code></pre>
-</div>
+                    </div>
+                </div>
+            </li>
 
-        <h3 id="t3">Tile 3 - Room occupancy bar chart <span class="pill kql">BAR CHART</span></h3>
-<div class="code-block">
-<span class="lang-badge">KQL · Tile 3</span>
-<pre><code>// Live census per location - anyone whose latest event isn't 'Discharged'
-HospitalMovement
+            <li>
+                <h3 class="step-title">Tile 3 - Live room occupancy (Column chart)</h3>
+                <div class="step-body">
+                    <ol>
+                        <li>Click <strong>+ Add visual</strong> &rarr; <strong>Column chart</strong>.</li>
+                        <li>Paste the KQL below and click <strong>Run</strong>. The renderer uses <code>to_location</code> as the X axis and <code>patients</code> as the Y axis automatically.</li>
+                        <li>In <strong>Visual formatting</strong>, set <strong>Tile name</strong> to <code>Live room occupancy</code>.</li>
+                        <li>Click <strong>Apply changes</strong>.</li>
+                    </ol>
+                    <div class="code-block">
+                        <span class="lang-badge">KQL · Tile 3</span>
+<pre><code>HospitalMovement
 | summarize arg_max(timestamp, *) by patient_id
 | where event_type != "Discharged"
 | summarize patients = count() by to_location
 | order by patients desc
 | render columnchart with (title="Live room occupancy")</code></pre>
-</div>
+                    </div>
+                </div>
+            </li>
 
-        <h3 id="t4">Tile 4 - SpO2 trend for critical patients <span class="pill kql">TIME SERIES</span></h3>
-<div class="code-block">
-<span class="lang-badge">KQL · Tile 4</span>
-<pre><code>// Per-minute SpO2 trend for any patient currently flagged critical
-let critical_patients =
-    HospitalVitals
-    | where timestamp &gt; ago(15m)
-    | summarize arg_max(timestamp, *) by patient_id
-    | where condition == "critical"
-    | project patient_id;
-HospitalVitals
-| where timestamp &gt; ago(30m)
-| where patient_id in (critical_patients)
-| summarize avg_spo2 = avg(spo2) by bin(timestamp, 1m), patient_id
-| render timechart with (title="SpO2 trend · critical patients (last 30m)")</code></pre>
-</div>
-
-        <h3 id="t5">Tile 5 - Train delays by line <span class="pill kql">PIE</span></h3>
-<div class="code-block">
-<span class="lang-badge">KQL · Tile 5</span>
-<pre><code>// Latest status for each train, grouped by line and on-time/delayed
-TrainTelemetry
+            <li>
+                <h3 class="step-title">Tile 4 - Train fleet status (Pie chart)</h3>
+                <div class="step-body">
+                    <ol>
+                        <li>Click <strong>+ Add visual</strong> &rarr; <strong>Pie chart</strong>.</li>
+                        <li>Paste the KQL below and click <strong>Run</strong>.</li>
+                        <li>In the visual config pane, confirm <strong>Category</strong> = <code>line</code> and <strong>Value</strong> = <code>trains</code>.</li>
+                        <li>In <strong>Visual formatting</strong>, set <strong>Tile name</strong> to <code>Train fleet status (last 10m)</code>.</li>
+                        <li>Click <strong>Apply changes</strong>.</li>
+                    </ol>
+                    <div class="code-block">
+                        <span class="lang-badge">KQL · Tile 4</span>
+<pre><code>TrainTelemetry
 | where timestamp &gt; ago(10m)
 | summarize arg_max(timestamp, *) by trainId
 | summarize trains = count() by line, status
 | render piechart with (title="Train fleet status · last 10m")</code></pre>
-</div>
-
-        <h3 id="t6" style="display:none"></h3>
-
-        <div class="screenshot placeholder">
-            <div class="placeholder-body">
-                <div class="ph-icon">📷</div>
-                <div class="ph-title">SCREENSHOT NEEDED</div>
-                <div class="ph-meta">module-4/01-queryset.png</div>
-                <div>KQL Queryset showing all five saved queries in the left tree, with Tile 5 (pie) open</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="step-3">
-        <h2>Step 3 - Create the Real-Time Dashboard <span class="pill report">RTI DASHBOARD</span></h2>
-
-        <ol class="step-list">
-            <li>
-                <h3 class="step-title">Create the dashboard</h3>
-                <div class="step-body">
-                    <p>Workspace → <strong>+ New item</strong> → <strong>Real-Time Dashboard</strong>. Name: <code>rtd_urbanpulse_city</code>.</p>
+                    </div>
                 </div>
             </li>
 
             <li>
-                <h3 class="step-title">Add a data source</h3>
+                <h3 class="step-title">Arrange the layout</h3>
                 <div class="step-body">
-                    <p>In the dashboard's <strong>Data sources</strong> pane, click <strong>+ Add</strong> → pick your KQL Database. Name the source <code>UrbanPulseRTI</code>.</p>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Add the five tiles</h3>
-                <div class="step-body">
-                    <p>For each query above, click <strong>+ New tile</strong> → paste the KQL → set a friendly tile title → choose the visual type (KPI / Table / Bar / Time chart / Pie / Map).</p>
-                    <p>Recommended layout (drag tiles to match):</p>
+                    <p>Back on the dashboard canvas, drag the tiles to match the recommended grid below. Tiles 1 and 2 are KPI / table on the top row; Tiles 3 and 4 are the two charts on the bottom row.</p>
                     <div class="diagram">
                         <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;" font-family="Segoe UI, sans-serif">
                             <rect x="0" y="0" width="800" height="360" fill="#fdfcfb" stroke="#d2d0ce"/>
@@ -203,103 +189,134 @@ TrainTelemetry
                             <rect x="300" y="280" width="40" height="40" fill="#7c52e6"/>
 
                             <rect x="420" y="160" width="360" height="180" rx="6" fill="#fff" stroke="#7c52e6" stroke-width="2"/>
-                            <text x="600" y="190" text-anchor="middle" font-size="11" font-weight="700" fill="#4f29a3">TILE 4 · SpO2 trend (critical)</text>
-                            <polyline points="450,310 490,300 530,295 570,280 610,260 650,240 690,250 730,235 760,220" stroke="#d13438" stroke-width="2" fill="none"/>
-                            <line x1="440" y1="320" x2="770" y2="320" stroke="#d2d0ce"/>
+                            <text x="600" y="190" text-anchor="middle" font-size="11" font-weight="700" fill="#4f29a3">TILE 4 · Train fleet status</text>
+                            <circle cx="600" cy="265" r="55" fill="#fff" stroke="#7c52e6" stroke-width="2"/>
+                            <path d="M 600 265 L 600 210 A 55 55 0 0 1 652 282 Z" fill="#7c52e6"/>
+                            <path d="M 600 265 L 652 282 A 55 55 0 0 1 568 316 Z" fill="#a98ae8"/>
+                            <path d="M 600 265 L 568 316 A 55 55 0 0 1 552 240 Z" fill="#d13438"/>
+                            <path d="M 600 265 L 552 240 A 55 55 0 0 1 600 210 Z" fill="#f3a4a6"/>
                         </svg>
-                        <div class="caption">Suggested layout, top half (Tiles 1–4)</div>
+                        <div class="caption">Suggested layout (Tiles 1-4)</div>
                     </div>
                 </div>
             </li>
 
             <li>
-                <h3 class="step-title">Add the train tile below</h3>
+                <h3 class="step-title">Confirm the dashboard matches the reference</h3>
                 <div class="step-body">
-                    <p>Add Tile 5 (pie) on the bottom row, full width. The train fleet status pie should show a slice for each line/status combination.</p>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Set auto-refresh</h3>
-                <div class="step-body">
-                    <p>Top-right of the dashboard → <strong>Auto refresh</strong> → set <strong>15 seconds</strong>.</p>
-                    <p>Save the dashboard. Watch the tiles update - the critical patient count will pulse, the SpO2 line will extend rightward, and the train pie will re-slice as statuses change.</p>
+                    <p>Your dashboard should now look like the reference screenshot below: <strong>Critical patient</strong> Stat top-left, <strong>Top 5 heart rate</strong> table top-right, <strong>Live room occupancy</strong> column chart bottom-left, and <strong>Train fleet status</strong> pie chart bottom-right.</p>
                     <div class="screenshot placeholder">
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-4/02-dashboard-live.png</div>
-                            <div>Final RTI Dashboard with all five tiles populated and auto-refresh on</div>
+                            <div class="ph-meta">module-5/01-dashboard-reference.png</div>
+                            <div>Live RTI dashboard reference: Critical patient Stat, Top 5 heart rate table, Live room occupancy column chart, Train fleet status pie chart</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Set auto-refresh and save</h3>
+                <div class="step-body">
+                    <p>Top-right of the dashboard &rarr; <strong>Auto refresh</strong> &rarr; set <strong>15 seconds</strong>. Click <strong>Save</strong> on the toolbar, then toggle the top-right switch back to <strong>View</strong>. Tiles will continue to update without the editor chrome.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-1-activator">
+        <h2>Step 1b - Drive an Activator alert from a tile <span class="pill agent">ACTIVATOR</span></h2>
+
+        <p>Real-Time Dashboards visualise live data, but operators often need a <strong>push</strong> when something crosses a threshold - not a tile they have to be looking at. Fabric <strong>Activator</strong> (Reflex) lets you bind a rule to any KQL stream or dashboard tile and route alerts to Teams, email, or Power Automate.</p>
+
+        <p>You'll wire one rule that fires every time the <code>Critical patients</code> tile crosses zero.</p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open the Add alert dialog</h3>
+                <div class="step-body">
+                    <p>On the dashboard toolbar (Editing mode), click <strong>Add alert</strong>. The Activator pane slides in from the right and pre-fills the underlying KQL from the tile that's currently selected.</p>
+                    <p>If nothing is selected, click <strong>Tile 1 - Critical patients</strong> first so the alert is bound to that tile's query.</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-5/04-add-alert-toolbar.png</div>
+                            <div>Dashboard toolbar in Editing mode with the <strong>Add alert</strong> button highlighted, and the Activator pane open on the right pre-filled with the Critical patients KQL</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Pick or create an Activator item</h3>
+                <div class="step-body">
+                    <p>In the Activator pane:</p>
+                    <ul>
+                        <li><strong>Workspace</strong>: your lab workspace.</li>
+                        <li><strong>Activator</strong>: <strong>+ Create new</strong> &rarr; name it <code>act_urbanpulse_alerts</code>.</li>
+                        <li><strong>Rule name</strong>: <code>CriticalPatientsDetected</code>.</li>
+                    </ul>
+                    <p>Click <strong>Next</strong>.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Define the condition</h3>
+                <div class="step-body">
+                    <ul>
+                        <li><strong>When</strong>: <code>value</code> (the integer the Stat tile produces)</li>
+                        <li><strong>Becomes</strong>: <code>greater than</code></li>
+                        <li><strong>Threshold</strong>: <code>0</code></li>
+                        <li><strong>Frequency</strong>: <code>Every 1 minute</code></li>
+                    </ul>
+                    <p>Activator evaluates the underlying KQL on that cadence and fires the rule the first time the count crosses the threshold (it won't re-fire on every poll while the count stays high).</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Choose an action</h3>
+                <div class="step-body">
+                    <p>Pick the simplest channel for the lab:</p>
+                    <ul>
+                        <li><strong>Email</strong>: enter your own address. Subject: <code>UrbanPulse - critical patients detected</code>. Body: include the <code>value</code> and <code>timestamp</code> tokens.</li>
+                    </ul>
+                    <p>For production, swap email for a Teams channel post or a Power Automate flow that pages an on-call rotation.</p>
+                </div>
+            </li>
+
+            <li>
+                <h3 class="step-title">Save and start the rule</h3>
+                <div class="step-body">
+                    <p>Click <strong>Save and start</strong>. Activator provisions the rule and begins polling. The first fire arrives within ~1 minute (the producers always have at least one critical patient in the last 15-minute window).</p>
+                    <div class="screenshot placeholder">
+                        <div class="placeholder-body">
+                            <div class="ph-icon">📷</div>
+                            <div class="ph-title">SCREENSHOT NEEDED</div>
+                            <div class="ph-meta">module-5/03-activator-rule.png</div>
+                            <div>Activator rule editor showing the CriticalPatientsDetected rule with value &gt; 0 condition and email action configured</div>
                         </div>
                     </div>
                 </div>
             </li>
         </ol>
 
-        <div class="validation">
-            <h4>Validation</h4>
-            <ul>
-                <li>All five tiles render without errors.</li>
-                <li>Critical patient count and SpO2 trend update visibly within 15s.</li>
-                <li>Train pie chart shows a mix of OnTime / Delayed (Green line is the noisy one).</li>
-            </ul>
+        <div class="callout purple">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>Why pair Activator with the dashboard?</strong> The dashboard is the human-facing surface; Activator is the machine-facing one. Same KQL, two delivery modes - one rule covers both the live tile and the on-call alert without you maintaining a second pipeline.
+            </div>
         </div>
     </section>
 
-    <section id="step-4">
-        <h2>Step 4 - Add Dashboard Parameters</h2>
-
-        <p>Hardcoding 15-minute windows is OK for a demo, but real ISV dashboards need user-controlled filters.</p>
-
-        <ol class="step-list">
-            <li>
-                <h3 class="step-title">Add a "Time range" parameter</h3>
-                <div class="step-body">
-                    <p>Dashboard → <strong>Manage parameters</strong> → <strong>+ Add</strong>:</p>
-<div class="code-block">
-<span class="lang-badge">Parameter</span>
-<pre><code>Display name: Time range
-Variable name: _timeRange
-Type: Duration
-Default: 15m
-Values: 5m, 15m, 30m, 1h, 6h, 24h</code></pre>
-</div>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Wire it into Tiles 1, 2, 4</h3>
-                <div class="step-body">
-                    <p>Edit each tile's KQL - replace <code>ago(15m)</code> with <code>ago(_timeRange)</code>. Save.</p>
-                    <p>The dashboard now has a dropdown at the top. Try switching from 15m → 1h → 24h and watch all three tiles re-execute against new windows.</p>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Add a "Train line" parameter</h3>
-                <div class="step-body">
-                    <p>Add a parameter <code>_line</code> of type <strong>String</strong> with values from the <code>line</code> column. Wire it into Tile 5:</p>
-<div class="code-block">
-<span class="lang-badge">KQL · parameterized</span>
-<pre><code>TrainTelemetry
-| where timestamp &gt; ago(_timeRange)
-| where _line == "All" or line == _line
-| summarize arg_max(timestamp, *) by trainId
-| summarize trains = count() by line, status
-| render piechart</code></pre>
-</div>
-                </div>
-            </li>
-        </ol>
-    </section>
-
-    <section id="step-5">
-        <h2>Step 5 - Medallion Inside KQL with Update Policies <span class="pill agent" style="vertical-align:middle;">★ OPTIONAL</span></h2>
+    <section id="step-2">
+        <h2>Step 2 - Medallion Inside KQL with Update Policies <span class="pill agent" style="vertical-align:middle;">★ OPTIONAL</span></h2>
 
         <div class="callout warning">
             <span class="callout-icon">⚠</span>
             <div class="callout-content">
-                <strong>This step is optional.</strong> The dashboard you built in Steps 1–4 is a complete deliverable.
+                <strong>This step is optional.</strong> The dashboard you built in Step 1 is a complete deliverable.
                 Add this section if you want to see how to build a <strong>Bronze → Silver → Gold</strong> medallion <em>entirely inside KQL</em> -
                 no Spark notebooks, no scheduled pipelines. Allow ~15 extra minutes.
             </div>
@@ -474,8 +491,8 @@ PatientStatus_now          | count    // GOLD: should equal active patient count
             <span class="callout-icon">💡</span>
             <div class="callout-content">
                 <strong>Why this matters for the rest of the lab.</strong>
-                Module 6's Fabric Ontology can bind directly to <code>HospitalVitals_clean</code> instead of raw
-                <code>HospitalVitals</code> - which means Module 7's Hospital Data Agent gets <em>cleaned</em> data
+                Module 7's Fabric Ontology can bind directly to <code>HospitalVitals_clean</code> instead of raw
+                <code>HospitalVitals</code> - which means Module 8's Hospital Data Agent gets <em>cleaned</em> data
                 with the <code>is_critical</code> flag pre-computed. Less prompt-shaping, more accurate answers.
                 And because the OneLake-availability toggle from Module 3 cascades to every table, your Silver/Gold
                 tiers are <em>also</em> available as Delta in OneLake automatically - so the Direct Lake semantic
@@ -487,11 +504,11 @@ PatientStatus_now          | count    // GOLD: should equal active patient count
     <section id="recap">
         <h2>What You Just Built</h2>
         <ul>
-            <li>A Queryset with five saved KQL queries spanning the hospital and transit domains.</li>
-            <li>A five-tile Real-Time Dashboard with a KPI, table, bar, time-series, and pie.</li>
+            <li>A Queryset with four saved KQL queries spanning the hospital and transit domains.</li>
+            <li>A four-tile Real-Time Dashboard with a KPI, a table, a column chart, and a pie.</li>
             <li>Two parameters wiring into multiple tiles.</li>
             <li>15-second auto-refresh - the city dashboard is now <em>alive</em>.</li>
-            <li><em>(If you did Step 5)</em> A Bronze &rarr; Silver &rarr; Gold medallion entirely inside KQL, driven by an update policy and a materialized view - no Spark, no schedules.</li>
+            <li><em>(If you did Step 2)</em> A Bronze &rarr; Silver &rarr; Gold medallion entirely inside KQL, driven by an update policy and a materialized view - no Spark, no schedules.</li>
         </ul>
 
         <div class="callout purple">
@@ -503,17 +520,17 @@ PatientStatus_now          | count    // GOLD: should equal active patient count
             </div>
         </div>
 
-        <p>Module 5 turns the warm-path Lakehouse data into a Power BI report using <strong>Direct Lake</strong> - no import refresh, no DirectQuery latency.</p>
+        <p>Module 6 turns the warm-path Lakehouse data into a Power BI report using <strong>Direct Lake</strong> - no import refresh, no DirectQuery latency.</p>
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-3-streaming.html">
+        <a class="nav-card" href="module-4-transform.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 3 · Streaming</div>
+            <div class="nav-title">Module 4 · Transform for Analytics</div>
         </a>
-        <a class="nav-card next" href="module-5-direct-lake.html">
+        <a class="nav-card next" href="module-6-direct-lake.html">
             <div class="nav-direction">Next →</div>
-            <div class="nav-title">Module 5 · Direct Lake + Power BI</div>
+            <div class="nav-title">Module 6 · Direct Lake + Power BI</div>
         </a>
     </nav>
 

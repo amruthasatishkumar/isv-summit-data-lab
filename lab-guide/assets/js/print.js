@@ -7,24 +7,36 @@ window.addEventListener("beforeprint", () => {
 // Lab nav - sticky sidebar, injected on every page
 // =============================================================
 const LAB_NAV = [
-    { group: "Start",      items: [
-        { href: "index.html",                              label: "Cover · Agenda",            badge: "Home" },
+    { group: "Start",              items: [
+        { href: "index.html",                              label: "Overview",                  badge: "Home" },
     ]},
-    { group: "Modules",    items: [
+    { group: "Setup",              items: [
         { href: "module-0-setup.html",                     label: "Setup & Environment",       badge: "M0" },
         { href: "module-1-workspace-tour.html",            label: "Workspace Tour",            badge: "M1" },
-        { href: "module-2-lakehouse-mirror.html",          label: "Lakehouse + Mirror",        badge: "M2" },
-        { href: "module-3-streaming.html",                 label: "Streaming Ingest",          badge: "M3" },
-        { href: "module-4-kql-dashboard.html",             label: "KQL + Dashboard",           badge: "M4" },
-        { href: "module-5-direct-lake.html",               label: "Direct Lake + Power BI",    badge: "M5" },
-        { href: "module-6-ontologies.html",                label: "Fabric Ontologies",         badge: "M6" },
-        { href: "module-7-data-agents.html",               label: "Data Agent → Copilot",      badge: "M7" },
-        { href: "module-8-multi-agent.html",               label: "Multi-Agent Catalog ★",    badge: "M8" },
-        { href: "module-9-foundry-orchestrator.html",      label: "Foundry Orchestrator ★",   badge: "M9" },
     ]},
-    { group: "Appendices", items: [
+    { group: "Goal 1 · Ingest",        items: [
+        { href: "module-2-lakehouse-mirror.html",          label: "Data Ingestion",            badge: "M2" },
+        { href: "module-3-streaming.html",                 label: "Streaming Ingest",          badge: "M3" },
+    ]},
+    { group: "Goal 2 · Transform",     items: [
+        { href: "module-4-transform.html",                 label: "Transform for Analytics",   badge: "M4" },
+    ]},
+    { group: "Goal 3 · Build Report",  items: [
+        { href: "module-5-kql-dashboard.html",             label: "Live Dashboard",            badge: "M5" },
+        { href: "module-6-direct-lake.html",               label: "Direct Lake + Power BI",    badge: "M6" },
+    ]},
+    { group: "Goal 4 · Apply AI",      items: [
+        { href: "module-7-ontologies.html",                label: "Fabric Ontologies",         badge: "M7" },
+        { href: "module-8-data-agents.html",               label: "Fabric Data Agent",         badge: "M8" },
+        { href: "module-9-multi-agent.html",               label: "Multi-Agent Catalog",       badge: "M9" },
+        { href: "module-10-foundry-orchestrator.html",     label: "Foundry Orchestrator",      badge: "M10" },
+    ]},
+    { group: "Wrap-up",            items: [
+        { href: "closing.html",                            label: "Closing",                   badge: "End" },
+    ]},
+    { group: "Appendices",         items: [
         { href: "appendix-env-vars.html",                  label: "Lab Credentials",           badge: "A" },
-        { href: "appendix-kql-cookbook.html",              label: "KQL Cookbook",              badge: "B" },
+        { href: "appendix-data-downloads.html",            label: "Lab Data Downloads",        badge: "B" },
         { href: "appendix-prompt-library.html",            label: "Prompt Library",            badge: "C" },
     ]},
 ];
@@ -96,4 +108,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { rootMargin: "-40% 0px -55% 0px" });
         document.querySelectorAll("section[id]").forEach(s => observer.observe(s));
     }
+
+    // ---- Copy buttons on every code block ----
+    document.querySelectorAll(".code-block").forEach(block => {
+        const codeEl = block.querySelector("pre code, pre");
+        if (!codeEl) return;
+        if (block.querySelector(".copy-btn")) return;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "copy-btn";
+        btn.setAttribute("aria-label", "Copy code");
+        btn.innerHTML = "<span class='copy-icon'>📋</span><span class='copy-label'>Copy</span>";
+
+        btn.addEventListener("click", async () => {
+            const text = codeEl.innerText;
+            try {
+                await navigator.clipboard.writeText(text);
+                btn.classList.add("copied");
+                btn.querySelector(".copy-label").textContent = "Copied";
+                setTimeout(() => {
+                    btn.classList.remove("copied");
+                    btn.querySelector(".copy-label").textContent = "Copy";
+                }, 1500);
+            } catch (err) {
+                btn.querySelector(".copy-label").textContent = "Failed";
+                setTimeout(() => {
+                    btn.querySelector(".copy-label").textContent = "Copy";
+                }, 1500);
+            }
+        });
+
+        block.appendChild(btn);
+    });
 });

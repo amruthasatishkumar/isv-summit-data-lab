@@ -24,3 +24,11 @@ credentials/
 node_modules/
 dist/
 build/
+
+# Local-only authoring tools (paste-to-disk screenshot uploader, dev server)
+dev-tools/
+scripts/relocate-screenshots.ps1
+
+# Python bytecode from seed-data scripts
+__pycache__/
+*.py[cod]

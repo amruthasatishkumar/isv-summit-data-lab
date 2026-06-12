@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 6 · Fabric Ontologies - UrbanPulse Lab</title>
+    <title>Module 7 · Fabric Ontologies - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,13 +17,13 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Module 6 of 9</div>
+    <div class="module-pill">Module 7 of 10</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
-        <div class="module-eyebrow">Module 6 · Semantic Layer</div>
+        <div class="module-eyebrow">Module 7 · Semantic Layer</div>
         <h1>Build a Fabric Ontology over Your Data</h1>
         <p class="lead">
             Tables and columns describe how data is <em>stored</em>. An <strong>ontology</strong>
@@ -46,7 +46,6 @@
             <li>Create an <strong>Ontology item</strong> in your workspace.</li>
             <li>Define <strong>entity types</strong> (<code>Patient</code>, <code>Train</code>, <code>Region</code>) and bind them to your Lakehouse + Eventhouse data.</li>
             <li>Define <strong>relationships</strong> across domains so cross-domain questions become traversal, not joins.</li>
-            <li>Validate the ontology and preview an entity-centric query.</li>
         </ul>
     </section>
 
@@ -54,29 +53,28 @@
         <h2>Why Add an Ontology?</h2>
 
         <p>
-            Up to this point you've built a great <em>data</em> stack: a real-time Eventhouse, a
-            Lakehouse, a Direct Lake semantic model. But every consumer - dashboards, reports, agents,
+            Up to this point you've built a complete <em>data</em> stack: a real-time Eventhouse, a
+            Lakehouse, a Direct Lake semantic model. Every consumer - dashboards, reports, agents,
             Copilot - still has to know <em>which table holds which fact</em> and <em>how to join them</em>.
-            That's a tax on every new question.
+            That overhead is paid on every new question.
         </p>
 
         <p>
-            A Fabric Ontology lifts that tax. You define the conceptual world once - <em>"a Patient
+            A Fabric Ontology removes that overhead. You define the conceptual model once - <em>"a Patient
             has Vitals, is admitted to a Hospital, and lives in a Region. A Train runs on a Line
             and serves Regions"</em> - and bind each entity to the tables that already exist in
-            OneLake. Every Data Agent, every M365 Copilot prompt, and every Foundry orchestrator
-            you build downstream then speaks the <em>same vocabulary</em>.
+            OneLake. Every Data Agent, M365 Copilot prompt, and Foundry orchestrator you build
+            downstream then speaks the <em>same vocabulary</em>.
         </p>
 
         <div class="callout purple">
             <span class="callout-icon">💡</span>
             <div class="callout-content">
                 <strong>The ISV angle.</strong>
-                When you ship UrbanPulse to a second customer, the ontology is the part you reuse
-                <em>verbatim</em>. The customer's tables can have different names, different schemas,
-                even different storage - the ontology bindings change, but the conceptual model
-                (and every agent grounded on it) stays identical. That's how you get from "consulting
-                gig" to "product."
+                When you ship UrbanPulse to a second customer, the ontology is the asset you reuse
+                <em>verbatim</em>. The customer's tables can have different names, schemas, or storage
+                locations - only the ontology bindings change. The conceptual model and every agent
+                grounded on it stay identical. This is how a one-off implementation becomes a repeatable product.
             </div>
         </div>
     </section>
@@ -85,85 +83,92 @@
         <h2>The UrbanPulse Ontology You'll Build</h2>
 
         <p>
-            Below is the entity-relationship sketch for today's lab. It deliberately spans both
-            customer domains (health, transit) plus a shared <code>Region</code> entity that
-            stitches them together - that shared entity is what makes cross-domain questions work in M8.
+            Below is the entity-relationship sketch for this lab. It spans both customer domains
+            (health, transit) plus a shared <code>Region</code> entity that stitches them together.
+            That shared entity is what enables cross-domain questions in Module 9.
         </p>
 
         <div class="diagram">
-            <svg viewBox="0 0 1000 420" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" style="max-width:100%;">
+            <svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" style="max-width:100%;">
                 <defs>
                     <marker id="arrOnt" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
                         <path d="M 0 0 L 10 5 L 0 10 z" fill="#605e5c"/>
                     </marker>
+                    <linearGradient id="purpleGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#7c52e6"/>
+                        <stop offset="1" stop-color="#4f29a3"/>
+                    </linearGradient>
                 </defs>
 
                 <!-- Health domain -->
-                <rect x="40" y="30" width="280" height="160" rx="10" fill="#fff5f5" stroke="#d13438" stroke-dasharray="4 3"/>
-                <text x="180" y="52" font-size="11" font-weight="700" letter-spacing="2" fill="#d13438" text-anchor="middle">🏥 HEALTH</text>
+                <rect x="60" y="40" width="380" height="220" rx="12" fill="#fff5f5" stroke="#d13438" stroke-dasharray="5 4"/>
+                <text x="250" y="68" font-size="11" font-weight="700" letter-spacing="2" fill="#d13438" text-anchor="middle">🏥 HEALTH</text>
 
-                <rect x="65" y="70" width="110" height="55" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
-                <text x="120" y="92" font-size="13" font-weight="600" fill="#d13438" text-anchor="middle">Patient</text>
-                <text x="120" y="110" font-size="10" fill="#605e5c" text-anchor="middle">id · age · condition</text>
+                <rect x="85" y="100" width="125" height="60" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+                <text x="147" y="125" font-size="13" font-weight="600" fill="#d13438" text-anchor="middle">Patient</text>
+                <text x="147" y="143" font-size="10" fill="#605e5c" text-anchor="middle">id · age · condition</text>
 
-                <rect x="195" y="70" width="105" height="55" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
-                <text x="247" y="92" font-size="13" font-weight="600" fill="#d13438" text-anchor="middle">Hospital</text>
-                <text x="247" y="110" font-size="10" fill="#605e5c" text-anchor="middle">id · region</text>
+                <rect x="290" y="100" width="125" height="60" rx="8" fill="#fff" stroke="#d13438" stroke-width="2"/>
+                <text x="352" y="125" font-size="13" font-weight="600" fill="#d13438" text-anchor="middle">Hospital</text>
+                <text x="352" y="143" font-size="10" fill="#605e5c" text-anchor="middle">id · region</text>
 
-                <rect x="65" y="135" width="235" height="40" rx="6" fill="#fff" stroke="#d13438" stroke-width="1.5"/>
-                <text x="183" y="160" font-size="11" fill="#605e5c" text-anchor="middle">Vitals (time-series · ↑ Patient)</text>
+                <rect x="85" y="195" width="330" height="45" rx="6" fill="#fff" stroke="#d13438" stroke-width="1.5"/>
+                <text x="250" y="222" font-size="11" fill="#605e5c" text-anchor="middle">Vitals (time-series · ↑ Patient)</text>
 
                 <!-- Transit domain -->
-                <rect x="360" y="30" width="280" height="160" rx="10" fill="#f3f9ff" stroke="#0078d4" stroke-dasharray="4 3"/>
-                <text x="500" y="52" font-size="11" font-weight="700" letter-spacing="2" fill="#005a9e" text-anchor="middle">🚆 TRANSIT</text>
+                <rect x="560" y="40" width="380" height="220" rx="12" fill="#f3f9ff" stroke="#0078d4" stroke-dasharray="5 4"/>
+                <text x="750" y="68" font-size="11" font-weight="700" letter-spacing="2" fill="#005a9e" text-anchor="middle">🚆 TRANSIT</text>
 
-                <rect x="385" y="70" width="105" height="55" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
-                <text x="437" y="92" font-size="13" font-weight="600" fill="#005a9e" text-anchor="middle">Train</text>
-                <text x="437" y="110" font-size="10" fill="#605e5c" text-anchor="middle">id · line · status</text>
+                <rect x="585" y="100" width="125" height="60" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+                <text x="647" y="125" font-size="13" font-weight="600" fill="#005a9e" text-anchor="middle">Train</text>
+                <text x="647" y="143" font-size="10" fill="#605e5c" text-anchor="middle">id · line · status</text>
 
-                <rect x="510" y="70" width="105" height="55" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
-                <text x="562" y="92" font-size="13" font-weight="600" fill="#005a9e" text-anchor="middle">Line</text>
-                <text x="562" y="110" font-size="10" fill="#605e5c" text-anchor="middle">Red · Blue · Green</text>
+                <rect x="790" y="100" width="125" height="60" rx="8" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+                <text x="852" y="125" font-size="13" font-weight="600" fill="#005a9e" text-anchor="middle">Line</text>
+                <text x="852" y="143" font-size="10" fill="#605e5c" text-anchor="middle">Red · Blue · Green</text>
 
-                <rect x="385" y="135" width="230" height="40" rx="6" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
-                <text x="500" y="160" font-size="11" fill="#605e5c" text-anchor="middle">Telemetry (time-series · ↑ Train)</text>
+                <rect x="585" y="195" width="330" height="45" rx="6" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+                <text x="750" y="222" font-size="11" fill="#605e5c" text-anchor="middle">Telemetry (time-series · ↑ Train)</text>
 
                 <!-- Shared Region (cross-domain) -->
-                <rect x="380" y="270" width="240" height="80" rx="10" fill="url(#purpleGrad)" stroke="none"/>
-                <linearGradient id="purpleGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#7c52e6"/>
-                    <stop offset="1" stop-color="#4f29a3"/>
-                </linearGradient>
-                <text x="500" y="298" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Region</text>
-                <text x="500" y="318" font-size="11" fill="#fff" fill-opacity="0.9" text-anchor="middle">id · name · bbox</text>
-                <text x="500" y="335" font-size="10" fill="#fff" fill-opacity="0.7" text-anchor="middle">SHARED ACROSS DOMAINS</text>
+                <rect x="380" y="360" width="240" height="80" rx="12" fill="url(#purpleGrad)" stroke="none"/>
+                <text x="500" y="388" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Region</text>
+                <text x="500" y="408" font-size="11" fill="#fff" fill-opacity="0.9" text-anchor="middle">id · name · bbox</text>
+                <text x="500" y="426" font-size="9" letter-spacing="1.5" fill="#fff" fill-opacity="0.7" text-anchor="middle">SHARED ACROSS DOMAINS</text>
 
-                <!-- Relationship arrows (semantic edges) -->
+                <!-- Intra-domain arrows -->
                 <g stroke="#605e5c" stroke-width="1.4" fill="none" marker-end="url(#arrOnt)">
-                    <!-- Patient -> Hospital -->
-                    <line x1="175" y1="97" x2="195" y2="97"/>
-                    <!-- Train -> Line -->
-                    <line x1="490" y1="97" x2="510" y2="97"/>
-                    <!-- Hospital -> Region -->
-                    <path d="M 247 125 C 247 220, 430 250, 470 270"/>
-                    <!-- Line -> Region -->
-                    <path d="M 562 125 C 562 220, 540 250, 510 270"/>
+                    <line x1="210" y1="130" x2="288" y2="130"/>
+                    <line x1="710" y1="130" x2="788" y2="130"/>
                 </g>
 
-                <!-- Edge labels -->
-                <g font-size="10" fill="#605e5c" font-style="italic">
-                    <text x="183" y="92" text-anchor="middle">admitted_to</text>
-                    <text x="498" y="92" text-anchor="middle">on_line</text>
-                    <text x="335" y="218" text-anchor="middle">in_region</text>
-                    <text x="555" y="218" text-anchor="middle">serves_region</text>
+                <!-- Cross-domain arrows: emerge from bottom of domain box, sweep to top of Region -->
+                <g stroke="#7c52e6" stroke-width="1.6" fill="none" marker-end="url(#arrOnt)" stroke-dasharray="6 4">
+                    <path d="M 352 260 C 352 320, 420 340, 460 360"/>
+                    <path d="M 647 260 C 647 320, 580 340, 540 360"/>
                 </g>
 
-                <!-- Caption box -->
-                <text x="500" y="395" font-size="11" fill="#8a8886" text-anchor="middle" font-style="italic">
-                    Solid borders = entity types · Dashed boxes = domains · Purple = the cross-domain anchor
-                </text>
+                <!-- Intra-domain edge labels (white pill, sits on top of the arrow midpoint) -->
+                <g font-size="10" font-style="italic">
+                    <rect x="220" y="119" width="58" height="16" rx="8" fill="#fff" stroke="#f4cccc"/>
+                    <text x="249" y="131" fill="#d13438" text-anchor="middle">admitted_to</text>
+                    <rect x="725" y="119" width="48" height="16" rx="8" fill="#fff" stroke="#cfe2f4"/>
+                    <text x="749" y="131" fill="#005a9e" text-anchor="middle">on_line</text>
+                </g>
+
+                <!-- Cross-domain edge labels (with white pill background) -->
+                <g font-size="10" font-style="italic">
+                    <rect x="335" y="300" width="64" height="16" rx="8" fill="#fff" stroke="#e0d7f7"/>
+                    <text x="367" y="312" fill="#4f29a3" text-anchor="middle">in_region</text>
+                    <rect x="600" y="300" width="86" height="16" rx="8" fill="#fff" stroke="#e0d7f7"/>
+                    <text x="643" y="312" fill="#4f29a3" text-anchor="middle">serves_region</text>
+                </g>
             </svg>
-            <div class="caption">Figure 6.1 - The UrbanPulse ontology. Two domain entity clusters both link to a shared <code>Region</code>, which is what makes M8's cross-domain queries possible.</div>
+            <div class="caption">
+                Figure 6.1 - The UrbanPulse ontology. Solid borders are entity types, dashed boxes are domains,
+                and the purple <code>Region</code> entity is the shared anchor that makes Module 9's
+                cross-domain queries possible.
+            </div>
         </div>
     </section>
 
@@ -174,7 +179,7 @@
             <li>
                 <h3 class="step-title">Open your workspace</h3>
                 <div class="step-body">
-                    <p>From the Fabric portal, navigate back to <code>urbanpulse-{your-id}</code>. By now you should have: a Lakehouse, a Mirrored DB, an Eventhouse, a Real-Time Dashboard, and a Direct Lake semantic model.</p>
+                    <p>From the Fabric portal, navigate back to <code>urbanpulse-{your-user-id}</code>. By now you should have: a Lakehouse, a Mirrored DB, an Eventhouse, a Real-Time Dashboard, and a Direct Lake semantic model.</p>
                 </div>
             </li>
 
@@ -188,7 +193,7 @@
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-6/01-create-ontology.png</div>
+                            <div class="ph-meta">module-7/01-create-ontology.png</div>
                             <div>"New Ontology" item creation dialog with name <code>ont_urbanpulse</code></div>
                         </div>
                     </div>
@@ -197,7 +202,7 @@
                         <span class="callout-icon">ⓘ</span>
                         <div class="callout-content">
                             <strong>Ontology item vs. semantic model.</strong> A Power BI semantic model
-                            (Module 5) is tabular and tuned for measures + reports. A Fabric Ontology is
+                            (Module 6) is tabular and tuned for measures + reports. A Fabric Ontology is
                             a <em>graph</em>, tuned for entity-centric questions and AI grounding. They
                             coexist and complement each other.
                         </div>
@@ -229,7 +234,7 @@
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-6/02-entity-patient.png</div>
+                            <div class="ph-meta">module-7/02-entity-patient.png</div>
                             <div>Entity type editor for Patient with binding to <code>HospitalVitals</code> KQL table</div>
                         </div>
                     </div>
@@ -264,18 +269,18 @@
             <li>
                 <h3 class="step-title">Add the cross-domain entities</h3>
                 <div class="step-body">
-                    <p>Two entities don't have a single dedicated source - they're <em>logical</em> and you'll bind them to small lookup tables in the Lakehouse:</p>
+                    <p>Two entities don't come from the streaming KQL tables. They're <em>logical</em>, bound to existing tables already in the Lakehouse from Module 2:</p>
                     <ul>
-                        <li><code>Hospital</code> &rarr; Lakehouse <code>lh_urbanpulse_bronze</code> &rarr; <code>dim_hospital</code> (one row today)</li>
-                        <li><code>Region</code> &rarr; Lakehouse <code>dim_region</code> (created by coaches; one row per Metropolis region)</li>
+                        <li><code>Hospital</code> &rarr; Lakehouse <code>lh_urbanpulse_bronze</code> &rarr; mirrored SQL table <code>Hospitals</code></li>
+                        <li><code>Region</code> &rarr; Lakehouse <code>regions</code> table (mirrored from Cosmos)</li>
                     </ul>
 
                     <div class="callout tip">
                         <span class="callout-icon">✓</span>
                         <div class="callout-content">
-                            If <code>dim_hospital</code> or <code>dim_region</code> isn't in your Lakehouse yet, ask a coach -
-                            we ship them as a tiny seed CSV. Or skip the cross-domain entities now and add them
-                            later; the rest of the ontology still works.
+                            Both tables already exist in <code>lh_urbanpulse_bronze</code> from Module 2's
+                            mirror + shortcut steps - no extra setup required. If you skipped Module 2,
+                            the rest of the ontology still works without these two entities.
                         </div>
                     </div>
                 </div>
@@ -332,7 +337,7 @@
             <li>
                 <h3 class="step-title">Add the <strong>cross-domain</strong> relationships</h3>
                 <div class="step-body">
-                    <p>These are the magic ones - they're what lets M8 ask cross-domain questions without bespoke SQL:</p>
+                    <p>These cross-domain relationships are what enable Module 9 to answer questions spanning hospitals and transit without bespoke SQL:</p>
 
                     <table>
                         <thead>
@@ -363,7 +368,7 @@
                         <div class="placeholder-body">
                             <div class="ph-icon">📷</div>
                             <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-6/03-relationships.png</div>
+                            <div class="ph-meta">module-7/03-relationships.png</div>
                             <div>Ontology relationships pane showing the three cross-domain edges into <code>Region</code></div>
                         </div>
                     </div>
@@ -372,80 +377,36 @@
         </ol>
     </section>
 
-    <section id="step-4">
-        <h2>Step 4 - Validate &amp; Preview</h2>
-
-        <ol class="step-list">
-            <li>
-                <h3 class="step-title">Click <strong>Validate</strong></h3>
-                <div class="step-body">
-                    <p>The editor checks that every entity has a valid OneLake binding and every relationship resolves on both sides. Fix anything red. Common gotchas:</p>
-                    <ul>
-                        <li>Identity property typo (case-sensitive)</li>
-                        <li>Binding to a Lakehouse table that doesn't exist yet (<code>dim_region</code>)</li>
-                        <li>Cardinality mismatch (one-to-many vs. many-to-one)</li>
-                    </ul>
-                </div>
-            </li>
-
-            <li>
-                <h3 class="step-title">Try an entity-centric query</h3>
-                <div class="step-body">
-                    <p>Open the <strong>Explore</strong> tab. Type a natural-language probe like:</p>
-                    <div class="code-block">
-                        <span class="lang-badge">Ontology Explore</span>
-<pre><code>list 5 Patients with their admitted_to Hospital and the Hospital's in_region Region</code></pre>
-                    </div>
-                    <p>You should get a small entity-level result table - no SQL written by you. The ontology compiled the traversal into KQL/SQL behind the scenes.</p>
-
-                    <div class="screenshot placeholder">
-                        <div class="placeholder-body">
-                            <div class="ph-icon">📷</div>
-                            <div class="ph-title">SCREENSHOT NEEDED</div>
-                            <div class="ph-meta">module-6/04-explore-query.png</div>
-                            <div>Ontology Explore pane returning 5 Patient rows joined to Hospital + Region</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ol>
-
-        <div class="validation">
-            <h4>Validation</h4>
-            <p>Validation passes (no red errors) and the Explore query returns results that span at least two entity types. You're ready to ground a Data Agent on this ontology in Module 7.</p>
-        </div>
-    </section>
-
     <section id="recap">
         <h2>What You Just Built</h2>
         <ul>
             <li>An Ontology item <code>ont_urbanpulse</code> in your workspace.</li>
             <li>Four entity types - <code>Patient</code>, <code>Train</code>, <code>Hospital</code>, <code>Region</code> - bound to your Eventhouse + Lakehouse data.</li>
             <li>Four relationships, two of which cross domain boundaries via the shared <code>Region</code> anchor.</li>
-            <li>A validated semantic graph that the Module 7 Data Agent (and the optional Module 8 multi-agent catalog and Module 9 orchestrator) will ground on.</li>
+            <li>A validated semantic graph that the Module 8 Data Agent (and the optional Module 9 multi-agent catalog and Module 10 orchestrator) will ground on.</li>
         </ul>
 
         <div class="callout purple">
             <span class="callout-icon">💡</span>
             <div class="callout-content">
-                <strong>Why this changes Module 7.</strong>
-                Without the ontology, your Hospital agent in M7 would need to be told <em>"the table is
-                HospitalVitals, the patient column is patient_id, condition is in column..."</em>. With the
-                ontology, you just point the agent at <code>ont_urbanpulse</code> and say "you ground on
-                Patient + Vitals." The agent's instructions get shorter, more accurate, and reusable across
-                customers.
+                <strong>Why this changes Module 8.</strong>
+                Without an ontology, the Hospital agent in M7 needs to be told <em>"the table is
+                HospitalVitals, the patient column is patient_id, condition is in column..."</em>. With
+                the ontology, you point the agent at <code>ont_urbanpulse</code> and declare "ground on
+                Patient + Vitals." The agent's instructions become shorter, more accurate, and
+                portable across customers.
             </div>
         </div>
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="module-5-direct-lake.html">
+        <a class="nav-card" href="module-6-direct-lake.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Module 5 · Direct Lake + Power BI</div>
+            <div class="nav-title">Module 6 · Direct Lake + Power BI</div>
         </a>
-        <a class="nav-card next" href="module-7-data-agents.html">
+        <a class="nav-card next" href="module-8-data-agents.html">
             <div class="nav-direction">Next →</div>
-            <div class="nav-title">Module 7 · Data Agent → Copilot</div>
+            <div class="nav-title">Module 8 · Data Agent → Copilot</div>
         </a>
     </nav>
 

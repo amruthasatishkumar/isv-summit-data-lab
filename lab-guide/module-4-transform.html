@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 4 · Transform for Analytics - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Module 4 of 10</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Module 4 · Curate Phase</div>
+        <h1>Transform Your Ingested Data for Analytics</h1>
+        <p class="lead">
+            Modules 2 and 3 landed three classes of data into Fabric - mirrored operational tables, an uploaded
+            facility catalog, and live KQL streams. None of it is yet shaped for the dashboards, semantic models,
+            and agents you'll build in the next four modules.
+        </p>
+        <p class="lead">
+            Fabric gives you several ways to shape data once it has landed. In this module you'll use two of them
+            together: a <strong>notebook</strong> to clean and join the operational tables into a curated Silver layer,
+            and <strong>SQL views</strong> on the Lakehouse SQL endpoint to expose Gold-style aggregates for Power BI
+            and the agents downstream. Dataflow Gen2 and Materialized Lake Views are noted as no-code and managed
+            alternatives.
+        </p>
+        <div class="module-meta">
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>40 minutes</strong></div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> Bronze → Silver → Gold curated tables</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Notebook (Spark SQL) · SQL views · Lakehouse</div>
+        </div>
+    </div>
+
+    <section id="objectives">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Inspect what landed in <code>lh_urbanpulse_bronze</code> from M2 (mirrors + uploaded catalog).</li>
+            <li>Run a <strong>Fabric notebook</strong> (Spark SQL) to join hospitals, wards, and regions into a
+                curated <code>silver_hospital_facility</code> Delta table.</li>
+            <li>Create <strong>SQL views</strong> on the Lakehouse SQL analytics endpoint for downstream BI and agents.</li>
+            <li>Recognize when to reach for <strong>Dataflow Gen2</strong> (no-code) or
+                <strong>Materialized Lake Views</strong> (managed refresh) instead.</li>
+        </ul>
+    </section>
+
+    <section id="why-transform">
+        <h2>Why a Transform Step?</h2>
+
+        <p>
+            What landed in M2 is <strong>operational shape</strong>: each mirrored table looks like the source system,
+            and the uploaded facility catalog is denormalized for storage, not analysis. That's fine for an audit
+            trail, but it's not what a Power BI report or a Data Agent should see. Operators ask questions like
+            <em>"how many beds are available in Region North?"</em> - which spans Hospitals, Wards, and Regions, and
+            requires consistent column names and types.
+        </p>
+
+        <p>
+            Transforming the Bronze layer into a curated Silver layer (clean, joined, typed) plus a Gold layer of
+            BI-ready aggregates is what makes the rest of the lab possible. The medallion split also lets you
+            evolve raw schemas without breaking downstream consumers.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Approach</th>
+                    <th>Best for</th>
+                    <th>You'll use it in</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Notebook</strong> (Spark Python / Spark SQL)</td>
+                    <td>Joins, type cleanup, derived columns, ML prep, complex logic</td>
+                    <td>Step 2 (Silver build)</td>
+                </tr>
+                <tr>
+                    <td><strong>SQL view</strong> on the SQL endpoint</td>
+                    <td>Lightweight aggregates and friendly names for BI / agents</td>
+                    <td>Step 3 (Gold views)</td>
+                </tr>
+                <tr>
+                    <td><strong>Materialized Lake View</strong></td>
+                    <td>SQL transforms you want persisted as Delta with managed refresh</td>
+                    <td>Step 4 (optional)</td>
+                </tr>
+                <tr>
+                    <td><strong>Dataflow Gen2</strong> (Power Query)</td>
+                    <td>Visual, no-code prep - filtering, type changes, joins</td>
+                    <td>Reference only</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>Pick the approach that fits your scenario.</strong> Fabric does not force one path - this
+                module deliberately chooses notebook + SQL view because they are the two patterns you will see most
+                often in real ISV deployments. The references at the bottom of this page point to the official docs
+                for every other option.
+            </div>
+        </div>
+    </section>
+
+    <section id="step-1">
+        <h2>Step 1 - Inspect What Landed in Bronze <span class="pill lakehouse">LAKEHOUSE</span></h2>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open the Bronze Lakehouse</h3>
+                <div class="step-body">
+                    <p>From your workspace, open <code>lh_urbanpulse_bronze</code>.</p>
+                    <p>In the left-hand explorer you should see the tables you created in M2:</p>
+                    <ul>
+                        <li><code>Hospitals</code>, <code>Wards</code>, <code>Staff</code> &mdash; mirrored from Azure SQL.</li>
+                        <li><code>regions</code>, <code>trainRoutes</code> &mdash; mirrored from Cosmos DB for NoSQL.</li>
+                        <li><code>facility_catalog</code> &mdash; uploaded Parquet (or shortcut, depending on your M2 path).</li>
+                    </ul>
+                    <p>Click any table and use the <strong>Preview</strong> pane to confirm rows are present.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Switch to the SQL analytics endpoint</h3>
+                <div class="step-body">
+                    <p>In the upper-right corner of the Lakehouse, switch from <strong>Lakehouse</strong> view
+                       to <strong>SQL analytics endpoint</strong> view. This is the same Delta data, surfaced as a
+                       T-SQL endpoint for read-only queries and views.</p>
+                    <p>Run a quick sanity query:</p>
+                    <pre><code>SELECT TOP 5 * FROM Hospitals;
+SELECT TOP 5 * FROM Wards;
+SELECT TOP 5 * FROM regions;</code></pre>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-2">
+        <h2>Step 2 - Build a Silver Table with a Notebook <span class="pill notebook">NOTEBOOK</span></h2>
+
+        <p>
+            Now you'll create a curated <code>silver_hospital_facility</code> Delta table that joins
+            <code>Hospitals</code>, <code>Wards</code>, and <code>regions</code> into a single analytics-friendly
+            shape. A Spark notebook is the right tool because the join spans tables originating from two different
+            mirrors (Azure SQL + Cosmos DB) and we want consistent typing on the way out.
+        </p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create a new notebook bound to the Bronze Lakehouse</h3>
+                <div class="step-body">
+                    <p>From the workspace, click <strong>+ New item</strong> &rarr; <strong>Notebook</strong>.</p>
+                    <p>Name it <code>nb_urbanpulse_silver</code>.</p>
+                    <p>In the left explorer of the notebook, click <strong>+ Lakehouse</strong> and pick
+                       <code>lh_urbanpulse_bronze</code> as the default Lakehouse. This makes
+                       <code>spark.sql("SELECT * FROM Hospitals")</code> resolve without any extra path.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Write the Silver transform (Spark SQL)</h3>
+                <div class="step-body">
+                    <p>Paste the following into the first cell. This produces one wide row per ward, with the
+                       hospital and region attributes joined in:</p>
+                    <pre><code>silver_df = spark.sql("""
+    SELECT
+        w.WardId             AS ward_id,
+        w.Name               AS ward_name,
+        w.Beds               AS beds,
+        h.HospitalId         AS hospital_id,
+        h.Name               AS hospital_name,
+        h.Address            AS hospital_address,
+        h.City               AS hospital_city,
+        r.regionId           AS region_id,
+        r.regionName         AS region_name,
+        CURRENT_TIMESTAMP()  AS curated_at
+    FROM Wards     w
+    JOIN Hospitals h ON h.HospitalId = w.HospitalId
+    LEFT JOIN regions r ON r.regionId = h.RegionId
+""")
+
+silver_df.write \
+    .format("delta") \
+    .mode("overwrite") \
+    .option("overwriteSchema", "true") \
+    .saveAsTable("silver_hospital_facility")</code></pre>
+                    <p>Run the cell. The output should report a successful Delta write with a row count.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Validate the Silver table</h3>
+                <div class="step-body">
+                    <p>Add a second cell:</p>
+                    <pre><code>display(spark.sql("""
+    SELECT region_name, COUNT(*) AS wards, SUM(beds) AS total_beds
+    FROM silver_hospital_facility
+    GROUP BY region_name
+    ORDER BY total_beds DESC
+"""))</code></pre>
+                    <p>You should see one row per region with the total number of wards and beds. This is the
+                       shape every downstream consumer (BI report, ontology, hospital agent) will read from.</p>
+                </div>
+            </li>
+        </ol>
+
+        <div class="callout tip">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>Why save as a managed Delta table?</strong> Writing with <code>saveAsTable</code> registers
+                the table in the Lakehouse metastore so it shows up automatically in the SQL endpoint, in Power BI's
+                Direct Lake mode, and in Fabric Data Agents. No extra plumbing.
+            </div>
+        </div>
+    </section>
+
+    <section id="step-3">
+        <h2>Step 3 - Create Gold SQL Views <span class="pill warehouse">SQL ENDPOINT</span></h2>
+
+        <p>
+            Gold-tier objects in this lab are intentionally lightweight: <strong>SQL views</strong> on the Lakehouse
+            SQL analytics endpoint. They give Power BI and the agents you'll build later a stable, friendly
+            contract without copying any data.
+        </p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open the SQL analytics endpoint of the Bronze Lakehouse</h3>
+                <div class="step-body">
+                    <p>From the workspace, open <code>lh_urbanpulse_bronze</code> and switch the upper-right toggle
+                       to <strong>SQL analytics endpoint</strong>.</p>
+                    <p>Click <strong>New SQL query</strong>.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Create a region-level capacity view</h3>
+                <div class="step-body">
+                    <p>Paste and run:</p>
+                    <pre><code>CREATE OR ALTER VIEW gold_region_capacity AS
+SELECT
+    region_id,
+    region_name,
+    COUNT(DISTINCT hospital_id) AS hospitals,
+    COUNT(*)                    AS wards,
+    SUM(beds)                   AS total_beds
+FROM silver_hospital_facility
+GROUP BY region_id, region_name;</code></pre>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Create a transit lines summary view</h3>
+                <div class="step-body">
+                    <p>The transit topology lives in <code>trainRoutes</code> from the Cosmos mirror. Add a
+                       lightweight Gold view for it too:</p>
+                    <pre><code>CREATE OR ALTER VIEW gold_transit_lines AS
+SELECT
+    line,
+    COUNT(*) AS station_count
+FROM trainRoutes
+GROUP BY line;</code></pre>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Sanity-check both views</h3>
+                <div class="step-body">
+                    <pre><code>SELECT * FROM gold_region_capacity ORDER BY total_beds DESC;
+SELECT * FROM gold_transit_lines  ORDER BY line;</code></pre>
+                    <p>Both should return rows. These are the views your Power BI report (M6) and Hospital agent
+                       (M8) will consume.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-4">
+        <h2>Step 4 - Materialized Lake View <span class="pill optional">OPTIONAL</span></h2>
+
+        <p>
+            If you want the region capacity numbers <em>persisted</em> as Delta with Fabric-managed refresh
+            (instead of computed on every query), promote the Gold view to a Materialized Lake View. This is a
+            preview-tier feature; skip it if your workspace doesn't have it yet.
+        </p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create the materialized view</h3>
+                <div class="step-body">
+                    <p>From the Bronze Lakehouse SQL endpoint, run:</p>
+                    <pre><code>CREATE MATERIALIZED LAKE VIEW mlv_region_capacity AS
+SELECT
+    region_id,
+    region_name,
+    COUNT(DISTINCT hospital_id) AS hospitals,
+    COUNT(*)                    AS wards,
+    SUM(beds)                   AS total_beds
+FROM silver_hospital_facility
+GROUP BY region_id, region_name;</code></pre>
+                    <p>Fabric will manage the refresh as the underlying Silver table changes. This is useful when
+                       the aggregates are read very frequently and recomputation cost matters.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="alternatives">
+        <h2>Alternative Transformation Paths</h2>
+
+        <p>
+            You picked notebook + SQL view in this module because that's the most common ISV pattern. Three other
+            paths cover different team preferences:
+        </p>
+
+        <ul>
+            <li>
+                <strong>Dataflow Gen2 (Power Query):</strong> visual, no-code data prep. Best for analysts who
+                already know Power Query and want to land curated tables without writing Spark or T-SQL.
+                <br/><a href="https://learn.microsoft.com/en-us/fabric/data-factory/tutorial-load-data-lakehouse-transform" target="_blank" rel="noopener">Tutorial - Copy &amp; transform with Dataflow</a>
+            </li>
+            <li>
+                <strong>Pipelines / Data Factory:</strong> orchestrate notebooks, dataflows, and copy activities
+                on a schedule. Layer this on top of any of the above when you need automation.
+            </li>
+            <li>
+                <strong>T-SQL in a Warehouse:</strong> if your downstream pattern is Warehouse-first (multi-table
+                writes, transactions), do the same shaping with T-SQL stored procedures inside a Fabric Warehouse
+                rather than views on the Lakehouse SQL endpoint.
+            </li>
+        </ul>
+    </section>
+
+    <section id="validation">
+        <div class="validation">
+            <h4>Validation</h4>
+            <ul>
+                <li><code>silver_hospital_facility</code> exists as a managed Delta table in the Bronze Lakehouse.</li>
+                <li><code>gold_region_capacity</code> and <code>gold_transit_lines</code> views return rows from the SQL endpoint.</li>
+                <li>You can name at least one scenario where Dataflow Gen2 or a Materialized Lake View would be the better choice.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="recap">
+        <h2>What You Just Built</h2>
+        <ul>
+            <li>A curated <strong>Silver</strong> Delta table joining hospitals, wards, and regions across two source systems.</li>
+            <li>Two <strong>Gold</strong> SQL views ready for Power BI and the Data Agents.</li>
+            <li>(Optional) a Materialized Lake View for managed-refresh aggregates.</li>
+        </ul>
+
+        <p>Module 5 reads these tables and views directly to build the live KQL dashboard, and Module 6 layers a Direct Lake semantic model on top.</p>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-3-streaming.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 3 · Real-Time Streaming Ingest</div>
+        </a>
+        <a class="nav-card next" href="module-5-kql-dashboard.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Module 5 · Live Dashboard</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>

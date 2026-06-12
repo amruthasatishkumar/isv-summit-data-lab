@@ -1,0 +1,5587 @@
+[
+  {
+    "id": "RED",
+    "routeId": "RED",
+    "color": "Red",
+    "trainIds": [
+      "Train-Red-1",
+      "Train-Red-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-NRT-01",
+        "name": "North Terminal",
+        "regionId": "R-NORTH",
+        "lat": 41.94,
+        "lon": -87.66,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-NRT-02",
+        "name": "Lincoln Park Junction",
+        "regionId": "R-NORTH",
+        "lat": 41.92,
+        "lon": -87.65,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-LP-01",
+        "name": "Loop Central",
+        "regionId": "R-LOOP",
+        "lat": 41.88,
+        "lon": -87.63,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-LP-02",
+        "name": "Federal Plaza",
+        "regionId": "R-LOOP",
+        "lat": 41.87,
+        "lon": -87.62,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-SH-01",
+        "name": "Lakeshore South",
+        "regionId": "R-SOUTH",
+        "lat": 41.81,
+        "lon": -87.59,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "BLUE",
+    "routeId": "BLUE",
+    "color": "Blue",
+    "trainIds": [
+      "Train-Blue-1",
+      "Train-Blue-2"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-AP-01",
+        "name": "Airport Terminal A",
+        "regionId": "R-AIRPORT",
+        "lat": 41.97,
+        "lon": -87.91,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-AP-02",
+        "name": "Airport Terminal B",
+        "regionId": "R-AIRPORT",
+        "lat": 41.97,
+        "lon": -87.89,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-WS-01",
+        "name": "West Industrial Yard",
+        "regionId": "R-WEST",
+        "lat": 41.87,
+        "lon": -87.71,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-LP-01",
+        "name": "Loop Central",
+        "regionId": "R-LOOP",
+        "lat": 41.88,
+        "lon": -87.63,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "GREEN",
+    "routeId": "GREEN",
+    "color": "Green",
+    "trainIds": [
+      "Train-Green-1",
+      "Train-Green-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-WS-02",
+        "name": "West Side Junction",
+        "regionId": "R-WEST",
+        "lat": 41.87,
+        "lon": -87.7,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-LP-03",
+        "name": "Loop North",
+        "regionId": "R-LOOP",
+        "lat": 41.89,
+        "lon": -87.63,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-LP-01",
+        "name": "Loop Central",
+        "regionId": "R-LOOP",
+        "lat": 41.88,
+        "lon": -87.63,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-SH-02",
+        "name": "Museum Campus",
+        "regionId": "R-SOUTH",
+        "lat": 41.86,
+        "lon": -87.62,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-SH-01",
+        "name": "Lakeshore South",
+        "regionId": "R-SOUTH",
+        "lat": 41.81,
+        "lon": -87.59,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-004",
+    "routeId": "RT-004",
+    "color": "Amber",
+    "trainIds": [
+      "Train-Amber-1",
+      "Train-Amber-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-004-01",
+        "name": "Elm Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.9154,
+        "lon": -87.8146,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-004-02",
+        "name": "Maple Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8064,
+        "lon": -87.8554,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-004-03",
+        "name": "Beech Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9291,
+        "lon": -87.7408,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-004-04",
+        "name": "Willow Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8789,
+        "lon": -87.5928,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-004-05",
+        "name": "Oak Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.7993,
+        "lon": -87.6513,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-004-06",
+        "name": "Cypress Station 6",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7327,
+        "lon": -87.5216,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-005",
+    "routeId": "RT-005",
+    "color": "Teal",
+    "trainIds": [
+      "Train-Teal-1",
+      "Train-Teal-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-005-01",
+        "name": "Willow Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.7516,
+        "lon": -87.9292,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-005-02",
+        "name": "Beech Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.9974,
+        "lon": -87.9172,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-005-03",
+        "name": "Cottonwood Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.7681,
+        "lon": -87.6366,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-005-04",
+        "name": "Magnolia Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.7854,
+        "lon": -87.6548,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-005-05",
+        "name": "Pine Station 5",
+        "regionId": "R-NORTH",
+        "lat": 41.9724,
+        "lon": -87.8515,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-006",
+    "routeId": "RT-006",
+    "color": "Violet",
+    "trainIds": [
+      "Train-Violet-1",
+      "Train-Violet-2",
+      "Train-Violet-3",
+      "Train-Violet-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-006-01",
+        "name": "Spruce Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7872,
+        "lon": -87.5682,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-006-02",
+        "name": "Birch Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.9805,
+        "lon": -87.6496,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-006-03",
+        "name": "Beech Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8111,
+        "lon": -87.6101,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-006-04",
+        "name": "Beech Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.9853,
+        "lon": -87.5486,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-006-05",
+        "name": "Spruce Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 41.8561,
+        "lon": -87.8784,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-006-06",
+        "name": "Walnut Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.7907,
+        "lon": -87.8387,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-007",
+    "routeId": "RT-007",
+    "color": "Crimson",
+    "trainIds": [
+      "Train-Crimson-1",
+      "Train-Crimson-2",
+      "Train-Crimson-3",
+      "Train-Crimson-4"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-007-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9194,
+        "lon": -87.8264,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-007-02",
+        "name": "Sycamore Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7821,
+        "lon": -87.7989,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-007-03",
+        "name": "Oak Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7484,
+        "lon": -87.8459,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-007-04",
+        "name": "Willow Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.7225,
+        "lon": -87.7666,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-007-05",
+        "name": "Walnut Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8455,
+        "lon": -87.8569,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH"
+    ]
+  },
+  {
+    "id": "RT-008",
+    "routeId": "RT-008",
+    "color": "Indigo",
+    "trainIds": [
+      "Train-Indigo-1",
+      "Train-Indigo-2",
+      "Train-Indigo-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-008-01",
+        "name": "Maple Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9999,
+        "lon": -87.6055,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-008-02",
+        "name": "Chestnut Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.7021,
+        "lon": -87.7917,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-008-03",
+        "name": "Juniper Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.8884,
+        "lon": -87.6194,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-008-04",
+        "name": "Aspen Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8709,
+        "lon": -87.8272,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-008-05",
+        "name": "Maple Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 41.8361,
+        "lon": -87.649,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-008-06",
+        "name": "Elm Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.9942,
+        "lon": -87.5362,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-009",
+    "routeId": "RT-009",
+    "color": "Coral",
+    "trainIds": [
+      "Train-Coral-1",
+      "Train-Coral-2",
+      "Train-Coral-3",
+      "Train-Coral-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-009-01",
+        "name": "Cottonwood Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.8975,
+        "lon": -87.9378,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-009-02",
+        "name": "Birch Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 42.0034,
+        "lon": -87.8682,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-009-03",
+        "name": "Magnolia Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.8146,
+        "lon": -87.7454,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-010",
+    "routeId": "RT-010",
+    "color": "Slate",
+    "trainIds": [
+      "Train-Slate-1",
+      "Train-Slate-2",
+      "Train-Slate-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-010-01",
+        "name": "Juniper Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.7883,
+        "lon": -87.9131,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-010-02",
+        "name": "Spruce Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7182,
+        "lon": -87.5216,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-010-03",
+        "name": "Oak Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.9734,
+        "lon": -87.6567,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-010-04",
+        "name": "Aspen Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.7698,
+        "lon": -87.9408,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-010-05",
+        "name": "Aspen Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.7442,
+        "lon": -87.6487,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-010-06",
+        "name": "Willow Station 6",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8628,
+        "lon": -87.8347,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-011",
+    "routeId": "RT-011",
+    "color": "Olive",
+    "trainIds": [
+      "Train-Olive-1",
+      "Train-Olive-2",
+      "Train-Olive-3"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-011-01",
+        "name": "Beech Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0373,
+        "lon": -87.6267,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-011-02",
+        "name": "Sycamore Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.7378,
+        "lon": -87.9384,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-011-03",
+        "name": "Cottonwood Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.9371,
+        "lon": -87.5188,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-011-04",
+        "name": "Willow Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.7266,
+        "lon": -87.6392,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-012",
+    "routeId": "RT-012",
+    "color": "Maroon",
+    "trainIds": [
+      "Train-Maroon-1",
+      "Train-Maroon-2",
+      "Train-Maroon-3",
+      "Train-Maroon-4"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-012-01",
+        "name": "Sycamore Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.9976,
+        "lon": -87.6798,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-012-02",
+        "name": "Cottonwood Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.9739,
+        "lon": -87.7938,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-012-03",
+        "name": "Sequoia Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.7241,
+        "lon": -87.6586,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-012-04",
+        "name": "Juniper Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.9878,
+        "lon": -87.9025,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-013",
+    "routeId": "RT-013",
+    "color": "Aqua",
+    "trainIds": [
+      "Train-Aqua-1",
+      "Train-Aqua-2",
+      "Train-Aqua-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-013-01",
+        "name": "Juniper Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.7616,
+        "lon": -87.7152,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-013-02",
+        "name": "Beech Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9829,
+        "lon": -87.7078,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-013-03",
+        "name": "Walnut Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.8525,
+        "lon": -87.621,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-013-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.9981,
+        "lon": -87.5762,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-013-05",
+        "name": "Hawthorn Station 5",
+        "regionId": "R-NORTH",
+        "lat": 42.0086,
+        "lon": -87.8403,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-013-06",
+        "name": "Cottonwood Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.9136,
+        "lon": -87.7795,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-014",
+    "routeId": "RT-014",
+    "color": "Bronze",
+    "trainIds": [
+      "Train-Bronze-1",
+      "Train-Bronze-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-014-01",
+        "name": "Elm Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.8706,
+        "lon": -87.7903,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-014-02",
+        "name": "Cypress Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.7979,
+        "lon": -87.6817,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-014-03",
+        "name": "Spruce Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.7036,
+        "lon": -87.5234,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-014-04",
+        "name": "Aspen Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.952,
+        "lon": -87.7301,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-014-05",
+        "name": "Chestnut Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.9261,
+        "lon": -87.7291,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-014-06",
+        "name": "Oak Station 6",
+        "regionId": "R-NORTH",
+        "lat": 41.803,
+        "lon": -87.768,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-015",
+    "routeId": "RT-015",
+    "color": "Copper",
+    "trainIds": [
+      "Train-Copper-1",
+      "Train-Copper-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-015-01",
+        "name": "Sequoia Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8656,
+        "lon": -87.7111,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-015-02",
+        "name": "Spruce Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.8158,
+        "lon": -87.6337,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-015-03",
+        "name": "Sycamore Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.788,
+        "lon": -87.8957,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-015-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.7418,
+        "lon": -87.7089,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-015-05",
+        "name": "Willow Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.7757,
+        "lon": -87.7321,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-016",
+    "routeId": "RT-016",
+    "color": "Emerald",
+    "trainIds": [
+      "Train-Emerald-1",
+      "Train-Emerald-2",
+      "Train-Emerald-3",
+      "Train-Emerald-4"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-016-01",
+        "name": "Willow Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.8037,
+        "lon": -87.7876,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-016-02",
+        "name": "Maple Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9478,
+        "lon": -87.893,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-016-03",
+        "name": "Cedar Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.8937,
+        "lon": -87.6362,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-016-04",
+        "name": "Chestnut Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.7359,
+        "lon": -87.9445,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-016-05",
+        "name": "Chestnut Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.8675,
+        "lon": -87.7967,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-017",
+    "routeId": "RT-017",
+    "color": "Magenta",
+    "trainIds": [
+      "Train-Magenta-1",
+      "Train-Magenta-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-017-01",
+        "name": "Pine Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.9877,
+        "lon": -87.7697,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-017-02",
+        "name": "Cottonwood Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.9203,
+        "lon": -87.9259,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-017-03",
+        "name": "Cottonwood Station 3",
+        "regionId": "R-LOOP",
+        "lat": 42.0322,
+        "lon": -87.9117,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-017-04",
+        "name": "Pine Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.8953,
+        "lon": -87.7627,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-017-05",
+        "name": "Beech Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.779,
+        "lon": -87.7148,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-018",
+    "routeId": "RT-018",
+    "color": "Cobalt",
+    "trainIds": [
+      "Train-Cobalt-1",
+      "Train-Cobalt-2",
+      "Train-Cobalt-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-018-01",
+        "name": "Cottonwood Station 1",
+        "regionId": "R-WEST",
+        "lat": 42.0465,
+        "lon": -87.8126,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-018-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9134,
+        "lon": -87.617,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-018-03",
+        "name": "Willow Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.7926,
+        "lon": -87.9135,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-018-04",
+        "name": "Elm Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.8932,
+        "lon": -87.8796,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-018-05",
+        "name": "Walnut Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 41.9413,
+        "lon": -87.7385,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-018-06",
+        "name": "Aspen Station 6",
+        "regionId": "R-NORTH",
+        "lat": 41.8008,
+        "lon": -87.8228,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-019",
+    "routeId": "RT-019",
+    "color": "Saffron",
+    "trainIds": [
+      "Train-Saffron-1",
+      "Train-Saffron-2",
+      "Train-Saffron-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-019-01",
+        "name": "Hawthorn Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.9757,
+        "lon": -87.6687,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-019-02",
+        "name": "Juniper Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.7402,
+        "lon": -87.8488,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-019-03",
+        "name": "Hawthorn Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.9893,
+        "lon": -87.9179,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP"
+    ]
+  },
+  {
+    "id": "RT-020",
+    "routeId": "RT-020",
+    "color": "Lavender",
+    "trainIds": [
+      "Train-Lavender-1",
+      "Train-Lavender-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-020-01",
+        "name": "Cottonwood Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0224,
+        "lon": -87.7524,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-020-02",
+        "name": "Sycamore Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.9449,
+        "lon": -87.5258,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-020-03",
+        "name": "Spruce Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8728,
+        "lon": -87.9138,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-020-04",
+        "name": "Juniper Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.9571,
+        "lon": -87.6783,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-020-05",
+        "name": "Oak Station 5",
+        "regionId": "R-NORTH",
+        "lat": 41.7801,
+        "lon": -87.6466,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-021",
+    "routeId": "RT-021",
+    "color": "Rose",
+    "trainIds": [
+      "Train-Rose-1",
+      "Train-Rose-2",
+      "Train-Rose-3",
+      "Train-Rose-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-021-01",
+        "name": "Cottonwood Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.7141,
+        "lon": -87.6097,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-021-02",
+        "name": "Poplar Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.928,
+        "lon": -87.5378,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-021-03",
+        "name": "Cottonwood Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.8526,
+        "lon": -87.5836,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-022",
+    "routeId": "RT-022",
+    "color": "Mint",
+    "trainIds": [
+      "Train-Mint-1",
+      "Train-Mint-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-022-01",
+        "name": "Juniper Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.8167,
+        "lon": -87.6484,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-022-02",
+        "name": "Cypress Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.8441,
+        "lon": -87.727,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-022-03",
+        "name": "Spruce Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.7128,
+        "lon": -87.9104,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-022-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.7406,
+        "lon": -87.6024,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-022-05",
+        "name": "Maple Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9302,
+        "lon": -87.7058,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-022-06",
+        "name": "Cedar Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.7657,
+        "lon": -87.7872,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-023",
+    "routeId": "RT-023",
+    "color": "Onyx",
+    "trainIds": [
+      "Train-Onyx-1",
+      "Train-Onyx-2",
+      "Train-Onyx-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-023-01",
+        "name": "Willow Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7935,
+        "lon": -87.891,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-023-02",
+        "name": "Walnut Station 2",
+        "regionId": "R-WEST",
+        "lat": 42.0083,
+        "lon": -87.7319,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-023-03",
+        "name": "Beech Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.9798,
+        "lon": -87.6306,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-023-04",
+        "name": "Spruce Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.7048,
+        "lon": -87.7664,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-023-05",
+        "name": "Pine Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.8615,
+        "lon": -87.8971,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-023-06",
+        "name": "Chestnut Station 6",
+        "regionId": "R-LOOP",
+        "lat": 42.0264,
+        "lon": -87.8187,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-024",
+    "routeId": "RT-024",
+    "color": "Amber",
+    "trainIds": [
+      "Train-Amber-1",
+      "Train-Amber-2",
+      "Train-Amber-3",
+      "Train-Amber-4"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-024-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 42.0431,
+        "lon": -87.8403,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-024-02",
+        "name": "Birch Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8343,
+        "lon": -87.5352,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-024-03",
+        "name": "Birch Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0024,
+        "lon": -87.8257,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-024-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 42.027,
+        "lon": -87.7215,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-024-05",
+        "name": "Sycamore Station 5",
+        "regionId": "R-NORTH",
+        "lat": 41.9541,
+        "lon": -87.5731,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-025",
+    "routeId": "RT-025",
+    "color": "Teal",
+    "trainIds": [
+      "Train-Teal-1",
+      "Train-Teal-2",
+      "Train-Teal-3",
+      "Train-Teal-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-025-01",
+        "name": "Walnut Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.8885,
+        "lon": -87.7947,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-025-02",
+        "name": "Spruce Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.832,
+        "lon": -87.5302,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-025-03",
+        "name": "Aspen Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.9001,
+        "lon": -87.8449,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-025-04",
+        "name": "Cedar Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8114,
+        "lon": -87.7372,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-025-05",
+        "name": "Magnolia Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 42.0459,
+        "lon": -87.5934,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-025-06",
+        "name": "Chestnut Station 6",
+        "regionId": "R-LOOP",
+        "lat": 42.0377,
+        "lon": -87.8932,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-026",
+    "routeId": "RT-026",
+    "color": "Violet",
+    "trainIds": [
+      "Train-Violet-1",
+      "Train-Violet-2",
+      "Train-Violet-3",
+      "Train-Violet-4"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-026-01",
+        "name": "Walnut Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7349,
+        "lon": -87.5403,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-026-02",
+        "name": "Birch Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.8435,
+        "lon": -87.6553,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-026-03",
+        "name": "Oak Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.8643,
+        "lon": -87.5139,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-026-04",
+        "name": "Beech Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.9424,
+        "lon": -87.6576,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-026-05",
+        "name": "Spruce Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.833,
+        "lon": -87.8075,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-027",
+    "routeId": "RT-027",
+    "color": "Crimson",
+    "trainIds": [
+      "Train-Crimson-1",
+      "Train-Crimson-2",
+      "Train-Crimson-3",
+      "Train-Crimson-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-027-01",
+        "name": "Cedar Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9161,
+        "lon": -87.8444,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-027-02",
+        "name": "Aspen Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9614,
+        "lon": -87.7547,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-027-03",
+        "name": "Pine Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.8553,
+        "lon": -87.6377,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-027-04",
+        "name": "Cedar Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.8135,
+        "lon": -87.9247,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-027-05",
+        "name": "Sequoia Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.8507,
+        "lon": -87.8401,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-027-06",
+        "name": "Cottonwood Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.9386,
+        "lon": -87.869,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-028",
+    "routeId": "RT-028",
+    "color": "Indigo",
+    "trainIds": [
+      "Train-Indigo-1",
+      "Train-Indigo-2"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-028-01",
+        "name": "Magnolia Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9169,
+        "lon": -87.8416,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-028-02",
+        "name": "Birch Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7813,
+        "lon": -87.6629,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-028-03",
+        "name": "Hawthorn Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.9334,
+        "lon": -87.5455,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-029",
+    "routeId": "RT-029",
+    "color": "Coral",
+    "trainIds": [
+      "Train-Coral-1",
+      "Train-Coral-2",
+      "Train-Coral-3"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-029-01",
+        "name": "Elm Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7259,
+        "lon": -87.5246,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-029-02",
+        "name": "Sycamore Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9236,
+        "lon": -87.7591,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-029-03",
+        "name": "Walnut Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.9959,
+        "lon": -87.8604,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-029-04",
+        "name": "Chestnut Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.7373,
+        "lon": -87.7784,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-029-05",
+        "name": "Cottonwood Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.8036,
+        "lon": -87.6353,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-030",
+    "routeId": "RT-030",
+    "color": "Slate",
+    "trainIds": [
+      "Train-Slate-1",
+      "Train-Slate-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-030-01",
+        "name": "Maple Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.8981,
+        "lon": -87.6414,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-030-02",
+        "name": "Beech Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.9608,
+        "lon": -87.5752,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-030-03",
+        "name": "Aspen Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.9125,
+        "lon": -87.7915,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-030-04",
+        "name": "Beech Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.7877,
+        "lon": -87.61,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-030-05",
+        "name": "Pine Station 5",
+        "regionId": "R-LOOP",
+        "lat": 42.0162,
+        "lon": -87.6591,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-030-06",
+        "name": "Walnut Station 6",
+        "regionId": "R-WEST",
+        "lat": 41.7117,
+        "lon": -87.7858,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-031",
+    "routeId": "RT-031",
+    "color": "Olive",
+    "trainIds": [
+      "Train-Olive-1",
+      "Train-Olive-2"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-031-01",
+        "name": "Cypress Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.9616,
+        "lon": -87.871,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-031-02",
+        "name": "Spruce Station 2",
+        "regionId": "R-LOOP",
+        "lat": 42.0068,
+        "lon": -87.7854,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-031-03",
+        "name": "Hawthorn Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9907,
+        "lon": -87.8344,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-032",
+    "routeId": "RT-032",
+    "color": "Maroon",
+    "trainIds": [
+      "Train-Maroon-1",
+      "Train-Maroon-2",
+      "Train-Maroon-3"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-032-01",
+        "name": "Pine Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.8639,
+        "lon": -87.9161,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-032-02",
+        "name": "Magnolia Station 2",
+        "regionId": "R-LOOP",
+        "lat": 42.0385,
+        "lon": -87.5879,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-032-03",
+        "name": "Oak Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.9767,
+        "lon": -87.9437,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-032-04",
+        "name": "Pine Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8592,
+        "lon": -87.6472,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-032-05",
+        "name": "Cottonwood Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.8334,
+        "lon": -87.6627,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-033",
+    "routeId": "RT-033",
+    "color": "Aqua",
+    "trainIds": [
+      "Train-Aqua-1",
+      "Train-Aqua-2",
+      "Train-Aqua-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-033-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.7088,
+        "lon": -87.5521,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-033-02",
+        "name": "Cypress Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0203,
+        "lon": -87.8504,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-033-03",
+        "name": "Walnut Station 3",
+        "regionId": "R-NORTH",
+        "lat": 42.0183,
+        "lon": -87.814,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH"
+    ]
+  },
+  {
+    "id": "RT-034",
+    "routeId": "RT-034",
+    "color": "Bronze",
+    "trainIds": [
+      "Train-Bronze-1",
+      "Train-Bronze-2",
+      "Train-Bronze-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-034-01",
+        "name": "Cedar Station 1",
+        "regionId": "R-LOOP",
+        "lat": 42.0312,
+        "lon": -87.813,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-034-02",
+        "name": "Pine Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.734,
+        "lon": -87.5507,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-034-03",
+        "name": "Magnolia Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.8588,
+        "lon": -87.6483,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-035",
+    "routeId": "RT-035",
+    "color": "Copper",
+    "trainIds": [
+      "Train-Copper-1",
+      "Train-Copper-2",
+      "Train-Copper-3",
+      "Train-Copper-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-035-01",
+        "name": "Birch Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0099,
+        "lon": -87.6553,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-035-02",
+        "name": "Beech Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.8428,
+        "lon": -87.5218,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-035-03",
+        "name": "Sequoia Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.776,
+        "lon": -87.7499,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-035-04",
+        "name": "Sequoia Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.7348,
+        "lon": -87.6414,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-035-05",
+        "name": "Sequoia Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7212,
+        "lon": -87.8259,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-035-06",
+        "name": "Walnut Station 6",
+        "regionId": "R-NORTH",
+        "lat": 41.7321,
+        "lon": -87.8546,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-036",
+    "routeId": "RT-036",
+    "color": "Emerald",
+    "trainIds": [
+      "Train-Emerald-1",
+      "Train-Emerald-2",
+      "Train-Emerald-3",
+      "Train-Emerald-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-036-01",
+        "name": "Cypress Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7852,
+        "lon": -87.8933,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-036-02",
+        "name": "Willow Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.724,
+        "lon": -87.6057,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-036-03",
+        "name": "Cottonwood Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.7756,
+        "lon": -87.5586,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH"
+    ]
+  },
+  {
+    "id": "RT-037",
+    "routeId": "RT-037",
+    "color": "Magenta",
+    "trainIds": [
+      "Train-Magenta-1",
+      "Train-Magenta-2",
+      "Train-Magenta-3"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-037-01",
+        "name": "Maple Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.797,
+        "lon": -87.5072,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-037-02",
+        "name": "Spruce Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.7877,
+        "lon": -87.8715,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-037-03",
+        "name": "Birch Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.7052,
+        "lon": -87.5945,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-037-04",
+        "name": "Cottonwood Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.8133,
+        "lon": -87.8716,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH"
+    ]
+  },
+  {
+    "id": "RT-038",
+    "routeId": "RT-038",
+    "color": "Cobalt",
+    "trainIds": [
+      "Train-Cobalt-1",
+      "Train-Cobalt-2"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-038-01",
+        "name": "Poplar Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.7398,
+        "lon": -87.9214,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-038-02",
+        "name": "Sequoia Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.8796,
+        "lon": -87.9009,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-038-03",
+        "name": "Aspen Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0309,
+        "lon": -87.9305,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-038-04",
+        "name": "Sycamore Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8603,
+        "lon": -87.5162,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-039",
+    "routeId": "RT-039",
+    "color": "Saffron",
+    "trainIds": [
+      "Train-Saffron-1",
+      "Train-Saffron-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-039-01",
+        "name": "Juniper Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.9401,
+        "lon": -87.7294,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-039-02",
+        "name": "Oak Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 42.0147,
+        "lon": -87.805,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-039-03",
+        "name": "Oak Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.7442,
+        "lon": -87.6691,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-039-04",
+        "name": "Spruce Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9493,
+        "lon": -87.7786,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-039-05",
+        "name": "Poplar Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8032,
+        "lon": -87.7225,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-039-06",
+        "name": "Pine Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.9776,
+        "lon": -87.8985,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-040",
+    "routeId": "RT-040",
+    "color": "Lavender",
+    "trainIds": [
+      "Train-Lavender-1",
+      "Train-Lavender-2",
+      "Train-Lavender-3",
+      "Train-Lavender-4"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-040-01",
+        "name": "Walnut Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 42.0108,
+        "lon": -87.7638,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-040-02",
+        "name": "Magnolia Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.8456,
+        "lon": -87.9072,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-040-03",
+        "name": "Cypress Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.9328,
+        "lon": -87.7816,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-040-04",
+        "name": "Chestnut Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.7235,
+        "lon": -87.5757,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-041",
+    "routeId": "RT-041",
+    "color": "Rose",
+    "trainIds": [
+      "Train-Rose-1",
+      "Train-Rose-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-041-01",
+        "name": "Sequoia Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.9841,
+        "lon": -87.6996,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-041-02",
+        "name": "Spruce Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8966,
+        "lon": -87.6485,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-041-03",
+        "name": "Sequoia Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 42.0058,
+        "lon": -87.5265,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-041-04",
+        "name": "Cedar Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 42.0389,
+        "lon": -87.6798,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-041-05",
+        "name": "Pine Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.9023,
+        "lon": -87.8543,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-041-06",
+        "name": "Aspen Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.9965,
+        "lon": -87.7924,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-042",
+    "routeId": "RT-042",
+    "color": "Mint",
+    "trainIds": [
+      "Train-Mint-1",
+      "Train-Mint-2",
+      "Train-Mint-3",
+      "Train-Mint-4"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-042-01",
+        "name": "Hawthorn Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.9009,
+        "lon": -87.5868,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-042-02",
+        "name": "Beech Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9148,
+        "lon": -87.6608,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-042-03",
+        "name": "Beech Station 3",
+        "regionId": "R-NORTH",
+        "lat": 42.0252,
+        "lon": -87.5767,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-042-04",
+        "name": "Maple Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.7631,
+        "lon": -87.6338,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-042-05",
+        "name": "Cypress Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.8229,
+        "lon": -87.8684,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-043",
+    "routeId": "RT-043",
+    "color": "Onyx",
+    "trainIds": [
+      "Train-Onyx-1",
+      "Train-Onyx-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-043-01",
+        "name": "Birch Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.9593,
+        "lon": -87.5127,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-043-02",
+        "name": "Poplar Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7753,
+        "lon": -87.7611,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-043-03",
+        "name": "Elm Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.8295,
+        "lon": -87.6253,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-043-04",
+        "name": "Beech Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7297,
+        "lon": -87.9263,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-043-05",
+        "name": "Beech Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.7174,
+        "lon": -87.9133,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-043-06",
+        "name": "Juniper Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.87,
+        "lon": -87.7511,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-044",
+    "routeId": "RT-044",
+    "color": "Amber",
+    "trainIds": [
+      "Train-Amber-1",
+      "Train-Amber-2",
+      "Train-Amber-3"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-044-01",
+        "name": "Pine Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8208,
+        "lon": -87.9001,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-044-02",
+        "name": "Chestnut Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8844,
+        "lon": -87.8112,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-044-03",
+        "name": "Magnolia Station 3",
+        "regionId": "R-LOOP",
+        "lat": 42.0446,
+        "lon": -87.9253,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-044-04",
+        "name": "Sycamore Station 4",
+        "regionId": "R-LOOP",
+        "lat": 42.0309,
+        "lon": -87.6047,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP"
+    ]
+  },
+  {
+    "id": "RT-045",
+    "routeId": "RT-045",
+    "color": "Teal",
+    "trainIds": [
+      "Train-Teal-1",
+      "Train-Teal-2",
+      "Train-Teal-3"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-045-01",
+        "name": "Pine Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.7027,
+        "lon": -87.6138,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-045-02",
+        "name": "Birch Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.8331,
+        "lon": -87.6333,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-045-03",
+        "name": "Spruce Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9917,
+        "lon": -87.5872,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-045-04",
+        "name": "Magnolia Station 4",
+        "regionId": "R-NORTH",
+        "lat": 42.0016,
+        "lon": -87.931,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-045-05",
+        "name": "Walnut Station 5",
+        "regionId": "R-NORTH",
+        "lat": 42.0224,
+        "lon": -87.5621,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-046",
+    "routeId": "RT-046",
+    "color": "Violet",
+    "trainIds": [
+      "Train-Violet-1",
+      "Train-Violet-2",
+      "Train-Violet-3",
+      "Train-Violet-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-046-01",
+        "name": "Magnolia Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9483,
+        "lon": -87.762,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-046-02",
+        "name": "Magnolia Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7073,
+        "lon": -87.8039,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-046-03",
+        "name": "Walnut Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9912,
+        "lon": -87.5361,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-046-04",
+        "name": "Juniper Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.9956,
+        "lon": -87.8405,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-046-05",
+        "name": "Magnolia Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8834,
+        "lon": -87.7719,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-046-06",
+        "name": "Cypress Station 6",
+        "regionId": "R-WEST",
+        "lat": 41.7776,
+        "lon": -87.5994,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-047",
+    "routeId": "RT-047",
+    "color": "Crimson",
+    "trainIds": [
+      "Train-Crimson-1",
+      "Train-Crimson-2"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-047-01",
+        "name": "Poplar Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7679,
+        "lon": -87.6007,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-047-02",
+        "name": "Birch Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.7827,
+        "lon": -87.8841,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-047-03",
+        "name": "Elm Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.9108,
+        "lon": -87.6079,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-048",
+    "routeId": "RT-048",
+    "color": "Indigo",
+    "trainIds": [
+      "Train-Indigo-1",
+      "Train-Indigo-2",
+      "Train-Indigo-3",
+      "Train-Indigo-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-048-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.8624,
+        "lon": -87.6963,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-048-02",
+        "name": "Walnut Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9384,
+        "lon": -87.5531,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-048-03",
+        "name": "Cypress Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0025,
+        "lon": -87.6678,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP"
+    ]
+  },
+  {
+    "id": "RT-049",
+    "routeId": "RT-049",
+    "color": "Coral",
+    "trainIds": [
+      "Train-Coral-1",
+      "Train-Coral-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-049-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.8548,
+        "lon": -87.8137,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-049-02",
+        "name": "Cottonwood Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.7197,
+        "lon": -87.7217,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-049-03",
+        "name": "Walnut Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.8582,
+        "lon": -87.9244,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-049-04",
+        "name": "Oak Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.9256,
+        "lon": -87.5102,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-049-05",
+        "name": "Beech Station 5",
+        "regionId": "R-NORTH",
+        "lat": 41.9079,
+        "lon": -87.777,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-049-06",
+        "name": "Spruce Station 6",
+        "regionId": "R-AIRPORT",
+        "lat": 42.034,
+        "lon": -87.6175,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-050",
+    "routeId": "RT-050",
+    "color": "Slate",
+    "trainIds": [
+      "Train-Slate-1",
+      "Train-Slate-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-050-01",
+        "name": "Willow Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8125,
+        "lon": -87.736,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-050-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.8577,
+        "lon": -87.5851,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-050-03",
+        "name": "Oak Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.8766,
+        "lon": -87.8723,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-050-04",
+        "name": "Walnut Station 4",
+        "regionId": "R-LOOP",
+        "lat": 42.0468,
+        "lon": -87.7142,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-050-05",
+        "name": "Elm Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8274,
+        "lon": -87.5369,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-050-06",
+        "name": "Juniper Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.9711,
+        "lon": -87.6445,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-051",
+    "routeId": "RT-051",
+    "color": "Olive",
+    "trainIds": [
+      "Train-Olive-1",
+      "Train-Olive-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-051-01",
+        "name": "Cypress Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7331,
+        "lon": -87.6447,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-051-02",
+        "name": "Hawthorn Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9533,
+        "lon": -87.6545,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-051-03",
+        "name": "Birch Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8167,
+        "lon": -87.6878,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-051-04",
+        "name": "Sequoia Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.8086,
+        "lon": -87.6548,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-051-05",
+        "name": "Birch Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 41.9083,
+        "lon": -87.5279,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-052",
+    "routeId": "RT-052",
+    "color": "Maroon",
+    "trainIds": [
+      "Train-Maroon-1",
+      "Train-Maroon-2",
+      "Train-Maroon-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-052-01",
+        "name": "Birch Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.9345,
+        "lon": -87.577,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-052-02",
+        "name": "Oak Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9261,
+        "lon": -87.7595,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-052-03",
+        "name": "Maple Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.8269,
+        "lon": -87.8689,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-052-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-LOOP",
+        "lat": 42.0317,
+        "lon": -87.7312,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-052-05",
+        "name": "Birch Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.7542,
+        "lon": -87.8169,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-052-06",
+        "name": "Poplar Station 6",
+        "regionId": "R-NORTH",
+        "lat": 41.9698,
+        "lon": -87.5742,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-053",
+    "routeId": "RT-053",
+    "color": "Aqua",
+    "trainIds": [
+      "Train-Aqua-1",
+      "Train-Aqua-2",
+      "Train-Aqua-3",
+      "Train-Aqua-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-053-01",
+        "name": "Beech Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.7459,
+        "lon": -87.7805,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-053-02",
+        "name": "Elm Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.991,
+        "lon": -87.603,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-053-03",
+        "name": "Walnut Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.7153,
+        "lon": -87.7861,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-054",
+    "routeId": "RT-054",
+    "color": "Bronze",
+    "trainIds": [
+      "Train-Bronze-1",
+      "Train-Bronze-2",
+      "Train-Bronze-3",
+      "Train-Bronze-4"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-054-01",
+        "name": "Beech Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.7997,
+        "lon": -87.6132,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-054-02",
+        "name": "Aspen Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.8869,
+        "lon": -87.8107,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-054-03",
+        "name": "Willow Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.8287,
+        "lon": -87.5238,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-054-04",
+        "name": "Walnut Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.9693,
+        "lon": -87.5998,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-055",
+    "routeId": "RT-055",
+    "color": "Copper",
+    "trainIds": [
+      "Train-Copper-1",
+      "Train-Copper-2",
+      "Train-Copper-3",
+      "Train-Copper-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-055-01",
+        "name": "Willow Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.9804,
+        "lon": -87.8877,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-055-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9244,
+        "lon": -87.5566,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-055-03",
+        "name": "Pine Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.949,
+        "lon": -87.7178,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-055-04",
+        "name": "Sycamore Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.7294,
+        "lon": -87.8779,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-055-05",
+        "name": "Poplar Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 41.7516,
+        "lon": -87.7531,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-055-06",
+        "name": "Walnut Station 6",
+        "regionId": "R-LOOP",
+        "lat": 42.0096,
+        "lon": -87.5313,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-056",
+    "routeId": "RT-056",
+    "color": "Emerald",
+    "trainIds": [
+      "Train-Emerald-1",
+      "Train-Emerald-2",
+      "Train-Emerald-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-056-01",
+        "name": "Poplar Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.8309,
+        "lon": -87.7762,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-056-02",
+        "name": "Sequoia Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7786,
+        "lon": -87.8066,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-056-03",
+        "name": "Cypress Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.977,
+        "lon": -87.8881,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-057",
+    "routeId": "RT-057",
+    "color": "Magenta",
+    "trainIds": [
+      "Train-Magenta-1",
+      "Train-Magenta-2",
+      "Train-Magenta-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-057-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.857,
+        "lon": -87.9476,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-057-02",
+        "name": "Maple Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7896,
+        "lon": -87.5743,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-057-03",
+        "name": "Beech Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8847,
+        "lon": -87.9,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-057-04",
+        "name": "Aspen Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.8054,
+        "lon": -87.9285,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-057-05",
+        "name": "Beech Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 41.86,
+        "lon": -87.9001,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-057-06",
+        "name": "Beech Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.8876,
+        "lon": -87.6656,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-058",
+    "routeId": "RT-058",
+    "color": "Cobalt",
+    "trainIds": [
+      "Train-Cobalt-1",
+      "Train-Cobalt-2",
+      "Train-Cobalt-3",
+      "Train-Cobalt-4"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-058-01",
+        "name": "Sycamore Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.8502,
+        "lon": -87.6733,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-058-02",
+        "name": "Cottonwood Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.8458,
+        "lon": -87.651,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-058-03",
+        "name": "Poplar Station 3",
+        "regionId": "R-NORTH",
+        "lat": 42.0411,
+        "lon": -87.9195,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-058-04",
+        "name": "Spruce Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8776,
+        "lon": -87.5053,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH"
+    ]
+  },
+  {
+    "id": "RT-059",
+    "routeId": "RT-059",
+    "color": "Saffron",
+    "trainIds": [
+      "Train-Saffron-1",
+      "Train-Saffron-2",
+      "Train-Saffron-3",
+      "Train-Saffron-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-059-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.7152,
+        "lon": -87.7759,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-059-02",
+        "name": "Hawthorn Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9616,
+        "lon": -87.7893,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-059-03",
+        "name": "Sequoia Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.7844,
+        "lon": -87.6543,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-060",
+    "routeId": "RT-060",
+    "color": "Lavender",
+    "trainIds": [
+      "Train-Lavender-1",
+      "Train-Lavender-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-060-01",
+        "name": "Cedar Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.8233,
+        "lon": -87.7977,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-060-02",
+        "name": "Walnut Station 2",
+        "regionId": "R-LOOP",
+        "lat": 42.0433,
+        "lon": -87.7347,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-060-03",
+        "name": "Birch Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.7221,
+        "lon": -87.6007,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-060-04",
+        "name": "Cedar Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8027,
+        "lon": -87.9303,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-060-05",
+        "name": "Cedar Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.8105,
+        "lon": -87.8105,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-061",
+    "routeId": "RT-061",
+    "color": "Rose",
+    "trainIds": [
+      "Train-Rose-1",
+      "Train-Rose-2",
+      "Train-Rose-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-061-01",
+        "name": "Cedar Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.9637,
+        "lon": -87.864,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-061-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-WEST",
+        "lat": 42.003,
+        "lon": -87.8006,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-061-03",
+        "name": "Sequoia Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.8529,
+        "lon": -87.77,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-061-04",
+        "name": "Magnolia Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8187,
+        "lon": -87.8659,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-061-05",
+        "name": "Sequoia Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 42.0235,
+        "lon": -87.7163,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-061-06",
+        "name": "Juniper Station 6",
+        "regionId": "R-NORTH",
+        "lat": 41.7276,
+        "lon": -87.6789,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-062",
+    "routeId": "RT-062",
+    "color": "Mint",
+    "trainIds": [
+      "Train-Mint-1",
+      "Train-Mint-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-062-01",
+        "name": "Pine Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.728,
+        "lon": -87.6526,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-062-02",
+        "name": "Walnut Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9109,
+        "lon": -87.7582,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-062-03",
+        "name": "Sequoia Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.8565,
+        "lon": -87.6229,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-062-04",
+        "name": "Beech Station 4",
+        "regionId": "R-WEST",
+        "lat": 42.0494,
+        "lon": -87.8265,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-062-05",
+        "name": "Oak Station 5",
+        "regionId": "R-NORTH",
+        "lat": 41.9349,
+        "lon": -87.7672,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-063",
+    "routeId": "RT-063",
+    "color": "Onyx",
+    "trainIds": [
+      "Train-Onyx-1",
+      "Train-Onyx-2",
+      "Train-Onyx-3",
+      "Train-Onyx-4"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-063-01",
+        "name": "Birch Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.997,
+        "lon": -87.6449,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-063-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.7442,
+        "lon": -87.8438,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-063-03",
+        "name": "Sequoia Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.834,
+        "lon": -87.6947,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-063-04",
+        "name": "Birch Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9377,
+        "lon": -87.523,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-064",
+    "routeId": "RT-064",
+    "color": "Amber",
+    "trainIds": [
+      "Train-Amber-1",
+      "Train-Amber-2",
+      "Train-Amber-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-064-01",
+        "name": "Cottonwood Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7482,
+        "lon": -87.7849,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-064-02",
+        "name": "Hawthorn Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.7874,
+        "lon": -87.8989,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-064-03",
+        "name": "Chestnut Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.8812,
+        "lon": -87.5389,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-064-04",
+        "name": "Hawthorn Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.9712,
+        "lon": -87.6332,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-064-05",
+        "name": "Beech Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.8,
+        "lon": -87.5376,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-064-06",
+        "name": "Willow Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.7429,
+        "lon": -87.5662,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-065",
+    "routeId": "RT-065",
+    "color": "Teal",
+    "trainIds": [
+      "Train-Teal-1",
+      "Train-Teal-2",
+      "Train-Teal-3"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-065-01",
+        "name": "Oak Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.9837,
+        "lon": -87.5146,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-065-02",
+        "name": "Sequoia Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9483,
+        "lon": -87.7025,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-065-03",
+        "name": "Sycamore Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.998,
+        "lon": -87.6297,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-065-04",
+        "name": "Sequoia Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.8781,
+        "lon": -87.8954,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-066",
+    "routeId": "RT-066",
+    "color": "Violet",
+    "trainIds": [
+      "Train-Violet-1",
+      "Train-Violet-2"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-066-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.7092,
+        "lon": -87.7007,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-066-02",
+        "name": "Walnut Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.9813,
+        "lon": -87.7018,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-066-03",
+        "name": "Oak Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.723,
+        "lon": -87.7708,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-066-04",
+        "name": "Poplar Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8438,
+        "lon": -87.7658,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-067",
+    "routeId": "RT-067",
+    "color": "Crimson",
+    "trainIds": [
+      "Train-Crimson-1",
+      "Train-Crimson-2",
+      "Train-Crimson-3",
+      "Train-Crimson-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-067-01",
+        "name": "Cypress Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.9248,
+        "lon": -87.7475,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-067-02",
+        "name": "Sequoia Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7449,
+        "lon": -87.5769,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-067-03",
+        "name": "Cottonwood Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7637,
+        "lon": -87.5152,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP"
+    ]
+  },
+  {
+    "id": "RT-068",
+    "routeId": "RT-068",
+    "color": "Indigo",
+    "trainIds": [
+      "Train-Indigo-1",
+      "Train-Indigo-2",
+      "Train-Indigo-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-068-01",
+        "name": "Poplar Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7536,
+        "lon": -87.8759,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-068-02",
+        "name": "Aspen Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.8211,
+        "lon": -87.5266,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-068-03",
+        "name": "Oak Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.7877,
+        "lon": -87.6642,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-069",
+    "routeId": "RT-069",
+    "color": "Coral",
+    "trainIds": [
+      "Train-Coral-1",
+      "Train-Coral-2",
+      "Train-Coral-3",
+      "Train-Coral-4"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-069-01",
+        "name": "Sycamore Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.915,
+        "lon": -87.908,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-069-02",
+        "name": "Cottonwood Station 2",
+        "regionId": "R-LOOP",
+        "lat": 42.0296,
+        "lon": -87.8806,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-069-03",
+        "name": "Beech Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8182,
+        "lon": -87.5342,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-069-04",
+        "name": "Maple Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.7284,
+        "lon": -87.5232,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-069-05",
+        "name": "Hawthorn Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9279,
+        "lon": -87.6049,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH"
+    ]
+  },
+  {
+    "id": "RT-070",
+    "routeId": "RT-070",
+    "color": "Slate",
+    "trainIds": [
+      "Train-Slate-1",
+      "Train-Slate-2",
+      "Train-Slate-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-070-01",
+        "name": "Spruce Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.8014,
+        "lon": -87.5195,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-070-02",
+        "name": "Aspen Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.9816,
+        "lon": -87.6418,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-070-03",
+        "name": "Walnut Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.7255,
+        "lon": -87.923,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-071",
+    "routeId": "RT-071",
+    "color": "Olive",
+    "trainIds": [
+      "Train-Olive-1",
+      "Train-Olive-2",
+      "Train-Olive-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-071-01",
+        "name": "Walnut Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.7714,
+        "lon": -87.677,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-071-02",
+        "name": "Cypress Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.957,
+        "lon": -87.5627,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-071-03",
+        "name": "Birch Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.9662,
+        "lon": -87.7183,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-071-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.7846,
+        "lon": -87.8949,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-071-05",
+        "name": "Aspen Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 41.7493,
+        "lon": -87.9272,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-071-06",
+        "name": "Beech Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.8463,
+        "lon": -87.5168,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-072",
+    "routeId": "RT-072",
+    "color": "Maroon",
+    "trainIds": [
+      "Train-Maroon-1",
+      "Train-Maroon-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-072-01",
+        "name": "Cypress Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7664,
+        "lon": -87.8783,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-072-02",
+        "name": "Walnut Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8746,
+        "lon": -87.8112,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-072-03",
+        "name": "Oak Station 3",
+        "regionId": "R-NORTH",
+        "lat": 42.0308,
+        "lon": -87.7225,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-072-04",
+        "name": "Willow Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.9042,
+        "lon": -87.9281,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-072-05",
+        "name": "Chestnut Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.9091,
+        "lon": -87.5707,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-073",
+    "routeId": "RT-073",
+    "color": "Aqua",
+    "trainIds": [
+      "Train-Aqua-1",
+      "Train-Aqua-2",
+      "Train-Aqua-3",
+      "Train-Aqua-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-073-01",
+        "name": "Spruce Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.7029,
+        "lon": -87.9016,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-073-02",
+        "name": "Hawthorn Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.9546,
+        "lon": -87.6063,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-073-03",
+        "name": "Cedar Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.8402,
+        "lon": -87.6934,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-073-04",
+        "name": "Sequoia Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.8936,
+        "lon": -87.9169,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-073-05",
+        "name": "Walnut Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9675,
+        "lon": -87.8241,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-073-06",
+        "name": "Beech Station 6",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7416,
+        "lon": -87.5112,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-074",
+    "routeId": "RT-074",
+    "color": "Bronze",
+    "trainIds": [
+      "Train-Bronze-1",
+      "Train-Bronze-2",
+      "Train-Bronze-3"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-074-01",
+        "name": "Spruce Station 1",
+        "regionId": "R-WEST",
+        "lat": 42.0286,
+        "lon": -87.6103,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-074-02",
+        "name": "Beech Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.8782,
+        "lon": -87.725,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-074-03",
+        "name": "Cedar Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.748,
+        "lon": -87.8001,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-074-04",
+        "name": "Poplar Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8599,
+        "lon": -87.6772,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-074-05",
+        "name": "Birch Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8148,
+        "lon": -87.6741,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-075",
+    "routeId": "RT-075",
+    "color": "Copper",
+    "trainIds": [
+      "Train-Copper-1",
+      "Train-Copper-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-075-01",
+        "name": "Sycamore Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9078,
+        "lon": -87.7217,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-075-02",
+        "name": "Spruce Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8714,
+        "lon": -87.6967,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-075-03",
+        "name": "Maple Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.8289,
+        "lon": -87.6468,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-075-04",
+        "name": "Cottonwood Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8077,
+        "lon": -87.5456,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-075-05",
+        "name": "Beech Station 5",
+        "regionId": "R-NORTH",
+        "lat": 41.8661,
+        "lon": -87.5148,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-075-06",
+        "name": "Cottonwood Station 6",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7796,
+        "lon": -87.9269,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-076",
+    "routeId": "RT-076",
+    "color": "Emerald",
+    "trainIds": [
+      "Train-Emerald-1",
+      "Train-Emerald-2",
+      "Train-Emerald-3"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-076-01",
+        "name": "Beech Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9711,
+        "lon": -87.7789,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-076-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-LOOP",
+        "lat": 41.9004,
+        "lon": -87.6348,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-076-03",
+        "name": "Maple Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.8544,
+        "lon": -87.7615,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-076-04",
+        "name": "Willow Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8436,
+        "lon": -87.6013,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-077",
+    "routeId": "RT-077",
+    "color": "Magenta",
+    "trainIds": [
+      "Train-Magenta-1",
+      "Train-Magenta-2",
+      "Train-Magenta-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-077-01",
+        "name": "Poplar Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.7726,
+        "lon": -87.8037,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-077-02",
+        "name": "Poplar Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.8319,
+        "lon": -87.5195,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-077-03",
+        "name": "Spruce Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.8198,
+        "lon": -87.7906,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-078",
+    "routeId": "RT-078",
+    "color": "Cobalt",
+    "trainIds": [
+      "Train-Cobalt-1",
+      "Train-Cobalt-2",
+      "Train-Cobalt-3",
+      "Train-Cobalt-4"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-078-01",
+        "name": "Chestnut Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7673,
+        "lon": -87.8391,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-078-02",
+        "name": "Sycamore Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7787,
+        "lon": -87.5122,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-078-03",
+        "name": "Sycamore Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.9467,
+        "lon": -87.6394,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-078-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8679,
+        "lon": -87.6978,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-078-05",
+        "name": "Sycamore Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.7427,
+        "lon": -87.6455,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-079",
+    "routeId": "RT-079",
+    "color": "Saffron",
+    "trainIds": [
+      "Train-Saffron-1",
+      "Train-Saffron-2",
+      "Train-Saffron-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-079-01",
+        "name": "Birch Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.8017,
+        "lon": -87.8206,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-079-02",
+        "name": "Sequoia Station 2",
+        "regionId": "R-NORTH",
+        "lat": 42.0234,
+        "lon": -87.6548,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-079-03",
+        "name": "Willow Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.7707,
+        "lon": -87.7076,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-079-04",
+        "name": "Hawthorn Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.748,
+        "lon": -87.6729,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-079-05",
+        "name": "Aspen Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7849,
+        "lon": -87.6486,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-079-06",
+        "name": "Aspen Station 6",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9233,
+        "lon": -87.9264,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-080",
+    "routeId": "RT-080",
+    "color": "Lavender",
+    "trainIds": [
+      "Train-Lavender-1",
+      "Train-Lavender-2",
+      "Train-Lavender-3"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-080-01",
+        "name": "Pine Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.9384,
+        "lon": -87.8881,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-080-02",
+        "name": "Elm Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8424,
+        "lon": -87.5292,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-080-03",
+        "name": "Chestnut Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.9277,
+        "lon": -87.6098,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-080-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.7999,
+        "lon": -87.9234,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-080-05",
+        "name": "Cottonwood Station 5",
+        "regionId": "R-NORTH",
+        "lat": 41.7813,
+        "lon": -87.6176,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-081",
+    "routeId": "RT-081",
+    "color": "Rose",
+    "trainIds": [
+      "Train-Rose-1",
+      "Train-Rose-2"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-081-01",
+        "name": "Elm Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 42.0269,
+        "lon": -87.9336,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-081-02",
+        "name": "Chestnut Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.7652,
+        "lon": -87.6129,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-081-03",
+        "name": "Cedar Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.7032,
+        "lon": -87.6944,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-081-04",
+        "name": "Cypress Station 4",
+        "regionId": "R-NORTH",
+        "lat": 41.7996,
+        "lon": -87.5049,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-082",
+    "routeId": "RT-082",
+    "color": "Mint",
+    "trainIds": [
+      "Train-Mint-1",
+      "Train-Mint-2",
+      "Train-Mint-3",
+      "Train-Mint-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-082-01",
+        "name": "Poplar Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.8638,
+        "lon": -87.8632,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-082-02",
+        "name": "Cypress Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7569,
+        "lon": -87.7435,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-082-03",
+        "name": "Elm Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.7049,
+        "lon": -87.7983,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-082-04",
+        "name": "Cottonwood Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.936,
+        "lon": -87.8631,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-082-05",
+        "name": "Magnolia Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9894,
+        "lon": -87.7181,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-082-06",
+        "name": "Magnolia Station 6",
+        "regionId": "R-NORTH",
+        "lat": 41.9342,
+        "lon": -87.8668,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-083",
+    "routeId": "RT-083",
+    "color": "Onyx",
+    "trainIds": [
+      "Train-Onyx-1",
+      "Train-Onyx-2"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-083-01",
+        "name": "Aspen Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.7024,
+        "lon": -87.7774,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-083-02",
+        "name": "Hawthorn Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 42.0339,
+        "lon": -87.8141,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-083-03",
+        "name": "Maple Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7915,
+        "lon": -87.7882,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-083-04",
+        "name": "Cedar Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.9337,
+        "lon": -87.7406,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-083-05",
+        "name": "Magnolia Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.9401,
+        "lon": -87.5346,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-083-06",
+        "name": "Pine Station 6",
+        "regionId": "R-WEST",
+        "lat": 41.9235,
+        "lon": -87.5267,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-084",
+    "routeId": "RT-084",
+    "color": "Amber",
+    "trainIds": [
+      "Train-Amber-1",
+      "Train-Amber-2",
+      "Train-Amber-3"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-084-01",
+        "name": "Birch Station 1",
+        "regionId": "R-LOOP",
+        "lat": 41.8674,
+        "lon": -87.7453,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-084-02",
+        "name": "Sequoia Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8455,
+        "lon": -87.7028,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-084-03",
+        "name": "Spruce Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.9807,
+        "lon": -87.5785,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-084-04",
+        "name": "Beech Station 4",
+        "regionId": "R-LOOP",
+        "lat": 42.0056,
+        "lon": -87.9132,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-085",
+    "routeId": "RT-085",
+    "color": "Teal",
+    "trainIds": [
+      "Train-Teal-1",
+      "Train-Teal-2",
+      "Train-Teal-3"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-085-01",
+        "name": "Cottonwood Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7393,
+        "lon": -87.5771,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-085-02",
+        "name": "Willow Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9004,
+        "lon": -87.8826,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-085-03",
+        "name": "Poplar Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.8546,
+        "lon": -87.6439,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-085-04",
+        "name": "Chestnut Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7318,
+        "lon": -87.7203,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-085-05",
+        "name": "Walnut Station 5",
+        "regionId": "R-NORTH",
+        "lat": 41.7462,
+        "lon": -87.7631,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-086",
+    "routeId": "RT-086",
+    "color": "Violet",
+    "trainIds": [
+      "Train-Violet-1",
+      "Train-Violet-2",
+      "Train-Violet-3",
+      "Train-Violet-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-086-01",
+        "name": "Walnut Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9355,
+        "lon": -87.8113,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-086-02",
+        "name": "Magnolia Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7891,
+        "lon": -87.9486,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-086-03",
+        "name": "Cottonwood Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.7256,
+        "lon": -87.7593,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH"
+    ]
+  },
+  {
+    "id": "RT-087",
+    "routeId": "RT-087",
+    "color": "Crimson",
+    "trainIds": [
+      "Train-Crimson-1",
+      "Train-Crimson-2",
+      "Train-Crimson-3",
+      "Train-Crimson-4"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-087-01",
+        "name": "Cedar Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0271,
+        "lon": -87.9189,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-087-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.8005,
+        "lon": -87.869,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-087-03",
+        "name": "Juniper Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.8311,
+        "lon": -87.5489,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-088",
+    "routeId": "RT-088",
+    "color": "Indigo",
+    "trainIds": [
+      "Train-Indigo-1",
+      "Train-Indigo-2",
+      "Train-Indigo-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-088-01",
+        "name": "Oak Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.939,
+        "lon": -87.6522,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-088-02",
+        "name": "Birch Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9287,
+        "lon": -87.7935,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-088-03",
+        "name": "Spruce Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.8376,
+        "lon": -87.8927,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-088-04",
+        "name": "Maple Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.9647,
+        "lon": -87.5097,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-088-05",
+        "name": "Spruce Station 5",
+        "regionId": "R-SOUTH",
+        "lat": 41.8484,
+        "lon": -87.7793,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-088-06",
+        "name": "Aspen Station 6",
+        "regionId": "R-LOOP",
+        "lat": 41.8612,
+        "lon": -87.8802,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-089",
+    "routeId": "RT-089",
+    "color": "Coral",
+    "trainIds": [
+      "Train-Coral-1",
+      "Train-Coral-2"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-089-01",
+        "name": "Juniper Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.9152,
+        "lon": -87.5287,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-089-02",
+        "name": "Aspen Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7721,
+        "lon": -87.9046,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-089-03",
+        "name": "Walnut Station 3",
+        "regionId": "R-NORTH",
+        "lat": 41.9092,
+        "lon": -87.6335,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH"
+    ]
+  },
+  {
+    "id": "RT-090",
+    "routeId": "RT-090",
+    "color": "Slate",
+    "trainIds": [
+      "Train-Slate-1",
+      "Train-Slate-2"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-090-01",
+        "name": "Magnolia Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.8536,
+        "lon": -87.7071,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-090-02",
+        "name": "Birch Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.8764,
+        "lon": -87.8198,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-090-03",
+        "name": "Cypress Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9021,
+        "lon": -87.6024,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-090-04",
+        "name": "Aspen Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.8056,
+        "lon": -87.8855,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-091",
+    "routeId": "RT-091",
+    "color": "Olive",
+    "trainIds": [
+      "Train-Olive-1",
+      "Train-Olive-2",
+      "Train-Olive-3",
+      "Train-Olive-4"
+    ],
+    "stopCount": 4,
+    "stops": [
+      {
+        "stationId": "ST-091-01",
+        "name": "Sycamore Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.7963,
+        "lon": -87.6995,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-091-02",
+        "name": "Elm Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.9191,
+        "lon": -87.7578,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-091-03",
+        "name": "Cedar Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 42.0403,
+        "lon": -87.5263,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-091-04",
+        "name": "Poplar Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8116,
+        "lon": -87.7627,
+        "sequence": 4
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-092",
+    "routeId": "RT-092",
+    "color": "Maroon",
+    "trainIds": [
+      "Train-Maroon-1",
+      "Train-Maroon-2"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-092-01",
+        "name": "Elm Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.964,
+        "lon": -87.7369,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-092-02",
+        "name": "Sycamore Station 2",
+        "regionId": "R-LOOP",
+        "lat": 42.0001,
+        "lon": -87.885,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-092-03",
+        "name": "Cedar Station 3",
+        "regionId": "R-SOUTH",
+        "lat": 41.8968,
+        "lon": -87.5145,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-092-04",
+        "name": "Poplar Station 4",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7469,
+        "lon": -87.8407,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-092-05",
+        "name": "Cypress Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.9263,
+        "lon": -87.535,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-093",
+    "routeId": "RT-093",
+    "color": "Aqua",
+    "trainIds": [
+      "Train-Aqua-1",
+      "Train-Aqua-2",
+      "Train-Aqua-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-093-01",
+        "name": "Willow Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 41.718,
+        "lon": -87.7803,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-093-02",
+        "name": "Beech Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7138,
+        "lon": -87.9172,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-093-03",
+        "name": "Spruce Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.776,
+        "lon": -87.856,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT"
+    ]
+  },
+  {
+    "id": "RT-094",
+    "routeId": "RT-094",
+    "color": "Bronze",
+    "trainIds": [
+      "Train-Bronze-1",
+      "Train-Bronze-2",
+      "Train-Bronze-3"
+    ],
+    "stopCount": 5,
+    "stops": [
+      {
+        "stationId": "ST-094-01",
+        "name": "Willow Station 1",
+        "regionId": "R-NORTH",
+        "lat": 42.028,
+        "lon": -87.5171,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-094-02",
+        "name": "Chestnut Station 2",
+        "regionId": "R-NORTH",
+        "lat": 42.0201,
+        "lon": -87.637,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-094-03",
+        "name": "Magnolia Station 3",
+        "regionId": "R-LOOP",
+        "lat": 42.0203,
+        "lon": -87.7016,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-094-04",
+        "name": "Magnolia Station 4",
+        "regionId": "R-WEST",
+        "lat": 41.8632,
+        "lon": -87.6581,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-094-05",
+        "name": "Hawthorn Station 5",
+        "regionId": "R-WEST",
+        "lat": 41.8259,
+        "lon": -87.5527,
+        "sequence": 5
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-095",
+    "routeId": "RT-095",
+    "color": "Copper",
+    "trainIds": [
+      "Train-Copper-1",
+      "Train-Copper-2",
+      "Train-Copper-3"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-095-01",
+        "name": "Cypress Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 42.02,
+        "lon": -87.7832,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-095-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-SOUTH",
+        "lat": 41.8969,
+        "lon": -87.8504,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-095-03",
+        "name": "Maple Station 3",
+        "regionId": "R-LOOP",
+        "lat": 41.7913,
+        "lon": -87.5294,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-SOUTH"
+    ]
+  },
+  {
+    "id": "RT-096",
+    "routeId": "RT-096",
+    "color": "Emerald",
+    "trainIds": [
+      "Train-Emerald-1",
+      "Train-Emerald-2",
+      "Train-Emerald-3",
+      "Train-Emerald-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-096-01",
+        "name": "Birch Station 1",
+        "regionId": "R-WEST",
+        "lat": 41.7687,
+        "lon": -87.8465,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-096-02",
+        "name": "Aspen Station 2",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8748,
+        "lon": -87.6554,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-096-03",
+        "name": "Hawthorn Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.9672,
+        "lon": -87.7301,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-096-04",
+        "name": "Walnut Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.7589,
+        "lon": -87.5923,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-096-05",
+        "name": "Birch Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.9521,
+        "lon": -87.7303,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-096-06",
+        "name": "Cedar Station 6",
+        "regionId": "R-AIRPORT",
+        "lat": 41.8834,
+        "lon": -87.5724,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-097",
+    "routeId": "RT-097",
+    "color": "Magenta",
+    "trainIds": [
+      "Train-Magenta-1",
+      "Train-Magenta-2"
+    ],
+    "stopCount": 3,
+    "stops": [
+      {
+        "stationId": "ST-097-01",
+        "name": "Juniper Station 1",
+        "regionId": "R-NORTH",
+        "lat": 41.7481,
+        "lon": -87.6662,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-097-02",
+        "name": "Birch Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7032,
+        "lon": -87.7224,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-097-03",
+        "name": "Cedar Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.9162,
+        "lon": -87.65,
+        "sequence": 3
+      }
+    ],
+    "regionsServed": [
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-098",
+    "routeId": "RT-098",
+    "color": "Cobalt",
+    "trainIds": [
+      "Train-Cobalt-1",
+      "Train-Cobalt-2",
+      "Train-Cobalt-3",
+      "Train-Cobalt-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-098-01",
+        "name": "Maple Station 1",
+        "regionId": "R-SOUTH",
+        "lat": 41.7023,
+        "lon": -87.7018,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-098-02",
+        "name": "Maple Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.8853,
+        "lon": -87.8264,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-098-03",
+        "name": "Maple Station 3",
+        "regionId": "R-WEST",
+        "lat": 41.8758,
+        "lon": -87.636,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-098-04",
+        "name": "Elm Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.7375,
+        "lon": -87.9067,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-098-05",
+        "name": "Aspen Station 5",
+        "regionId": "R-LOOP",
+        "lat": 41.7672,
+        "lon": -87.7131,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-098-06",
+        "name": "Hawthorn Station 6",
+        "regionId": "R-WEST",
+        "lat": 41.9782,
+        "lon": -87.9144,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-LOOP",
+      "R-NORTH",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-099",
+    "routeId": "RT-099",
+    "color": "Saffron",
+    "trainIds": [
+      "Train-Saffron-1",
+      "Train-Saffron-2",
+      "Train-Saffron-3"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-099-01",
+        "name": "Aspen Station 1",
+        "regionId": "R-AIRPORT",
+        "lat": 42.0466,
+        "lon": -87.8484,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-099-02",
+        "name": "Cedar Station 2",
+        "regionId": "R-NORTH",
+        "lat": 41.7327,
+        "lon": -87.7793,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-099-03",
+        "name": "Chestnut Station 3",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7196,
+        "lon": -87.9457,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-099-04",
+        "name": "Oak Station 4",
+        "regionId": "R-LOOP",
+        "lat": 41.875,
+        "lon": -87.7547,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-099-05",
+        "name": "Cottonwood Station 5",
+        "regionId": "R-WEST",
+        "lat": 42.0421,
+        "lon": -87.5118,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-099-06",
+        "name": "Cedar Station 6",
+        "regionId": "R-AIRPORT",
+        "lat": 41.7804,
+        "lon": -87.5444,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-LOOP",
+      "R-NORTH",
+      "R-WEST"
+    ]
+  },
+  {
+    "id": "RT-100",
+    "routeId": "RT-100",
+    "color": "Lavender",
+    "trainIds": [
+      "Train-Lavender-1",
+      "Train-Lavender-2",
+      "Train-Lavender-3",
+      "Train-Lavender-4"
+    ],
+    "stopCount": 6,
+    "stops": [
+      {
+        "stationId": "ST-100-01",
+        "name": "Cedar Station 1",
+        "regionId": "R-WEST",
+        "lat": 42.0235,
+        "lon": -87.642,
+        "sequence": 1
+      },
+      {
+        "stationId": "ST-100-02",
+        "name": "Spruce Station 2",
+        "regionId": "R-WEST",
+        "lat": 41.8972,
+        "lon": -87.9352,
+        "sequence": 2
+      },
+      {
+        "stationId": "ST-100-03",
+        "name": "Maple Station 3",
+        "regionId": "R-WEST",
+        "lat": 42.0365,
+        "lon": -87.6858,
+        "sequence": 3
+      },
+      {
+        "stationId": "ST-100-04",
+        "name": "Oak Station 4",
+        "regionId": "R-SOUTH",
+        "lat": 41.8047,
+        "lon": -87.6962,
+        "sequence": 4
+      },
+      {
+        "stationId": "ST-100-05",
+        "name": "Magnolia Station 5",
+        "regionId": "R-AIRPORT",
+        "lat": 41.937,
+        "lon": -87.7067,
+        "sequence": 5
+      },
+      {
+        "stationId": "ST-100-06",
+        "name": "Birch Station 6",
+        "regionId": "R-SOUTH",
+        "lat": 41.9767,
+        "lon": -87.6398,
+        "sequence": 6
+      }
+    ],
+    "regionsServed": [
+      "R-AIRPORT",
+      "R-SOUTH",
+      "R-WEST"
+    ]
+  }
+]

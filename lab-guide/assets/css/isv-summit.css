@@ -278,6 +278,42 @@ pre code {
 }
 .code-block pre { margin: 0; }
 
+/* Copy button on code blocks */
+.code-block .copy-btn {
+    position: absolute;
+    top: 38px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: rgba(255, 255, 255, 0.08);
+    color: #d4c5fa;
+    border: 1px solid rgba(212, 197, 250, 0.35);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.code-block .copy-btn:hover {
+    background: rgba(124, 82, 230, 0.35);
+    color: #fff;
+    border-color: rgba(212, 197, 250, 0.7);
+}
+.code-block .copy-btn.copied {
+    background: rgba(76, 175, 80, 0.25);
+    color: #c5f0c8;
+    border-color: rgba(197, 240, 200, 0.5);
+}
+.code-block .copy-btn .copy-icon { font-size: 12px; }
+@media print {
+    .code-block .copy-btn { display: none; }
+}
+
 /* ---------- Tables ---------- */
 table {
     width: 100%;
@@ -717,6 +753,198 @@ tr:hover td { background: var(--gray-50); }
 }
 
 .module-card .mc-time strong { color: var(--ms-purple-800); }
+
+/* Goal tag inside each card */
+.module-card .mc-goals {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.module-card .mc-goal-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--ms-purple-50);
+    color: var(--ms-purple-800);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.module-card.optional {
+    border-top-style: dashed;
+    border-top-color: var(--gray-300);
+}
+.module-card.optional .mc-number {
+    color: var(--gray-700);
+}
+.module-card.hidden-by-goal {
+    display: none;
+}
+
+/* Download links in data-downloads appendix */
+.download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--ms-purple-50);
+    color: var(--ms-purple-800);
+    border: 1px solid var(--ms-purple-100);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+.download-link:hover {
+    background: var(--ms-purple-700);
+    color: var(--white);
+    border-color: var(--ms-purple-700);
+    text-decoration: none;
+}
+
+/* Use case overview on home */
+.use-case {
+    width: 100%;
+    max-width: 1400px;
+    margin: 40px 0 8px;
+    padding: 28px 32px;
+    background: linear-gradient(135deg, var(--ms-purple-50) 0%, var(--white) 70%);
+    border: 1px solid var(--ms-purple-100);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+.use-case-heading {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ms-purple-900);
+    margin: 0 0 12px;
+    border: none;
+    text-align: left;
+}
+.use-case-lead {
+    font-size: 15px;
+    color: var(--gray-800);
+    line-height: 1.55;
+    margin: 0 0 20px;
+}
+.use-case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 16px 0 20px;
+}
+.use-case-card {
+    background: var(--white);
+    border: 1px solid var(--ms-purple-100);
+    border-left: 3px solid var(--ms-purple-500);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
+}
+.use-case-card .uc-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+}
+.use-case-card .uc-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ms-purple-900);
+    margin: 0 0 6px;
+}
+.use-case-card .uc-desc {
+    font-size: 13.5px;
+    color: var(--gray-700);
+    line-height: 1.5;
+    margin: 0;
+}
+.use-case-summary {
+    font-size: 14px;
+    color: var(--gray-800);
+    line-height: 1.55;
+    margin: 4px 0 0;
+}
+
+/* Goals filter section */
+.goals-section {
+    width: 100%;
+    max-width: 1400px;
+    margin: 32px 0 8px;
+}
+.goals-heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ms-purple-900);
+    margin: 0 0 12px;
+    border: none;
+    text-align: left;
+}
+.goal-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.goal-pill {
+    appearance: none;
+    border: 1.5px solid var(--ms-purple-100);
+    background: var(--white);
+    color: var(--ms-purple-800);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.15s ease;
+    box-shadow: var(--shadow-sm);
+}
+.goal-pill:hover {
+    border-color: var(--ms-purple-500);
+    color: var(--ms-purple-900);
+    transform: translateY(-1px);
+}
+.goal-pill.active {
+    background: var(--ms-purple-700);
+    color: var(--white);
+    border-color: var(--ms-purple-700);
+    box-shadow: 0 2px 8px rgba(79, 41, 163, 0.25);
+}
+.goal-pill .gp-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--ms-purple-50);
+    color: var(--ms-purple-800);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+.goal-pill.active .gp-num {
+    background: rgba(255,255,255,0.18);
+    color: var(--white);
+}
+.goal-pill .gp-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin-left: 4px;
+}
+.goal-pill.active .gp-tag {
+    color: var(--white);
+    border-color: rgba(255,255,255,0.5);
+}
+.goal-pill.optional {
+    border-style: dashed;
+}
 
 /* Domain accent - Smart City scenario */
 .module-card.health      { border-top-color: #d13438; }
