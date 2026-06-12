@@ -141,4 +141,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
         block.appendChild(btn);
     });
+
+    // ---- Render screenshots: any .screenshot.placeholder whose target file
+    //      exists on disk gets swapped for an <img>. No upload, no paste -- just
+    //      "show the screenshot if it's there." ----
+    (function renderScreenshots() {
+        const SCREENSHOT_BASE = "assets/images/screenshots/";
+        const placeholders = document.querySelectorAll(".screenshot.placeholder");
+        placeholders.forEach(ph => {
+            const metaEl = ph.querySelector(".ph-meta");
+            if (!metaEl) return;
+            const relPath = (metaEl.textContent || "").trim();
+            if (!relPath) return;
+
+            const captionText = (ph.querySelector(".placeholder-body > div:last-child")?.textContent || "").trim();
+            const probe = new Image();
+            probe.onload = () => {
+                ph.classList.remove("placeholder");
+                ph.classList.add("rendered");
+                ph.innerHTML = "";
+                const img = document.createElement("img");
+                img.src = SCREENSHOT_BASE + relPath;
+                img.alt = captionText || relPath;
+                img.loading = "lazy";
+                ph.appendChild(img);
+                if (captionText) {
+                    const cap = document.createElement("div");
+                    cap.className = "caption";
+                    cap.textContent = captionText;
+                    ph.appendChild(cap);
+                }
+            };
+            probe.onerror = () => { /* leave the placeholder visible */ };
+            probe.src = SCREENSHOT_BASE + relPath;
+        });
+    })();
 });
