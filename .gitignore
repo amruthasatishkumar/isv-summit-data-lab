@@ -29,6 +29,9 @@ build/
 dev-tools/
 scripts/relocate-screenshots.ps1
 
+# Day 1 RTI working folder (local only, not part of the published lab)
+Day 1 RTI/
+
 # Python bytecode from seed-data scripts
 __pycache__/
 *.py[cod]
