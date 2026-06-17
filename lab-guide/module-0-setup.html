@@ -157,6 +157,31 @@
         </div>
     </section>
 
+    <section id="storage-token">
+        <h2>Storage Account Token</h2>
+
+        <p>Use these to connect to the <code>safabricshareduse2dev</code> storage account when a module asks for a connection string or SAS token (for example, creating a OneLake shortcut to Azure Blob Storage in Module 2).</p>
+
+        <h3>Connection String</h3>
+        <div class="code-block">
+            <span class="lang-badge">Connection String</span>
+<pre><code>BlobEndpoint=https://safabricshareduse2dev.blob.core.windows.net/;QueueEndpoint=https://safabricshareduse2dev.queue.core.windows.net/;FileEndpoint=https://safabricshareduse2dev.file.core.windows.net/;TableEndpoint=https://safabricshareduse2dev.table.core.windows.net/;SharedAccessSignature=sv=2026-02-06&amp;ss=bfqt&amp;srt=sco&amp;sp=rwdlacupyx&amp;se=2026-06-18T00:19:00Z&amp;st=2026-06-17T16:04:00Z&amp;spr=https&amp;sig=tWhh6x%2FFdQO1xjhgYIFtvn6pSFFxszqWXMcSMP25G%2BA%3D</code></pre>
+        </div>
+
+        <h3>SAS Token</h3>
+        <div class="code-block">
+            <span class="lang-badge">SAS Token</span>
+<pre><code>sv=2026-02-06&amp;ss=bfqt&amp;srt=sco&amp;sp=rwdlacupyx&amp;se=2026-06-18T00:19:00Z&amp;st=2026-06-17T16:04:00Z&amp;spr=https&amp;sig=tWhh6x%2FFdQO1xjhgYIFtvn6pSFFxszqWXMcSMP25G%2BA%3D</code></pre>
+        </div>
+
+        <div class="callout warning">
+            <span class="callout-icon">⚠</span>
+            <div class="callout-content">
+                This SAS token is time-limited and expires on <strong>2026-06-18</strong>. If a connection fails with an authorization error, ask your instructor for a refreshed token.
+            </div>
+        </div>
+    </section>
+
     <nav class="module-nav">
         <a class="nav-card" href="index.html">
             <div class="nav-direction">← Back to</div>
