@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lab Data Downloads - UrbanPulse Lab</title>
+    <title>Download &amp; Upload Data - UrbanPulse Lab</title>
     <link rel="stylesheet" href="assets/css/isv-summit.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
@@ -17,23 +17,23 @@
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
-    <div class="module-pill">Lab Data Downloads</div>
+    <div class="module-pill">Download &amp; Upload Data</div>
 </header>
 
 <div class="page-wrap">
 
     <div class="module-hero">
         <div class="module-eyebrow">Reference</div>
-        <h1>Lab Data Downloads</h1>
+        <h1>Download &amp; Upload Data</h1>
         <p class="lead">
-            Module 2 has you bring a facility catalog into the Bronze Lakehouse. The recommended path is the OneLake shortcut to Azure Blob Storage (Option A in M2). If you'd prefer to download the files locally and upload them yourself (M2 Option B), grab them here.
+            Module 2 has you bring a facility catalog into the Bronze Lakehouse. Download the files here, then upload them into your Lakehouse <code>Files</code> zone. Use this when you are not creating a OneLake shortcut to the storage account.
         </p>
     </div>
 
     <div class="callout info">
         <span class="callout-icon">ⓘ</span>
         <div class="callout-content">
-            <strong>You only need this page if you're doing M2 Option B (Download &amp; Upload).</strong> If you used the OneLake shortcut to Azure Blob Storage in Option A, the same files are already mounted into your Lakehouse without copying.
+            <strong>Download the files, then upload them into your Lakehouse.</strong> This gives you the same facility catalog and photos as the storage-account shortcut, just copied into your own Lakehouse instead of mounted from Azure Blob Storage.
         </div>
     </div>
 
@@ -121,7 +121,7 @@
         <div class="callout tip">
             <span class="callout-icon">✓</span>
             <div class="callout-content">
-                After this you'll have one Delta table (<code>facility_catalog</code>) and one folder of binary assets (<code>Files/facilities/</code>) - exactly the same end state as the OneLake-shortcut path in M2 Option A.
+                After this you'll have one Delta table (<code>facility_catalog</code>) and one folder of binary assets (<code>Files/facilities/</code>) - ready for the rest of Module 2.
             </div>
         </div>
     </section>
