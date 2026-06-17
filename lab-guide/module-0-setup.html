@@ -27,8 +27,8 @@
         <h1>Setup &amp; Environment Check</h1>
         <p class="lead">
             Every step in this lab is performed in a browser - the Microsoft Fabric portal and the Azure portal.
-            No Cloud PC, VS Code, or local Python install is required. This module summarizes the environment
-            that is provisioned for you in advance and the items you build across Modules 1-9.
+            No Cloud PC, VS Code, or local Python install is required. This page is the single source of truth for
+            setup, account, and environment details.
         </p>
         <div class="module-meta">
             <div class="meta-item"><span class="meta-icon">⏱</span> <strong>10 minutes</strong></div>
@@ -40,69 +40,119 @@
     <section id="objectives">
         <h2>Learning Objectives</h2>
         <ul>
-            <li>Understand what's <strong>pre-provisioned</strong> versus what <strong>you'll build</strong> across Modules 1-9.</li>
+            <li>Complete the browser-only setup checks before Module 1.</li>
+            <li>Use the lab account and shared Azure resources for the UrbanPulse scenario.</li>
         </ul>
     </section>
 
     <section id="environment">
-        <h2>What's Pre-Provisioned vs. What You'll Build</h2>
-        <p>The lab account, the Fabric capacity, the Fabric workspace, and the Azure data plane are pre-provisioned. <strong>You</strong> populate the workspace - lakehouse, eventhouse, dashboards, agents - across Modules 2-9.</p>
+        <h2>Setup Checklist</h2>
+        <p>Complete these checks, then continue to Module 1.</p>
 
-        <table>
-            <thead>
-                <tr>
-                    <th style="width:30%">Asset</th>
-                    <th>What &amp; Why</th>
-                    <th style="width:20%">Identifier</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><span class="pill">Fabric Capacity (F-SKU)</span> <em>(provided)</em></td>
-                    <td>Shared Fabric capacity allocated to this lab. Already attached to your workspace.</td>
-                    <td><code>fc-isvsummit-{room}</code></td>
-                </tr>
-                <tr>
-                    <td><span class="pill">Lab Account</span> <em>(provided)</em></td>
-                    <td>Lab tenant identity that has Contributor on the capacity above.</td>
-                    <td><code>Fabric.UserN@estdcorp.onmicrosoft.com</code></td>
-                </tr>
-                <tr>
-                    <td><span class="pill lakehouse">Fabric Workspace</span> <em>(provided)</em></td>
-                    <td>One Fabric workspace per lab user, already bound to the shared capacity. You'll see it under <strong>Workspaces</strong> as soon as you sign in to Fabric.</td>
-                    <td>per-user (visible in Fabric)</td>
-                </tr>
-                <tr>
-                    <td><span class="pill">Shared Event Hubs (3)</span> <em>(provided)</em></td>
-                    <td>Three streaming sources run continuously in the lab environment. You'll connect Eventstreams to them in Module 3 using a listen-only SAS connection string issued by your coach.</td>
-                    <td>see <a href="appendix-env-vars.html">Lab Credentials</a></td>
-                </tr>
-                <tr>
-                    <td><span class="pill agent">Azure AI Foundry project</span> <em>(provided, optional use)</em></td>
-                    <td>Each lab account has its own Foundry project (with <code>gpt-4o-mini</code> already deployed) for the optional Module 10 orchestrator extension.</td>
-                    <td>visible at <a href="https://ai.azure.com" target="_blank">ai.azure.com</a></td>
-                </tr>
-                <tr>
-                    <td><span class="pill">Lab Credentials Page</span> <em>(provided)</em></td>
-                    <td>One reference page listing each lab user account and where to find the per-user Azure resources (SQL, Cosmos, Foundry) in the Azure portal.</td>
-                    <td><a href="appendix-env-vars.html">Lab Credentials</a></td>
-                </tr>
-                <tr>
-                    <td><span class="pill lakehouse">Items inside the workspace</span> <strong>(you build)</strong></td>
-                    <td>Lakehouse + Mirror + Shortcut (M2), Eventhouse + Eventstreams + KQL tables (M3), Real-Time Dashboard (M4), Direct Lake semantic model + Power BI report (M5), Fabric Ontology (M6), Fabric Data Agent (M7). Optional: extra agents (M8) and Foundry orchestrator (M9). Use any names you like - the guide suggests one convention but it isn't enforced.</td>
-                    <td>your naming, your ID</td>
-                </tr>
-            </tbody>
-        </table>
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Review account and environment details on this page</h3>
+                <div class="step-body">
+                    <p>Use this Setup page as the <strong>single source of truth</strong> for:</p>
+                    <ul>
+                        <li>Lab sign-in account information.</li>
+                        <li>Shared Azure resource group and resource names.</li>
+                        <li>Any live updates from coaches for the environment.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Sign in to Fabric and verify workspace access</h3>
+                <div class="step-body">
+                    <p>Go to <a href="https://app.fabric.microsoft.com" target="_blank">app.fabric.microsoft.com</a> and sign in using the lab account listed below on this page.</p>
+                    <p>Open <strong>Workspaces</strong> and confirm your workshop workspace is visible.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Sign in to Azure portal and verify shared RG access</h3>
+                <div class="step-body">
+                    <p>Go to <a href="https://portal.azure.com" target="_blank">portal.azure.com</a>, then open the shared resource group listed below on this page.</p>
+                    <p>Confirm you can view the core UrbanPulse data resources (SQL, Storage, Cosmos, Event Hubs namespace).</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Proceed to Module 1</h3>
+                <div class="step-body">
+                    <p>Once Fabric workspace access and Azure resource visibility are confirmed, continue to Module 1.</p>
+                </div>
+            </li>
+        </ol>
 
         <div class="callout purple">
             <span class="callout-icon">ⓘ</span>
             <div class="callout-content">
-                <strong>Why this provisioning split?</strong>
-                You learn Fabric by building in Fabric. The shell - capacity, identity, workspace, and shared streams - is
-                pre-provisioned so you can spend the day on the parts that matter: lakehouse, eventhouse, dashboards,
-                semantic model, ontology, and agents. Pick whatever names you like for the items you build; the guide
-                suggests one convention, but feel free to deviate.
+                <strong>Conflict prevention.</strong> Setup and environment specifics are centralized here. If there is ever a mismatch with older notes or screenshots, follow this page.
+            </div>
+        </div>
+    </section>
+
+    <section id="accounts">
+        <h2>Lab Account</h2>
+
+        <p>Use the lab account below to sign in to Fabric and the Azure portal. Your instructor will provide the password during the session.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:45%">UserPrincipalName</th>
+                    <th style="width:25%">DisplayName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><code>Fabric.User@estdcorp.onmicrosoft.com</code></td><td>Fabric User</td></tr>
+            </tbody>
+        </table>
+
+        <div class="callout warning">
+            <span class="callout-icon">⚠</span>
+            <div class="callout-content">
+                <strong>Lab-only account.</strong> This account is scoped to the ISV Summit shared environment and deactivated after the event. Do not use it outside this lab.
+            </div>
+        </div>
+    </section>
+
+    <section id="azure-resources">
+        <h2>Azure Resources (Shared RG)</h2>
+
+        <p>Sign in to <a href="https://portal.azure.com" target="_blank">portal.azure.com</a> with <code>Fabric.User@estdcorp.onmicrosoft.com</code>, then open resource group <code>rg-fabric-shared-use2-dev</code>. The core UrbanPulse data resources are pre-provisioned there.</p>
+
+        <table>
+            <thead>
+                <tr><th style="width:45%">Resource Name</th><th>Type</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>UrbanPulse</strong></td>
+                    <td>Azure SQL Database Hyperscale</td>
+                </tr>
+                <tr>
+                    <td><strong>urbanpulseserver</strong></td>
+                    <td>SQL server</td>
+                </tr>
+                <tr>
+                    <td><strong>safabricshareduse2dev</strong></td>
+                    <td>Storage account</td>
+                </tr>
+                <tr>
+                    <td><strong>cosnofabricshareduse2dev</strong></td>
+                    <td>Azure Cosmos DB account</td>
+                </tr>
+                <tr>
+                    <td><strong>rtidemo</strong></td>
+                    <td>Event Hubs Namespace</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>Shared RG plus optional extras.</strong> The resources above are the core pre-provisioned UrbanPulse data services in <code>rg-fabric-shared-use2-dev</code>. Azure may include additional resources that you can use to experiment during the workshop.
             </div>
         </div>
     </section>

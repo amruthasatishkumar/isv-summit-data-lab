@@ -35,9 +35,8 @@ const LAB_NAV = [
         { href: "closing.html",                            label: "Closing",                   badge: "End" },
     ]},
     { group: "Appendices",         items: [
-        { href: "appendix-env-vars.html",                  label: "Lab Credentials",           badge: "A" },
-        { href: "appendix-data-downloads.html",            label: "Lab Data Downloads",        badge: "B" },
-        { href: "appendix-prompt-library.html",            label: "Prompt Library",            badge: "C" },
+        { href: "appendix-data-downloads.html",            label: "Lab Data Downloads",        badge: "A" },
+        { href: "appendix-prompt-library.html",            label: "Prompt Library",            badge: "B" },
     ]},
 ];
 

@@ -31,16 +31,14 @@
             and agents you'll build in the next four modules.
         </p>
         <p class="lead">
-            Fabric gives you several ways to shape data once it has landed. In this module you'll use two of them
-            together: a <strong>notebook</strong> to clean and join the operational tables into a curated Silver layer,
-            and <strong>SQL views</strong> on the Lakehouse SQL endpoint to expose Gold-style aggregates for Power BI
-            and the agents downstream. Dataflow Gen2 and Materialized Lake Views are noted as no-code and managed
-            alternatives.
+            Fabric gives you several ways to shape data once it has landed. This module presents four independent
+            transformation paths. <strong>Pick whichever path you prefer</strong> - you only need one to produce
+            curated output. The paths are fully optional and interchangeable; choose based on your team's tooling.
         </p>
         <div class="module-meta">
-            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>40 minutes</strong></div>
-            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> Bronze → Silver → Gold curated tables</div>
-            <div class="meta-item"><span class="meta-icon">🛠</span> Notebook (Spark SQL) · SQL views · Lakehouse</div>
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>~20 minutes</strong> (one path)</div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> curated, analytics-ready data</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Choose: Notebook · SQL view · Dataflow Gen2 · Materialized Lake View</div>
         </div>
     </div>
 
@@ -48,12 +46,42 @@
         <h2>Learning Objectives</h2>
         <ul>
             <li>Inspect what landed in <code>lh_urbanpulse_bronze</code> from M2 (mirrors + uploaded catalog).</li>
-            <li>Run a <strong>Fabric notebook</strong> (Spark SQL) to join hospitals, wards, and regions into a
-                curated <code>silver_hospital_facility</code> Delta table.</li>
-            <li>Create <strong>SQL views</strong> on the Lakehouse SQL analytics endpoint for downstream BI and agents.</li>
-            <li>Recognize when to reach for <strong>Dataflow Gen2</strong> (no-code) or
-                <strong>Materialized Lake Views</strong> (managed refresh) instead.</li>
+            <li>Pick <strong>any one</strong> of the four optional paths and run it end-to-end:</li>
+            <li style="list-style:none;">
+                <ul>
+                    <li><strong>Path A</strong> - Spark Notebook</li>
+                    <li><strong>Path B</strong> - SQL Endpoint</li>
+                    <li><strong>Path C</strong> - Dataflow Gen2</li>
+                    <li><strong>Path D</strong> - Materialized Lake View</li>
+                </ul>
+            </li>
+            <li>Understand when each path is the better fit (and that they can be combined in real projects).</li>
         </ul>
+    </section>
+
+    <section id="paths">
+        <h2>Transformation Paths in Fabric</h2>
+
+        <p>
+            There is no single required method for transformation in Fabric. Each path below is <strong>optional and
+            self-contained</strong> - pick the one that matches your team's skills. You only need one to complete this
+            module. Running more than one is purely for comparison.
+        </p>
+
+        <ul>
+            <li><strong>Path A - Spark Notebook:</strong> best for complex joins, type cleanup, and multi-step logic.</li>
+            <li><strong>Path B - SQL Endpoint:</strong> best for SQL-first teams creating serving views and aggregates.</li>
+            <li><strong>Path C - Dataflow Gen2:</strong> best for visual/no-code transformations.</li>
+            <li><strong>Path D - Materialized Lake View:</strong> best for persisted SQL aggregates with managed refresh.</li>
+        </ul>
+
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>Choose one path.</strong> Step 1 (inspect Bronze) applies to everyone. After that, jump to whichever
+                path you like - they are independent and you don't need to do them in order or do all of them.
+            </div>
+        </div>
     </section>
 
     <section id="why-transform">
@@ -85,22 +113,22 @@
                 <tr>
                     <td><strong>Notebook</strong> (Spark Python / Spark SQL)</td>
                     <td>Joins, type cleanup, derived columns, ML prep, complex logic</td>
-                    <td>Step 2 (Silver build)</td>
+                    <td>Path A</td>
                 </tr>
                 <tr>
                     <td><strong>SQL view</strong> on the SQL endpoint</td>
                     <td>Lightweight aggregates and friendly names for BI / agents</td>
-                    <td>Step 3 (Gold views)</td>
+                    <td>Path B</td>
                 </tr>
                 <tr>
                     <td><strong>Materialized Lake View</strong></td>
                     <td>SQL transforms you want persisted as Delta with managed refresh</td>
-                    <td>Step 4 (optional)</td>
+                    <td>Path D</td>
                 </tr>
                 <tr>
                     <td><strong>Dataflow Gen2</strong> (Power Query)</td>
                     <td>Visual, no-code prep - filtering, type changes, joins</td>
-                    <td>Reference only</td>
+                    <td>Path C</td>
                 </tr>
             </tbody>
         </table>
@@ -108,10 +136,9 @@
         <div class="callout info">
             <span class="callout-icon">ⓘ</span>
             <div class="callout-content">
-                <strong>Pick the approach that fits your scenario.</strong> Fabric does not force one path - this
-                module deliberately chooses notebook + SQL view because they are the two patterns you will see most
-                often in real ISV deployments. The references at the bottom of this page point to the official docs
-                for every other option.
+                <strong>Pick the approach that fits your scenario.</strong> Fabric does not force one path. All four
+                paths below land analytics-ready output - the right choice depends on your team's preferred tooling
+                and your downstream needs. The references at the bottom of this page link the official docs for each.
             </div>
         </div>
     </section>
@@ -134,22 +161,19 @@
                 </div>
             </li>
             <li>
-                <h3 class="step-title">Switch to the SQL analytics endpoint</h3>
+                <h3 class="step-title">Preview the source tables in Lakehouse view</h3>
                 <div class="step-body">
-                    <p>In the upper-right corner of the Lakehouse, switch from <strong>Lakehouse</strong> view
-                       to <strong>SQL analytics endpoint</strong> view. This is the same Delta data, surfaced as a
-                       T-SQL endpoint for read-only queries and views.</p>
-                    <p>Run a quick sanity query:</p>
-                    <pre><code>SELECT TOP 5 * FROM Hospitals;
-SELECT TOP 5 * FROM Wards;
-SELECT TOP 5 * FROM regions;</code></pre>
+                    <p>Stay in <strong>Lakehouse</strong> view and use table <strong>Preview</strong> to check data quality
+                       before transforming. For example, verify that <code>Hospitals.HospitalId</code> lines up with
+                       <code>Wards.HospitalId</code>, and that <code>regions.regionId</code> has expected values.</p>
+                    <p>After this pre-check, choose one path below and execute only that path (or multiple paths for comparison).</p>
                 </div>
             </li>
         </ol>
     </section>
 
     <section id="step-2">
-        <h2>Step 2 - Build a Silver Table with a Notebook <span class="pill notebook">NOTEBOOK</span></h2>
+        <h2>Path A: Spark Notebook Transform <span class="pill optional">OPTIONAL</span> <span class="pill notebook">NOTEBOOK</span></h2>
 
         <p>
             Now you'll create a curated <code>silver_hospital_facility</code> Delta table that joins
@@ -226,12 +250,11 @@ silver_df.write \
     </section>
 
     <section id="step-3">
-        <h2>Step 3 - Create Gold SQL Views <span class="pill warehouse">SQL ENDPOINT</span></h2>
+        <h2>Path B: SQL Endpoint Transform <span class="pill optional">OPTIONAL</span> <span class="pill warehouse">SQL ENDPOINT</span></h2>
 
         <p>
-            Gold-tier objects in this lab are intentionally lightweight: <strong>SQL views</strong> on the Lakehouse
-            SQL analytics endpoint. They give Power BI and the agents you'll build later a stable, friendly
-            contract without copying any data.
+            This path is SQL-first and independent of the notebook path. You'll create serving views directly from
+            Bronze tables on the Lakehouse SQL analytics endpoint.
         </p>
 
         <ol class="step-list">
@@ -247,15 +270,17 @@ silver_df.write \
                 <h3 class="step-title">Create a region-level capacity view</h3>
                 <div class="step-body">
                     <p>Paste and run:</p>
-                    <pre><code>CREATE OR ALTER VIEW gold_region_capacity AS
+                    <pre><code>CREATE OR ALTER VIEW gold_region_capacity_sqlpath AS
 SELECT
-    region_id,
-    region_name,
-    COUNT(DISTINCT hospital_id) AS hospitals,
+    r.regionId                  AS region_id,
+    r.regionName                AS region_name,
+    COUNT(DISTINCT h.HospitalId) AS hospitals,
     COUNT(*)                    AS wards,
-    SUM(beds)                   AS total_beds
-FROM silver_hospital_facility
-GROUP BY region_id, region_name;</code></pre>
+    SUM(w.Beds)                 AS total_beds
+FROM Wards w
+JOIN Hospitals h ON h.HospitalId = w.HospitalId
+LEFT JOIN regions r ON r.regionId = h.RegionId
+GROUP BY r.regionId, r.regionName;</code></pre>
                 </div>
             </li>
             <li>
@@ -263,7 +288,7 @@ GROUP BY region_id, region_name;</code></pre>
                 <div class="step-body">
                     <p>The transit topology lives in <code>trainRoutes</code> from the Cosmos mirror. Add a
                        lightweight Gold view for it too:</p>
-                    <pre><code>CREATE OR ALTER VIEW gold_transit_lines AS
+                    <pre><code>CREATE OR ALTER VIEW gold_transit_lines_sqlpath AS
 SELECT
     line,
     COUNT(*) AS station_count
@@ -274,57 +299,95 @@ GROUP BY line;</code></pre>
             <li>
                 <h3 class="step-title">Sanity-check both views</h3>
                 <div class="step-body">
-                    <pre><code>SELECT * FROM gold_region_capacity ORDER BY total_beds DESC;
-SELECT * FROM gold_transit_lines  ORDER BY line;</code></pre>
-                    <p>Both should return rows. These are the views your Power BI report (M6) and Hospital agent
-                       (M8) will consume.</p>
+                    <pre><code>SELECT * FROM gold_region_capacity_sqlpath ORDER BY total_beds DESC;
+SELECT * FROM gold_transit_lines_sqlpath  ORDER BY line;</code></pre>
+                    <p>Both should return rows. This confirms the SQL endpoint path works without running Path A.</p>
                 </div>
             </li>
         </ol>
     </section>
 
     <section id="step-4">
-        <h2>Step 4 - Materialized Lake View <span class="pill optional">OPTIONAL</span></h2>
+        <h2>Path C: Dataflow Gen2 Transform <span class="pill optional">OPTIONAL</span> <span class="pill optional">DATAFLOW GEN2</span></h2>
 
         <p>
-            If you want the region capacity numbers <em>persisted</em> as Delta with Fabric-managed refresh
-            (instead of computed on every query), promote the Gold view to a Materialized Lake View. This is a
-            preview-tier feature; skip it if your workspace doesn't have it yet.
+            This path is visual/no-code. Use it when transformation owners are analysts or low-code teams.
         </p>
 
         <ol class="step-list">
             <li>
-                <h3 class="step-title">Create the materialized view</h3>
+                <h3 class="step-title">Create a Dataflow Gen2</h3>
                 <div class="step-body">
-                    <p>From the Bronze Lakehouse SQL endpoint, run:</p>
-                    <pre><code>CREATE MATERIALIZED LAKE VIEW mlv_region_capacity AS
+                    <p>From your workspace, click <strong>+ New item</strong> &rarr; <strong>Dataflow Gen2</strong>.</p>
+                    <p>Name it <code>df_urbanpulse_silver</code>.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Add source tables from Lakehouse</h3>
+                <div class="step-body">
+                    <p>Add queries for <code>Hospitals</code>, <code>Wards</code>, and <code>regions</code> from <code>lh_urbanpulse_bronze</code>.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Apply joins in Power Query</h3>
+                <div class="step-body">
+                    <p>Merge <code>Wards</code> with <code>Hospitals</code> on <code>HospitalId</code>, then merge with <code>regions</code> on <code>RegionId = regionId</code>.</p>
+                    <p>Expand columns and rename fields to a serving shape (for example: <code>ward_id</code>, <code>hospital_name</code>, <code>region_name</code>, <code>beds</code>).</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Publish output table</h3>
+                <div class="step-body">
+                    <p>Set destination to Lakehouse table <code>silver_hospital_facility_df</code> and publish the dataflow.</p>
+                    <p>Run the dataflow once and confirm row output in the Lakehouse.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-5">
+        <h2>Path D: Materialized Lake View Transform <span class="pill optional">OPTIONAL</span> <span class="pill optional">MATERIALIZED VIEW</span></h2>
+
+        <p>
+            This path is SQL-driven with persisted output and Fabric-managed refresh. Materialized Lake Views are
+            defined with Spark SQL inside a notebook bound to the Lakehouse (they are not created on the read-only
+            SQL analytics endpoint).
+        </p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create the materialized view in a notebook</h3>
+                <div class="step-body">
+                    <p>Open a notebook with <code>lh_urbanpulse_bronze</code> as the default Lakehouse, then run this
+                       in a <strong>Spark SQL</strong> cell (or a Python cell wrapped in <code>spark.sql(...)</code>):</p>
+                    <pre><code>CREATE MATERIALIZED LAKE VIEW IF NOT EXISTS mlv_region_capacity_pathd AS
 SELECT
-    region_id,
-    region_name,
-    COUNT(DISTINCT hospital_id) AS hospitals,
-    COUNT(*)                    AS wards,
-    SUM(beds)                   AS total_beds
-FROM silver_hospital_facility
-GROUP BY region_id, region_name;</code></pre>
-                    <p>Fabric will manage the refresh as the underlying Silver table changes. This is useful when
-                       the aggregates are read very frequently and recomputation cost matters.</p>
+    r.regionId                   AS region_id,
+    r.regionName                 AS region_name,
+    COUNT(DISTINCT h.HospitalId) AS hospitals,
+    COUNT(*)                     AS wards,
+    SUM(w.Beds)                  AS total_beds
+FROM Wards w
+JOIN Hospitals h ON h.HospitalId = w.HospitalId
+LEFT JOIN regions r ON r.regionId = h.RegionId
+GROUP BY r.regionId, r.regionName;</code></pre>
+                    <p>Fabric manages refresh as underlying data changes. Validate with:</p>
+                    <pre><code>SELECT * FROM mlv_region_capacity_pathd ORDER BY total_beds DESC;</code></pre>
                 </div>
             </li>
         </ol>
     </section>
 
     <section id="alternatives">
-        <h2>Alternative Transformation Paths</h2>
+        <h2>Path References</h2>
 
         <p>
-            You picked notebook + SQL view in this module because that's the most common ISV pattern. Three other
-            paths cover different team preferences:
+            Use these official docs if you want deeper implementation patterns for each path.
         </p>
 
         <ul>
             <li>
-                <strong>Dataflow Gen2 (Power Query):</strong> visual, no-code data prep. Best for analysts who
-                already know Power Query and want to land curated tables without writing Spark or T-SQL.
+                <strong>Dataflow Gen2 (Power Query):</strong> visual, no-code data prep.
                 <br/><a href="https://learn.microsoft.com/en-us/fabric/data-factory/tutorial-load-data-lakehouse-transform" target="_blank" rel="noopener">Tutorial - Copy &amp; transform with Dataflow</a>
             </li>
             <li>
@@ -342,10 +405,12 @@ GROUP BY region_id, region_name;</code></pre>
     <section id="validation">
         <div class="validation">
             <h4>Validation</h4>
+            <p>You only need the output from the <strong>one path you chose</strong> to pass this module:</p>
             <ul>
-                <li><code>silver_hospital_facility</code> exists as a managed Delta table in the Bronze Lakehouse.</li>
-                <li><code>gold_region_capacity</code> and <code>gold_transit_lines</code> views return rows from the SQL endpoint.</li>
-                <li>You can name at least one scenario where Dataflow Gen2 or a Materialized Lake View would be the better choice.</li>
+                <li><strong>Path A:</strong> <code>silver_hospital_facility</code> exists as a managed Delta table in the Bronze Lakehouse.</li>
+                <li><strong>Path B:</strong> <code>gold_region_capacity_sqlpath</code> and <code>gold_transit_lines_sqlpath</code> views return rows from the SQL endpoint.</li>
+                <li><strong>Path C:</strong> <code>silver_hospital_facility_df</code> exists from the Dataflow Gen2 run.</li>
+                <li><strong>Path D:</strong> <code>mlv_region_capacity_pathd</code> returns rows from the Materialized Lake View.</li>
             </ul>
         </div>
     </section>
@@ -353,10 +418,18 @@ GROUP BY region_id, region_name;</code></pre>
     <section id="recap">
         <h2>What You Just Built</h2>
         <ul>
-            <li>A curated <strong>Silver</strong> Delta table joining hospitals, wards, and regions across two source systems.</li>
-            <li>Two <strong>Gold</strong> SQL views ready for Power BI and the Data Agents.</li>
-            <li>(Optional) a Materialized Lake View for managed-refresh aggregates.</li>
+            <li>One or more curated outputs using independently documented transformation paths.</li>
+            <li>Path-specific serving objects for BI and agents (Notebook, SQL Endpoint, Dataflow Gen2, or Materialized Lake View).</li>
         </ul>
+
+        <div class="callout tip">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>Real-world implementation note:</strong> you can combine these paths based on the use case.
+                For example, teams often use Dataflow Gen2 for simple prep, Spark notebooks for advanced logic,
+                and SQL endpoint views for serving.
+            </div>
+        </div>
 
         <p>Module 5 reads these tables and views directly to build the live KQL dashboard, and Module 6 layers a Direct Lake semantic model on top.</p>
     </section>
