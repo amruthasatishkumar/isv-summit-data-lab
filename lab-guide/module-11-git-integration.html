@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module 11 · Azure DevOps &amp; Fabric Git Integration (Optional) - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Module 11 · Optional</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Goal 5 · Source Control</div>
+        <h1>Azure DevOps &amp; Fabric Git Integration <span class="pill agent" style="vertical-align:middle;">⭐ OPTIONAL</span></h1>
+        <p class="lead">
+            Connect the workspace you built today to an Azure DevOps Git repository so the Fabric items are
+            version-controlled. You'll commit the current workspace state to a branch, make a change, commit it,
+            and pull an update back into the workspace.
+        </p>
+        <div class="module-meta">
+            <div class="meta-item"><span class="meta-icon">⏱</span> <strong>30 minutes</strong> (optional)</div>
+            <div class="meta-item"><span class="meta-icon">🎯</span> <strong>Goal:</strong> workspace under Git source control</div>
+            <div class="meta-item"><span class="meta-icon">🛠</span> Fabric Git integration · Azure DevOps (Azure Repos)</div>
+        </div>
+    </div>
+
+    <div class="callout warning">
+        <span class="callout-icon">⭐</span>
+        <div class="callout-content">
+            <strong>This module is optional.</strong> The lab is complete after Module 8. This track adds source
+            control to the workspace and does not change any of the items you built. It is entirely portal-driven; no
+            local Git client or command line is required.
+        </div>
+    </div>
+
+    <section id="objectives">
+        <h2>Learning Objectives</h2>
+        <ul>
+            <li>Connect a Fabric workspace to an <strong>Azure DevOps</strong> Git repository from workspace settings.</li>
+            <li>Commit the workspace items to a Git branch and read the source control status indicators.</li>
+            <li>Update the workspace from Git after a new commit lands on the branch.</li>
+            <li>Identify which Fabric item types are supported by Git integration and which are ignored.</li>
+        </ul>
+    </section>
+
+    <section id="overview">
+        <h2>How Fabric Git Integration Works</h2>
+
+        <p>
+            Git integration in Fabric operates at the <strong>workspace</strong> level. You connect a workspace to a
+            single branch in a single repository folder. Items in the workspace are serialized to files in the repo,
+            and the workspace folder structure is preserved in Git. Two actions keep the two sides in sync:
+            <strong>Commit</strong> pushes workspace changes to the branch, and <strong>Update</strong> pulls branch
+            changes into the workspace.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Action</th>
+                    <th>Direction</th>
+                    <th>Where</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Connect &amp; sync</strong></td>
+                    <td>Establishes the link; copies content to whichever side is empty</td>
+                    <td>Workspace settings → Git integration</td>
+                </tr>
+                <tr>
+                    <td><strong>Commit</strong></td>
+                    <td>Workspace → Git branch</td>
+                    <td>Source control panel → Changes</td>
+                </tr>
+                <tr>
+                    <td><strong>Update</strong></td>
+                    <td>Git branch → Workspace</td>
+                    <td>Source control panel → Updates</td>
+                </tr>
+                <tr>
+                    <td><strong>Disconnect</strong></td>
+                    <td>Removes the link (items stay in both places)</td>
+                    <td>Workspace settings → Git integration</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>Supported items.</strong> Most of what you built today is supported, including Lakehouse,
+                Notebooks, Eventhouse, Eventstream, KQL Database, KQL Queryset, Real-Time Dashboard, Semantic model,
+                Report, and Data Agents. Some item types are in preview. If the workspace contains an unsupported
+                item, it is ignored - not saved, synced, or deleted - and you can't commit or update it.
+            </div>
+        </div>
+    </section>
+
+    <section id="prerequisites">
+        <h2>Prerequisites</h2>
+
+        <ul>
+            <li>You are a <strong>workspace admin</strong> on the workspace you built today (only an admin can connect a workspace to a repo).</li>
+            <li>An <strong>Azure DevOps</strong> account registered to the same user you sign in to Fabric with, and access to an existing repository.</li>
+            <li>The Fabric tenant settings <strong>Users can create Fabric items</strong> and <strong>Users can synchronize workspace items with their Git repositories</strong> are enabled. These are pre-enabled for this lab tenant; in your own tenant a tenant, capacity, or workspace admin enables them.</li>
+        </ul>
+
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>No Azure DevOps project yet?</strong> In <a href="https://dev.azure.com" target="_blank" rel="noopener">dev.azure.com</a>, create an organization and a project, then add an empty Git repository (for example <code>urbanpulse-fabric</code>). You'll point Fabric at that repository in Step 1.
+            </div>
+        </div>
+    </section>
+
+    <section id="step-1">
+        <h2>Step 1 - Connect the Workspace to Azure DevOps <span class="pill lakehouse">WORKSPACE SETTINGS</span></h2>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Open Git integration in workspace settings</h3>
+                <div class="step-body">
+                    <p>Open the workspace you built today. In the top-right of the workspace, open
+                       <strong>Workspace settings</strong> and select <strong>Git integration</strong>.</p>
+                    <p>For <strong>Git provider</strong>, choose <strong>Azure DevOps</strong>.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Sign in and authorize</h3>
+                <div class="step-body">
+                    <p>Select <strong>Connect</strong> to sign in to the Azure Repos account registered to your Fabric
+                       user. If this is your first connection, choose <strong>Add account</strong> and authorize. When
+                       prompted, provide:</p>
+                    <ul>
+                        <li><strong>Display name</strong> - must be unique for your user.</li>
+                        <li><strong>Azure DevOps URL</strong> - in the format
+                            <code>https://dev.azure.com/{organization}/{project}/_git/{repository}</code>.</li>
+                        <li><strong>Authentication</strong> - OAuth2 (default) or a service principal.</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Select the branch and folder</h3>
+                <div class="step-body">
+                    <p>From the dropdowns, specify:</p>
+                    <ul>
+                        <li><strong>Organization</strong> and <strong>Project</strong>.</li>
+                        <li><strong>Git repository</strong> - for example <code>urbanpulse-fabric</code>.</li>
+                        <li><strong>Branch</strong> - select an existing branch or choose <strong>+ New Branch</strong>
+                            (for example <code>main</code>). You connect to one branch at a time.</li>
+                        <li><strong>Folder</strong> - type an existing folder name or a new one (for example
+                            <code>workspace</code>). Leave blank to use the repository root. You connect to one folder
+                            at a time.</li>
+                    </ul>
+                    <p>Select <strong>Connect and sync</strong>.</p>
+                    <div class="callout info">
+                        <span class="callout-icon">ⓘ</span>
+                        <div class="callout-content">
+                            <strong>Initial sync direction.</strong> If one side is empty, content is copied from the
+                            non-empty side to the empty one. If both the workspace and the branch already have content,
+                            Fabric asks which direction to sync. For this lab the branch is empty, so the workspace
+                            items are written to Git.
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Read the source control status</h3>
+                <div class="step-body">
+                    <p>After connecting, the workspace shows the connected branch, the status of each item, and the
+                       time of the last sync. Items that are in sync show a <strong>Synced</strong> status.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-2">
+        <h2>Step 2 - Commit a Change <span class="pill notebook">SOURCE CONTROL</span></h2>
+
+        <p>
+            Edits you make in the workspace are saved to the workspace only until you commit them. This step makes a
+            small, reversible change and commits it.
+        </p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Make a change to a tracked item</h3>
+                <div class="step-body">
+                    <p>Open the Silver notebook <code>nb_urbanpulse_silver</code> (from Module 4, Path A) and add a
+                       markdown cell at the top, for example a title and a one-line description. Save the notebook.</p>
+                    <p>If you didn't run Path A, edit any supported item instead - for example rename a tile on the
+                       Real-Time Dashboard from Module 5.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Open the Source control panel</h3>
+                <div class="step-body">
+                    <p>Back in the workspace, select the <strong>Source control</strong> icon. The icon shows the
+                       number of uncommitted changes. Open the <strong>Changes</strong> tab to see the list of
+                       changed items, each marked as new, modified, conflict, same change, or deleted.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Commit to the branch</h3>
+                <div class="step-body">
+                    <p>Select the item(s) you changed, add a commit comment (for example
+                       <code>Add title cell to Silver notebook</code>), and select <strong>Commit</strong>.</p>
+                    <p>After the commit completes, the items move out of the list and their status changes from
+                       <strong>Uncommitted</strong> to <strong>Synced</strong>.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-3">
+        <h2>Step 3 - Update the Workspace from Git <span class="pill warehouse">SYNC BACK</span></h2>
+
+        <p>
+            When a new commit lands on the connected branch - from a teammate, or from an edit you make in Azure
+            DevOps - the workspace shows that an update is available.
+        </p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Create a commit in Azure DevOps</h3>
+                <div class="step-body">
+                    <p>In <a href="https://dev.azure.com" target="_blank" rel="noopener">dev.azure.com</a>, open the
+                       connected repository and branch, edit a tracked file (for example a small text change in the
+                       notebook's <code>.py</code> source under your workspace folder), and commit it directly to the
+                       branch.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Update all in Fabric</h3>
+                <div class="step-body">
+                    <p>Return to the workspace and open the <strong>Source control</strong> panel. On the
+                       <strong>Updates</strong> tab you'll see the items changed on the branch since the last sync.
+                       Select <strong>Update all</strong>, then confirm <strong>Update</strong>.</p>
+                    <p>After the update completes, the item status returns to <strong>Synced</strong> and the live
+                       item in the workspace reflects the change.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="step-4">
+        <h2>Step 4 - Disconnect <span class="pill optional">OPTIONAL CLEANUP</span></h2>
+
+        <p>
+            Disconnecting removes the link between the workspace and the repository. The items stay in both the
+            workspace and Git; nothing is deleted.
+        </p>
+
+        <ol class="step-list">
+            <li>
+                <h3 class="step-title">Disconnect the workspace</h3>
+                <div class="step-body">
+                    <p>Open <strong>Workspace settings</strong> → <strong>Git integration</strong> →
+                       <strong>Disconnect workspace</strong>, then select <strong>Disconnect</strong> to confirm.
+                       Only a workspace admin can do this.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="why-isv">
+        <h2>Why This Matters for an ISV</h2>
+
+        <p>
+            Putting the workspace under source control gives an ISV the same application lifecycle management it uses
+            for code: a versioned history of the Fabric items, the ability to revert to a previous state, and a
+            branch-per-change workflow for collaboration. Combined with deployment pipelines, the same committed
+            definitions promote from development to test to production across customer tenants.
+        </p>
+
+        <div class="callout purple">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                <strong>Branch out to a new workspace.</strong> Fabric can create a new workspace from a branch, which
+                is useful for isolated feature work. It requires the <strong>Create workspaces</strong> tenant setting.
+                See the references below for the full branching workflow.
+            </div>
+        </div>
+    </section>
+
+    <section id="validation">
+        <div class="validation">
+            <h4>Validation</h4>
+            <ul>
+                <li>The workspace shows a connected Azure DevOps branch with a last-sync time.</li>
+                <li>Your committed change appears as a commit on the branch in Azure DevOps.</li>
+                <li>After an Update, the workspace item status reads <strong>Synced</strong>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="references">
+        <h2>References</h2>
+        <ul>
+            <li><a href="https://learn.microsoft.com/en-us/fabric/cicd/git-integration/intro-to-git-integration" target="_blank" rel="noopener">What is Microsoft Fabric Git integration?</a> - providers, supported items, concepts.</li>
+            <li><a href="https://learn.microsoft.com/en-us/fabric/cicd/git-integration/git-get-started" target="_blank" rel="noopener">Get started with Git integration</a> - connect, commit, update, disconnect.</li>
+            <li><a href="https://learn.microsoft.com/en-us/fabric/cicd/git-integration/manage-branches" target="_blank" rel="noopener">Manage Git branches</a> - branch out to a new workspace.</li>
+            <li><a href="https://learn.microsoft.com/en-us/fabric/cicd/best-practices-cicd" target="_blank" rel="noopener">Git integration and deployment pipeline best practices</a>.</li>
+        </ul>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="module-10-foundry-orchestrator.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Module 10 · Foundry Orchestrator</div>
+        </a>
+        <a class="nav-card next" href="closing.html">
+            <div class="nav-direction">Next →</div>
+            <div class="nav-title">Closing</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide · Optional track</p>
+</footer>
+
+</body>
+</html>

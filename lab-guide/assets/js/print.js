@@ -31,12 +31,16 @@ const LAB_NAV = [
         { href: "module-9-multi-agent.html",               label: "Multi-Agent Catalog",       badge: "M9" },
         { href: "module-10-foundry-orchestrator.html",     label: "Foundry Orchestrator",      badge: "M10" },
     ]},
+    { group: "Goal 5 · Source Control", items: [
+        { href: "module-11-git-integration.html",          label: "Azure DevOps + Git",        badge: "M11" },
+    ]},
     { group: "Wrap-up",            items: [
         { href: "closing.html",                            label: "Closing",                   badge: "End" },
     ]},
     { group: "Appendices",         items: [
         { href: "appendix-data-downloads.html",            label: "Lab Data Downloads",        badge: "A" },
         { href: "appendix-prompt-library.html",            label: "Prompt Library",            badge: "B" },
+        { href: "appendix-learn-links.html",               label: "MS Reference Links",        badge: "C" },
     ]},
 ];
 
