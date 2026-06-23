@@ -164,8 +164,8 @@
                 <h3 class="step-title">Preview the source tables in Lakehouse view</h3>
                 <div class="step-body">
                     <p>Stay in <strong>Lakehouse</strong> view and use table <strong>Preview</strong> to check data quality
-                       before transforming. For example, verify that <code>Hospitals.HospitalId</code> lines up with
-                       <code>Wards.HospitalId</code>, and that <code>regions.regionId</code> has expected values.</p>
+                       before transforming. For example, verify that <code>Hospitals.hospitalId</code> lines up with
+                       <code>Wards.hospitalId</code>, and that <code>regions.regionId</code> has expected values.</p>
                     <p>After this pre-check, choose one path below and execute only that path (or multiple paths for comparison).</p>
                 </div>
             </li>
@@ -354,25 +354,57 @@ SELECT * FROM gold_transit_lines_sqlpath  ORDER BY line;</code></pre>
             SQL analytics endpoint).
         </p>
 
+        <div class="callout warning">
+            <span class="callout-icon">⚠</span>
+            <div class="callout-content">
+                <strong>Prerequisite:</strong> Materialized Lake Views require a <strong>schema-enabled Lakehouse</strong>
+                running on <strong>Fabric Runtime 1.3</strong>. The classic <code>lh_urbanpulse_bronze</code> from Module 2
+                has Lakehouse schemas turned off, so it cannot host an MLV directly. This path provisions a dedicated
+                schema-enabled gold Lakehouse and shortcuts the bronze tables into it (zero copy).
+            </div>
+        </div>
+
         <ol class="step-list">
             <li>
-                <h3 class="step-title">Create the materialized view in a notebook</h3>
+                <h3 class="step-title">Create a schema-enabled gold Lakehouse</h3>
                 <div class="step-body">
-                    <p>Open a notebook with <code>lh_urbanpulse_bronze</code> as the default Lakehouse, then run this
+                    <p>In your workspace, choose <strong>New item &rarr; Lakehouse</strong>. Name it
+                       <code>lh_urbanpulse_gold</code> and <strong>check Lakehouse schemas (preview)</strong> before
+                       creating it.</p>
+                    <p>Confirm the workspace (and the notebook you use below) runs on <strong>Fabric Runtime 1.3</strong>,
+                       which is required for Materialized Lake Views.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Shortcut the bronze source tables</h3>
+                <div class="step-body">
+                    <p>In <code>lh_urbanpulse_gold</code>, expand <strong>Tables</strong>, then under the <code>dbo</code>
+                       schema choose <strong>New shortcut &rarr; Microsoft OneLake</strong>.</p>
+                    <p>Select <code>lh_urbanpulse_bronze</code> as the source and add shortcuts for
+                       <code>Hospitals</code>, <code>Wards</code>, and <code>regions</code>. They land under
+                       <code>dbo</code> with no copy.</p>
+                </div>
+            </li>
+            <li>
+                <h3 class="step-title">Create the materialized lake view in a notebook</h3>
+                <div class="step-body">
+                    <p>Open a notebook with <code>lh_urbanpulse_gold</code> as the default Lakehouse, then run this
                        in a <strong>Spark SQL</strong> cell (or a Python cell wrapped in <code>spark.sql(...)</code>):</p>
-                    <pre><code>CREATE MATERIALIZED LAKE VIEW IF NOT EXISTS mlv_region_capacity_pathd AS
+                    <pre><code>CREATE SCHEMA IF NOT EXISTS gold;
+
+CREATE MATERIALIZED LAKE VIEW IF NOT EXISTS gold.region_capacity AS
 SELECT
     r.regionId                   AS region_id,
     r.name                       AS region_name,
     COUNT(DISTINCT h.hospitalId) AS hospitals,
     COUNT(*)                     AS wards,
     SUM(w.capacity)              AS total_beds
-FROM Wards w
-JOIN Hospitals h ON h.hospitalId = w.hospitalId
-LEFT JOIN regions r ON r.regionId = h.regionId
+FROM dbo.Wards w
+JOIN dbo.Hospitals h ON h.hospitalId = w.hospitalId
+LEFT JOIN dbo.regions r ON r.regionId = h.regionId
 GROUP BY r.regionId, r.name;</code></pre>
                     <p>Fabric manages refresh as underlying data changes. Validate with:</p>
-                    <pre><code>SELECT * FROM mlv_region_capacity_pathd ORDER BY total_beds DESC;</code></pre>
+                    <pre><code>SELECT * FROM gold.region_capacity ORDER BY total_beds DESC;</code></pre>
                 </div>
             </li>
         </ol>
@@ -410,7 +442,7 @@ GROUP BY r.regionId, r.name;</code></pre>
                 <li><strong>Path A:</strong> <code>silver_hospital_facility</code> exists as a managed Delta table in the Bronze Lakehouse.</li>
                 <li><strong>Path B:</strong> <code>gold_region_capacity_sqlpath</code> and <code>gold_transit_lines_sqlpath</code> views return rows from the SQL endpoint.</li>
                 <li><strong>Path C:</strong> <code>silver_hospital_facility_df</code> exists from the Dataflow Gen2 run.</li>
-                <li><strong>Path D:</strong> <code>mlv_region_capacity_pathd</code> returns rows from the Materialized Lake View.</li>
+                <li><strong>Path D:</strong> <code>gold.region_capacity</code> returns rows from the Materialized Lake View, managed by <code>lh_urbanpulse_gold</code>.</li>
             </ul>
         </div>
     </section>
