@@ -1,6 +1,6 @@
 # Coach Prep · UrbanPulse Lab
 
-This folder is for coaches running the **Day 2 Lab** at the Microsoft ISV Data Summit.
+This folder is for coaches running the **UrbanPulse Data Lab**.
 It contains everything you need before, during, and after the lab.
 
 ## Files

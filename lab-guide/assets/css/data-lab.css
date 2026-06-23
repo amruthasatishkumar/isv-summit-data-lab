@@ -1,10 +1,10 @@
 /* =================================================================
-   Microsoft ISV Data Summit - Day 2 Lab Guide
+   UrbanPulse Data Lab Guide
    Brand stylesheet
    ================================================================= */
 
 :root {
-    /* ISV Summit invite palette (purple primary) */
+    /* Data Lab palette (purple primary) */
     --ms-purple-900: #2d1b54;
     --ms-purple-800: #3c2178;
     --ms-purple-700: #4f29a3;

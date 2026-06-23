@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerBlock = document.createElement("div");
     headerBlock.className = "lab-nav-header";
     headerBlock.innerHTML = `
-        <div class="lab-nav-eyebrow">Day 2 Lab</div>
+        <div class="lab-nav-eyebrow">UrbanPulse Data Lab</div>
         <div class="lab-nav-title">UrbanPulse</div>
     `;
     aside.appendChild(headerBlock);

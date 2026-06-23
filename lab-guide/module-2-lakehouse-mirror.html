@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Module 2 · Data Ingestion - UrbanPulse Lab</title>
-    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <link rel="stylesheet" href="assets/css/data-lab.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="brand">
         <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
         <div>
-            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-title">UrbanPulse Data Lab</div>
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
@@ -26,7 +26,7 @@
         <div class="module-eyebrow">Module 2 · Build Phase 1</div>
         <h1>Data Ingestion</h1>
         <p class="lead">
-            Real-world ISV deployments rarely deal with a single data shape. UrbanPulse needs to bring
+            Real-world SaaS deployments rarely deal with a single data shape. UrbanPulse needs to bring
             in <strong>file-based</strong>, <strong>relational</strong>, and <strong>NoSQL</strong> data, and Fabric provides a
             distinct ingest pattern for each. This module walks through all three:
         </p>
@@ -61,7 +61,7 @@
     <section id="why-three">
         <h2>Why Three Ingest Patterns?</h2>
 
-        <p>Real ISV deployments hit data in many shapes. Fabric's value is that you don't have to pick one tool - you pick the right pattern per source and they all converge on OneLake.</p>
+        <p>Real SaaS deployments hit data in many shapes. Fabric's value is that you don't have to pick one tool - you pick the right pattern per source and they all converge on OneLake.</p>
 
         <div class="diagram">
             <svg viewBox="0 0 1000 280" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" style="max-width:100%;">
@@ -186,7 +186,7 @@
                         <tbody>
                             <tr>
                                 <td><strong>Option A - Shortcut</strong></td>
-                                <td>Source data already lives in ADLS Gen2 / Blob Storage and you want a live, virtualized view with no copy. Recommended for production ISV deployments.</td>
+                                <td>Source data already lives in ADLS Gen2 / Blob Storage and you want a live, virtualized view with no copy. Recommended for production SaaS deployments.</td>
                                 <td>Zero copy - data stays in the source storage account; OneLake reads it on demand.</td>
                             </tr>
                             <tr>
@@ -636,7 +636,7 @@ ORDER BY h.hospitalId;</code></pre>
 </div>
 
 <footer class="site-footer">
-    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+    <p><span class="footer-brand">UrbanPulse Data Lab</span></p>
 </footer>
 
 </body>

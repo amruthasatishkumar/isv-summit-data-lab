@@ -1,6 +1,6 @@
 # UrbanPulse Seed Data
 
-Reproducible seed data for the ISV Summit UrbanPulse lab.
+Reproducible seed data for the UrbanPulse Data Lab.
 Everything here is **deterministic, synthetic, PII-free** and is regenerated
 from these scripts on demand — nothing in this folder is the source of truth
 for real-world data.

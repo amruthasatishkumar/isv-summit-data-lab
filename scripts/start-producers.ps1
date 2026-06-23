@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Starts the three Event Hub simulators for the ISV Summit lab.
+    Starts the three Event Hub simulators for the UrbanPulse Data Lab.
 
 .DESCRIPTION
     Loads connection strings from .env.local in the repo root, then opens

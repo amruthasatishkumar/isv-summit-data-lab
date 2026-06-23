@@ -32,6 +32,6 @@ Several modules also include **inline SVG markup directly inside the HTML** inst
 - Module 7 - Ontology entity / relationship picture
 - Module 8 - Anatomy of a Fabric Data Agent
 - Module 10 - Foundry connected-agent orchestrator (Figure 9.1)
-- Closing - Three-tenant ISV product picture (Figure C.1)
+- Closing - Three-tenant SaaS product picture (Figure C.1)
 
 To edit those, search the relevant `module-*.html` file for `<svg`.

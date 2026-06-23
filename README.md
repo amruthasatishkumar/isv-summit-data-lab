@@ -1,15 +1,15 @@
-# UrbanPulse · Day 2 Lab Walkthrough - Microsoft ISV Data Summit 2026
+# UrbanPulse · Data Lab Walkthrough
 
-Self-contained lab guide for the **Day 2 hands-on lab** at the Microsoft ISV Data Summit (June 16–17, 2026).
+Self-contained lab guide for the **UrbanPulse Data Lab** hands-on workshop.
 
-> **Scenario:** UrbanPulse Analytics is an ISV building a Smart City operations platform on Microsoft Fabric. Across 11 modules organized into four goals — **Ingest, Transform, Build Report, Apply AI** — attendees build the reference architecture end-to-end: Lakehouse, Mirroring, Eventhouse, Spark notebook + SQL views, Real-Time Dashboard, Direct Lake + Power BI, Fabric Ontologies, Fabric Data Agents, and an Azure AI Foundry connected-agent orchestrator.
+> **Scenario:** UrbanPulse Analytics is a software vendor building a Smart City operations platform on Microsoft Fabric. Across 11 modules organized into four goals — **Ingest, Transform, Build Report, Apply AI** — attendees build the reference architecture end-to-end: Lakehouse, Mirroring, Eventhouse, Spark notebook + SQL views, Real-Time Dashboard, Direct Lake + Power BI, Fabric Ontologies, Fabric Data Agents, and an Azure AI Foundry connected-agent orchestrator.
 
 ---
 
 ## Folder Structure
 
 ```
-ISV Summit/
+urbanpulse-data-lab/
 ├── README.md                          ← you are here
 ├── lab-guide/                         ← attendee-facing HTML lab guide (open index.html)
 │   ├── index.html                     ← cover page + use case + 4 goal pills + 11 module cards
@@ -24,12 +24,12 @@ ISV Summit/
 │   ├── module-8-data-agents.html
 │   ├── module-9-multi-agent.html
 │   ├── module-10-foundry-orchestrator.html
-│   ├── closing.html                   ← ISV pattern picture + final recap
+│   ├── closing.html                   ← multi-tenant pattern picture + final recap
 │   ├── appendix-env-vars.html         ← Lab Credentials
 │   ├── appendix-data-downloads.html   ← Lab Data Downloads
 │   ├── appendix-prompt-library.html
 │   └── assets/
-│       ├── css/isv-summit.css         ← single source of branding
+│       ├── css/data-lab.css           ← single source of branding
 │       ├── js/print.js                ← sidebar nav + Ctrl+P helper
 │       ├── downloads/                 ← parquet + facility photos for M2 Option B
 │       └── images/                    ← SVG diagrams + Microsoft logo
@@ -51,14 +51,14 @@ ISV Summit/
 
 Per page (recommended): open the page in Edge or Chrome → **Ctrl+P** → Destination = **Save as PDF** → Layout = **Portrait** → Margins = **Default** → ✅ Background graphics → Save.
 
-Whole guide as one PDF: open `index.html`, save as PDF, then concatenate each module PDF using any PDF merger (Edge supports drag-merge in print preview as of recent builds, or use `pdftk` / Acrobat). The print stylesheet (in `isv-summit.css` under `@media print`) handles page breaks, hides the site header, and expands `<details>` blocks automatically.
+Whole guide as one PDF: open `index.html`, save as PDF, then concatenate each module PDF using any PDF merger (Edge supports drag-merge in print preview as of recent builds, or use `pdftk` / Acrobat). The print stylesheet (in `data-lab.css` under `@media print`) handles page breaks, hides the site header, and expands `<details>` blocks automatically.
 
 ## What's included per module
 
 | # | Module | Time | Goal |
 | --- | --- | --- | --- |
 | 0 | Setup & Environment Check | 10m | Sign in, confirm capacity, bookmark Lab Credentials |
-| 1 | Workspace Tour & ISV Architecture | 30m | Tour the pre-provisioned workspace + medallion + ISV multi-tenancy |
+| 1 | Workspace Tour & Solution Architecture | 30m | Tour the pre-provisioned workspace + medallion + multi-tenancy |
 | 2 | Data Ingestion | 45m | G1 · Three ingest patterns (Parquet upload, Azure SQL mirror, Cosmos mirror) |
 | 3 | Real-Time Streaming Ingest | 75m | G1 · 3 Eventstreams + 3 KQL tables fed from Event Hubs |
 | 4 | Transform for Analytics | 40m | G2 · Spark notebook for Silver Delta + SQL views for Gold |
@@ -68,14 +68,14 @@ Whole guide as one PDF: open `index.html`, save as PDF, then concatenate each mo
 | 8 | Fabric Data Agent | 45m | G4 · Hospital Operations agent grounded on KQL |
 | 9 | Multi-Agent Catalog *(Optional)* | 20m | G4 · Add Transit Ops agent for a two-domain catalog |
 | 10 | Foundry Orchestrator *(Optional)* | 30m | G4 · Azure AI Foundry connected-agent orchestrator |
-| End | Closing | — | ISV pattern picture + recap of everything you built |
+| End | Closing | — | Multi-tenant pattern picture + recap of everything you built |
 | A | Lab Credentials | reference | Per-user lab accounts and Azure resource locations |
 | B | Lab Data Downloads | reference | Facility catalog parquet + photos for M2 Option B |
 | C | Prompt Library | reference | Hospital + Transit + Orchestrator prompts by difficulty |
 
 ## Branding
 
-The lab guide uses the official ISV Data Summit purple palette layered with Microsoft Fabric teal accents and Segoe UI typography. All branding lives in **one CSS file** (`lab-guide/assets/css/isv-summit.css`) so it can be re-skinned in one place for future events.
+The lab guide uses a purple palette layered with Microsoft Fabric teal accents and Segoe UI typography. All branding lives in **one CSS file** (`lab-guide/assets/css/data-lab.css`) so it can be re-skinned in one place for future events.
 
 ## Source repo
 
@@ -85,4 +85,3 @@ Inspired by and references content from `nickTinMicrosoft/fabric_hackathon_coach
 
 - Microsoft Fabric team - for the platform
 - @nickTin and the original hackathon coaches - for the simulator + agent recipe
-- ISV Data Summit organizing committee - for the event

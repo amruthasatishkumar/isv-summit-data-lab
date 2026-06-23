@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Module 1 · Workspace Tour &amp; ISV Architecture - UrbanPulse Lab</title>
-    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <title>Module 1 · Workspace Tour &amp; Solution Architecture - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/data-lab.css" />
     <script src="assets/js/print.js" defer></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="brand">
         <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
         <div>
-            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-title">UrbanPulse Data Lab</div>
             <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
         </div>
     </div>
@@ -24,10 +24,10 @@
 
     <div class="module-hero">
         <div class="module-eyebrow">Module 1 · Foundation</div>
-        <h1>Workspace Tour &amp; ISV Architecture</h1>
+        <h1>Workspace Tour &amp; Solution Architecture</h1>
         <p class="lead">
             This module introduces the UrbanPulse architecture, the Fabric workspace layout used
-            throughout the lab, and the ISV multi-tenancy patterns the design embodies. Use it as a
+            throughout the lab, and the multi-tenancy patterns the design embodies. Use it as a
             map for the build modules that follow.
         </p>
         <div class="module-meta">
@@ -38,10 +38,10 @@
     </div>
 
     <section id="scenario">
-        <h2>Scenario - The UrbanPulse ISV</h2>
+        <h2>Scenario - UrbanPulse Analytics</h2>
 
         <p>
-            Imagine you work for <strong>UrbanPulse Analytics</strong>, an ISV that sells a real-time
+            Imagine you work for <strong>UrbanPulse Analytics</strong>, a software vendor that sells a real-time
             <em>Smart City Operations Platform</em> to municipalities. The City of Metropolis just
             signed a contract. Two operational domains, each with both <strong>live telemetry</strong>
             and <strong>operational reference data</strong>:
@@ -65,7 +65,7 @@
         <div class="callout purple">
             <span class="callout-icon">💡</span>
             <div class="callout-content">
-                <strong>The ISV play.</strong> Two customer domains, four very different data shapes
+                <strong>The product play.</strong> Two customer domains, four very different data shapes
                 (real-time hub events, transactional SQL, document-store JSON, columnar Parquet) -
                 and one Fabric workspace that unifies them without ETL pipelines. UrbanPulse's value
                 proposition isn't "we'll build you a dashboard" - it's "we'll let your operators ask
@@ -93,7 +93,7 @@
                     <th style="width:14%">Layer</th>
                     <th style="width:46%">What lives here</th>
                     <th style="width:20%">Built in</th>
-                    <th style="width:20%">ISV pattern</th>
+                    <th style="width:20%">SaaS pattern</th>
                 </tr>
             </thead>
             <tbody>
@@ -248,7 +248,7 @@
                     <div class="callout info">
                         <span class="callout-icon">ⓘ</span>
                         <div class="callout-content">
-                            <strong>ISV multi-tenant pattern:</strong> One workspace per customer tenant, with the ISV's automation principal as Admin
+                            <strong>Multi-tenant pattern:</strong> One workspace per customer tenant, with the vendor's automation principal as Admin
                             and the customer's users as Members or Contributors. The optional Module 10 stretch shows how this scales across customer SKUs.
                         </div>
                     </div>
@@ -258,10 +258,10 @@
     </section>
 
     <section id="multitenancy">
-        <h2>ISV Multi-Tenancy Patterns (preview)</h2>
+        <h2>Multi-Tenancy Patterns (preview)</h2>
 
         <p>The architecture you'll build today is what we'd actually deploy for a single customer.
-            For a real ISV product, you'd template it. Three common Fabric multi-tenancy patterns:</p>
+            For a real SaaS product, you'd template it. Three common Fabric multi-tenancy patterns:</p>
 
         <table>
             <thead>
@@ -322,7 +322,7 @@
 </div>
 
 <footer class="site-footer">
-    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+    <p><span class="footer-brand">UrbanPulse Data Lab</span></p>
 </footer>
 
 </body>
