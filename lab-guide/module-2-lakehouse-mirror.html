@@ -316,6 +316,20 @@
 
         <p>Mirroring brings your operational SQL data into Fabric continuously, with no ETL pipelines to author. Fabric reads the source's CDC log and writes Delta into OneLake.</p>
 
+        <div class="callout purple">
+            <span class="callout-icon">✨</span>
+            <div class="callout-content">
+                <strong>Using the shared Fabric lab workspace? Shortcut the mirror instead of creating it.</strong>
+                If your instructor has already mirrored the Azure SQL data into a shared Fabric workspace that you have <strong>member access</strong> to, you do not need to create your own Mirrored database. Skip the create-and-connect steps below and shortcut the existing mirror straight into your Lakehouse:
+                <ol>
+                    <li>Open <code>lh_urbanpulse_bronze</code>. Right-click <strong>Tables</strong> &rarr; <strong>New shortcut</strong> &rarr; <strong>Microsoft OneLake</strong>.</li>
+                    <li>In the data-source picker, select the shared workspace, then the mirrored database (for example <code>mir_urbanpulse_cityops</code>).</li>
+                    <li>Select <code>Hospitals</code>, <code>Wards</code>, and <code>Staff</code> and click <strong>Create</strong>.</li>
+                </ol>
+                The tables appear in your Bronze Lakehouse with no copy and no source credentials. Member access on the shared workspace is what lets you create the OneLake shortcut. Then jump ahead to Step 4.
+            </div>
+        </div>
+
         <ol class="step-list">
             <li>
                 <h3 class="step-title">Create a Mirrored Database</h3>
@@ -406,6 +420,20 @@ Password: (SQL admin password from your SQL server)</code></pre>
         <h2>Step 3 - Mirror a Cosmos DB for NoSQL Database <span class="pill lakehouse">MIRROR</span></h2>
 
         <p>Mirroring brings Cosmos DB documents into Fabric continuously with no ETL pipelines to author. Fabric reads the Cosmos change feed and lands the documents as managed Delta tables in OneLake, queryable through the same SQL endpoint as your Lakehouse.</p>
+
+        <div class="callout purple">
+            <span class="callout-icon">✨</span>
+            <div class="callout-content">
+                <strong>Using the shared Fabric lab workspace? Shortcut the mirror instead of creating it.</strong>
+                If your instructor has already mirrored the Cosmos DB data into a shared Fabric workspace that you have <strong>member access</strong> to, skip the create-and-connect steps below and shortcut the existing mirror into your Lakehouse:
+                <ol>
+                    <li>Open <code>lh_urbanpulse_bronze</code>. Right-click <strong>Tables</strong> &rarr; <strong>New shortcut</strong> &rarr; <strong>Microsoft OneLake</strong>.</li>
+                    <li>In the data-source picker, select the shared workspace, then the mirrored database (for example <code>mir_urbanpulse_routing</code>).</li>
+                    <li>Select <code>regions</code> and <code>trainRoutes</code> and click <strong>Create</strong>.</li>
+                </ol>
+                Both containers appear in your Bronze Lakehouse with no copy and no Cosmos keys. Member access on the shared workspace is what lets you create the OneLake shortcut. Then continue to Step 4.
+            </div>
+        </div>
 
         <ol class="step-list">
             <li>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Setup - UrbanPulse Lab</title>
+    <link rel="stylesheet" href="assets/css/isv-summit.css" />
+    <script src="assets/js/print.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="brand">
+        <img class="ms-logo" src="assets/images/logo-msft.svg" alt="Microsoft" />
+        <div>
+            <div class="event-title">ISV Data Summit · Day 2 Lab</div>
+            <div class="event-subtitle">UrbanPulse · Smart City on Microsoft Fabric</div>
+        </div>
+    </div>
+    <div class="module-pill">Data Setup</div>
+</header>
+
+<div class="page-wrap">
+
+    <div class="module-hero">
+        <div class="module-eyebrow">Reference</div>
+        <h1>Data Setup (Bring Your Own Tenant)</h1>
+        <p class="lead">
+            The lab normally runs against pre-provisioned Azure resources and a shared Fabric workspace. If you do not have that pre-provisioned tenant - for example you are running this lab on your own Azure subscription after the event - use this page to stand up every Azure resource and seed every dataset yourself.
+        </p>
+    </div>
+
+    <div class="callout info">
+        <span class="callout-icon">ⓘ</span>
+        <div class="callout-content">
+            <strong>When to use this.</strong> Only follow this page if you are self-provisioning. If your coach gave you a tenant with resources already created, skip straight to <a href="module-0-setup.html">Module 0 · Setup &amp; Environment Check</a> and use the credentials there.
+        </div>
+    </div>
+
+    <section id="prereqs">
+        <h2>Prerequisites</h2>
+        <ul>
+            <li>An <strong>Azure subscription</strong> where you can create resources (Owner or Contributor).</li>
+            <li>A <strong>Microsoft Fabric</strong> capacity or an active <strong>Fabric trial</strong>. Start one at <a href="https://app.fabric.microsoft.com" target="_blank" rel="noopener">app.fabric.microsoft.com</a> &rarr; <strong>Account manager</strong> &rarr; <strong>Start trial</strong>.</li>
+            <li>The seed-data scripts from the lab repo: <a href="https://github.com/amruthasatishkumar/isv-summit-data-lab" target="_blank" rel="noopener">github.com/amruthasatishkumar/isv-summit-data-lab</a> (the <code>seed-data/</code> folder).</li>
+            <li>Local tooling: <a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli" target="_blank" rel="noopener">Azure CLI</a>, <strong>Python 3.10+</strong>, and <code>sqlcmd</code> (or the Azure portal Query editor).</li>
+        </ul>
+        <div class="callout tip">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                All seed data is deterministic, synthetic, and PII-free. The shared IDs (<code>H-1..H-5</code>, <code>W-1..W-30</code>, <code>R-NORTH..R-SOUTH</code>, <code>Train-Red-1</code>...) line up across every layer so cross-domain joins in M2/M5/M6/M7/M9 return real rows.
+            </div>
+        </div>
+    </section>
+
+    <section id="overview">
+        <h2>What you are creating</h2>
+        <p>Five Azure resources in one resource group, plus a Fabric workspace. Each maps to a part of the lab:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Resource</th>
+                    <th>Holds</th>
+                    <th>Used in</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Azure SQL Database</td>
+                    <td><code>Hospitals</code>, <code>Wards</code>, <code>Staff</code> (5 / 30 / 150 rows)</td>
+                    <td>M2 mirror</td>
+                </tr>
+                <tr>
+                    <td>Azure Cosmos DB (NoSQL)</td>
+                    <td><code>regions</code>, <code>trainRoutes</code> (5 / 3 docs)</td>
+                    <td>M2 shortcut</td>
+                </tr>
+                <tr>
+                    <td>Azure Storage (Blob)</td>
+                    <td><code>facility_catalog.parquet</code> + 5 facility photos</td>
+                    <td>M2 Files upload</td>
+                </tr>
+                <tr>
+                    <td>Azure Event Hubs namespace</td>
+                    <td><code>medicalvitals</code>, <code>medicalmovement</code>, <code>metrotrain</code></td>
+                    <td>M3 streaming</td>
+                </tr>
+                <tr>
+                    <td>Fabric workspace</td>
+                    <td>Lakehouse, Eventstream, KQL DB, reports, agents</td>
+                    <td>M1 onward</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="resource-group">
+        <h2>Step 1 · Create a resource group</h2>
+        <p>Sign in and create one resource group to hold everything. Pick a region close to you and use it consistently.</p>
+        <pre><code>az login
+
+# pick your own names and region
+$rg     = "rg-urbanpulse-lab"
+$region = "eastus2"
+
+az group create --name $rg --location $region</code></pre>
+    </section>
+
+    <section id="sql">
+        <h2>Step 2 · Azure SQL Database + seed</h2>
+        <p>Create a logical SQL server and a database, open the firewall to your client, then run the bundled setup script that creates the schema, seeds the data, and enables Change Tracking for mirroring.</p>
+        <ol>
+            <li>
+                Create the server and database:
+                <pre><code>$server = "urbanpulse-$(Get-Random)"   # must be globally unique
+$db     = "UrbanPulse"
+$sqlUser = "labadmin"
+$sqlPass = "<choose-a-strong-password>"
+
+az sql server create --name $server --resource-group $rg --location $region `
+    --admin-user $sqlUser --admin-password $sqlPass
+
+az sql db create --resource-group $rg --server $server --name $db `
+    --service-objective S0
+
+# allow your client IP through the firewall
+$ip = (Invoke-RestMethod https://api.ipify.org)
+az sql server firewall-rule create --resource-group $rg --server $server `
+    --name AllowMyClient --start-ip-address $ip --end-ip-address $ip</code></pre>
+            </li>
+            <li>
+                Download the setup script and run it against your database. It is the same idempotent script used by the <a href="appendix-sql-workaround.html">SQL Server Workaround</a>.
+                <pre><code>sqlcmd -S "$server.database.windows.net" -d $db -U $sqlUser -P $sqlPass `
+    -i urbanpulse-sql-setup.sql</code></pre>
+            </li>
+        </ol>
+        <div class="bundle-card">
+            <div class="bundle-text">
+                <h3>Download the SQL setup script</h3>
+                <p>Schema + seed (Hospitals, Wards, Staff) + Change Tracking, ready to mirror.</p>
+                <p class="bundle-meta"><code>urbanpulse-sql-setup.sql</code> &middot; idempotent</p>
+            </div>
+            <a class="bundle-download" href="assets/downloads/urbanpulse-sql-setup.sql" download>
+                <span class="bundle-download-icon">⬇</span>
+                <span class="bundle-download-label">Download script (.sql)</span>
+            </a>
+        </div>
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                To mirror this database into Fabric in M2 you also need a <strong>system-assigned managed identity</strong> on the SQL server. Turn it on under <strong>SQL server &rarr; Security &rarr; Identity</strong> - see <a href="appendix-sql-workaround.html#step-managed-identity">SQL Server Workaround · Step 1</a>.
+            </div>
+        </div>
+    </section>
+
+    <section id="cosmos">
+        <h2>Step 3 · Azure Cosmos DB + seed</h2>
+        <p>Create a Cosmos DB (NoSQL) account, then load the <code>regions</code> and <code>trainRoutes</code> documents with the bundled Python loader. The loader creates the database and both containers if they are missing and upserts every document, so it is safe to re-run.</p>
+        <ol>
+            <li>
+                Create the account:
+                <pre><code>$cosmos = "urbanpulse-cosmos-$(Get-Random)"   # globally unique
+
+az cosmosdb create --name $cosmos --resource-group $rg `
+    --locations regionName=$region --kind GlobalDocumentDB</code></pre>
+            </li>
+            <li>
+                Grab the endpoint and primary key:
+                <pre><code>$cosmosEndpoint = az cosmosdb show --name $cosmos --resource-group $rg --query documentEndpoint -o tsv
+$cosmosKey      = az cosmosdb keys list --name $cosmos --resource-group $rg --query primaryMasterKey -o tsv</code></pre>
+            </li>
+            <li>
+                Run the loader from <code>seed-data/cosmos/</code>:
+                <pre><code>pip install azure-cosmos
+
+$env:COSMOS_ENDPOINT = $cosmosEndpoint
+$env:COSMOS_KEY      = $cosmosKey
+$env:COSMOS_DATABASE = "urbanpulse"
+
+python seed-data\cosmos\load_cosmos.py</code></pre>
+            </li>
+        </ol>
+        <div class="callout tip">
+            <span class="callout-icon">✓</span>
+            <div class="callout-content">
+                You should end up with database <code>urbanpulse</code> containing <code>regions</code> (PK <code>/regionId</code>, 5 docs) and <code>trainRoutes</code> (PK <code>/routeId</code>, 3 docs).
+            </div>
+        </div>
+    </section>
+
+    <section id="storage">
+        <h2>Step 4 · Azure Storage + facility catalog</h2>
+        <p>Create a storage account and a public blob container named <code>facilitycatalog</code> (that exact name is referenced in M2), then upload the facility catalog Parquet file and the five facility photos.</p>
+        <ol>
+            <li>
+                Create the account and container:
+                <pre><code>$storage = "urbanpulse$(Get-Random)"   # 3-24 lowercase chars, globally unique
+
+az storage account create --name $storage --resource-group $rg `
+    --location $region --sku Standard_LRS
+
+az storage container create --account-name $storage `
+    --name facilitycatalog --public-access blob</code></pre>
+            </li>
+            <li>
+                Download the data bundle and extract it. You should have <code>facility_catalog.parquet</code> next to a <code>facilities/</code> folder of five JPGs.
+            </li>
+            <li>
+                Upload both into the container:
+                <pre><code>az storage blob upload-batch `
+    --account-name $storage `
+    --destination facilitycatalog `
+    --source .\urbanpulse-lab-data `
+    --overwrite</code></pre>
+            </li>
+        </ol>
+        <div class="bundle-card">
+            <div class="bundle-text">
+                <h3>Download the data bundle</h3>
+                <p>Facility catalog Parquet plus the five facility photos, in one archive.</p>
+                <p class="bundle-meta"><code>urbanpulse-lab-data.zip</code></p>
+            </div>
+            <a class="bundle-download" href="assets/downloads/urbanpulse-lab-data.zip" download>
+                <span class="bundle-download-icon">⬇</span>
+                <span class="bundle-download-label">Download bundle (.zip)</span>
+            </a>
+        </div>
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                You can also upload these files straight into your Lakehouse <code>Files</code> area instead of Blob Storage - that is the <a href="appendix-storage-workaround.html">Storage Account Workaround</a> path. Either route reaches the same end state for M2.
+            </div>
+        </div>
+    </section>
+
+    <section id="eventhubs">
+        <h2>Step 5 · Event Hubs + streaming simulators</h2>
+        <p>Create an Event Hubs namespace and three hubs, then run the Python simulators to produce live events for M3. The hub names must match exactly - the M3 KQL ingestion mapping reads named JSON fields and silently drops anything that does not match.</p>
+        <ol>
+            <li>
+                Create the namespace and hubs:
+                <pre><code>$ehNamespace = "urbanpulse-eh-$(Get-Random)"   # globally unique
+
+az eventhubs namespace create --name $ehNamespace --resource-group $rg `
+    --location $region --sku Standard
+
+foreach ($hub in "medicalvitals","medicalmovement","metrotrain") {
+    az eventhubs eventhub create --resource-group $rg `
+        --namespace-name $ehNamespace --name $hub --partition-count 2
+}</code></pre>
+            </li>
+            <li>
+                Get a per-hub connection string (it must end with <code>;EntityPath=&lt;hub&gt;</code>):
+                <pre><code>$rule = "RootManageSharedAccessKey"
+foreach ($hub in "medicalvitals","medicalmovement","metrotrain") {
+    $base = az eventhubs eventhub authorization-rule keys list `
+        --resource-group $rg --namespace-name $ehNamespace `
+        --eventhub-name $hub --name $rule --query primaryConnectionString -o tsv 2>$null
+    Write-Host "$hub => $base"
+}</code></pre>
+                <p>If the per-hub rule does not exist yet, create one per hub with <code>az eventhubs eventhub authorization-rule create ... --rights Send Listen</code>, or use the namespace-level <code>RootManageSharedAccessKey</code> and append <code>;EntityPath=&lt;hub&gt;</code> yourself.</p>
+            </li>
+            <li>
+                Run the three simulators from <code>seed-data/eventhub/</code> in separate terminals:
+                <pre><code>pip install azure-eventhub
+
+$env:EVENTHUB_VITALS_CONN_STR   = "...;EntityPath=medicalvitals"
+python seed-data\eventhub\simulate_medicalvitals.py
+
+$env:EVENTHUB_MOVEMENT_CONN_STR = "...;EntityPath=medicalmovement"
+python seed-data\eventhub\simulate_medicalmovement.py
+
+$env:EVENTHUB_TRAIN_CONN_STR    = "...;EntityPath=metrotrain"
+python seed-data\eventhub\simulate_metrotrain.py</code></pre>
+            </li>
+        </ol>
+        <div class="callout tip">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+                Each simulator honors <code>SIM_DURATION_SECONDS</code> (default 600). For a quick prime of your KQL tables set <code>$env:SIM_DURATION_SECONDS=30</code> before running.
+            </div>
+        </div>
+    </section>
+
+    <section id="fabric">
+        <h2>Step 6 · Create a Fabric workspace</h2>
+        <ol>
+            <li>Go to <a href="https://app.fabric.microsoft.com" target="_blank" rel="noopener">app.fabric.microsoft.com</a>.</li>
+            <li>Select <strong>Workspaces</strong> &rarr; <strong>+ New workspace</strong>, name it (for example <code>UrbanPulse-Lab</code>), and assign it to your Fabric capacity or trial.</li>
+            <li>Continue with <a href="module-1-workspace-tour.html">Module 1 · Workspace Tour</a>. When a module asks for a server name, key, or connection string, use the values from the resources you just created instead of the shared lab credentials.</li>
+        </ol>
+    </section>
+
+    <section id="validation">
+        <div class="validation">
+            <h4>Validation</h4>
+            <ul>
+                <li>Azure SQL: <code>SELECT COUNT(*) FROM Hospitals</code> returns 5; <code>Wards</code> 30; <code>Staff</code> 150.</li>
+                <li>Cosmos DB: <code>regions</code> has 5 docs and <code>trainRoutes</code> has 3 docs.</li>
+                <li>Storage: <code>facility_catalog.parquet</code> and <code>facilities/H-1.jpg</code>...<code>H-5.jpg</code> exist in the <code>facilitycatalog</code> container.</li>
+                <li>Event Hubs: the namespace has hubs <code>medicalvitals</code>, <code>medicalmovement</code>, <code>metrotrain</code> and the simulators report events sent.</li>
+                <li>Fabric: your workspace is created and bound to a capacity or trial.</li>
+            </ul>
+        </div>
+    </section>
+
+    <nav class="module-nav">
+        <a class="nav-card" href="appendix-storage-workaround.html">
+            <div class="nav-direction">← Back</div>
+            <div class="nav-title">Storage Account Workaround</div>
+        </a>
+        <a class="nav-card next" href="index.html">
+            <div class="nav-direction">Home →</div>
+            <div class="nav-title">Goals</div>
+        </a>
+    </nav>
+
+</div>
+
+<footer class="site-footer">
+    <p><span class="footer-brand">Microsoft ISV Data Summit · June 16–17, 2026</span> · UrbanPulse Lab Guide</p>
+</footer>
+
+</body>
+</html>

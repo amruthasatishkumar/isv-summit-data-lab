@@ -200,19 +200,19 @@
                        hospital and region attributes joined in:</p>
                     <pre><code>silver_df = spark.sql("""
     SELECT
-        w.WardId             AS ward_id,
-        w.Name               AS ward_name,
-        w.Beds               AS beds,
-        h.HospitalId         AS hospital_id,
-        h.Name               AS hospital_name,
-        h.Address            AS hospital_address,
-        h.City               AS hospital_city,
+        w.wardId             AS ward_id,
+        w.name               AS ward_name,
+        w.capacity           AS beds,
+        h.hospitalId         AS hospital_id,
+        h.name               AS hospital_name,
+        h.address            AS hospital_address,
+        h.facilityType       AS hospital_type,
         r.regionId           AS region_id,
-        r.regionName         AS region_name,
+        r.name               AS region_name,
         CURRENT_TIMESTAMP()  AS curated_at
     FROM Wards     w
-    JOIN Hospitals h ON h.HospitalId = w.HospitalId
-    LEFT JOIN regions r ON r.regionId = h.RegionId
+    JOIN Hospitals h ON h.hospitalId = w.hospitalId
+    LEFT JOIN regions r ON r.regionId = h.regionId
 """)
 
 silver_df.write \
@@ -272,15 +272,15 @@ silver_df.write \
                     <p>Paste and run:</p>
                     <pre><code>CREATE OR ALTER VIEW gold_region_capacity_sqlpath AS
 SELECT
-    r.regionId                  AS region_id,
-    r.regionName                AS region_name,
-    COUNT(DISTINCT h.HospitalId) AS hospitals,
-    COUNT(*)                    AS wards,
-    SUM(w.Beds)                 AS total_beds
+    r.regionId                   AS region_id,
+    r.name                       AS region_name,
+    COUNT(DISTINCT h.hospitalId) AS hospitals,
+    COUNT(*)                     AS wards,
+    SUM(w.capacity)              AS total_beds
 FROM Wards w
-JOIN Hospitals h ON h.HospitalId = w.HospitalId
-LEFT JOIN regions r ON r.regionId = h.RegionId
-GROUP BY r.regionId, r.regionName;</code></pre>
+JOIN Hospitals h ON h.hospitalId = w.hospitalId
+LEFT JOIN regions r ON r.regionId = h.regionId
+GROUP BY r.regionId, r.name;</code></pre>
                 </div>
             </li>
             <li>
@@ -290,10 +290,10 @@ GROUP BY r.regionId, r.regionName;</code></pre>
                        lightweight Gold view for it too:</p>
                     <pre><code>CREATE OR ALTER VIEW gold_transit_lines_sqlpath AS
 SELECT
-    line,
-    COUNT(*) AS station_count
-FROM trainRoutes
-GROUP BY line;</code></pre>
+    routeId   AS line,
+    color     AS line_color,
+    stopCount AS station_count
+FROM trainRoutes;</code></pre>
                 </div>
             </li>
             <li>
@@ -331,8 +331,8 @@ SELECT * FROM gold_transit_lines_sqlpath  ORDER BY line;</code></pre>
             <li>
                 <h3 class="step-title">Apply joins in Power Query</h3>
                 <div class="step-body">
-                    <p>Merge <code>Wards</code> with <code>Hospitals</code> on <code>HospitalId</code>, then merge with <code>regions</code> on <code>RegionId = regionId</code>.</p>
-                    <p>Expand columns and rename fields to a serving shape (for example: <code>ward_id</code>, <code>hospital_name</code>, <code>region_name</code>, <code>beds</code>).</p>
+                    <p>Merge <code>Wards</code> with <code>Hospitals</code> on <code>hospitalId</code>, then merge with <code>regions</code> on <code>regionId = regionId</code>.</p>
+                    <p>Expand columns and rename fields to a serving shape (for example: <code>capacity</code> &rarr; <code>beds</code>, <code>name</code> &rarr; <code>hospital_name</code>, region <code>name</code> &rarr; <code>region_name</code>).</p>
                 </div>
             </li>
             <li>
@@ -363,14 +363,14 @@ SELECT * FROM gold_transit_lines_sqlpath  ORDER BY line;</code></pre>
                     <pre><code>CREATE MATERIALIZED LAKE VIEW IF NOT EXISTS mlv_region_capacity_pathd AS
 SELECT
     r.regionId                   AS region_id,
-    r.regionName                 AS region_name,
-    COUNT(DISTINCT h.HospitalId) AS hospitals,
+    r.name                       AS region_name,
+    COUNT(DISTINCT h.hospitalId) AS hospitals,
     COUNT(*)                     AS wards,
-    SUM(w.Beds)                  AS total_beds
+    SUM(w.capacity)              AS total_beds
 FROM Wards w
-JOIN Hospitals h ON h.HospitalId = w.HospitalId
-LEFT JOIN regions r ON r.regionId = h.RegionId
-GROUP BY r.regionId, r.regionName;</code></pre>
+JOIN Hospitals h ON h.hospitalId = w.hospitalId
+LEFT JOIN regions r ON r.regionId = h.regionId
+GROUP BY r.regionId, r.name;</code></pre>
                     <p>Fabric manages refresh as underlying data changes. Validate with:</p>
                     <pre><code>SELECT * FROM mlv_region_capacity_pathd ORDER BY total_beds DESC;</code></pre>
                 </div>

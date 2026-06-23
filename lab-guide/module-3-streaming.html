@@ -347,6 +347,15 @@
                         <li>(Optional) Rename the canvas node from <code>azure-event-hub</code> to <code>src-medical-vitals</code>.</li>
                         <li>Click <strong>Add</strong>.</li>
                     </ol>
+                    <p>The <strong>Connection settings</strong> pane asks for the <strong>Event Hub namespace</strong> and the <strong>Event Hub</strong>. The namespace is the same for all three streams; only the Event Hub name changes:</p>
+                    <table>
+                        <thead><tr><th>Stream</th><th>Event Hub namespace</th><th>Event Hub</th></tr></thead>
+                        <tbody>
+                            <tr><td>Hospital Vitals</td><td><code>rtidemo</code></td><td><code>medicalvitals</code></td></tr>
+                            <tr><td>Hospital Movement</td><td><code>rtidemo</code></td><td><code>medicalmovement</code></td></tr>
+                            <tr><td>Metro Trains</td><td><code>rtidemo</code></td><td><code>metrotrain</code></td></tr>
+                        </tbody>
+                    </table>
                     <p>The source node turns green and shows <strong>Active</strong> within ~30 seconds.</p>
                     <div class="callout warning">
                         <span class="callout-icon">!</span>

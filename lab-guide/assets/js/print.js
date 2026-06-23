@@ -43,6 +43,7 @@ const LAB_NAV = [
         { href: "appendix-learn-links.html",               label: "MS Reference Links",        badge: "C" },
         { href: "appendix-sql-workaround.html",            label: "SQL Server Workaround",     badge: "D" },
         { href: "appendix-storage-workaround.html",        label: "Storage Account Workaround", badge: "E" },
+        { href: "appendix-data-setup.html",                label: "Data Setup",                badge: "F" },
     ]},
 ];
 
