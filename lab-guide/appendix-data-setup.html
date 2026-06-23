@@ -129,7 +129,7 @@ az sql server firewall-rule create --resource-group $rg --server $server `
     --name AllowMyClient --start-ip-address $ip --end-ip-address $ip</code></pre>
             </li>
             <li>
-                Download the setup script and run it against your database. It is the same idempotent script used by the <a href="appendix-sql-workaround.html">SQL Server Workaround</a>.
+                Download the setup script and run it against your database. It is idempotent, so it is safe to re-run.
                 <pre><code>sqlcmd -S "$server.database.windows.net" -d $db -U $sqlUser -P $sqlPass `
     -i urbanpulse-sql-setup.sql</code></pre>
             </li>
@@ -148,14 +148,25 @@ az sql server firewall-rule create --resource-group $rg --server $server `
         <div class="callout info">
             <span class="callout-icon">ⓘ</span>
             <div class="callout-content">
-                To mirror this database into Fabric in M2 you also need a <strong>system-assigned managed identity</strong> on the SQL server. Turn it on under <strong>SQL server &rarr; Security &rarr; Identity</strong> - see <a href="appendix-sql-workaround.html#step-managed-identity">SQL Server Workaround · Step 1</a>.
+                <strong>Managed identity for mirroring.</strong> To mirror this database into Fabric in M2, the SQL server needs a <strong>system-assigned managed identity</strong>. In the Azure portal open your <strong>SQL server</strong> (the logical server, not the database) &rarr; <strong>Security &rarr; Identity</strong>, set <strong>System assigned managed identity</strong> to <strong>On</strong>, and click <strong>Save</strong>.
             </div>
         </div>
     </section>
 
     <section id="cosmos">
         <h2>Step 3 · Azure Cosmos DB + seed</h2>
-        <p>Create a Cosmos DB (NoSQL) account, then load the <code>regions</code> and <code>trainRoutes</code> documents with the bundled Python loader. The loader creates the database and both containers if they are missing and upserts every document, so it is safe to re-run.</p>
+        <p>Create a Cosmos DB (NoSQL) account, then load the <code>regions</code> and <code>trainRoutes</code> documents with the bundled Python loader. Download the bundle below - it contains the loader plus the two JSON data files. The loader creates the database and both containers if they are missing and upserts every document, so it is safe to re-run.</p>
+        <div class="bundle-card">
+            <div class="bundle-text">
+                <h3>Download the Cosmos data + loader</h3>
+                <p>The <code>regions.json</code> and <code>trainRoutes.json</code> seed files plus <code>load_cosmos.py</code>.</p>
+                <p class="bundle-meta"><code>urbanpulse-cosmos-data.zip</code> &middot; 5 regions + 3 train routes</p>
+            </div>
+            <a class="bundle-download" href="assets/downloads/urbanpulse-cosmos-data.zip" download>
+                <span class="bundle-download-icon">⬇</span>
+                <span class="bundle-download-label">Download bundle (.zip)</span>
+            </a>
+        </div>
         <ol>
             <li>
                 Create the account:
@@ -170,16 +181,22 @@ az cosmosdb create --name $cosmos --resource-group $rg `
 $cosmosKey      = az cosmosdb keys list --name $cosmos --resource-group $rg --query primaryMasterKey -o tsv</code></pre>
             </li>
             <li>
-                Run the loader from <code>seed-data/cosmos/</code>:
+                Extract the bundle, then run the loader from the extracted folder (it reads <code>regions.json</code> and <code>trainRoutes.json</code> from next to <code>load_cosmos.py</code>):
                 <pre><code>pip install azure-cosmos
 
 $env:COSMOS_ENDPOINT = $cosmosEndpoint
 $env:COSMOS_KEY      = $cosmosKey
 $env:COSMOS_DATABASE = "urbanpulse"
 
-python seed-data\cosmos\load_cosmos.py</code></pre>
+python load_cosmos.py</code></pre>
             </li>
         </ol>
+        <div class="callout info">
+            <span class="callout-icon">ⓘ</span>
+            <div class="callout-content">
+                <strong>Partition keys.</strong> The loader creates both containers for you with the correct partition keys. If you ever create them by hand, use <code>/regionId</code> for <code>regions</code> and <code>/routeId</code> for <code>trainRoutes</code> - the seed documents and the M2 shortcut both depend on these.
+            </div>
+        </div>
         <div class="callout tip">
             <span class="callout-icon">✓</span>
             <div class="callout-content">
@@ -228,7 +245,7 @@ az storage container create --account-name $storage `
         <div class="callout info">
             <span class="callout-icon">ⓘ</span>
             <div class="callout-content">
-                You can also upload these files straight into your Lakehouse <code>Files</code> area instead of Blob Storage - that is the <a href="appendix-storage-workaround.html">Storage Account Workaround</a> path. Either route reaches the same end state for M2.
+                You can also upload these files straight into your Lakehouse <code>Files</code> area instead of Blob Storage. Either route reaches the same end state for M2.
             </div>
         </div>
     </section>
@@ -305,9 +322,9 @@ python seed-data\eventhub\simulate_metrotrain.py</code></pre>
     </section>
 
     <nav class="module-nav">
-        <a class="nav-card" href="appendix-storage-workaround.html">
+        <a class="nav-card" href="appendix-learn-links.html">
             <div class="nav-direction">← Back</div>
-            <div class="nav-title">Storage Account Workaround</div>
+            <div class="nav-title">MS Reference Links</div>
         </a>
         <a class="nav-card next" href="index.html">
             <div class="nav-direction">Home →</div>

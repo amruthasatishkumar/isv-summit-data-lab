@@ -38,12 +38,8 @@ const LAB_NAV = [
         { href: "closing.html",                            label: "Closing",                   badge: "End" },
     ]},
     { group: "Appendices",         items: [
-        { href: "appendix-data-downloads.html",            label: "Download &amp; Upload Data",   badge: "A" },
-        { href: "appendix-prompt-library.html",            label: "Prompt Library",            badge: "B" },
-        { href: "appendix-learn-links.html",               label: "MS Reference Links",        badge: "C" },
-        { href: "appendix-sql-workaround.html",            label: "SQL Server Workaround",     badge: "D" },
-        { href: "appendix-storage-workaround.html",        label: "Storage Account Workaround", badge: "E" },
-        { href: "appendix-data-setup.html",                label: "Data Setup",                badge: "F" },
+        { href: "appendix-learn-links.html",               label: "MS Reference Links",        badge: "A" },
+        { href: "appendix-data-setup.html",                label: "Data Setup",                badge: "B" },
     ]},
 ];
 
